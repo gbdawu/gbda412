@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Sound of Everyday Life</title>
+
+  <!-- Vuetify & Vue CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .intro-section {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 20px auto 40px auto;
+    }
+
+    .coming-soon-card {
+      max-width: 400px;
+      margin: 60px auto;
+    }
+
+    .step-card {
+      max-width: 1000px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <!-- App Bar -->
+      <v-app-bar color="primary" dark>
+        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>The Sound of Everyday Life</v-toolbar-title>
+      </v-app-bar>
+
+      <!-- Navigation Drawer -->
+      <v-navigation-drawer v-model="drawer" temporary>
+        <v-list density="compact" nav>
+          <v-list-item @click="tab = 0" prepend-icon="mdi-home" title="Home"></v-list-item>
+          <v-list-item v-for="(workshop, i) in workshops" :key="i"
+            :title="workshop.title"
+            :prepend-icon="workshop.icon"
+            @click="tab = i+1"
+          ></v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <!-- Main Content -->
+      <v-main>
+        <v-container class="py-6">
+          <v-window v-model="tab">
+            <!-- Home -->
+            <v-window-item value="0">
+              <div class="intro-section">
+                <h1 class="mb-4">The Sound of Everyday Life Workshops</h1>
+                <ul>
+                  <li>These workshops are intended to help you develop the skills to create
+                    and experience soundwalks, using the Echoes app and other tools.
+                  </li>
+                  <li>These skills will be useful for completing the <b>Group Project 1: The Sound of Everyday Life</b>.
+                  </li>
+                  <li>Explore each workshop using the navigation menu.</li>
+                </ul>
+                <v-img
+                  src="/images/home-soundwalk.jpg"
+                  alt="People experiencing a soundwalk"
+                  class="my-6 rounded-lg"
+                  max-width="800"
+                />
+              </div>
+            </v-window-item>
+
+            <!-- Workshop 1 -->
+            <v-window-item value="1">
+              <h2>{{ workshops[0].title }}</h2>
+              <div class="intro-section">
+                <p>
+                  In this workshop, you will embark on an auditory walk of Stratford School...
+                </p>
+
+                
+                <br><h4>Learning Objectives</h4>
+                <ul>
+                  <li>Understand the concept and purpose of soundwalks.</li>
+                  <li>Experience a soundwalk using the Echoes app.</li>
+                  <li>Reflect on the auditory experience and its impact on perception of space.</li>
+                </ul>
+              
+
+             <br>
+                         <h3>What is a Soundwalk?</h3>
+                      <p>
+                        A soundwalk is an exploration of the environment through listening. 
+                        Participants move through a space, paying close attention to the sounds 
+                        around them—both natural and human-made. This workshop will introduce you 
+                        to soundwalking as a creative practice.
+                      </p>
+                      <br>
+                    <h3>Steps</h3>
+
+                    </div>
+
+                  
+                    <!-- Steps -->
+                    <v-card class="step-card" elevation="3" id="step-1">
+                      <v-card-text>
+                        <strong>Step 1:</strong> Install the Echoes app:
+                        <a href="https://explore.echoes.xyz/" target="_blank">
+                          explore.echoes.xyz
+                        </a>
+                        <v-img
+                          src="images/soundwalk/steps part 1.png"
+                          alt="Install Echoes app screenshot"
+                          class="my-4 rounded-lg"
+                        />
+                      </v-card-text>
+                    </v-card>
+
+                    <v-card class="step-card" elevation="3" id="step-2">
+                      <v-card-text>
+                        <strong>Step 2:</strong> Scan the QR code below or click the link to access the soundwalk:
+                        <!-- <a
+                          href="https://explore.echoes.xyz/collections/hjXuUnRjG9QN0SvP"
+                          target="_blank"
+                        >
+                           https://explore.echoes.xyz/collections/hjXuUnRjG9QN0SvP
+                        </a> -->
+                        <v-img
+                          src="images/soundwalk/steps part 2 new.png"
+                          alt="Soundwalk collection screenshot"
+                          class="my-4 rounded-lg"
+                        />
+                      </v-card-text>
+                    </v-card>
+
+                    <v-card class="step-card" elevation="3" id="step-3">
+                      <v-card-text>
+                        <strong>Step 3:</strong> Follow the map through the different places at Mac to trigger the audios.
+                        <v-img
+                          src="images/soundwalk/soundwalk-mcmaster.png"
+                          alt="Map with audio triggers screenshot"
+                          class="my-4 rounded-lg"
+                          max-width="600"
+                        />
+                      </v-card-text>
+                    </v-card>
+
+                    <v-card class="step-card" elevation="3" id="step-4">
+                      <v-card-text>
+                        <strong>Step 4:</strong> Complete the handout your prof will give you as you experience the soundwalk.
+                        <br>
+                        Discuss your experience with the class.
+
+                        <v-img
+                          src="images/soundwalk/handout.png"
+                          alt="Handout screenshot"
+                          class="my-4 rounded-lg"
+                          max-width="600"
+                        />
+                      </v-card-text>
+                    </v-card>
+                  </v-window-item>
+
+            <!-- Workshop 2 -->
+            <v-window-item value="2">
+              <h2>{{ workshops[1].title }}</h2>
+              <v-card class="coming-soon-card" elevation="4">
+                <v-card-text class="text-center">
+                  <v-icon size="48" color="grey-darken-1">mdi-clock-outline</v-icon>
+                  <h3 class="mt-4">Coming Soon</h3>
+                  <p>This workshop will explore archival sounds and field recorders. Stay tuned!</p>
+                </v-card-text>
+              </v-card>
+            </v-window-item>
+
+            <!-- Workshop 3 -->
+            <v-window-item value="3">
+              <h2>{{ workshops[2].title }}</h2>
+              <v-card class="coming-soon-card" elevation="4">
+                <v-card-text class="text-center">
+                  <v-icon size="48" color="grey-darken-1">mdi-map-marker-multiple-outline</v-icon>
+                  <h3 class="mt-4">Coming Soon</h3>
+                  <p>This workshop will introduce creating soundwalks with the Echoes app. Check back later!</p>
+                </v-card-text>
+              </v-card>
+            </v-window-item>
+          </v-window>
+        </v-container>
+      </v-main>
+
+      <!-- Footer -->
+      <!-- <v-footer color="primary" app>
+        <v-col class="text-center white--text">&copy; {{ new Date().getFullYear() }} The Sound of Everyday Life</v-col>
+      </v-footer> -->
+    </v-app>
+  </div>
+
+  <!-- Vue App -->
+  <script src="vue.js"></script>
+</body>
+
+</html>
