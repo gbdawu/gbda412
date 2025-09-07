@@ -7,7 +7,7 @@ const App = {
       drawer: true,
       tab: 0,
       workshops: [
-        { title: "Workshop 1: Soundwalk, McMaster in 2011", icon: "mdi-walk" },
+        { title: "Workshop 1: Explore A Simple Soundwalk", icon: "mdi-walk" },
         { title: "Workshop 2: Archival Sounds", icon: "mdi-music-note" },
         { title: "Workshop 3: Creating Soundwalks", icon: "mdi-map-marker" }
       ]

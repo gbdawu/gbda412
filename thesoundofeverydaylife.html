@@ -41,6 +41,12 @@
       max-width: 1000px;
       margin: 20px auto;
     }
+
+.v-img {
+  width: 100%;
+  max-width: 100%;
+  margin: auto;
+}
   </style>
 </head>
 
@@ -50,18 +56,15 @@
       <!-- App Bar -->
       <v-app-bar color="primary" dark>
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>The Sound of Everyday Life</v-toolbar-title>
+        <v-toolbar-title>The Sound of Everyday Life Workshops</v-toolbar-title>
       </v-app-bar>
 
       <!-- Navigation Drawer -->
       <v-navigation-drawer v-model="drawer" temporary>
         <v-list density="compact" nav>
           <v-list-item @click="tab = 0" prepend-icon="mdi-home" title="Home"></v-list-item>
-          <v-list-item v-for="(workshop, i) in workshops" :key="i"
-            :title="workshop.title"
-            :prepend-icon="workshop.icon"
-            @click="tab = i+1"
-          ></v-list-item>
+          <v-list-item v-for="(workshop, i) in workshops" :key="i" :title="workshop.title" :prepend-icon="workshop.icon"
+            @click="tab = i+1"></v-list-item>
         </v-list>
       </v-navigation-drawer>
 
@@ -81,12 +84,8 @@
                   </li>
                   <li>Explore each workshop using the navigation menu.</li>
                 </ul>
-                <v-img
-                  src="/images/home-soundwalk.jpg"
-                  alt="People experiencing a soundwalk"
-                  class="my-6 rounded-lg"
-                  max-width="800"
-                />
+                <v-img src="/images/home-soundwalk.jpg" alt="People experiencing a soundwalk" class="my-6 rounded-lg"
+                  max-width="800" />
               </div>
             </v-window-item>
 
@@ -95,91 +94,80 @@
               <h2>{{ workshops[0].title }}</h2>
               <div class="intro-section">
                 <p>
-                  In this workshop, you will embark on an auditory walk of Stratford School...
+                  In this workshop, You will embark on an auditory walk paying attention to the history woven into the
+                  streets
+                  surrounding the Stratford School of Interaction. As you move along St. Patrick Street and nearby
+                  landmarks, you’ll hear stories that evoke everyday life in Stratford. This workshop invites you to
+                  listen closely and discover how the city’s past and present continue to interact in the spaces we
+                  inhabit today.
                 </p>
 
-                
-                <br><h4>Learning Objectives</h4>
+
+                <br>
+                <h4>Learning Objectives</h4>
                 <ul>
                   <li>Understand the concept and purpose of soundwalks.</li>
                   <li>Experience a soundwalk using the Echoes app.</li>
                   <li>Reflect on the auditory experience and its impact on perception of space.</li>
                 </ul>
-              
 
-             <br>
-                         <h3>What is a Soundwalk?</h3>
-                      <p>
-                        A soundwalk is an exploration of the environment through listening. 
-                        Participants move through a space, paying close attention to the sounds 
-                        around them—both natural and human-made. This workshop will introduce you 
-                        to soundwalking as a creative practice.
-                      </p>
-                      <br>
-                    <h3>Steps</h3>
 
-                    </div>
+                <br>
+                <h3>What is a Soundwalk?</h3>
+                <p>
+                  A soundwalk is an exploration of the environment through listening.
+                  Participants move through a space, paying close attention to the sounds
+                  around them—both natural and human-made. Learn more <a
+                    href="https://en.wikipedia.org/wiki/Soundwalk" target="_blank">here</a>.
+                </p>
+                <br>
+                <h3>Steps</h3>
 
-                  
-                    <!-- Steps -->
-                    <v-card class="step-card" elevation="3" id="step-1">
-                      <v-card-text>
-                        <strong>Step 1:</strong> Install the Echoes app:
-                        <a href="https://explore.echoes.xyz/" target="_blank">
-                          explore.echoes.xyz
-                        </a>
-                        <v-img
-                          src="images/soundwalk/steps part 1.png"
-                          alt="Install Echoes app screenshot"
-                          class="my-4 rounded-lg"
-                        />
-                      </v-card-text>
-                    </v-card>
+              </div>
 
-                    <v-card class="step-card" elevation="3" id="step-2">
-                      <v-card-text>
-                        <strong>Step 2:</strong> Scan the QR code below or click the link to access the soundwalk:
-                        <!-- <a
-                          href="https://explore.echoes.xyz/collections/hjXuUnRjG9QN0SvP"
-                          target="_blank"
-                        >
-                           https://explore.echoes.xyz/collections/hjXuUnRjG9QN0SvP
-                        </a> -->
-                        <v-img
-                          src="images/soundwalk/steps part 2 new.png"
-                          alt="Soundwalk collection screenshot"
-                          class="my-4 rounded-lg"
-                        />
-                      </v-card-text>
-                    </v-card>
 
-                    <v-card class="step-card" elevation="3" id="step-3">
-                      <v-card-text>
-                        <strong>Step 3:</strong> Follow the map through the different places at Mac to trigger the audios.
-                        <v-img
-                          src="images/soundwalk/soundwalk-mcmaster.png"
-                          alt="Map with audio triggers screenshot"
-                          class="my-4 rounded-lg"
-                          max-width="600"
-                        />
-                      </v-card-text>
-                    </v-card>
+              <!-- Steps -->
+              <v-card class="step-card" elevation="3" id="step-1">
+                <v-card-text>
+                  <strong>Step 1:</strong> Install the Echoes app:
+                  <a href="https://explore.echoes.xyz/" target="_blank">
+                    explore.echoes.xyz
+                  </a>
+                  <v-img src="images/soundwalk/steps part 1.png" alt="Install Echoes app screenshot"
+                    class="my-4 rounded-lg" />
+                </v-card-text>
+              </v-card>
 
-                    <v-card class="step-card" elevation="3" id="step-4">
-                      <v-card-text>
-                        <strong>Step 4:</strong> Complete the handout your prof will give you as you experience the soundwalk.
-                        <br>
-                        Discuss your experience with the class.
+              <v-card class="step-card" elevation="3" id="step-2">
+                <v-card-text>
+                  <strong>Step 2:</strong> Scan the QR code below or click the link to access the soundwalk:
+                  <a href="https://explore.echoes.xyz/collections/o7fqvqJwqjJwOufX" target="_blank">
+                    https://explore.echoes.xyz/collections/hjXuUnRjG9QN0SvP
+                  </a>
+                  <v-img src="images/soundwalk/instructionspart2.png" alt="Soundwalk collection screenshot"
+                    class="my-4 rounded-lg" />
+                </v-card-text>
+              </v-card>
 
-                        <v-img
-                          src="images/soundwalk/handout.png"
-                          alt="Handout screenshot"
-                          class="my-4 rounded-lg"
-                          max-width="600"
-                        />
-                      </v-card-text>
-                    </v-card>
-                  </v-window-item>
+              <v-card class="step-card" elevation="3" id="step-3">
+                <v-card-text>
+                  <strong>Step 3:</strong> Follow the map on the Echoes app and listen to the audio triggered at landmarks along St. Patrick, Wellington, Downie, and George West Streets.
+                  <v-img src="images/soundwalk/stratfordSoundwalkMap.png" alt="Map with audio triggers screenshot"
+                    class="my-4 rounded-lg" max-width="600" />
+                </v-card-text>
+              </v-card>
+
+              <v-card class="step-card" elevation="3" id="step-4">
+                <v-card-text>
+                  <strong>Step 4:</strong> Complete the handout your prof will give you as you experience the soundwalk.
+                  <br>
+                  Discuss your experience with the class.
+
+                  <v-img src="images/soundwalk/handout.png" alt="Handout screenshot" class="my-4 rounded-lg"
+                    max-width="600" />
+                </v-card-text>
+              </v-card>
+            </v-window-item>
 
             <!-- Workshop 2 -->
             <v-window-item value="2">
