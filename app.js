@@ -155,7 +155,7 @@ createApp({
         <div class="instructions">
           <h3>Instructions:</h3>
           <ol>
-            <li>With your soundwalk partner, explore the other teams’ soundwalks on the following webpage and choose one to listen to.</li>
+            <li>With your soundwalk partner, explore the other teams’ soundwalks on this webpage and choose one to listen to.</li>
             <li>Register your participation by signing your team members’ names under the “Listened by” section on the chosen soundwalk.</li>
             <li>Scan the QR code for your selected soundwalk and go out to listen to it.</li>
             <li>After you finish listening to your first soundwalk, repeat steps 1–3 to select and listen to a second one.</li>
