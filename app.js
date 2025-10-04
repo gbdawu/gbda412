@@ -128,17 +128,45 @@ createApp({
         }
 
         // Subscribe to supabaseClient realtime updates
-        async function subscribeRealtime() {
-            supabaseClient
-                .channel("realtime-listeners")
-                .on("postgres_changes", { event: "INSERT", schema: "public", table: "listeners" },
-                      (payload) => {
-        console.log('New listener:', payload.new);
-        loadListeners();  // refresh your local soundwalks array
+    //     async function subscribeRealtime() {
+    //         supabaseClient
+    //             .channel("realtime-listeners")
+    //             .on("postgres_changes", { event: "INSERT", schema: "public", table: "listeners" },
+    //                   (payload) => {
+    //     console.log('New listener:', payload.new);
+    //     loadListeners();  // refresh your local soundwalks array
+    //   }
+    // )
+    //             .subscribe();
+    //     }
+
+    async function subscribeRealtime() {
+  // Create a realtime channel for the 'listeners' table
+  const channel = supabaseClient.channel("public:listeners");
+
+  channel.on(
+    "postgres_changes",
+    { event: "INSERT", schema: "public", table: "listeners" },
+    (payload) => {
+      console.log("New listener:", payload.new);
+
+      // Find the matching soundwalk and push the new listener
+      const sw = soundwalks.value.find(
+        (s) => s.id === payload.new.soundwalk_id
+      );
+      if (sw) {
+        sw.listeners.push(payload.new.listener_name);
       }
-    )
-                .subscribe();
-        }
+
+      // Optional: show snackbar
+      snackbarText.value = `New listener added: ${payload.new.listener_name}`;
+      snackbar.value = true;
+    }
+  );
+
+  // Subscribe to the channel
+  await channel.subscribe();
+}
 
         onMounted(() => {
             loadListeners();
