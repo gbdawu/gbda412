@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soundwalk Exhibition</title>
+
+  <!-- Vuetify + Material Design Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.7.1/dist/vuetify.min.css" rel="stylesheet">
+
+  <!-- Vue + Vuetify + Supabase -->
+  <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.7.1/dist/vuetify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.3/dist/umd/supabase.min.js"></script>
+
+  <style>
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background-color: #fafafa;
+      margin: 0;
+      padding: 0;
+    }
+    .soundwalk-card {
+      margin-bottom: 2rem;
+    }
+
+    .soundwalk-card:hover{
+        background-color: #fff3e0;
+
+    }
+    .qr-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .instructions {
+        margin-top: 5rem;
+      background: #fff3e0;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
