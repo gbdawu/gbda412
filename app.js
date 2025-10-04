@@ -131,9 +131,12 @@ createApp({
         async function subscribeRealtime() {
             supabaseClient
                 .channel("realtime-listeners")
-                .on("postgres_changes", { event: "INSERT", schema: "public", table: "listeners" }, () => {
-                    loadListeners();
-                })
+                .on("postgres_changes", { event: "INSERT", schema: "public", table: "listeners" },
+                      (payload) => {
+        console.log('New listener:', payload.new);
+        loadListeners();  // refresh your local soundwalks array
+      }
+    )
                 .subscribe();
         }
 
