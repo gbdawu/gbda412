@@ -1,54 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soundwalk Exhibition</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soundwalk Exhibition</title>
 
-  <!-- Vuetify + Material Design Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.7.1/dist/vuetify.min.css" rel="stylesheet">
+    <!-- Vuetify + Material Design Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@3.7.1/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Noto+Music&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Vue + Vuetify + Supabase -->
-  <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.7.1/dist/vuetify.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.3/dist/umd/supabase.min.js"></script>
 
-  <style>
-    body {
-      font-family: "Inter", system-ui, sans-serif;
-      background-color: #fafafa;
-      margin: 0;
-      padding: 0;
-    }
-    .soundwalk-card {
-      margin-bottom: 2rem;
-    }
+    <!-- Vue + Vuetify + Supabase -->
+    <script src="https://unpkg.com/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@3.7.1/dist/vuetify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.3/dist/umd/supabase.min.js"></script>
 
-    .soundwalk-card:hover{
-        background-color: #fff3e0;
+    <style>
+        body {
+            font-family: "DM Sans", system-ui, sans-serif;
+            /* background-color: #fafafa; */
+            margin: 0;
+            padding: 0;
+        }
 
-    }
-    .qr-img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-    .instructions {
-        margin-top: 5rem;
-      background: #fff3e0;
-      padding: 2rem;
-      border-radius: 12px;
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-  </style>
+        .v-application {
+            background: url('images/soundwalk/stratford-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .soundwalk-card {
+            margin-bottom: 2rem;
+        }
+
+        .soundwalk-card:hover  {
+            background-color: #FF8A65;
+
+        }
+
+        .qr-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+
+
+        .soundwalkHeading {
+            background-color: #FF8A65;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        .echoes-btn {
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+       .soundwalk-card:hover .echoes-btn {
+            background-color: #FF8A65 !important;
+            /* slightly darker orange tint */
+            /* optional darker text */
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #fffde7, #fff3e0);
+            border-radius: 16px;
+            padding: 24px 30px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            margin: 0 auto 48px auto;
+            max-width: 850px;
+        }
+
+        .instructions h3 {
+            color: #e65100;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .instructions ol {
+            counter-reset: steps;
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions li {
+            counter-increment: steps;
+            background: #fff;
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+            font-size: 1.05rem;
+            color: #4e342e;
+        }
+
+        .instructions li::before {
+            content: counter(steps);
+            background: #ffb300;
+            color: #fff;
+            font-weight: 700;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
 </head>
 
 <body>
-  <div id="app"></div>
+    <div id="app"></div>
 
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>
