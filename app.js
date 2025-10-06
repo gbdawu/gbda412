@@ -246,8 +246,8 @@ createApp({
       {
         // team 19
         id: 19,
-        title: "Nai & Lydia",
-        authors: "Breathing Through Stratford",
+        title: "Breathing Through Stratford",
+        authors: "Nai & Lydia",
         description: "This soundwalk invites students to step away from the stress of school and rediscover moments of calm in Stratford’s hidden gems. Through guided reflections, nature sounds, and mindful pauses, it encourages slowing down, breathing deeply, and finding balance in everyday spaces.",
         qr: "images/soundwalk/qr-codes/19.png",
         link: "https://explore.echoes.xyz/collections/8HTlnQNr0OrrLF8d",
