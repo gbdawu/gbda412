@@ -527,23 +527,7 @@ createApp({
                     <em>No listeners yet.</em>
                   </div>
 
-                  <v-text-field
-                    v-model="newListenerName[sw.id]"
-                    label="Your team name"
-                    variant="outlined"
-                    density="compact"
-                    hide-details
-                    class="mt-4"
-                  ></v-text-field>
-
-                  <v-btn
-                    color="deep-orange"
-                    variant="tonal"
-                    size="small"
-                    @click="addListener(sw.id)"
-                  >
-                    Add Name
-                  </v-btn>
+               
                 </v-card-text>
               </v-card>
             </v-col>
