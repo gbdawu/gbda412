@@ -541,3 +541,22 @@ createApp({
     </v-app>
   `,
 }).use(vuetify).mount("#app");
+
+
+  //  <v-text-field
+  //                   v-model="newListenerName[sw.id]"
+  //                   label="Your team name"
+  //                   variant="outlined"
+  //                   density="compact"
+  //                   hide-details
+  //                   class="mt-4"
+  //                 ></v-text-field>
+
+  //                 <v-btn
+  //                   color="deep-orange"
+  //                   variant="tonal"
+  //                   size="small"
+  //                   @click="addListener(sw.id)"
+  //                 >
+  //                   Add Name
+  //                 </v-btn>
