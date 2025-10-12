@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBDA 412 - Group Project 2: Sonic Signals and Futures</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1em;
+            color: #2c3e50;
+            border-bottom: 3px solid #ff416c;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .project-overview {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .project-overview h2 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .learning-outcomes {
+            background: #f8f9fa;
+            /* very light coral/pink */
+            border-left: 5px solid #ff416c;
+            /* matches the gradient */
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+
+        .learning-outcomes h3 {
+            color: black;
+            margin-top: 0;
+        }
+
+        .project-stages {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .stage-card {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .stage-card.active {
+            border-color: #3498db;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
+
+        .stage-card.completed {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
+
+        .stage-card.upcoming {
+            border-color: #ffc107;
+            background: #fffbf0;
+        }
+
+        .stage-header {
+            padding: 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .stage-header:hover {
+            background: #e9ecef;
+        }
+
+        .stage-card.active .stage-header {
+            background: #3498db;
+            color: white;
+        }
+
+        .stage-card.completed .stage-header {
+            background: #28a745;
+            color: white;
+        }
+
+        .stage-card.upcoming .stage-header {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .stage-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .stage-meta {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .expand-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .stage-content {
+            display: none;
+            padding: 30px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .stage-content.expanded {
+            display: block;
+        }
+
+        .stage-content.expanded+.stage-header .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .requirement-box {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .assessment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .assessment-table th,
+        .assessment-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .assessment-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: #3498db;
+            color: white;
+        }
+
+        .status-completed {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-upcoming {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .stages-timeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .current-focus {
+            background: #fff2e5;
+            /* very light apricot/pale orange */
+            border: 2px solid #ff4b2b;
+            /* echoing the darker gradient red */
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .stages-timeline {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>GBDA 412 - Audio Cultures</h1>
+
+        <div class="project-overview">
+            <h2>Group Project 2: Sonic Signals and Futures (35% total)</h2>
+            <p>Working in teams of 2, you will choose one of two streams below and create an original composition that
+                explores sonic culture in innovative ways. Your project should engage with readings and topics from
+                weeks 7–10.</p>
+
+            <p><strong>Stream A – The Body as Instrument:</strong> Explore how personal bio-data can generate unique
+                sonic experiences that reflect movement, gesture, and the physicality of the body. You will collect your
+                own GPS data using Strava, an app and online platform for tracking physical activity. You may also use
+                wearable devices (e.g., Apple Watch, Fitbit) to collect heart rate data. This data will then be sonified
+                using VCV Rack or an online sequencer to create experimental musical outcomes.
+                <a href="https://www.strava.com/" target="_blank"
+                    style="color: #fff; text-decoration: underline;">Explore Strava</a>
+            </p>
+
+            <p><strong>Stream B – Creative Music Machines:</strong> Explore how artificial intelligence tools can help
+                you generate music. Using the online tool ElevenLabs, you will produce a music composition from simple
+                text prompts. To create your composition, you and the AI tool will collaborate in an interactive,
+                co-creative process to produce sound.
+                <a href="https://elevenlabs.io/music" target="_blank"
+                    style="color: #fff; text-decoration: underline;">Explore ElevenLabs</a>
+            </p>
+        </div>
+
+
+        <div class="learning-outcomes">
+            <h3>Overall Learning Outcomes</h3>
+            <p>By completing this project, students will:</p>
+            <ol>
+                <li><strong>Create experimental sound compositions:</strong> Develop technical proficiency in
+                    collecting, manipulating, and composing sound using personal bio-data, AI tools, or other
+                    interactive technologies to produce original artwork that explores new sonic possibilities.</li>
+                <li><strong>Collaborate effectively in creative contexts:</strong> Work productively with partners to
+                    synthesize individual ideas into cohesive artistic work, while providing and integrating
+                    constructive peer feedback throughout the creative process.</li>
+                <li><strong>Connect artistic practice to theoretical frameworks:</strong> Analyze how sound-based art
+                    can illuminate theoretical ideas about sound, embodiment, and technology.</li>
+                <li><strong>Reflect critically on creative learning:</strong> Articulate creative decisions, evaluate
+                    different artistic approaches, and analyze personal development throughout the project process using
+                    clear written and oral communication.</li>
+            </ol>
+        </div>
+
+        <div class="stages-timeline">
+            <!-- <div class="timeline-item status-completed">Part 1: Sep 8<br>Proposals</div> -->
+            <div class="timeline-item status-active"><b>Part 1: Oct 26<br>Proposal & Concept Development (5%)</b>
+                <br>
+                Individual
+                Submission
+            </div>
+            <div class="timeline-item status-upcoming"><b>Part 2: Nov 2<br>Materials Collection (5%)</b> <br>
+                Individual Submission</div>
+            <div class="timeline-item status-upcoming"><b>Part 3: Nov 9<br>Final Artistic Composition (10%)</b>
+                <br>
+                Pair
+                Submission
+            </div>
+            <div class="timeline-item status-upcoming"><b>Part 4: Nov 17<br>In-class Exhibition (5%)</b> <br> Pair
+                Participation
+            </div>
+            <!-- <div class="timeline-item status-upcoming"><b>Part 5: oct 20<br>Analytical Reflection (10%)</b> <br> Pair -->
+            <div class="timeline-item status-upcoming"><b>Part 5: Nov 23<br>Analytical Reflection (10%)</b> <br> Pair
+                Submission
+            </div>
+        </div>
+        <div class="current-focus">
+            <h3>🎯 Current Focus: Part 1: Proposal & Concept Development</h3>
+            <p><strong>Due:</strong> October 26 | <strong>Grace period:</strong> November 2 |
+                <strong>Submission:</strong>
+                Individual
+            </p>
+            <p>Individually, submit a short proposal that outlines a concept for a project in either
+                <strong>Stream A – The Body as Instrument</strong> or
+                <strong>Stream B – Creative Music Machines</strong>.
+                The goal of this step is to generate creative options that you and your partner can later choose
+                from or combine into your final composition.
+            </p>
+        </div>
+
+        <div class="project-stages">
+            <!-- <div class="stage-card completed"> -->
+            <div class="stage-card active">
+                <div class="stage-header" onclick="toggleStage('part1')">
+                    <div>
+                        <div class="stage-title">Part 1: Proposal & Concept Development</div>
+                        <div class="stage-meta">5% • Individual • Due Oct 26</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="stage-content" id="part1">
+                    <div class="requirement-box">
+                        <!-- <strong>Status:</strong> <span class="status-badge status-active">Due</span> -->
+                        <strong>Status:</strong> <span class="status-badge status-active">Due</span>
+                        <br><strong>Due Date:</strong> October 26 by 11:59 PM. Submitting by this date ensures you
+                        receive detailed feedback from the professor.
+                        <br><strong>Grace Period:</strong> Until November 2 by 11:59 PM without penalty, but
+                        prof's feedback will not be provided.
+                        <br><strong>After Grade Period:</strong> Until November 9 by 11:59 pm. After the grace period,
+                        submissions are penalized 5% per
+                        day, including weekends. Submissions more than 7 days late will not be accepted and
+                        will receive a 0%.
+                        <br><strong>Submission Type:</strong> Individual
+                    </div>
+
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight">
+                        Individually, submit a short proposal that outlines a concept for a project in either
+                        <strong>Stream A – The Body as Instrument</strong> or
+                        <strong>Stream B – Creative Music Machines</strong>.
+                        The goal of this step is to generate creative options that you and your partner can later choose
+                        from or combine into your final composition.
+                    </div>
+
+                    <hr>
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Develop and communicate an original concept for an experimental sound or music composition
+                            using body
+                            data or AI tools</li>
+                        <li>Connect artistic ideas to theoretical frameworks from course readings (Weeks 7–10)</li>
+                        <li>Practice articulating creative vision through written or video proposals</li>
+                        <li>Provide constructive peer feedback to support collaborative creative development</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Submission Instructions</h3>
+
+                    <ol>
+                        <li><b>Post your proposal</b> to the LEARN Discussion Forum
+                            <strong>"Group Project 2 – Proposal & Concept Development"</strong>.
+                        </li>
+                        <li><b>Provide peer feedback</b> to your project partner and one other student in the class by
+                            responding to their post.
+                            Provide feedback by the same deadline or grace period.
+                        </li>
+                    </ol>
+
+                    <hr>
+                    <h3>Proposal Requirements</h3>
+
+                    <ol>
+                        <li>Post either:
+                            <ul>
+                                <li>Written proposal (300–500 words), OR</li>
+                                <li>Video pitch (2–4 minutes)</li>
+                            </ul>
+                        </li>
+
+                        <li>Connect your concept to at least one topic or reading from Weeks 7–10.</li>
+
+                        <li>Include the following details depending on your chosen stream:</li>
+                        <ul>
+                            <li><strong>Stream A – The Body as Instrument:</strong>
+                                Describe a physical activity involving a route that you plan to
+                                record using the <a href="https://www.strava.com/" target="_blank"
+                                    style="color: black; text-decoration: underline;">Strava app</a>.
+                                Explain how you imagine transforming the GPS data into music — for example, what types
+                                of sounds or instruments might represent your heartbeat, speed, or movement?
+                                Mention how your idea connects to course discussions on embodiment, sound, and
+                                technology, drawing from ideas in the readings about biosignal-driven art, affective
+                                feedback, and the body as a site of musical expression.
+                            </li>
+
+                            <li><strong>Stream B – Creative Music Machines:</strong>
+                                Describe the mood, genre, or emotional tone of the music you plan to generate using the
+                                AI
+                                tool <a href="https://elevenlabs.io/music" target="_blank"
+                                    style="color: black; text-decoration: underline;">ElevenLabs</a>.
+                                Outline the general musical sections you envision (e.g., intro, verse, chorus, bridge,
+                                outro). Indicate whether your composition will include lyrics — if so, will you write
+                                them
+                                yourself or use AI generation? Discuss how your concept relates to course themes of
+                                automation, creativity, and human–machine collaboration, referencing ideas from the
+                                readings on algorithmic composition, AI-generated music, and the remixing of digital
+                                sound cultures.
+                            </li>
+                        </ul>
+
+                        <li>Include at least one illustrative element such as:</li>
+                        <ul>
+                            <li>A link to a song, sound, or composition that inspires your concept</li>
+                            <li>A short audio or visual sketch representing your idea</li>
+                        </ul>
+                    </ol>
+
+                    <hr>
+                    <h3>Peer Feedback Requirements</h3>
+
+                    <h5>Provide constructive feedback (3–5 sentences each) to:</h5>
+                    <ul>
+                        <li>Your partner’s submission</li>
+                        <li>One other student in the class</li>
+                    </ul>
+
+                    <h5>Focus feedback on:</h5>
+                    <ul>
+                        <li>What is clear, original, or engaging about the proposal</li>
+                        <li>Suggestions for strengthening or expanding the concept</li>
+                        <li>Connections that could be made to course topics and readings</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Grace Period Advice</h3>
+
+                    <p><b>By October 26:</b> Post proposal + provide feedback to your partner and one other student.
+                        Early submissions will have more peer proposals available for feedback selection.
+                    </p>
+
+                    <p><b>October 27 – November 2 (grace period):</b> You can still post your proposal, but fewer peers
+                        may be
+                        available for feedback exchange.
+                    </p>
+
+                    <hr>
+                    <h3>Assessment (Pass/Fail)</h3>
+
+                    <p><strong>Pass if:</strong></p>
+                    <ul>
+                        <li>You post your proposal on time (or within the grace period) with all required elements</li>
+                        <li>You provide constructive feedback to your partner and one other student on time (or within
+                            the grace period)</li>
+                    </ul>
+
+                    <p><strong>Fail if:</strong></p>
+                    <ul>
+                        <li>Your proposal is missing required elements, OR</li>
+                        <li>You fail to provide peer feedback</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- <div class="stage-card active"> -->
+            <div class="stage-card upcoming">
+                <div class="stage-header" onclick="toggleStage('part2')">
+                    <div>
+                        <div class="stage-title">Part 2: Materials Collection</div>
+                        <div class="stage-meta">5% • Individual • Due Nov 2</div>
+
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="stage-content" id="part2">
+                    <div class="requirement-box">
+                        <!-- <strong>Status:</strong> <span class="status-badge status-active">Due</span> -->
+                        <strong>Status:</strong> <span class="status-badge status-active">Due</span>
+                        <br><strong>Due Date:</strong> November 2 by 11:59 PM. Submitting by this date ensures you
+                        receive detailed feedback from the professor.
+                        <br><strong>Grace Period:</strong> Until November 9 by 11:59 PM without penalty, but
+                        prof's feedback will not be provided.
+                        <br><strong>After Grade Period:</strong> Until November 16 by 11:59 pm. After the grace period,
+                        submissions are penalized 5% per
+                        day, including weekends. Submissions more than 7 days late will not be accepted and
+                        will receive a 0%.
+                        <br><strong>Submission Type:</strong> Individual
+                    </div>
+
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight"> Individually, collect and organize materials based on your Part 1 proposal
+                        concept. The goal is to begin translating your ideas into tangible data or generative inputs
+                        that can later be transformed into music. This step helps you test your technical workflow and
+                        develop a foundation for collaborative composition in Part 3. </div>
+                    <hr>
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Develop technical proficiency with data-driven or generative music tools</li>
+                        <li>Experiment with transforming conceptual ideas into sound-related materials</li>
+                        <li>Learn to document and annotate creative materials systematically</li>
+                        <li>Build foundations for collaborative creative decision-making</li>
+                    </ul>
+                    <hr>
+                    <h3>Submission Instructions</h3>
+                    <ol>
+                        <li><b>Post your materials</b> to the LEARN Discussion Forum “Group Project 2 – Materials
+                            Collection.”</li>
+                        <li><b>Provide peer feedback</b> to your assigned partner and one other student in the class by
+                            responding to their post. Provide feedback by the same deadline or within the grace period.
+                        </li>
+                    </ol>
+                    <hr>
+                    <h3>Materials Requirements</h3>
+                    <p>Post the following details depending on your chosen stream:</p>
+
+                    <h4><strong>Stream A – The Body as Instrument:</strong></h4>
+                    <ol>
+                        <li>A <b>CSV file</b> containing GPS data from a physical movement or activity you
+                            performed (e.g., a walk, run, or dance).</li>
+                        <li>Evidence of a <b>test conversion</b> of your GPS data to MIDI using <a
+                                href="https://csv-to-midi.evanking.io/"
+                                target="_blank">https://csv-to-midi.evanking.io/</a>.</li>
+
+                        <li><strong>Short annotations (1–2 sentences each):</strong>
+                            <ul>
+                                <li>Describe what kind of physical movement or route generated your GPS data.</li>
+                            </ul>
+                        </li>
+
+                        <li><strong>Brief reflection (2–3 sentences):</strong>
+                            <ul>
+                                <li>Discuss how this material connects to your proposal and to the readings on
+                                    <em>embodiment, sound, and technology</em>.
+                                </li>
+                                <li>Describe what kinds of instruments, timbres, or sounds you imagine using when
+                                    composing from this data.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <h4><strong>Stream B – Creative Music Machines:</strong></h4>
+                    <ol>
+                        <li>A set of <b>AI co-creation prompts</b> that you plan to use
+                            to generate musical ideas. These can include screenshots or transcripts
+                            showing your exchange with a tool like ChatGPT and ElevenLabs.</li>
+                        <ul>
+                            <li>Each prompt or exchange should demonstrate your approach to training or guiding the
+                                AI toward a specific mood, style, or sonic direction.</li>
+                        </ul>
+                        <li><strong>Short annotations (1–2 sentences each):</strong>
+                            <ul>
+                                <li>Explain the creative intent behind each prompt or question.</li>
+                                <li>Describe what musical or lyrical ideas each prompt is meant to explore.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Brief reflection (2–3 sentences):</strong>
+                            <ul>
+                                <li>Discuss how your materials connect to your proposal and course ideas about
+                                    <em>automation, creativity,
+                                        and machine collaboration</em>.
+                                </li>
+                                <li>Describe how these initial explorations might shape your final musical composition.
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <hr>
+                    <h3>Peer Feedback Requirements</h3>
+                    <h4>Provide constructive feedback (3–5 sentences each) to:</h4>
+                    <ul>
+                        <li>Your partner’s submission</li>
+                        <li>One other student in the class</li>
+                    </ul>
+                    <h4>Focus feedback on:</h4>
+                    <ul>
+                        <li>Quality and relevance of the collected materials</li>
+                        <li>Clarity of documentation and annotations</li>
+                        <li>Creative and conceptual potential of the materials</li>
+                    </ul>
+                    <hr>
+                    <h3>Assessment (Pass/Fail)</h3>
+                    <p><strong>Pass if:</strong> You post your materials (CSV + MIDI test for Stream A OR AI prompts for
+                        Stream B) with annotations, a brief reflection, and required peer feedback on time (or within
+                        the grace period).</p>
+                    <p><strong>Fail if:</strong> Required elements are missing OR no peer feedback provided.</p>
+                </div>
+            </div>
+
+            <!-- <div class="stage-card upcoming"> -->
+            <div class="stage-card upcoming">
+                <div class="stage-header" onclick="toggleStage('part3')">
+                    <div>
+                        <div class="stage-title">Part 3: Final Artistic Composition</div>
+                        <div class="stage-meta">10% • Pairs • Due Nov 9</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="stage-content" id="part3">
+                    <div class="requirement-box">
+                        <!-- <strong>Status:</strong> <span class="status-badge status-upcoming">Upcoming</span> -->
+                        <strong>Status:</strong> <span class="status-badge status-upcoming">Upcoming</span>
+                        <br><strong>Due Date:</strong> November 9 by 11:59 PM. Submitting by this date ensures you
+                        receive detailed feedback from the professor.
+                        <br><strong>Grace Period:</strong> Until November 16 by 11:59 PM without penalty, but
+                        prof's feedback will not be provided.
+                        <br><strong>After Grade Period:</strong> Until November 23 by 11:59 pm. After the grace period,
+                        submissions are penalized 5% per
+                        day, including weekends. Submissions more than 7 days late will not be accepted and
+                        will receive a 0%.
+                        <br><strong>Submission Type:</strong> Pairs
+                    </div>
+
+                    <hr>
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight">
+                        <p>
+                            Working in teams of <strong>2 people</strong>, create your final <strong>experimental music
+                                composition</strong> for Group Project 2.
+                            Choose one stream (both partners must pick the <em>same</em> stream) and produce a cohesive
+                            2–4 minute piece that explores sound, embodiment, and technology.
+                            Stream A uses body-generated data (GPS → MIDI → sequencer); Stream B uses AI-assisted
+                            co-creation (prompts → generated audio → edits).
+                            Your final submission should include the required materials (data or prompts), your finished
+                            audio, and an artist statement connecting your work to course readings (Weeks 7–10).
+                        </p>
+                    </div>
+
+                    <hr>
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Collaborate effectively to synthesize individual materials into a cohesive musical
+                            composition</li>
+                        <li>Demonstrate technical proficiency with data-driven or AI-assisted music tools (CSV→MIDI,
+                            Online Sequencer, ElevenLabs, etc.)</li>
+                        <li>Practice creating structured musical works (2–4 minutes) that reflect conceptual engagement
+                            with sound, embodiment, and technology</li>
+                        <li>Articulate creative decisions and process in a concise artist statement tied to course
+                            readings</li>
+                    </ul>
+
+                    <hr>
+                    <h3>What You'll Do Together (Suggested workflow)</h3>
+                    <ul>
+                        <li>Review both partners' Part 1 proposals and Part 2 materials (CSV data & MIDI test for Stream
+                            A, AI prompts for Stream B)</li>
+                        <li>Decide which concept to finalize — select one proposal or combine compatible elements into a
+                            single, cohesive idea</li>
+                        <li>Plan the structure of your piece (intro / body / sections such as verse/chorus/bridge /
+                            outro) aiming for 2–4 minutes total</li>
+                        <li>Create and refine the composition using appropriate tools for your stream</li>
+                        <li>Prepare and upload your artist statement explaining decisions, references to readings (Weeks
+                            7–10), and any technical/creative challenges</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Submission Requirements (Per Group)</h3>
+                    <ol>
+                        <li><strong>Final audio file</strong> (MP3 or WAV) — 2 to 4 minutes in length, uploaded to the
+                            LEARN dropbox "Group Project 2 – Part 3: Final Artistic Composition".</li>
+                        <li><strong>Group materials</strong> submitted in the same dropbox containing the
+                            required stream-specific materials (see below). Share only <strong>one folder/link per
+                                group</strong>.</li>
+                        <li><strong>Artist statement</strong> (300-500 words) uploaded as PDF or Word file to the same
+                            folder.</li>
+                    </ol>
+
+                    <hr>
+                    <h3>Materials Requirements per Stream)</h3>
+
+                    <h4><strong>Stream A – Body as Instrument:</strong></h4>
+                    <ol>
+                        <li><strong>CSV data:</strong> Submit the final GPS to MIDI file.</li>
+                        <!-- <li><strong>MIDI test:</strong> Include evidence of a test conversion (MIDI file or screenshot)
+                            using the <a href="https://csv-to-midi.evanking.io/" target="_blank">CSV → MIDI tool</a>.
+                        </li> -->
+                        <li><strong>Online Sequencer link:</strong> Provide the public link to your final composition on
+                            <a href="https://onlinesequencer.net/" target="_blank">OnlineSequencer.net</a>.
+                        </li>
+                        <!-- <li><strong>Short annotations (1–2 sentences each):</strong>
+                            <ul>
+                                <li>Describe the movement/activity that produced the CSV (e.g., route type, tempo, any
+                                    notable gestures).</li>
+                                <li>Note key decisions you made when converting data to MIDI and turning MIDI into a
+                                    musical arrangement (instruments, tempo, quantization, layering).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Brief reflection (2–3 sentences):</strong> How this data links to your Part 1
+                            concept and relevant course readings on embodiment, biosignal-driven art, and technology.
+                        </li> -->
+                    </ol>
+
+                    <h4><strong>Stream B – Creative Music Machines:</strong></h4>
+                    <ol>
+                        <li><strong>Prompt documentation:</strong> Submit the set of AI co-creation prompts or
+                            conversation transcripts you used (text files, screenshots, or exported logs). These should
+                            show the iterative prompting strategy you followed.</li>
+                        <!-- <li><strong>Final audio:</strong> Upload the final MP3 or WAV file of your composition (2–4
+                            minutes).</li>
+                        <li><strong>Short annotations (1–2 sentences each):</strong>
+                            <ul>
+                                <li>Explain the creative intent behind each key prompt or prompt-stage.</li>
+                                <li>Summarize how the AI output informed melodic, harmonic, rhythmic, or lyrical
+                                    choices.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Brief reflection (2–3 sentences):</strong> How these prompts and outputs connect to
+                            course ideas about automation, creativity, and human–machine collaboration.</li> -->
+                    </ol>
+
+                    <hr>
+                    <h3>Technical Tips & Recommendations</h3>
+                    <ul>
+                        <li><strong>Stream A</strong> — test your CSV formatting and experiment with different CSV→MIDI
+                            mapping options (pitch range, velocity mapping from speed/heartbeat, time scaling). Use
+                            Online Sequencer to layer additional instrumentation and refine arrangement.</li>
+                        <li><strong>Stream B</strong> — iterate prompts, keep records of variations, and consider
+                            post-processing AI output (EQ, layering, human input) to shape a cohesive composition. If
+                            using generated vocals, check clarity and intelligibility before finalizing.</li>
+                        <li>Keep backups of all original data, MIDI files, prompts, and project versions — you will
+                            include these in your materials folder.</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Artist Statement Requirements</h3>
+                    <p><strong>300–500 words</strong> addressing:</p>
+                    <ul>
+                        <li>Which concept you chose and why (reference your Part 1 proposal)</li>
+                        <li>How your materials and technical process were used in the final composition (CSV→MIDI steps,
+                            sequencing choices, prompt strategies, AI interventions)</li>
+                        <li>Connections to course readings and themes from Weeks 7–10 (cite at least 1–2 readings, e.g.,
+                            Ortiz on biosignal art, McLean & Dean on algorithmic music, White on AI and creativity)</li>
+                        <li>Key creative decisions and challenges encountered</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Additional Notes on Composition</h3>
+                    <ul>
+                        <li>Aim for a clear beginning, development, and ending across 2–4 minutes.</li>
+                        <li>Balance experimental gestures (data-driven textures, algorithmic quirks) with musical
+                            clarity so listeners can follow the piece.</li>
+                        <li>Document any places where you intervened heavily (manual editing, added instruments, human
+                            performance) so assessors can see how you shaped raw data/AI output into art.</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Assessment (10%)</h3>
+                    <table class="assessment-table">
+                        <tr>
+                            <th>Criterion</th>
+                            <th>Description</th>
+                            <th>Weight</th>
+                        </tr>
+                        <tr>
+                            <td>Creativity & Concept</td>
+                            <td>Originality and conceptual depth in interpreting data or machine outputs as musical
+                                material; clear artistic voice.</td>
+                            <td>2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Technical Exploration & Integration</td>
+                            <td>Skillful and appropriate use of tools and processes (CSV→MIDI mapping, sequencing,
+                                prompt engineering, audio editing); demonstrates experimentation and technical
+                                problem-solving.</td>
+                            <td>2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Cohesion & Sound Design</td>
+                            <td>Structure, flow, balance, and sonic clarity of the final composition; choices support
+                                the concept and listening experience.</td>
+                            <td>2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Artist Statement</td>
+                            <td>Clear, reflective explanation linking creative and technical choices to course readings
+                                (Weeks 7–10) and describing collaboration/decision-making.</td>
+                            <td>2.5%</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="stage-card upcoming">
+                <div class="stage-header" onclick="toggleStage('part4')">
+                    <div>
+                        <div class="stage-title">Part 4: In-Class Exhibition</div>
+                        <div class="stage-meta">5% • Pairs • Nov 17 (In-class Participation)</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="stage-content" id="part4">
+                    <div class="requirement-box">
+                        <strong>Status:</strong> <span class="status-badge status-upcoming">Upcoming</span>
+                        <!-- <strong>Status:</strong> <span class="status-badge status-active">In Progress</span> -->
+                        <br><strong>Due:</strong> November 17 (in-class activity)
+                        <br><strong>No grace period</strong> - Students must attend class
+                        <br><strong>Submission Type:</strong> Pair Participation
+                    </div>
+
+
+                    <hr>
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight">
+                        <p>
+                            Each team's final composition will be exhibited for the class. Students will explore
+                            different projects in class, listen to the audio compositions, and interact with any visual
+                            or data elements provided (e.g., GPS routes, co-creation prompts). During the exhibition,
+                            you will provide constructive oral feedback to your peers. The full class period is
+                            dedicated to this activity.
+                        </p>
+                    </div>
+
+                    <hr>
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Experience and critically engage with peer-created experimental music compositions</li>
+                        <li>Develop skills in providing constructive oral feedback on creative and conceptual work</li>
+                        <li>Practice attentive listening and observation through embodied or AI-generated music projects
+                        </li>
+                        <li>Learn to articulate responses to artistic work in oral discussion</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Exhibition Structure</h3>
+                    <p>
+                        The exhibition will take the form of a <strong>project fair</strong>. Half of the teams will set
+                        up at designated booths with their laptops or devices to showcase their compositions, along with
+                        any associated data or visual elements. During the first hour, the other half of the class will
+                        circulate among the booths, explore the projects, and take notes.
+                    </p>
+                    <p>
+                        After the first hour, the teams will switch roles: those who were circulating will now take the
+                        booths to present their work, while the first group circulates to explore and observe new
+                        projects.
+                    </p>
+                    <p>
+                        The fair will be followed by a brief classroom discussion to share reflections and highlight
+                        insights from the exhibition.
+                    </p>
+
+                    <h3>Exhibition Participation</h3>
+                    <ul>
+                        <li>Be present for the full 2 hours of class</li>
+                        <li>Experience the different audio compositions created by your peers, including their
+                            supporting visual or data elements</li>
+                        <li>Actively engage by listening attentively and taking notes for feedback</li>
+                    </ul>
+
+                    <h4>Feedback Requirements</h4>
+                    <p>After exploring each composition, provide constructive oral feedback to the presenting team,
+                        focusing on:</p>
+                    <ul>
+                        <li>Specific observations about what worked well conceptually and sonically</li>
+                        <li>Concrete suggestions for improving clarity, creativity, or integration of data, biofeedback,
+                            or AI elements</li>
+                        <li>Questions about creative choices, compositional structure, or presentation</li>
+                        <li>Connections to course themes and readings from weeks 7–10</li>
+                    </ul>
+
+                    <h4>Example Feedback Prompts</h4>
+                    <ul>
+                        <li>Which aspects of the composition did you find most engaging, surprising, or
+                            thought-provoking?</li>
+                        <li>How did the use of body data (Stream A) or AI tools (Stream B) contribute to the creative
+                            outcome?</li>
+                        <li>Were the audio and any supporting visual/data elements integrated cohesively?</li>
+                        <li>How did the work make you think differently about sound, embodiment, or machine
+                            collaboration?</li>
+                        <li>What specific adjustments could enhance clarity, creativity, or impact?</li>
+                        <li>How effectively did the work connect to course themes from weeks 7–10?</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Assessment (5%)</h3>
+                    <table class="assessment-table">
+                        <tr>
+                            <th>Criterion</th>
+                            <th>Description</th>
+                            <th>Weight</th>
+                        </tr>
+                        <tr>
+                            <td>Active Participation</td>
+                            <td>Full attendance and engaged observation during at least 2 peer compositions;
+                                demonstrates thoughtful attention to both audio and supporting materials</td>
+                            <td>2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Constructive Feedback</td>
+                            <td>Provides specific, actionable oral feedback to at least 2 teams; offers concrete
+                                observations and suggestions rather than general comments</td>
+                            <td>2.5%</td>
+                        </tr>
+                    </table>
+
+
+                </div>
+            </div>
+
+            <div class="stage-card upcoming">
+                <div class="stage-header" onclick="toggleStage('part5')">
+                    <div>
+                        <div class="stage-title">Part 5: Analytical Reflection</div>
+                        <div class="stage-meta">10% • Pairs • Due Nov 23</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="stage-content" id="part5">
+                    <div class="requirement-box">
+                        <strong>Status:</strong> <span class="status-badge status-upcoming">Upcoming</span>
+                        <br><strong>Due Date:</strong> November 23 by 11:59 PM. Submitting by this date ensures you
+                        receive detailed feedback from the professor.
+                        <br><strong>Grace Period:</strong> Until November 30 by 11:59 PM without penalty, but
+                        prof's feedback will not be provided.
+                        <br><strong>After Grade Period:</strong> Until December 7 by 11:59 pm. After the grace period,
+                        submissions are penalized 5% per
+                        day, including weekends. Submissions more than 7 days late will not be accepted and
+                        will receive a 0%.
+                        <br><strong>Submission Type:</strong> Pair Submission
+
+                    </div>
+
+                    <hr>
+<h3>What You Need to Do</h3>
+<div class="highlight">
+    <p>
+        In this final reflection, your team will analyze your experience creating your composition,
+        incorporating personal insights, technical reflections, and connections to course concepts.
+        This is your opportunity to examine how the process shaped your understanding of sound, technology,
+        and creative collaboration through either body-driven or AI-generated music.
+    </p>
+</div>
+
+<hr>
+<h3>Learning Objectives</h3>
+<ul>
+    <li>Critically analyze your creative process and technical decisions in experimental sound composition</li>
+    <li>Reflect on how embodied data or AI tools can shape musical outcomes</li>
+    <li>Evaluate peer feedback and integrate insights from others' creative approaches</li>
+    <li>Connect your artistic practice to broader themes in audio cultures, technology, and music creation</li>
+</ul>
+
+<hr>
+<h3>Submission Requirements</h3>
+<ol>
+    <li><strong>800-1000 words</strong> double-spaced analytical reflection submitted on LEARN's dropbox
+        "Project 2, Part 5 – Analytical Reflection"
+    </li>
+    <ul>
+        <li>Submit as a <strong>PDF or Word</strong> document</li>
+        <li>Cover pages are optional</li>
+        <li>Use <strong>clear headings</strong> to organize your sections</li>
+        <li>Provide <strong>specific examples</strong> from your project and project fair experience and feedback</li>
+        <li>Provide <strong>APA citations</strong> if referencing course materials</li>
+    </ul>
+</ol>
+
+<hr>
+<h3>Content Areas to Address</h3>
+<ol>
+    <li>
+        <h4>Personal Creative Insights</h4>
+        <ul>
+            <li>How did creating your composition (body-driven or AI-generated) influence your understanding of sound and technology?</li>
+            <li>How did the project deepen your understanding of themes and readings from weeks 7–10?</li>
+            <li>What did you discover about your own creative process and collaboration with your partner?</li>
+        </ul>
+    </li>
+    <li>
+        <h4>Technical Process Analysis</h4>
+        <ul>
+            <li><strong>Stream A:</strong> Discuss GPS/MIDI data collection, sequencing with online tools, and sonification choices. Include challenges and successes.</li>
+            <li><strong>Stream B:</strong> Discuss prompt creation, AI co-creation, audio editing, and final composition production. Include challenges and successes.</li>
+            <li>Reflect on how technical limitations or capabilities influenced creative decisions.</li>
+        </ul>
+    </li>
+    <li>
+        <h4>Peer Learning Integration</h4>
+        <ul>
+            <li>How did you respond to oral feedback received during the project fair?</li>
+            <li>What would you change or enhance based on peer input?</li>
+            <li>How did this feedback process contribute to your learning?</li>
+        </ul>
+    </li>
+    <li>
+        <h4>Critical Comparison</h4>
+        <p>Reflect on other compositions you experienced during the project fair, focusing on:</p>
+        <ul>
+            <li>Different technical approaches (GPS/MIDI, online sequencers, AI tools) or creative solutions</li>
+            <li>Connections to readings and course themes from weeks 7–10</li>
+            <li>Clarity in communicating creative intentions</li>
+            <li>Innovations that inspired or impressed you</li>
+            <li>What these comparisons taught you about experimental sound composition</li>
+            <li>What you found effective or less effective in other teams’ projects</li>
+            <li>How their approaches influenced your thinking about your own project</li>
+        </ul>
+    </li>
+</ol>
+
+<hr>
+<h3>Assessment (10%)</h3>
+
+<table class="assessment-table">
+    <tr>
+        <th>Criterion</th>
+        <th>Description</th>
+        <th>Weight</th>
+    </tr>
+    <tr>
+        <td>Personal Creative Insights</td>
+        <td>Demonstrates genuine reflection on how the project changed your perspective on sound, technology, and creative process; shows self-awareness about learning </td>
+        <td>2.5%</td>
+    </tr>
+    <tr>
+        <td>Technical Process Analysis</td>
+        <td>Thoughtful analysis of GPS/MIDI, online sequencer, or ElevenLabs use; challenges and creative decisions are articulated clearly</td>
+        <td>2.5%</td>
+    </tr>
+    <tr>
+        <td>Peer Learning Integration</td>
+        <td>Meaningful engagement with feedback received during the project fair; shows ability to learn from peers</td>
+        <td>2.5%</td>
+    </tr>
+    <tr>
+        <td>Critical Comparison</td>
+        <td>Insightful analysis of different creative and technical approaches observed in peer projects; demonstrates understanding of possibilities in experimental sound composition</td>
+        <td>2.5%</td>
+    </tr>
+</table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleStage(stageId) {
+            const content = document.getElementById(stageId);
+            const icon = content.previousElementSibling.querySelector('.expand-icon');
+
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Close all other stages
+                const allContents = document.querySelectorAll('.stage-content');
+                const allIcons = document.querySelectorAll('.expand-icon');
+                allContents.forEach(c => c.classList.remove('expanded'));
+                allIcons.forEach(i => i.style.transform = 'rotate(0deg)');
+
+                // Open clicked stage
+                content.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Auto-expand current active stage on load
+        document.addEventListener('DOMContentLoaded', function () {
+            const activeStage = document.querySelector('.stage-card.active .stage-content');
+            if (activeStage) {
+                activeStage.classList.add('expanded');
+            }
+        });
+    </script>
+</body>
+
+</html>
