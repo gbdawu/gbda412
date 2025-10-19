@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sonic Signals and Futures - Workshops</title>
+
+  <!-- Vuetify & Vue CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+      color: #fff;
+    }
+
+    .gradient {
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
+      color: white !important;
+    }
+
+    .v-navigation-drawer {
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
+      color: white !important;
+      font-size: 1.2em !important;
+    }
+
+    .v-navigation-drawer .v-list-item:hover {
+      background: rgba(0, 0, 0, 0.2) !important;
+      color: white !important;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      color: #fff3f3;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #ffe5e5;
+      font-weight: 600;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: #ffd6d6;
+      font-weight: 500;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      color: #ffd6d6;
+      font-weight: 500;
+    }
+
+    h5 {
+      font-size: 1rem;
+      color: #ffd6d6;
+    }
+
+    .intro-section {
+      font-size: 1.25rem;
+      margin: 1.5rem;
+      line-height: 1.6;
+      color: #fff0f0;
+    }
+
+    .coming-soon-card {
+      margin: 20px auto;
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+      color: white;
+    }
+
+    .step-card {
+      margin: 20px auto;
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+      color: #4d001f;
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .example {
+      border: none;
+      padding: 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ffb6c1 0%, #ff7f50 100%);
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(255, 65, 108, 0.2);
+      border-left: 4px solid #ff416c;
+    }
+
+    .example strong {
+      color: #ff4b2b;
+      font-size: 1.1rem;
+    }
+
+    .custom-details summary {
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+      color: white;
+    }
+
+    .custom-details summary:hover {
+      background: linear-gradient(135deg, #ff4b2b 0%, #ff416c 100%);
+    }
+
+    .custom-details[open] summary {
+      border-bottom: 2px solid rgba(255, 65, 108, 0.2);
+    }
+
+    .details-content {
+      padding: 24px;
+      background: linear-gradient(135deg, #ffe6eb 0%, #ffc2b3 100%);
+      border-top: 1px solid rgba(255, 65, 108, 0.3);
+      color: #4d001f;
+    }
+
+    .section-divider {
+      margin: 32px 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, #ff416c 50%, transparent 100%);
+      border-radius: 1px;
+    }
+
+    .learning-objectives {
+      background: linear-gradient(135deg, #ffccd5 0%, #ff9990 100%);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(255, 65, 108, 0.2);
+      border-left: 4px solid #ff416c;
+      color: #4d001f;
+    }
+
+    .learning-objectives h3,
+    .tools-section h3 {
+      color: #4d001f;
+    }
+
+    .tools-section {
+      background: linear-gradient(135deg, #ffb3b3 0%, #ff7f50 100%);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 15px rgba(255, 75, 43, 0.2);
+      border-left: 4px solid #ff4b2b;
+      color: #4d001f;
+    }
+
+    .learning-objectives ul,
+    .tools-section ul {
+      margin-left: 1.5rem;
+      padding-left: 1.2rem;
+      list-style-position: inside;
+    }
+
+    .learning-objectives li,
+    .tools-section li {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      color: #ff416c;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      color: #ff4b2b;
+      text-decoration: underline;
+    }
+
+    code {
+      background: linear-gradient(135deg, #fff0f0 0%, #ffd6d6 100%);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      color: #ff416c;
+      font-weight: 600;
+    }
+
+    /* ---------- STEP STYLING ---------- */
+
+    .step-section {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 8px 30px rgba(255, 65, 108, 0.15);
+      color: #4d001f;
+      border-left: 6px solid #ff416c;
+      transition: all 0.3s ease;
+    }
+
+    .step-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 75, 43, 0.25);
+    }
+
+    .step-section h3 {
+      font-size: 1.3rem;
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 0;
+    }
+
+    .step-section .objective-box {
+      background: linear-gradient(135deg, #ffe6eb 0%, #ffc2b3 100%);
+      border-radius: 10px;
+      padding: 12px 16px;
+      border-left: 4px solid #ff416c;
+      margin: 1rem 0 1.5rem;
+      font-weight: 500;
+    }
+
+    /* ---------- LIST STYLING ---------- */
+
+    .step-section ol {
+      list-style: decimal inside;
+      counter-reset: item;
+      padding-left: 1.2rem;
+      line-height: 1.6;
+      margin: 1rem 0;
+    }
+
+    .step-section ol>li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .step-section ol>li::marker {
+      color: #ff416c;
+      font-weight: bold;
+    }
+
+    .step-section ul {
+      list-style: disc;
+      margin-left: 1.5rem;
+      padding-left: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .step-section ul li::marker {
+      color: #ff4b2b;
+    }
+
+    .wrap-title {
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .styled-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .styled-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin: 0.75rem 0;
+    }
+
+    .styled-list li::before {
+      content: '🎯';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <!-- App Bar -->
+      <v-app-bar class="gradient" dark elevation="8">
+        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>Sonic Signals and Futures Workshops</v-toolbar-title>
+      </v-app-bar>
+
+      <!-- Navigation Drawer -->
+      <v-navigation-drawer v-model="drawer" temporary>
+        <v-list density="compact" nav>
+
+          <!-- Home -->
+          <v-list-item @click="tab = 0; drawer = false" prepend-icon="mdi-home" title="Home"></v-list-item>
+
+          <!-- Stream A -->
+          <v-list-group prepend-icon="mdi-cable-data">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props">
+                <v-list-item-title class="wrap-title">
+                  Stream A: Biofeedback Practice
+                </v-list-item-title>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="(step, index) in streamAWorkshops" :key="'a-'+index"
+              @click="tab = 1; scrollToStep(index, 'A'); drawer = false">
+              <v-list-item-title class="wrap-title">{{ step.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list-group>
+
+          <!-- Stream B -->
+          <v-list-group prepend-icon="mdi-robot">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props">
+                <v-list-item-title class="wrap-title">
+                  Stream B: Creative Music Machines">
+                </v-list-item-title>
+              </v-list-item>
+            </template>
+
+            <v-list-item v-for="(step, index) in streamBWorkshops" :key="'b-'+index"
+              @click="tab = 2; scrollToStep(index, 'B'); drawer = false">
+              <v-list-item-title class="wrap-title">{{ step.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list-group>
+
+        </v-list>
+      </v-navigation-drawer>
+
+      <!-- Main Content -->
+      <v-main>
+        <v-container class="py-10">
+
+          <v-window v-model="tab" mandatory>
+
+            <!-- Home -->
+            <v-window-item value="0">
+              <h2>Welcome to the Sonic Signals and Futures Workshops</h2>
+              <div class="intro-section">
+                <p>Welcome to a series of workshops where you will experiment with personal experiences, technology,
+                  and creative processes to explore the intersections of movement, sound, and digital tools.</p>
+                <br>
+                <p>Through hands-on activities, you’ll engage with either your body or artificial intelligence to
+                  generate musical works. You will explore different streams that offer distinct approaches to music
+                  creation, learning how physical activity, AI, and creative experimentation can produce expressive,
+                  sonic outcomes.</p>
+                <br>
+                <ul class="styled-list">
+                  <li>Stream A – <b>The Body as Instrument:</b> Explore how personal bio-data can generate unique sonic
+                    experiences that reflect movement, gesture, and the physicality of the body. Collect your own GPS
+                    data using Strava or wearable devices (e.g., Apple Watch, Fitbit) and sonify it using online
+                    sequencers or other tools to create experimental musical outcomes.</li>
+                  <li>Stream B – <b>Creative Music Machines:</b> Explore how artificial intelligence tools can help you
+                    generate music. Using the online tool ElevenLabs, you will collaborate with AI to produce music
+                    compositions from text prompts, experimenting with mood, style, structure, and instruments in an
+                    interactive, co-creative process.</li>
+                </ul>
+
+              </div>
+            </v-window-item>
+
+            <!-- Stream A -->
+            <!-- Workshop 1 -->
+            <v-window-item :value="1">
+              <!-- <h2>Stream A: Biofeedback Practice</h2> -->
+              <h2>{{ streamAWorkshops[0].title }}</h2>
+              <div class="intro-section">
+                <p> In this workshop, you will explore how physical movement can generate data that can
+                  be transformed into sound. Using the Strava app, you will record a short
+                  activity—such as walking around campus, taking a short route to get coffee, or any
+                  movement of your choice. This activity will allow you to capture your own
+                  biofeedback data and begin to understand how bodily motion can be represented as
+                  digital information. </p> <br>
+                <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>What You Will Do</h3>
+                <p> You will record a 1-minute movement session using Strava, download your activity
+                  data as a CSV file from the Strava desktop platform, and convert it into a MIDI file
+                  using <a href="https://csv-to-midi.evanking.io/" target="_blank">CSV-to-MIDI
+                    Converter</a>. You will then upload the resulting MIDI file into <a
+                    href="https://onlinesequencer.net/" target="_blank">Online Sequencer</a> to
+                  experiment with different instruments and sonic textures. This process introduces
+                  how the body’s movement can become a musical source. </p> <br>
+                <p> The outcome of this workshop will serve as preparation for <strong>Project 2, Part
+                    1: Proposal & Concept Development</strong>, where you will describe your own
+                  planned activity and how you intend to creatively transform movement data into
+                  sound. </p>
+
+                <!-- <h3><v-icon color="primary" class="mr-2">mdi-map</v-icon>What is GPS Drawing?</h3>
+                            <p>Also known as GPS art, GPS drawing is a method where an artist uses a Global
+                                Positioning System (GPS) device to follow a pre-planned route and create a
+                                large-scale picture or pattern. The .GPX data recorded during the drawing process is
+                                visualized as a line on a map. Artists often run or cycle the route, while cars,
+                                boats, or planes can be used for larger artworks. <a
+                                    href="https://en.wikipedia.org/wiki/GPS_drawing" target="_blank">Learn more</a>.
+                            </p> -->
+
+                <br>
+
+                <div class="learning-objectives">
+                  <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
+                  <ul>
+
+                    <li>Understand how motion-based data can be transformed into music by
+                      converting it into a MIDI file.</li>
+                    <li>Reflect on how your movement patterns and choices influence the
+                      resulting music and consider what this reveals about using the body as an
+                      instrument.</li>
+                    <li>Generate material and insights to support <strong>Project 2, Part 1:
+                        Proposal & Concept Development</strong>.</li>
+                  </ul>
+                </div>
+
+                <br>
+                <div class="tools-section">
+                  <h3><v-icon color="primary" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
+                  <ul>
+                    <li>Strava app on your smartphone</li>
+                    <li>Strava desktop dashboard</li>
+                    <li>CSV-to-MIDI Converter</li>
+                    <li>Online Sequencer</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Steps -->
+
+              <br>
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>1: Record Your Movement Data
+                  in Strava
+                </h3>
+                <div class="objective-box"> <strong>Objective:</strong> Use the Strava app to record a
+                  short movement activity and generate your own motion data for later sound
+                  transformation. </div>
+                <p>Follow these steps:</p>
+                <ol>
+                  <li> Install the Strava app on your mobile device. <ul>
+                      <li>Link to Strava on the Apple App Store: <a
+                          href="https://apps.apple.com/us/app/strava-run-bike-walk/id426826309" target="_blank">Install
+                          Strava App</a> </li>
+                      <li>Link to Strava on Google Play: <a
+                          href="https://play.google.com/store/apps/details?id=com.strava&hl=en_CA"
+                          target="_blank">Install Strava App</a>
+
+                        <v-img src="images/biofeedback/strava-app.jpeg" alt="Strava app screenshot"
+                          class="my-4 rounded-lg" width="20%" />
+                      </li>
+                    </ul>
+                  </li>
+                  <li> Go outside and complete a short activity of your choice (for example, walking
+                    around campus, going for a coffee, or exploring nearby paths). <ul>
+                      <li>Open Strava, tap <strong>Record</strong> → <strong>Start</strong> to
+                        begin tracking your movement.</li>
+                      <li>Move for about <strong>1 minute</strong> while the app records your
+                        route and motion data.
+                        <v-img src="images/biofeedback/strava-app-record.png" alt="Strava recording interface"
+                          class="mx-2 rounded-lg" max-width="40%" />
+                      </li>
+                      <li>When you are finished, tap <strong>Stop</strong> →
+                        <strong>Finish</strong> → <strong>Save</strong> to save the motion data
+                        from your activity.
+                        <v-img src="images/biofeedback/strava-app-stop.png" alt="Strava recording interface"
+                          class="mx-2 rounded-lg" max-width="20%" />
+                      </li>
+                    </ul>
+                  </li>
+                  <li> Return to the classroom </li>
+
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-laptop</v-icon>2: Download and Convert Your
+                  Strava Data</h3>
+                <div class="objective-box"> <strong>Objective:</strong> Access your recorded activity
+                  data
+                  from the Strava desktop platform, export it as a GPX file, and convert it into a CSV
+                  format for later sound transformation. </div>
+                <p>Follow these steps:</p>
+                <ol>
+                  <li> On your computer, navigate to the Strava website: <a href="https://www.strava.com/"
+                      target="_blank">https://www.strava.com/</a>
+                  </li>
+                  <li> Click <strong>Log In</strong> and choose your preferred login method: <ul>
+                      <li><strong>Email and Password:</strong> Enter the email address and
+                        password
+                        associated with your account.</li>
+                      <li><strong>Email and Code:</strong> Send a one-time code to your email
+                        address and password
+                        associated with your account.</li>
+                      <li><strong>Linked Account:</strong> Select <em>Google</em>, <em>Apple</em>,
+                        or
+                        <em>Facebook</em> if you’ve linked your Strava profile.
+                      </li>
+                      <li>Click the <strong>Log In</strong> button to continue.</li>
+                    </ul>
+                  </li>
+                  <li> After logging in, go to your profile: <ul>
+                      <li>Click your name or profile icon in the upper-right corner of the page.
+                      </li>
+                      <li>From the top menu, select <strong>Training → My Activities</strong>.
+                        <v-img src="images/biofeedback/my-activities.png" alt="Strava recording interface"
+                          class="mx-2 rounded-lg" max-width="60%" />
+                      </li>
+                      <li>Locate the activity you recorded earlier and click it to open its detail
+                        page.
+                        <v-img src="images/biofeedback/activity-detail.png" alt="Strava recording interface"
+                          class="mx-2 rounded-lg" max-width="60%" />
+                      </li>
+                    </ul>
+                  </li>
+                  <li> Export your data as a GPX file: <ul>
+                      <li>Click the <strong>three-dots icon (...) </strong> in the top-left corner
+                        of
+                        the activity page.</li>
+                      <li>Select <strong>Export GPX</strong> from the dropdown menu.
+                        <v-img src="images/biofeedback/export-gpx.png" alt="Strava recording interface"
+                          class="mx-2 rounded-lg" max-width="60%" />
+                      </li>
+                      <li>The GPX file will automatically download to your computer.</li>
+                    </ul>
+                  </li>
+                  <li> Convert your GPX file into a CSV format using the <a href="https://mygeodata.cloud/"
+                      target="_blank">MyGeodata Converter</a>:
+                    <ul>
+                      <li>Go to the MyGeodata website and upload your downloaded GPX file.</li>
+                      <li>Click <strong>Next</strong> to continue.</li>
+                      <li>In the preview window, check that the map location matches your route
+                        and
+                        click <strong>Looks good</strong>.</li>
+                      <li>Under <strong>Required Output Format</strong>, select <strong>CSV -
+                          Comma
+                          Separated Values</strong>.</li>
+                      <li>Click <strong>Convert</strong> → <strong>Download</strong> to save the
+                        converted file.</li>
+                    </ul>
+                  </li>
+                  <li> Save the downloaded folder to your computer and unzip (extract) it.
+                    <ul>
+                      <li>
+                        Learn how to unzip folders in Mac:
+                        <a href="https://support.apple.com/en-ca/guide/mac-help/mchlp2528/mac"
+                          target="_blank">https://support.apple.com/en-ca/guide/mac-help/mchlp2528/mac</a>
+                      </li>
+                      <li>
+                        Learn how to unzip folders in Windows:
+                        <a href="https://support.microsoft.com/en-us/windows/zip-and-unzip-files-8d28fa72-f2f9-712f-67df-f80cf89fd4e5"
+                          target="_blank">https://support.microsoft.com/en-us/windows/zip-and-unzip-files-8d28fa72-f2f9-712f-67df-f80cf89fd4e5</a>
+                      </li>
+                    </ul>
+                  <li>Inside the unzipped folder, you’ll find two files:
+                    <strong>tracks.csv</strong> and <strong>track_points.csv</strong>.
+                    <ul>
+                      <li>We will use the file named <strong>track_points.csv</strong> for the
+                        next
+                        step.</li>
+                  </li>
+                  </ul>
+                  </li>
+                </ol>
+              </div>
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-file-music</v-icon>3: Convert CSV to MIDI
+                </h3>
+                <div class="objective-box"> <strong>Objective:</strong> Transform your recorded motion
+                  data
+                  into a musical format by converting your <strong>track_points.csv</strong> file into
+                  a
+                  MIDI file.
+                  <br><br>
+                  <div><strong> What is
+                      MIDI?</strong>
+                    <p> MIDI (Musical Instrument Digital Interface) is a digital file format that
+                      stores
+                      information about notes, timing, and instrument data — not actual recorded
+                      sound. It
+                      allows different software and hardware instruments to interpret musical
+                      data,
+                      making
+                      it possible to edit, remix, or reassign sounds to the same musical
+                      structure.
+                    </p>
+                  </div>
+                </div>
+
+
+
+                <p>Follow these steps:</p>
+                <ol>
+                  <li> Go to the CSV-to-MIDI Converter webpage: <a href="https://csv-to-midi.evanking.io/"
+                      target="_blank">https://csv-to-midi.evanking.io/</a> </li>
+                  <li> Load your <strong>track_points.csv</strong> file by clicking the <v-icon color="primary"
+                      class="mx-1">mdi-folder</v-icon> icon on the top-left side
+                    of
+                    the
+                    webpage and selecting your cvs file.
+
+                  <li>Select <strong>Export GPX</strong> from the dropdown menu.
+                    <v-img src="images/biofeedback/csv-midi.png" alt="Strava recording interface"
+                      class="mx-2 rounded-lg" max-width="60%" />
+                  </li>
+                  <li> Under <strong>Column Mappings</strong>, choose the parameters you want to map:
+                    <ul>
+                      <li><strong>X</strong> or <strong>Y</strong> for the <em>note</em></li>
+                      <li><strong>X</strong> or <strong>Y</strong> for the <em>velocity</em>
+
+                        <v-img src="images/biofeedback/mapping.png" alt="Strava recording interface"
+                          class="mx-2 rounded-lg" max-width="60%" />
+                      </li>
+                    </ul>
+                  </li>
+                  <li> Experiment with the available parameters such as <strong>key</strong>,
+                    <strong>scale</strong>, <strong>duration</strong>, <strong>octave</strong>, and
+                    <strong>range</strong>. Don’t worry if you’re not sure what each one means — we
+                    will
+                    explore these settings in more detail in future workshops.
+                  </li>
+                  <li> Once you’re satisfied with your configuration, save your new MIDI file by
+                    clicking
+                    the <v-icon color="primary" class="mx-1">mdi-content-save</v-icon> icon
+                    on the bottom-right side of the page.
+
+                    <v-img src="images/biofeedback/save-mapping.png" alt="Strava recording interface"
+                      class="mx-2 rounded-lg" max-width="60%" />
+                  </li>
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-music</v-icon>4: Listen to Your MIDI File
+                  in
+                  Online Sequencer</h3>
+                <div class="objective-box"> <strong>Objective:</strong> Upload and listen to your MIDI
+                  file
+                  in an online sequencer to hear how your movement data translates into music. </div>
+                <p>Follow these steps:</p>
+                <ol>
+                  <li> Go to <a href="https://onlinesequencer.net/" target="_blank">Online
+                      Sequencer</a>.
+                  </li>
+                  <li> On the top menu, click the <strong>three dots</strong> (<v-icon color="primary"
+                      class="mx-1">mdi-dots-vertical</v-icon>) and select <strong>Import
+                      MIDI/Sequence File</strong>.
+
+                    <v-img src="images/biofeedback/import-midi.png" alt="Strava recording interface"
+                      class="mx-2 rounded-lg" max-width="60%" />
+                  </li>
+                  <li> In the <strong>Import MIDI</strong> window that appears: <ul>
+                      <li>Select an instrument from the dropdown menu (for example, Piano, Synth,
+                        or
+                        Strings).</li>
+                      <li>Click <strong>Import</strong> to load your MIDI file into the sequencer.
+                      </li>
+                    </ul>
+                  </li>
+                  <li> Click <v-icon color="primary" class="mx-1">mdi-play</v-icon>
+                    to listen to your composition — this is the sound
+                    representation of your movement data from Strava. When finished, click
+                    <v-icon color="primary" class="mx-1">mdi-stop</v-icon> to
+                    stop the playback.
+                  </li>
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-account-group</v-icon>5: Share Your
+                  Music With the Class</h3>
+                <div class="objective-box"> <strong>Objective:</strong> Share your music sequence
+                  created from your movement data in Online Sequencer with the class and explore the
+                  variety of results generated from your physical activities. </div>
+                <ol>
+                  <li> In Online Sequencer, click the <strong>Cloud</strong> <v-icon color="primary"
+                      class="mx-1">mdi-cloud</v-icon> icon at the top menu
+                    corner of the interface.
+
+                    <ul>
+                      <li>This will generate a unique URL for your sequence.</li>
+                      <li>Copy the URL provided — this is the link you will share with the class.
+
+                        <v-img src="images/biofeedback/share-url.png" alt="Strava recording interface"
+                          class="mx-2 rounded-lg" max-width="60%" />
+                      </li>
+                    </ul>
+                  </li>
+                  <li> Post the URL on the class whiteboard: <a href="https://tinyurl.com/SonicSignalsAndFutures"
+                      target="_blank">https://tinyurl.com/SonicSignalsAndFutures</a>
+                  </li>
+                  <li> Once posted, take a few minutes to listen to your classmates’ sequences. Notice
+                    how different movement patterns, speeds, and routes have resulted in unique
+                    musical outcomes. </li>
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-file-document-outline</v-icon>6: Develop
+                  Your Proposal and Concept</h3>
+                <div class="objective-box"> <strong>Objective:</strong> Use your experience recording
+                  and listening to your movement data to begin drafting your Project 2, Part 1:
+                  Proposal & Concept Development.
+                  <br><br>
+                  <p><strong>Note:</strong> There is no submission required at this step. A good idea
+                    is to start
+                    your draft during class so you can refine it at home before posting it
+                    on Avenue to Learn by the date indicated in the guidelines.</p>
+                </div>
+                <p>Follow these steps to start developing ideas that will form the basis of your
+                  proposal:</p>
+                <ol>
+                  <li> Reflect on the physical activity you completed: <ul>
+                      <li>What did you notice about your body, movement patterns, or rhythm while
+                        capturing the data?</li>
+                      <li>How did your pace, gestures, or decisions about where to move influence
+                        the sounds produced in your MIDI sequence?</li>
+                    </ul>
+                  </li>
+                  <li> Imagine how you want to transform your GPS/movement data into music: <ul>
+                      <li>What types of sounds or instruments could represent your heartbeat,
+                        speed, or movement?</li>
+                      <li>How might different musical elements (pitch, rhythm, dynamics) convey
+                        aspects of your physical activity?</li>
+                    </ul>
+                  </li>
+                  <li> Consider connections to course discussions and readings: <ul>
+                      <li>How does your concept relate to ideas of embodiment, sound, and
+                        technology?</li>
+                      <li>How might your work explore the body as a site of musical expression or
+                        affective feedback?</li>
+                    </ul>
+                  </li>
+                  <li> Begin drafting your <strong>Project 2, Part 1: Proposal & Concept
+                      Development</strong>: <ul>
+                      <li>Use the guidelines provided here: <a
+                          href="https://gbdawu.github.io/gbda412/group-project-2.html"
+                          target="_blank">https://gbdawu.github.io/gbda412/group-project-2.html</a>
+                      </li>
+
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+
+            </v-window-item>
+
+            <!-- Workshop 2 -->
+            <v-window-item value="2">
+              <h2>{{ streamAWorkshops[1].title }}</h2>
+
+              <p>Coming soon!</p>
+
+            </v-window-item>
+
+            <!-- Workshop 3 -->
+            <v-window-item value="3">
+              <h2>{{ streamAWorkshops[2].title }}</h2>
+
+              <p>Coming soon!</p>
+            </v-window-item>
+
+
+            <!-- STREAM B -->
+
+            <v-window-item value="4">
+              <h2>{{ streamBWorkshops[0].title }}</h2>
+              <div class="intro-section">
+                <p>In this workshop, you will explore how AI can be used to generate original music. Using ChatGPT and
+                  the ElevenLabs AI music creator, you will design a short 30-second composition. This process will
+                  allow you to experiment with musical ideas, styles, and textures, while discovering how human
+                  creativity can collaborate with machine intelligence.</p> <br>
+
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>What You Will Do</h3>
+                <p>
+                  You will follow define mood, genre, and sections and use ChatGPT to craft prompts for the
+                  ElevenLabs AI music creator. You will enter your prompts into ElevenLabs to generate a
+                  30-second piece, then save the resulting audio file.
+                </p>
+
+                <p>The outcome of this workshop will serve as preparation for <strong>Project 2, Part 1: Proposal &
+                    Concept Development</strong>, where you will formalize your AI music project and explain your
+                  creative process.</p>
+
+
+
+                <!-- <h3><v-icon color="primary" class="mr-2">mdi-map</v-icon>What is GPS Drawing?</h3>
+                            <p>Also known as GPS art, GPS drawing is a method where an artist uses a Global
+                                Positioning System (GPS) device to follow a pre-planned route and create a
+                                large-scale picture or pattern. The .GPX data recorded during the drawing process is
+                                visualized as a line on a map. Artists often run or cycle the route, while cars,
+                                boats, or planes can be used for larger artworks. <a
+                                    href="https://en.wikipedia.org/wiki/GPS_drawing" target="_blank">Learn more</a>.
+                            </p> -->
+
+                <br>
+
+                <div class="learning-objectives">
+                  <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
+                  <ul>
+                    <li>Understand how to use AI tools like ChatGPT and ElevenLabs to generate short musical
+                      compositions based on prompts and creative direction.</li>
+                    <li>Reflect on how your creative decisions—such as mood, genre, instruments, and structure—shape the
+                      resulting AI-generated music.</li>
+                    <li>Produce and document material that will support <strong>Project 2, Part 1: Proposal & Concept
+                        Development</strong>, outlining your concept and musical approach.</li>
+                  </ul>
+                </div>
+
+
+                <br>
+                <div class="tools-section">
+                  <h3><v-icon color="primary" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
+                  <ul>
+                    <li>ChatGPT</li>
+                    <li>ElevenLabs</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Steps -->
+
+              <br>
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>1: Define Mood, Genre, & Sections</h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Describe the mood, genre, and overall structure
+                  of your AI-generated music
+                  composition. Indicate if lyrics will be included.
+                </div>
+                <p>Follow these steps:</p>
+                <ol>
+                  <li>Think about the emotional tone or feeling you want your 30-second composition to convey. Consider
+                    genres and rhythms that align with your vision.</li>
+                  <li>Sketch a rough outline of your musical sections (for example: intro, build-up, climax, ending) and
+                    note any specific instruments or sonic elements you plan to include.
+                  </li>
+                  <li>If you plan to include lyrics, jot down a couple short phrases or words that capture the mood of
+                    your
+                    piece.
+                  </li>
+                  <li>Finalize your ideas so that they are clear enough to create prompts for Step 2 with ChatGPT and
+                    ElevenLabs AI music creator.</li>
+                </ol>
+
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>2: Develop Prompts with ChatGPT</h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Use ChatGPT to develop effective prompts for ElevenLabs AI music creator.
+                  Decide on mood, instruments, and structure for your 30-second composition.
+                </div>
+
+                <p>Follow these steps:</p>
+                <ol>
+                  <li>
+                    Go to <a href="https://chatgpt.com/" target="_blank">ChatGPT</a> and start a new conversation. <ul>
+                      <li>Explain the exercise: you want to develop a 30-second AI-generated music composition.</li>
+                      <li>Ask ChatGPT to ask you questions about mood/emotional tone, instruments, and
+                        musical structure you want.</li>
+                      <li>Request that ChatGPT asks the questions <strong>one at a time</strong>, for example: 3
+                        questions about mood, 3 about instruments, 3 about structure.</li>
+                      <li>Follow this example prompt for ChatGPT:
+
+                        <v-img src="images/AIMusic/prompt1.png" alt="ElevenLabs account creation"
+                          class="my-4 rounded-lg" width="60%" />
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    Answer ChatGPT's questions thoughtfully, describing the mood, genre, instruments, and sections of
+                    your composition.
+                    <v-img src="images/AIMusic/prompt2.png" alt="ElevenLabs account creation" class="my-4 rounded-lg"
+                      width="60%" />
+                  </li>
+
+                  <li>
+                    Once all questions are answered, ask ChatGPT to generate a list of prompts for ElevenLabs AI music
+                    creator. <ul>
+                      <li>Ensure each prompt is concise, clear, and can be directly input into ElevenLabs to produce
+                        your 30-second music piece.</li>
+
+                      <li><strong>Example:</strong>
+                        <v-img src="images/AIMusic/prompt3.png" alt="ElevenLabs account creation"
+                          class="my-4 rounded-lg" width="60%" />
+                      </li>
+
+                    </ul>
+                  </li>
+
+                  <li>Save the resulting list of prompts for use in the next step when generating your music in
+                    ElevenLabs.</li>
+                </ol>
+
+              </div>
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>3: Generate Music in ElevenLabs</h3>
+                <div class="objective-box"><strong>Objective:</strong> Use the prompts you developed with ChatGPT to
+                  generate a 30-second music composition in ElevenLabs AI music creator, and save the resulting audio
+                  file for later use.</div>
+                <p>Follow these steps:</p>
+                <ol>
+                  <li>Create an ElevenLabs account using your Waterloo University email. <ul>
+                      <li>Go to <a href="https://www.elevenlabs.io/" target="_blank">ElevenLabs AI music creator</a> and
+                        click <strong>Sign Up</strong>.</li>
+                      <li>Select the <strong>Free Account</strong> option.</li>
+                      <li><strong>Disclaimer:</strong> If you choose to explore the topic of AI music, please note that
+                        some platforms may require a $5 USD one-month subscription. In many cases, the free version may
+                        be sufficient, but the subscription could be necessary to fully complete the assignment.</li>
+                    </ul>
+                  </li>
+                  <li>Open the music generation interface. <ul>
+                      <li>Locate the input field where you can enter your text prompts.</li>
+                    </ul>
+                  </li>
+                  <li>Enter the prompts generated with ChatGPT into the input field. <ul>
+                      <li>These prompts should describe mood, instruments, structure, and any other instructions for
+                        your 30-second piece.</li>
+                      <li><v-img src="images/AIMusic/elevenlabs1.png" alt="ElevenLabs example prompt"
+                          class="my-4 rounded-lg" width="60%" /></li>
+                    </ul>
+                  </li>
+                  <li>Click <strong>Generate</strong> to produce your 30-second composition. <ul>
+                      <li>Listen to your generated audio using the play button.</li>
+                      <li><strong>Recommendation:</strong> Avoid tweaking the prompts now, as this will use up your
+                        monthly music generation minutes. Save them for next week’s workshop!
+                  <v-img src="images/AIMusic/elevenlabs2.png" alt="ElevenLabs play button" class="my-4 rounded-lg"
+                      width="60%" />
+                    </li>
+                  </ul>
+                  </li>
+                  
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-share-variant</v-icon>4: Share Your Composition on the
+                  Class Whiteboard</h3>
+                <div class="objective-box"><strong>Objective:</strong> Upload your AI-generated 30-second music
+                  composition to the shared class whiteboard so that your peers can listen, comment, and engage with
+                  your work.</div>
+                <p>Follow these steps:</p>
+                <ol>
+
+                   <li>Copy the <strong> Share Page</strong> link from ElevenLabs. <ul>
+                      <li>Click the <strong>Share</strong> button at the bottom of ElevenLabs Music Creator.</li>
+                      <li>Select <strong>Share Public Page</strong>.
+                        <v-img src="images/AIMusic/elevenlabs3.png" alt="ElevenLabs play button" class="my-4 rounded-lg"
+                      width="60%" />
+                      
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>Post the Public Page link in the class whiteboard. <ul>
+                      <li>Post the link to <a href="https://tinyurl.com/SonicSignalsAndFutures"
+                          target="_blank">https://tinyurl.com/SonicSignalsAndFutures</a>.</li>
+                    </ul>
+                  </li>
+                 
+                  <li>Listen to other compositions. <ul>
+                      <li>Explore compositions uploaded by your classmates and take notes for inspiration.</li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-file-document-outline</v-icon>5: Develop Your Proposal and
+                  Concept</h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Use your experience developing prompts, generating music, and
+                  experimenting with AI to begin drafting your <strong>Project 2, Part 1: Proposal & Concept
+                    Development</strong>.
+                  <br><br>
+                  <p><strong>Note:</strong> There is no submission required at this step. A good idea is to start your
+                    draft during class so you can refine it at home before posting it on Avenue to Learn by the date
+                    indicated in the guidelines.</p>
+                </div>
+
+                <p>Follow these steps to start developing ideas that will form the basis of your proposal:</p>
+                <ol>
+                  <li>Reflect on your AI music creation process:
+                    <ul>
+                      <li>Which moods, genres, or emotional tones did you explore in your prompts?</li>
+                      <li>How did your choices for instruments, textures, or structure influence the generated audio?
+                      </li>
+                      <li>What aspects of your prompt crafting or iteration process affected the outcome?</li>
+                    </ul>
+                  </li>
+                  <li>Envision your composition:
+                    <ul>
+                      <li>Outline the general musical sections you plan for a final, longer, 2-3 minutes piece (e.g., intro, verse,
+                        chorus, bridge, outro).</li>
+                      <li>Decide if your composition will include lyrics, and if so, whether you will write them
+                        yourself or use AI-generated text.</li>
+                    </ul>
+                  </li>
+                  <li>Connect your concept to course themes:
+                    <ul>
+                      <li>How does your AI music composition relate to ideas of automation, creativity, and
+                        human–machine collaboration?</li>
+                      <li>How does your work engage with readings and discussions on algorithmic composition,
+                        AI-generated music, or digital remix cultures?</li>
+                    </ul>
+                  </li>
+                  <li>Begin drafting your <strong>Project 2, Part 1: Proposal & Concept Development</strong>:
+                    <ul>
+                      <li>Use the guidelines provided here: <a
+                          href="https://gbdawu.github.io/gbda412/group-project-2.html"
+                          target="_blank">https://gbdawu.github.io/gbda412/group-project-2.html</a></li>
+                    </ul>
+                  </li>
+                </ol>
+
+              </div>
+
+            </v-window-item>
+
+            <!-- Workshop 2 -->
+            <v-window-item value="5">
+              <h2>{{ streamBWorkshops[1].title }}</h2>
+
+              <p>Coming soon!</p>
+
+            </v-window-item>
+
+            <!-- Workshop 3 -->
+            <v-window-item :value="6">
+              <h2>{{ streamBWorkshops[2].title }}</h2>
+
+              <p>Coming soon!</p>
+            </v-window-item>
+
+
+          </v-window>
+
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+  <script src="appProjectTwo.js"></script>
+
+</body>
+
+</html>

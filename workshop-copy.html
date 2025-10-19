@@ -1,0 +1,499 @@
+   <v-window v-model="tab">
+                        <!-- Home -->
+                        <v-window-item value="0">
+
+                            <div class="intro-section">
+                                <h1 class="mb-4">Sonic Signals and Futures Workshops</h1>
+
+                                <p>Welcome to a series of workshops where your footsteps and daily
+                                    movements become works of art. Here, McMaster University transforms into a canvas,
+                                    and
+                                    every route you trace tells a story about mobility, activism and civic life.</p>
+                                <br>
+
+                                <p>Through hands-on activities, you’ll explore GPS Art, experiment with tools like
+                                    Strava and Canva, and discover how personal experiences of mobility can intersect
+                                    with themes like activism, social displacement, and civic engagement.</p>
+
+                                <br>
+                                <ul class="styled-list">
+                                    <li>Experiment creatively with movement and GPS data using tools like Strava and
+                                        Canva for <b>Group Project 2</b>.</li>
+                                </ul>
+
+
+
+                            </div>
+
+                        </v-window-item>
+
+                        <!-- Workshop 1 -->
+                        <v-window-item value="1">
+                            <h2>{{ workshops[0].title }}</h2>
+                            <div class="intro-section">
+                                <p> In this workshop, you will explore how physical movement can generate data that can
+                                    be transformed into sound. Using the Strava app, you will record a short
+                                    activity—such as walking around campus, taking a short route to get coffee, or any
+                                    movement of your choice. This activity will allow you to capture your own
+                                    biofeedback data and begin to understand how bodily motion can be represented as
+                                    digital information. </p> <br>
+                                <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>What You Will Do</h3>
+                                <p> You will record a 1-minute movement session using Strava, download your activity
+                                    data as a CSV file from the Strava desktop platform, and convert it into a MIDI file
+                                    using <a href="https://csv-to-midi.evanking.io/" target="_blank">CSV-to-MIDI
+                                        Converter</a>. You will then upload the resulting MIDI file into <a
+                                        href="https://onlinesequencer.net/" target="_blank">Online Sequencer</a> to
+                                    experiment with different instruments and sonic textures. This process introduces
+                                    how the body’s movement can become a musical source. </p> <br>
+                                <p> The outcome of this workshop will serve as preparation for <strong>Project 2, Part
+                                        1: Proposal & Concept Development</strong>, where you will describe your own
+                                    planned activity and how you intend to creatively transform movement data into
+                                    sound. </p>
+
+                                <!-- <h3><v-icon color="primary" class="mr-2">mdi-map</v-icon>What is GPS Drawing?</h3>
+                            <p>Also known as GPS art, GPS drawing is a method where an artist uses a Global
+                                Positioning System (GPS) device to follow a pre-planned route and create a
+                                large-scale picture or pattern. The .GPX data recorded during the drawing process is
+                                visualized as a line on a map. Artists often run or cycle the route, while cars,
+                                boats, or planes can be used for larger artworks. <a
+                                    href="https://en.wikipedia.org/wiki/GPS_drawing" target="_blank">Learn more</a>.
+                            </p> -->
+
+                                <br>
+
+                                <div class="learning-objectives">
+                                    <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
+                                    <ul>
+
+                                        <li>Understand how motion-based data can be transformed into music by
+                                            converting it into a MIDI file.</li>
+                                        <li>Reflect on how your movement patterns and choices influence the
+                                            resulting music and consider what this reveals about using the body as an
+                                            instrument.</li>
+                                        <li>Generate material and insights to support <strong>Project 2, Part 1:
+                                                Proposal & Concept Development</strong>.</li>
+                                    </ul>
+                                </div>
+
+                                <br>
+                                <div class="tools-section">
+                                    <h3><v-icon color="primary" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
+                                    <ul>
+                                        <li>Strava app on your smartphone</li>
+                                        <li>Strava desktop dashboard</li>
+                                        <li>CSV-to-MIDI Converter</li>
+                                        <li>Online Sequencer</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Steps -->
+
+                            <br>
+                            <div class="section-divider"></div>
+                            <div class="step-section">
+
+                                <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>1: Record Your Movement Data
+                                    in Strava
+                                </h3>
+                                <div class="objective-box"> <strong>Objective:</strong> Use the Strava app to record a
+                                    short movement activity and generate your own motion data for later sound
+                                    transformation. </div>
+                                <p>Follow these steps:</p>
+                                <ol>
+                                    <li> Install the Strava app on your mobile device. <ul>
+                                            <li>Link to Strava on the Apple App Store: <a
+                                                    href="https://apps.apple.com/us/app/strava-run-bike-walk/id426826309"
+                                                    target="_blank">Install Strava App</a> </li>
+                                            <li>Link to Strava on Google Play: <a
+                                                    href="https://play.google.com/store/apps/details?id=com.strava&hl=en_CA"
+                                                    target="_blank">Install Strava App</a>
+
+                                                <v-img src="images/biofeedback/strava-app.jpeg"
+                                                    alt="Strava app screenshot" class="my-4 rounded-lg" width="20%" />
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li> Go outside and complete a short activity of your choice (for example, walking
+                                        around campus, going for a coffee, or exploring nearby paths). <ul>
+                                            <li>Open Strava, tap <strong>Record</strong> → <strong>Start</strong> to
+                                                begin tracking your movement.</li>
+                                            <li>Move for about <strong>1 minute</strong> while the app records your
+                                                route and motion data.
+                                                <v-img src="images/biofeedback/strava-app-record.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="40%" />
+                                            </li>
+                                            <li>When you are finished, tap <strong>Stop</strong> →
+                                                <strong>Finish</strong> → <strong>Save</strong> to save the motion data
+                                                from your activity.
+                                                <v-img src="images/biofeedback/strava-app-stop.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="20%" />
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li> Return to the classroom </li>
+
+                                </ol>
+                            </div>
+
+                            <div class="section-divider"></div>
+                            <div class="step-section">
+
+                                <h3><v-icon color="primary" class="mr-2">mdi-laptop</v-icon>2: Download and Convert Your
+                                    Strava Data</h3>
+                                <div class="objective-box"> <strong>Objective:</strong> Access your recorded activity
+                                    data
+                                    from the Strava desktop platform, export it as a GPX file, and convert it into a CSV
+                                    format for later sound transformation. </div>
+                                <p>Follow these steps:</p>
+                                <ol>
+                                    <li> On your computer, navigate to the Strava website: <a
+                                            href="https://www.strava.com/" target="_blank">https://www.strava.com/</a>
+                                    </li>
+                                    <li> Click <strong>Log In</strong> and choose your preferred login method: <ul>
+                                            <li><strong>Email and Password:</strong> Enter the email address and
+                                                password
+                                                associated with your account.</li>
+                                            <li><strong>Email and Code:</strong> Send a one-time code to your email
+                                                address and password
+                                                associated with your account.</li>
+                                            <li><strong>Linked Account:</strong> Select <em>Google</em>, <em>Apple</em>,
+                                                or
+                                                <em>Facebook</em> if you’ve linked your Strava profile.
+                                            </li>
+                                            <li>Click the <strong>Log In</strong> button to continue.</li>
+                                        </ul>
+                                    </li>
+                                    <li> After logging in, go to your profile: <ul>
+                                            <li>Click your name or profile icon in the upper-right corner of the page.
+                                            </li>
+                                            <li>From the top menu, select <strong>Training → My Activities</strong>.
+                                                  <v-img src="images/biofeedback/my-activities.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="60%" />
+                                            </li>
+                                            <li>Locate the activity you recorded earlier and click it to open its detail
+                                                page.
+                                              <v-img src="images/biofeedback/activity-detail.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="60%" />
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li> Export your data as a GPX file: <ul>
+                                            <li>Click the <strong>three-dots icon (...) </strong> in the top-left corner
+                                                of
+                                                the activity page.</li>
+                                            <li>Select <strong>Export GPX</strong> from the dropdown menu.
+                                            <v-img src="images/biofeedback/export-gpx.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="60%" />
+                                            </li>
+                                            <li>The GPX file will automatically download to your computer.</li>
+                                        </ul>
+                                    </li>
+                                    <li> Convert your GPX file into a CSV format using the <a
+                                            href="https://mygeodata.cloud/" target="_blank">MyGeodata Converter</a>:
+                                        <ul>
+                                            <li>Go to the MyGeodata website and upload your downloaded GPX file.</li>
+                                            <li>Click <strong>Next</strong> to continue.</li>
+                                            <li>In the preview window, check that the map location matches your route
+                                                and
+                                                click <strong>Looks good</strong>.</li>
+                                            <li>Under <strong>Required Output Format</strong>, select <strong>CSV -
+                                                    Comma
+                                                    Separated Values</strong>.</li>
+                                            <li>Click <strong>Convert</strong> → <strong>Download</strong> to save the
+                                                converted file.</li>
+                                        </ul>
+                                    </li>
+                                    <li> Save the downloaded folder to your computer and unzip (extract) it.
+                                        <ul>
+                                            <li>
+                                                Learn how to unzip folders in Mac:
+                                                <a href="https://support.apple.com/en-ca/guide/mac-help/mchlp2528/mac"
+                                                    target="_blank">https://support.apple.com/en-ca/guide/mac-help/mchlp2528/mac</a>
+                                            </li>
+                                            <li>
+                                                Learn how to unzip folders in Windows:
+                                                <a href="https://support.microsoft.com/en-us/windows/zip-and-unzip-files-8d28fa72-f2f9-712f-67df-f80cf89fd4e5"
+                                                    target="_blank">https://support.microsoft.com/en-us/windows/zip-and-unzip-files-8d28fa72-f2f9-712f-67df-f80cf89fd4e5</a>
+                                            </li>
+                                        </ul>
+                                    <li>Inside the unzipped folder, you’ll find two files:
+                                        <strong>tracks.csv</strong> and <strong>track_points.csv</strong>.
+                                        <ul>
+                                            <li>We will use the file named <strong>track_points.csv</strong> for the
+                                                next
+                                                step.</li>
+                                    </li>
+                                    </ul>
+                                    </li>
+                                </ol>
+                            </div>
+
+
+                            <div class="section-divider"></div>
+                            <div class="step-section">
+                                <h3><v-icon color="primary" class="mr-2">mdi-file-music</v-icon>3: Convert CSV to MIDI
+                                </h3>
+                                <div class="objective-box"> <strong>Objective:</strong> Transform your recorded motion
+                                    data
+                                    into a musical format by converting your <strong>track_points.csv</strong> file into
+                                    a
+                                    MIDI file.
+                                    <br><br>
+                                    <div><strong> What is
+                                            MIDI?</strong>
+                                        <p> MIDI (Musical Instrument Digital Interface) is a digital file format that
+                                            stores
+                                            information about notes, timing, and instrument data — not actual recorded
+                                            sound. It
+                                            allows different software and hardware instruments to interpret musical
+                                            data,
+                                            making
+                                            it possible to edit, remix, or reassign sounds to the same musical
+                                            structure.
+                                        </p>
+                                    </div>
+                                </div>
+
+
+
+                                <p>Follow these steps:</p>
+                                <ol>
+                                    <li> Go to the CSV-to-MIDI Converter webpage: <a
+                                            href="https://csv-to-midi.evanking.io/"
+                                            target="_blank">https://csv-to-midi.evanking.io/</a> </li>
+                                    <li> Load your <strong>track_points.csv</strong> file by clicking the <v-icon
+                                            color="primary" class="mx-1">mdi-folder</v-icon> icon on the top-left side
+                                        of
+                                        the
+                                        webpage and selecting your cvs file. 
+                                    
+                                    <li>Select <strong>Export GPX</strong> from the dropdown menu.
+                                            <v-img src="images/biofeedback/csv-midi.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="60%" />
+                                    </li>
+                                    <li> Under <strong>Column Mappings</strong>, choose the parameters you want to map:
+                                        <ul>
+                                            <li><strong>X</strong> or <strong>Y</strong> for the <em>note</em></li>
+                                            <li><strong>X</strong> or <strong>Y</strong> for the <em>velocity</em>
+                                            
+                                            <v-img src="images/biofeedback/mapping.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="60%" />
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li> Experiment with the available parameters such as <strong>key</strong>,
+                                        <strong>scale</strong>, <strong>duration</strong>, <strong>octave</strong>, and
+                                        <strong>range</strong>. Don’t worry if you’re not sure what each one means — we
+                                        will
+                                        explore these settings in more detail in future workshops.
+                                    </li>
+                                    <li> Once you’re satisfied with your configuration, save your new MIDI file by
+                                        clicking
+                                        the <v-icon color="primary" class="mx-1">mdi-content-save</v-icon> icon
+                                        on the bottom-right side of the page. 
+                                    
+                                      <v-img src="images/biofeedback/save-mapping.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="60%" />
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <div class="section-divider"></div>
+                            <div class="step-section">
+                                <h3><v-icon color="primary" class="mr-2">mdi-music</v-icon>4: Listen to Your MIDI File
+                                    in
+                                    Online Sequencer</h3>
+                                <div class="objective-box"> <strong>Objective:</strong> Upload and listen to your MIDI
+                                    file
+                                    in an online sequencer to hear how your movement data translates into music. </div>
+                                <p>Follow these steps:</p>
+                                <ol>
+                                    <li> Go to <a href="https://onlinesequencer.net/" target="_blank">Online
+                                            Sequencer</a>.
+                                    </li>
+                                    <li> On the top menu, click the <strong>three dots</strong> (<v-icon color="primary"
+                                            class="mx-1">mdi-dots-vertical</v-icon>) and select <strong>Import
+                                            MIDI/Sequence File</strong>. 
+                                        
+                                         <v-img src="images/biofeedback/import-midi.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="60%" />
+                                        </li>
+                                    <li> In the <strong>Import MIDI</strong> window that appears: <ul>
+                                            <li>Select an instrument from the dropdown menu (for example, Piano, Synth,
+                                                or
+                                                Strings).</li>
+                                            <li>Click <strong>Import</strong> to load your MIDI file into the sequencer.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li> Click <v-icon color="primary" class="mx-1">mdi-play</v-icon>
+                                        to listen to your composition — this is the sound
+                                        representation of your movement data from Strava. When finished, click
+                                        <v-icon color="primary" class="mx-1">mdi-stop</v-icon> to
+                                        stop the playback.
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <div class="section-divider"></div>
+                            <div class="step-section">
+
+                                <h3><v-icon color="primary" class="mr-2">mdi-account-group</v-icon>5: Share Your
+                                    Music With the Class</h3>
+                                <div class="objective-box"> <strong>Objective:</strong> Share your music sequence
+                                    created from your movement data in Online Sequencer with the class and explore the
+                                    variety of results generated from your physical activities. </div>
+                                <ol>
+                                    <li> In Online Sequencer, click the <strong>Cloud</strong> <v-icon color="primary"
+                                            class="mx-1">mdi-cloud</v-icon> icon at the top menu
+                                        corner of the interface.
+                                        
+                                        <ul>
+                                            <li>This will generate a unique URL for your sequence.</li>
+                                            <li>Copy the URL provided — this is the link you will share with the class.
+
+                                                <v-img src="images/biofeedback/share-url.png"
+                                                    alt="Strava recording interface" class="mx-2 rounded-lg"
+                                                    max-width="60%" />
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li> Post the URL on the class whiteboard: <a
+                                            href="https://tinyurl.com/SonicSignalsAndFutures"
+                                            target="_blank">https://tinyurl.com/SonicSignalsAndFutures</a>
+                                    </li>
+                                    <li> Once posted, take a few minutes to listen to your classmates’ sequences. Notice
+                                        how different movement patterns, speeds, and routes have resulted in unique
+                                        musical outcomes. </li>
+                                </ol>
+                            </div>
+
+                            <div class="section-divider"></div>
+                            <div class="step-section">
+
+                                <h3><v-icon color="primary" class="mr-2">mdi-file-document-outline</v-icon>6: Develop
+                                    Your Proposal and Concept</h3>
+                                <div class="objective-box"> <strong>Objective:</strong> Use your experience recording
+                                    and listening to your movement data to begin drafting your Project 2, Part 1:
+                                    Proposal & Concept Development.
+                                    <br><br>
+                                    <p><strong>Note:</strong> There is no submission required at this step. A good idea
+                                        is to start
+                                        your draft during class so you can refine it at home before posting it
+                                        on Avenue to Learn by the date indicated in the guidelines.</p>
+                                </div>
+                                <p>Follow these steps to start developing ideas that will form the basis of your
+                                    proposal:</p>
+                                <ol>
+                                    <li> Reflect on the physical activity you completed: <ul>
+                                            <li>What did you notice about your body, movement patterns, or rhythm while
+                                                capturing the data?</li>
+                                            <li>How did your pace, gestures, or decisions about where to move influence
+                                                the sounds produced in your MIDI sequence?</li>
+                                        </ul>
+                                    </li>
+                                    <li> Imagine how you want to transform your GPS/movement data into music: <ul>
+                                            <li>What types of sounds or instruments could represent your heartbeat,
+                                                speed, or movement?</li>
+                                            <li>How might different musical elements (pitch, rhythm, dynamics) convey
+                                                aspects of your physical activity?</li>
+                                        </ul>
+                                    </li>
+                                    <li> Consider connections to course discussions and readings: <ul>
+                                            <li>How does your concept relate to ideas of embodiment, sound, and
+                                                technology?</li>
+                                            <li>How might your work explore the body as a site of musical expression or
+                                                affective feedback?</li>
+                                        </ul>
+                                    </li>
+                                    <li> Begin drafting your <strong>Project 2, Part 1: Proposal & Concept
+                                            Development</strong>: <ul>
+                                            <li>Use the guidelines provided here: <a
+                                                    href="https://gbdawu.github.io/gbda412/group-project-2.html"
+                                                    target="_blank">https://gbdawu.github.io/gbda412/group-project-2.html</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </div>
+
+                        </v-window-item>
+
+                        <!-- Workshop 2 -->
+                        <v-window-item value="2">
+                            <h2>{{ workshops[1].title }}</h2>
+
+                            <p>Coming soon!</p>
+
+                        </v-window-item>
+
+                        <!-- Workshop 3 -->
+                        <v-window-item value="3">
+                            <h2>{{ workshops[2].title }}</h2>
+
+                            <p>Coming soon!</p>
+                        </v-window-item>
+
+                    </v-window>
+
+
+
+<!-- STREAM B -->
+
+<v-window-item value="2">
+  <h2>{{ workshops[1].title }}</h2>
+
+  <!-- Step Sections -->
+  <div class="step-section" id="step-0">
+    <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>Step 1: Define Mood, Genre, & Sections</h3>
+    <div class="objective-box">
+      <strong>Objective:</strong> Describe the mood, genre, or emotional tone of your AI-generated music, outline general musical sections, and indicate if lyrics will be used.
+    </div>
+  </div>
+
+  <div class="step-section" id="step-1">
+    <h3><v-icon color="primary" class="mr-2">mdi-chat</v-icon>Step 2: Develop Prompts with ChatGPT</h3>
+    <div class="objective-box">
+      <strong>Objective:</strong> Use ChatGPT to develop effective prompts for ElevenLabs AI music creator. Decide on instruments, style, and sonic textures for your 30-second composition.
+    </div>
+  </div>
+
+  <div class="step-section" id="step-2">
+    <h3><v-icon color="primary" class="mr-2">mdi-file-music</v-icon>Step 3: Generate Music in ElevenLabs</h3>
+    <div class="objective-box">
+      <strong>Objective:</strong> Enter your prompts into ElevenLabs AI music creator to generate a 30-second piece. Save the resulting audio file.
+    </div>
+  </div>
+
+  <div class="step-section" id="step-3">
+    <h3><v-icon color="primary" class="mr-2">mdi-play</v-icon>Step 4: Listen & Adjust</h3>
+    <div class="objective-box">
+      <strong>Objective:</strong> Listen to your generated music and note your observations. Adjust your prompts if necessary in a future assignment.
+    </div>
+  </div>
+
+  <div class="step-section" id="step-4">
+    <h3><v-icon color="primary" class="mr-2">mdi-cloud-upload</v-icon>Step 5: Share Composition on Class Whiteboard</h3>
+    <div class="objective-box">
+      <strong>Objective:</strong> Upload your audio file to the shared class whiteboard: <a href="https://tinyurl.com/SonicSignalsAndFutures" target="_blank">https://tinyurl.com/SonicSignalsAndFutures</a>.
+    </div>
+  </div>
+
+  <div class="step-section" id="step-5">
+    <h3><v-icon color="primary" class="mr-2">mdi-file-document-outline</v-icon>Step 6: Develop Proposal & Concept</h3>
+    <div class="objective-box">
+      <strong>Objective:</strong> Draft Project 2, Part 1 proposal for your AI music composition. Explain your concept, relation to course themes (automation, creativity, human-machine collaboration), and envisioned sections of your music.
+    </div>
+  </div>
+</v-window-item>
