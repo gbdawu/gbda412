@@ -57,13 +57,13 @@
 
     h3 {
       font-size: 1.25rem;
-      color: #ffd6d6;
+      color: #fff3f3;
       font-weight: 500;
     }
 
     h4 {
       font-size: 1.1rem;
-      color: #ffd6d6;
+      color: #fff3f3;
       font-weight: 500;
     }
 
@@ -228,6 +228,22 @@
       margin-top: 0;
     }
 
+    .step-section h4 {
+      font-size: 1.10rem;
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 0;
+    }
+
+    .step-section h5 {
+      font-size: 1rem;
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 0;
+    }
+
     .step-section .objective-box {
       background: linear-gradient(135deg, #ffe6eb 0%, #ffc2b3 100%);
       border-radius: 10px;
@@ -293,6 +309,14 @@
       top: 0;
       font-size: 1.2rem;
     }
+
+    .tip-box {
+      border-left: 4px solid #ff416c;
+      padding: 1em;
+      border-radius: 12px;
+      color: white;
+      background-color: #454545;
+    }
   </style>
 </head>
 
@@ -333,7 +357,7 @@
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props">
                 <v-list-item-title class="wrap-title">
-                  Stream B: Creative Music Machines">
+                  Stream B: Creative Music Machines"
                 </v-list-item-title>
               </v-list-item>
             </template>
@@ -404,14 +428,6 @@
                   planned activity and how you intend to creatively transform movement data into
                   sound. </p>
 
-                <!-- <h3><v-icon color="primary" class="mr-2">mdi-map</v-icon>What is GPS Drawing?</h3>
-                            <p>Also known as GPS art, GPS drawing is a method where an artist uses a Global
-                                Positioning System (GPS) device to follow a pre-planned route and create a
-                                large-scale picture or pattern. The .GPX data recorded during the drawing process is
-                                visualized as a line on a map. Artists often run or cycle the route, while cars,
-                                boats, or planes can be used for larger artworks. <a
-                                    href="https://en.wikipedia.org/wiki/GPS_drawing" target="_blank">Learn more</a>.
-                            </p> -->
 
                 <br>
 
@@ -776,7 +792,597 @@
             <v-window-item value="2">
               <h2>{{ streamAWorkshops[1].title }}</h2>
 
-              <p>Coming soon!</p>
+              <div class="intro-section">
+                <p> In this workshop, you will take a deeper dive into your movement data and explore
+                  how creative mapping decisions can transform raw biofeedback into expressive sound.
+                  Building on Workshop 1, where you converted movement into MIDI, you will record yourself again and
+                  open
+                  and examine the actual CSV data to understand what information your body generates
+                  during movement—such as GPS coordinates, elevation, speed, and optionally, heart rate. </p> <br>
+
+                <h3><v-icon color="primary" class="mr-2">mdi-map-marker-path</v-icon>What You Will Do</h3>
+                <p> You will record another 1-minute movement session using Strava (with heart rate data
+                  if your device supports it), then download and convert your activity data to CSV format
+                  using <a href="https://mygeodata.cloud/converter/gpx-to-csv" target="_blank">MyGeodata
+                    Converter</a>. This time, you will open the CSV file to explore its structure and the
+                  different data columns it contains. After, using the <a href="https://csv-to-midi.evanking.io/"
+                    target="_blank">CSV-to-MIDI
+                    Converter</a>, you will create three different MIDI variations by experimenting with
+                  different mapping strategies for notes, velocity, time, duration, scales, octaves, and ranges.
+                </p>
+                <br>
+                <p> The outcomes of this workshop will help you refine your theme and generate materials for the
+                  <strong>Project 2,
+                    Part 2: Materials Collection</strong> due November 2.
+                </p>
+
+                <br>
+
+                <div class="learning-objectives">
+                  <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
+                  <ul>
+                    <!-- <li>Reflect on how your physical movement and bodily experience influence
+                      the character and quality of the resulting music.</li> -->
+                    <li>Understand the structure of GPS and biometric data by examining CSV file
+                      columns (X, Y, elevation, heart rate, time).</li>
+                    <li>Learn to make creative map your data to musical variables like pitch, velocity, key, scale,
+                      octave, duration, and timing.</li>
+                    <!-- <li>Experiment with musical variables (note, velocity, key, scale, octave, range) to shape
+                      how your movement data sounds.</li> -->
+                    <li>Generate draft materials for <strong>Project 2, Part 2: Materials
+                        Collection</strong> and refine your overall theme and concept.</li>
+                  </ul>
+                </div>
+
+                <br>
+
+                <div class="tools-section">
+                  <h3><v-icon color="primary" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
+                  <ul>
+                    <li>Strava app on your smartphone or watch (with optional heart rate monitor connection)</li>
+                    <li>Strava desktop dashboard</li>
+                    <li>MyGeodata Converter (GPX to CSV)</li>
+                    <li>CSV-to-MIDI Converter</li>
+                    <li>Online Sequencer</li>
+                    <li>Spreadsheet software (Excel, Google Sheets, or Numbers) to view CSV data</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Steps -->
+
+
+              <br>
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-notebook-edit</v-icon>Step 1: Refine Your Proposal and
+                  Deepen Your Concept</h3>
+
+                <div class="objective-box"><strong>Objective:</strong> Revisit and refine your Project 2, Part 1:
+                  Proposal & Concept Development. Your theme will guide your data collection and mapping decisions.
+                </div>
+
+                <ol>
+                  <li><strong>Revisit your proposal from the discussion forum.</strong> Remind yourself of the activity
+                    and concept you initially proposed. You can also see what other people are planning by reading the
+                    proposals on the discussion forum on LEARN.</li>
+
+
+
+                  <li><strong>Consider connections to course discussions and readings:</strong>
+                    <ul>
+                      <li>How does your concept relate to ideas of embodiment, sound, feminism, and technology?</li>
+                      <!-- <li>How does your concept explore the body as a site of data generation and musical expression?
+                      </li> -->
+                      <li>What does it mean to translate body signals into digital information and then
+                        into sound?</li>
+                      <li>How might your work reveal or question the relationship between physical experience and
+                        technological mediation?</li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Refine your proposal:</strong> Write down a refined theme
+                    statement (1-2 sentences). Keep it flexible — your theme can evolve as you gather data and ideas.
+                    <ul>
+                      <li><b>If you haven't submitted a proposal yet, use this step to start your initial theme proposal
+                          (consult guidelines on LEARN).</b></li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-run</v-icon>Step 2: Record Your Movement Data
+                </h3>
+
+
+                <div class="objective-box"><strong>Objective:</strong> Capture a new 1-minute activity using Strava,
+                  this time being more
+                  intentional about creating variation in your movement data that will translate into interesting sonic
+                  material.
+
+
+                </div>
+
+                <p>Follow these steps:</p>
+                <ol>
+                  <li><strong>Plan a new activity with intentional variation.</strong> In Workshop 1, you may have
+                    noticed that
+                    some aspects of your data didn't vary much. For this
+                    recording, try to create more diversity in your movement data:
+                    <ul>
+                      <li><strong>To create variation in longitude and latitude (X, Y):</strong> Make turns, walk in
+                        curved
+                        or zigzag patterns, trace shapes (circles, squares, figure-eights), or change direction
+                        frequently
+                        rather than walking in a straight line.</li>
+
+                      <li><strong>To create silence or longer notes:</strong> Pause during your walk, or slow down
+                        significantly for a few seconds. The timestamps in your data will be farther apart, creating
+                        longer
+                        note durations.</li>
+
+                      <li><strong>To create elevation changes:</strong> Walk up and down stairs (e.g., first floor to
+                        third
+                        floor), move through a building with multiple levels, or find outdoor terrain with hills or
+                        slopes.
+                      </li>
+                      <br>
+                      <div class="tip-box">
+                        <p><strong>💡 Think of your activity as a mini performance. Your body's choices—where you move,
+                            how
+                            fast,
+                            when you pause—are compositional decisions that will shape your final sound. Some activity
+                            suggestions are:</strong>
+                        <ul>
+                          <li>Walk up and down a stairwell multiple times</li>
+                          <li>Trace a specific pattern or shape around a building or courtyard</li>
+                          <li>Walk through different rooms or hallways with intentional pauses</li>
+                          <li>Move between indoor and outdoor spaces</li>
+                          <li>Create a "choreographed" walk with specific movements in mind</li>
+                        </ul>
+                        </p>
+                      </div>
+                    </ul>
+                  </li>
+
+                  <li><b>Go out the classroom to record for 1 minute</b> using the Strava app.
+                    <ul>
+                      <li>Consult workshop 1 to see detailed instructions on how to record using Strava.</li>
+                      <br>
+                      <div class="tip-box">
+                        <p><strong>💡</strong> If you have an Apple Watch, Fitbit, or other heart rate-enabled device,
+                          you
+                          can
+                          connect it to
+                          Strava to capture heart rate data alongside your GPS data. To connect your device follow the
+                          instructions in the video below.
+                        </p>
+                      </div>
+                      <br>
+                      <iframe width="560" height="315"
+                        src="https://www.youtube.com/embed/g4KLEA0kyMc?si=FW_eGFy4WOVKnuRy" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                    </ul>
+                  </li>
+                  <li>After recording, <b>download your activity as a GPX file</b> from Strava's website.
+                    <ul>
+                      <li> Consult workshop 1 to see detailed instructions on how to download your data from Strava.
+                      </li>
+
+                    </ul>
+
+                  </li>
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-file-chart</v-icon>Step 3: Convert and Explore
+                  Your Data</h3>
+
+                <div class="objective-box"><strong>Objective:</strong> Convert your GPX file to CSV format and examine
+                  the data structure to understand what information your body generated
+                  during movement. You will also begin planning how to structure your composition by analyzing the
+                  time
+                  column.</div>
+
+                <ol>
+
+                  <li><b>Convert your GPX data to a CSV file</b>.
+                    <ul>
+                      <li>Consult workshop 1 to see detailed instructions on how to convert your GPX data to CSV using
+                        <a href="https://mygeodata.cloud/converter/gpx-to-csv" target="_blank">
+                          MyGeodata
+                          Converter</a>.
+                      </li>
+                    </ul>
+                  </li>
+                  <li><strong>Open <code>track_points.csv</code> in Excel or Google Sheets</strong> to see what
+                    your body actually generated!</li>
+
+                  <li><strong>Examine the column headers</strong>. Your CSV file contains several columns of data.
+                    Here's what the most importnat mean:
+
+                    <ul>
+                      <li><strong>X (Longitude):</strong> Your east-west position (e.g., -79.854715)</li>
+                      <li><strong>Y (Latitude):</strong> Your north-south position (e.g., 43.260595)</li>
+                      <li><strong>track_seg_point_id:</strong> Point identification number showing the sequence of
+                        your data points</li>
+                      <li><strong>ele:</strong> Elevation in meters—how high or low you were at each point</li>
+                      <li><strong>time:</strong> Timestamp showing exactly when each data point was recorded</li>
+                      <li><strong>hr (if available):</strong> Heart rate in beats per minute—this column only appears
+                        if you recorded with a heart rate monitor</li>
+                      <li><strong>track_fid, track_seg_id, geoidheight, name, etc: </strong> Usually empty (you can
+                        ignore these fields)
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Look at your data patterns. Scroll through the spreadsheet and observe how the numbers
+                      change row by row.</strong>
+                    <ul>
+
+                      <li>Look at how latitude and longitude shift—large changes mean you moved farther or changed
+                        direction</li>
+                      <li>See how the timestamp increases with each movement you made</li>
+                      <li>Notice where elevation changes significantly—these were moments you moved up or down</li>
+                      <li>If you have heart rate data, observe where it peaks or drops</li>
+                    </ul>
+                  </li>
+                </ol>
+
+
+                <div class="tip-box">
+                  <p><strong>💡 Tip:</strong> Understanding your data structure now will help you make intentional
+                    creative decisions in the next step when you map this data to musical parameters. Take your time
+                    with this exploration—it's where you start to see your body as data!</p>
+                </div>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>Step 4: Create 3 MIDI Variations
+                  Through
+                  Data Mapping</h3>
+
+                <div class="objective-box"><strong>Objective:</strong> Use the CSV-to-MIDI Converter to transform your
+                  movement data into sound
+                  by experimenting with different mapping strategies. You will create three distinct MIDI variations
+                  by
+                  changing which data columns become notes, velocity, time, and duration parameters, and by adjusting
+                  key, scale, octave, and range settings.</div>
+
+
+
+                <div class="tip-box">
+                  <p><strong>💡 Understanding Data-to-MIDI Mapping</strong></p>
+
+                  <p>Mapping is the creative process of deciding which aspects of your body's data become which
+                    aspects
+                    of sound. Different mapping choices create dramatically different sonic results from the same
+                    data.
+                  </p>
+                  <ul>
+                    <li><strong>Note:</strong> <em>Which data column controls which notes are played?</em> Usually
+                      X (longitude) or Y (latitude) coordinates. The CSV-to-MIDI converter scales your X/Y decimal
+                      coordinates down to the MIDI note range (0-127), where each number represents a different pitch.
+                      <span style="text-decoration: underline">Small changes in your coordinates create small pitch
+                        changes</span>,
+                      while <span style="text-decoration: underline">larger movements create bigger melodic
+                        leaps</span>.
+                    </li>
+                    <li><strong>Velocity:</strong> <em>Which data column controls how loud or soft notes are?</em>
+                      Could be elevation, heart rate, or the other coordinate axis.
+                    </li>
+                    <li><strong>Duration:</strong> <em>Which data column controls how long each note lasts?</em>
+                      Try the X or Y. When you move slowly or pause, numbers are farther
+                      apart,
+                      creating longer notes. Moving quickly creates shorter, more rapid notes.
+                    </li>
+                    <li><strong>Time:</strong> <em>What data controls time in your music composition?</em>
+                      The time column can be used to determine when notes play.
+                    </li>
+                  </ul>
+
+                  <!-- <p><strong>💡 Understanding the Musical Parameters</strong></p>
+                   <p>Before creating your variations, familiarize yourself with the parameters you can adjust in the :</p>
+
+                <ul>
+                  <li><strong>Key:</strong> The root note of your scale (e.g., C, D, E♭). Changing the key shifts all
+                    your notes up or down in pitch.
+                    <ul>
+                      <li><em>Example: C Major sounds bright and open; D♭ Major sounds slightly darker and more
+                          mysterious.</em></li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Scale:</strong> The set of notes available in your composition. Different scales create
+                    different moods.
+                    <ul>
+                      <li><em>Major scales:</em> Often sound happy, bright, or uplifting</li>
+                      <li><em>Minor scales:</em> Often sound sad, contemplative, or dramatic</li>
+                      <li><em>Pentatonic scales:</em> Sound neutral, open, and often "Asian-inspired"</li>
+                      <li><em>Chromatic:</em> Uses all 12 notes—can sound dissonant, experimental, or jazzy</li>
+                      <li><em>Example: The same walk mapped in C Major will sound cheerful, while in C Minor it will
+                          sound melancholic.</em></li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Octave:</strong> How high or low your notes sound overall. Lower octaves sound deeper
+                    and
+                    heavier; higher octaves sound lighter and brighter.
+                    <ul>
+                      <li><em>Example: Octave 3-4 sounds warm and middle-range; Octave 5-6 sounds bright and
+                          bell-like.</em></li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Range:</strong> How many octaves your melody can span. A wider range creates more
+                    dramatic
+                    pitch changes; a narrower range sounds more constrained.
+                    <ul>
+                      <li><em>Example: A range of 1 octave keeps melodies simple; a range of 3 octaves allows for big
+                          leaps and dynamic movement.</em></li>
+                    </ul>
+                  </li>
+                </ul> -->
+
+                </div>
+
+                <ol>
+                  <li><strong> Upload your CSV file to <a href="https://csv-to-midi.evanking.io/"
+                        target="_blank">CSV-to-MIDI converter</a> </strong>
+                    <ul>
+                      <li>Consult Workshop 1 for detailed instructions.</li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Create 3 MIDI Variations using CSV-to-MIDI converter</strong>. Now you'll create three
+                    different sonic interpretations of your
+                    movement data. For each variation,
+                    you'll change the mapping strategy and adjust musical parameters as follows:
+
+                    <ol>
+                      <li>Variation 1: East-West Movement as Melody
+                        <ul>
+                          <li>Under <strong>Column Mappings</strong>, set:
+                            <ul>
+                              <li><strong>Notes:</strong> Select the <strong>X column</strong> —
+                                this maps your east-west movement to pitch</li>
+                              <li><strong>Velocity:</strong> Select the <strong>ele (elevation)</strong> column — this
+                                makes
+                                changes in height affect note loudness</li>
+                              <li><strong>Time:</strong> Select the <strong>time</strong> column</li>
+                              <li><strong>Duration:</strong> Select the <strong>Y</strong> column</li>
+
+                            </ul>
+                          </li>
+                          <li>Choose musical parameters:
+                            <ul>
+                              <li><strong>Key:</strong> Try C or D</li>
+                              <li><strong>Scale:</strong> Try Major or Pentatonic</li>
+                              <li><strong>Octave:</strong> Try 4 or 5</li>
+                              <li><strong>Range:</strong> Try 2 octaves</li>
+                            </ul>
+                          </li>
+                          <li>Click <strong>Convert</strong> or <strong>Generate MIDI</strong> to create your file.</li>
+                          <li>Download and save it as <code>longitude-melody.mid</code>.
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li>Variation 2: North-South Movement as Melody
+                        <ul>
+                          <li>Under <strong>Column Mappings</strong>, set:
+                            <ul>
+                              <li><strong>Notes:</strong> This time, select the <strong>Y column</strong> — this maps
+                                your
+                                north-south movement to pitch</li>
+                              <li><strong>Velocity:</strong> Try <strong>hr (heart rate)</strong> if available, or
+                                <strong>ele
+                                  (elevation)</strong> if not
+                              </li>
+                              <li><strong>Time:</strong> Select the <strong>time</strong> column</li>
+                              <li><strong>Duration:</strong> Select the <strong>X</strong> column</li>
+                            </ul>
+                          </li>
+                          <li>Change musical parameters to create contrast with Variation 1:
+                            <ul>
+                              <li><strong>Key:</strong> Try a different key (e.g., A or E♭)</li>
+                              <li><strong>Scale:</strong> Try Aeolian or a different scale type</li>
+                              <li><strong>Octave:</strong> Try a different octave (e.g., 3 if you used 5 before)</li>
+                              <li><strong>Range:</strong> Try a different range (e.g., 1 or 3 octaves)</li>
+                            </ul>
+                          </li>
+                          <li>Generate and download as <code>latitude-melody.mid</code>.</li>
+                        </ul>
+                      </li>
+
+                      <li>Variation 3: Elevation or Heart Rate as Melody
+                        <ol>
+                          <li>Under <strong>Column Mappings</strong>, set:
+                            <ul>
+                              <li><strong>Notes:</strong> Select <strong>ele (elevation)</strong> — this makes your
+                                vertical
+                                movement the melody</li>
+                              <li><strong>Velocity:</strong> Select <strong>X or Y</strong> - this will make your
+                                east-west/north-south make your notes louder or softer.</li>
+                              <li><strong>Time:</strong> Select the <strong>time</strong> column</li>
+                              <li><strong>Duration:</strong> Select the <strong>track_seg_point_id</strong> column</li>
+
+                              <li><em>Alternative if you have heart rate data: Use <strong>hr</strong> as notes and
+                                  <strong>ele</strong> as velocity to hear your heartbeat as melody</em></li>
+                            </ul>
+                          </li>
+                          <li>Experiment with a completely different sonic palette:
+                            <ul>
+                              <li><strong>Key:</strong> Try something unexpected (e.g., F♯ or B♭)</li>
+                              <li><strong>Scale:</strong> Try Chromatic or another scale you haven't used</li>
+                              <li><strong>Octave:</strong> Try extreme high (6-7) or low (2-3) octaves</li>
+                              <li><strong>Range:</strong> Try a very wide (3-4 octaves) or very narrow (1 octave) range
+                              </li>
+                            </ul>
+                          </li>
+                          <li>Generate and download as <code>elevation_melody.mid</code> or
+                            <code>heart-rate_melody.mid</code>.
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-piano</v-icon>Step 5: Sonic Exploration and Final Outputs
+                </h3>
+
+                <div class="objective-box"><strong>Objective:</strong> Import each of your 3 MIDI variations into
+                  Online Sequencer, experiment with different instruments to bring out unique sonic qualities in your
+                  data, and export your final 3 audios for submission in Project 2, Part 2: Materials
+                  Collection.</div>
+
+                <ol>
+
+
+                  <li>For each of your 3 MIDI variations try several different instruments:
+                    <ul>
+                      <li>Import one MIDI file at a time into <a href="https://onlinesequencer.net/"
+                          target="_blank">Online Sequencer</a>
+                        <ul>
+                          <li>See Worksop 1 for detailed instructions on how to import into Onlie Sequencer.</li>
+                        </ul>
+                      </li>
+                      <li><strong>Try contrasting instruments for each variation</strong> to create sonic diversity
+                        across your three outputs. For example:
+                        <ul>
+                          <li>Variation 1 (longitude-based melody): Piano or Marimba</li>
+                          <li>Variation 2 (latitude-based melody): Strings or Synth Pad</li>
+                          <li>Variation 3 (elevation or heart rate melody): Flute or Synth Lead</li>
+                        </ul>
+
+                        <div class="tip-box">
+                          <p><strong>💡 Creative Tip:</strong> Don't just pick your "favorite" sound—choose instruments
+                            that
+                            tell different stories about your movement. One might emphasize the physicality, another the
+                            geography, and another the emotional quality of your walk.</p>
+                        </div>
+                      </li>
+
+                      <li><strong>Consider which instrument best reveals the quality of movement in each
+                          variation:</strong>
+                        <ul>
+                          <li>Does this variation have sharp, sudden changes? → Try percussive instruments</li>
+                          <li>Does it have smooth, flowing patterns? → Try sustained instruments like strings</li>
+                          <li>Does it emphasize physical effort or heart rate? → Try organic wind instruments or
+                            bass</li>
+                          <li>Does it feel abstract or experimental? → Try synths or unconventional choices</li>
+                        </ul>
+                      </li>
+
+                      <li><strong>Listen for what each instrument emphasizes:</strong>
+                        <ul>
+                          <li>Does the instrument make the rhythm more prominent or the melody?</li>
+                          <li>Does it highlight the high notes or low notes in your data?</li>
+                          <li>Does it create an emotional quality that connects to your bodily experience?</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>Export Your 3 Final Outputs. Once you've chosen the best instrument for each of your 3 MIDI
+                    variations, you'll export them as
+                    MP3 files for submission.
+                    <ul>
+                      <li>In Online Sequencer, with your MIDI file loaded and your chosen instrument selected, click the
+                        <strong>Cloud ☁ icon</strong> at the top corner of the interface.
+                      </li>
+                      <li>Click <strong>Export MP3</strong>.</li>
+                      <li>Save the file with a descriptive name that helps you remember which variation and instrument
+                        it uses (e.g., <code>variation1-piano.mp3</code>, <code>latitude-melody-strings.mp3</code>,
+                        <code>elevation-synth.mp3</code>).
+                      </li>
+                    </ul>
+                  <li>Repeat this process for all 3 of your MIDI variations with their chosen instruments.</li>
+                  </li>
+                </ol>
+              </div>
+
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-file-document-outline</v-icon>Step 6: Document Your Work
+                  for Project 2, Part 2: Materials Collection</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Prepare documentation of your creative process and materials for
+                  submission in <strong>Project 2, Part 2: Materials Collection</strong> on LEARN. This documentation
+                  will help you articulate your mapping decisions, reflect on the relationship between body and sound,
+                  and envision your final project direction.
+                </div>
+
+                <p>Take notes on the following to prepare for your forum post:</p>
+
+                <ol>
+                  <li><strong>For each of your 3 outputs, document:</strong>
+                    <ul>
+                      <li>Which MIDI variation is this? (What mapping strategy did you use?)</li>
+                      <li>Which instrument did you choose and why?</li>
+                      <li>What quality of your movement does this instrument/mapping combination emphasize or reveal?
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Prepare to discuss how this material connects to your proposal and to course
+                      readings:</strong>
+                    <ul>
+                      <li>How does your work explore embodiment—the lived experience of your body in motion?</li>
+                      <li>What does the process of converting bodily data to sound reveal about the relationship
+                        between the body, technology, and musical expression?</li>
+                      <li>How does this connect to ideas from course readings about sound, the body, affect, or
+                        biofeedback?</li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Describe what kinds of instruments, timbres, or sounds you imagine using when composing
+                      your final project from this data:</strong>
+                    <ul>
+                      <li>Will you layer multiple instruments?</li>
+                      <li>Do you want acoustic, electronic, or hybrid sounds?</li>
+                      <li>What sonic atmosphere or emotional quality are you aiming for?</li>
+                      <li>How might your instrument choices reflect the physical experience of the activity you
+                        recorded?</li>
+                    </ul>
+                  </li>
+                </ol>
+
+                <br>
+
+                <div class="tip-box">
+                  <p><strong>💡 Ready to Submit? </strong></p>
+                  <p>You now have everything you need for <strong>Project 2, Part 2: Materials Collection</strong>:
+                  </p>
+                  <ul>
+                    <li>✅ 1 CSV with your data recorded </li>
+                    <!-- <li>✅ 3 MIDI variations (with different mapping strategies)</li> -->
+                    <li>✅ 3 MP3 sonic explorations (with different instruments)</li>
+                    <li>✅ Documentation of your creative decisions and connections to course concepts</li>
+                  </ul>
+                  <p>Upload your materials and post your reflection in the forum on LEARN by the deadline.
+                    Consult the project guidelines for full submission requirements: <a
+                      href="https://gbdawu.github.io/gbda412/group-project-2.html" target="_blank">Project 2
+                      Guidelines</a></p>
+                </div>
+              </div>
 
             </v-window-item>
 
@@ -960,12 +1566,12 @@
                       <li>Listen to your generated audio using the play button.</li>
                       <li><strong>Recommendation:</strong> Avoid tweaking the prompts now, as this will use up your
                         monthly music generation minutes. Save them for next week’s workshop!
-                  <v-img src="images/AIMusic/elevenlabs2.png" alt="ElevenLabs play button" class="my-4 rounded-lg"
-                      width="60%" />
-                    </li>
-                  </ul>
+                        <v-img src="images/AIMusic/elevenlabs2.png" alt="ElevenLabs play button" class="my-4 rounded-lg"
+                          width="60%" />
+                      </li>
+                    </ul>
                   </li>
-                  
+
                 </ol>
               </div>
 
@@ -979,12 +1585,12 @@
                 <p>Follow these steps:</p>
                 <ol>
 
-                   <li>Copy the <strong> Share Page</strong> link from ElevenLabs. <ul>
+                  <li>Copy the <strong> Share Page</strong> link from ElevenLabs. <ul>
                       <li>Click the <strong>Share</strong> button at the bottom of ElevenLabs Music Creator.</li>
                       <li>Select <strong>Share Public Page</strong>.
                         <v-img src="images/AIMusic/elevenlabs3.png" alt="ElevenLabs play button" class="my-4 rounded-lg"
-                      width="60%" />
-                      
+                          width="60%" />
+
                       </li>
                     </ul>
                   </li>
@@ -994,7 +1600,7 @@
                           target="_blank">https://tinyurl.com/SonicSignalsAndFutures</a>.</li>
                     </ul>
                   </li>
-                 
+
                   <li>Listen to other compositions. <ul>
                       <li>Explore compositions uploaded by your classmates and take notes for inspiration.</li>
                     </ul>
@@ -1029,7 +1635,8 @@
                   </li>
                   <li>Envision your composition:
                     <ul>
-                      <li>Outline the general musical sections you plan for a final, longer, 2-3 minutes piece (e.g., intro, verse,
+                      <li>Outline the general musical sections you plan for a final, longer, 2-3 minutes piece (e.g.,
+                        intro, verse,
                         chorus, bridge, outro).</li>
                       <li>Decide if your composition will include lyrics, and if so, whether you will write them
                         yourself or use AI-generated text.</li>
@@ -1060,7 +1667,390 @@
             <v-window-item value="5">
               <h2>{{ streamBWorkshops[1].title }}</h2>
 
-              <p>Coming soon!</p>
+              <div class="intro-section">
+                <p>
+                  In this workshop, you will deepen your AI prompting skills to produce complex and
+                  expressive music compositions.
+                  You will also practice on structuring a longer composition of
+                  one to one and a half minutes, by generating individual sections such as an intro and verse.
+                  Through this process, you’ll deepen your
+                  understanding of how
+                  descriptive language can shape musical ideas and guide AI tools toward your creative vision.
+                </p>
+                <br>
+
+                <h3>
+                  <v-icon color="primary" class="mr-2">mdi-music-note</v-icon>
+                  What You Will Do
+                </h3>
+
+                <p>
+                  You will start by refining your proposal's idea. The, you will use ChatGPT to develop detailed prompts
+                  for two song sections like an
+                  intro and a verse and generate these sections
+                  with the
+                  ElevenLabs AI music creator. Once you’ve produced your sections, you’ll export and document your
+                  results for
+                  <strong>Project 2, Part 2: Materials Collection</strong>.
+                </p>
+
+
+
+
+
+
+                <br>
+
+                <div class="learning-objectives">
+                  <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
+                  <ul>
+                    <li>Develop skills in prompt engineering for effective
+                      creative collaboration between you and AI systems.
+                    </li>
+                    <li>Practice with structuring longer compositions by generating and combining multiple sections
+                      such as intros and verses.</li>
+                    <li>Produce and document material that will support <strong>Project 2, Part 2: Materials
+                        Collection</strong>, including prompts, outputs, and reflections on your process.</li>
+                  </ul>
+                </div>
+
+                <br>
+
+                <div class="tools-section">
+                  <h3><v-icon color="primary" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
+                  <ul>
+                    <li>ChatGPT</li>
+                    <li>ElevenLabs</li>
+                  </ul>
+                </div>
+
+              </div>
+
+              <!-- Steps -->
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-notebook-edit</v-icon>Step 1: Refine Your Proposal and
+                  Deepen Your Concept</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Revisit and refine your Project 2, Part 1: Proposal & Concept
+                  Development. Your theme will guide your creative decisions.
+                </div>
+
+                <ol>
+                  <li><strong>Revisit your proposal from the discussion forum.</strong> Remind yourself of the activity
+                    and concept you
+                    initially proposed. You can also see what other people are planning by reading the proposals on the
+                    discussion forum on LEARN.
+                  </li>
+
+                  <li><strong>Connect your concept to readings from week 10 about AI and creativity:</strong>
+                    <ul>
+                      <li>How does your approach respond to debates about authorship and originality in AI-generated
+                        music?</li>
+                      <li>What creative decisions remain human in your process, and which ones are delegated to machine
+                        intelligence?</li>
+                      <li>How might platform-based tools (like ChatGPT and ElevenLabs) influence the aesthetics or
+                        accessibility of your work?</li>
+                      <li>What tensions or opportunities emerge when human intuition meets algorithmic generation?</li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Refine your proposal:</strong> Write down a refined theme statement (1-2 sentences). Keep
+                    it flexible —
+                    your theme can evolve as you gather data and ideas.
+                    <ul>
+                      <div class="tip-box">
+                        <strong>💡</strong> If you haven't submitted a proposal yet, use this step to start your
+                        initial theme
+                        proposal
+                        (consult
+                        guidelines on LEARN).
+                      </div>
+
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>Step 2: Define Mood, Genre & Sections
+                </h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Outline the overall mood, genre, and structure of your AI-generated
+                  composition.
+                  Plan the main sections of your piece (e.g., intro, verse, chorus) and consider how each section
+                  contributes to the flow of the music.
+                </div>
+
+                <div class="tip-box">
+
+                  <strong>💡 What are Mood, Genre & Sections:</strong>
+                  <ul>
+                    <li><strong>Mood:</strong> The emotional feeling of your piece, e.g., energetic, melancholic,
+                      mysterious.</li>
+                    <li><strong>Genre:</strong> The style or category of music, e.g., pop, rock, country, electronic,
+                      dance.</li>
+                    <li><strong>Sections:</strong> The main parts of your composition, like intro, verse, chorus, or
+                      bridge. Each section can have its own mood and instrumentation.</li>
+                  </ul>
+                </div>
+                <br>
+
+                <p>In a piece of paper or notepad brainstorm:</p>
+                <ol>
+                  <li> The emotional tone or feeling you want your composition to convey (for example: energetic,
+                    melancholic,
+                    mysterious).
+                    <ul>
+                      <li>Think about the genre
+                        that best fits this mood (for example: pop, rock, country, electronic,
+                        dance).</li>
+                    </ul>
+                  </li>
+                  <li>Decide 2 sections of your composition (for example: intro and verse, or verse and
+                    chorus).
+                    <ul>
+                      <li>Brainstorm what music instruments each section will have (for example: drums, shakers, guitar,
+                        bass, keyboard, vocals) </li>
+                      <li>Decide the length of these sections (for example: intro plays for 15 seconds, verse plays for
+                        1 minute) </li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>Step 3: Develop Prompts for Individual
+                  Sections</h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Use ChatGPT to develop effective prompts for ElevenLabs AI music creator
+                  for each section
+                  of your composition (e.g., intro and verse, or verse and chorus).
+                </div>
+
+
+                <div class="tip-box">
+                  <p><strong>Treat each section as its own mini-composition.</strong> Be specific in your
+                    descriptions to help the AI generate distinct aspects of each section.
+                  </p>
+                </div>
+                <br>
+                <p>Follow these steps (repeat for each section):</p>
+                <ol>
+                  <li>
+                    Go to <a href="https://chatgpt.com/" target="_blank">ChatGPT</a> and start a new conversation.
+                    <ul>
+                      <li>Explain that you want to create an AI-generated music section, for example, an intro section
+                        for your
+                        1–1.5 minute composition.</li>
+                      <li>Ask ChatGPT to ask you the following questions <strong>one at a time</strong> about:</li>
+                      <ul>
+                        <li>Instruments or sonic textures</li>
+                        <li>Musical structure an length of each section</li>
+                        <li>Mood / emotional tone of the section</li>
+                      </ul>
+                      <li>See example below:
+                        <v-img src="images/AIMusic/prompt_section1.png" alt="ChatGPT prompt example"
+                          class="my-4 rounded-lg" width="60%" />
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    Answer ChatGPT’s questions thoughtfully, providing detailed descriptions for each
+                    section.
+                    <v-img src="images/AIMusic/prompt_section2.png" alt="ChatGPT response example"
+                      class="my-4 rounded-lg" width="60%" />
+                  </li>
+
+                  <li>
+                    Once all questions are answered, ask ChatGPT to generate a list of concise, clear prompts for
+                    ElevenLabs that can be directly input <b>to produce only that section</b>.
+                    <v-img src="images/AIMusic/prompt_section3.png" alt="ElevenLabs prompt example"
+                      class="my-4 rounded-lg" width="60%" />
+                  </li>
+
+                  <li>
+                    Save your prompts for this section in a notepad or Word document for later submission in step 6.
+                      <v-img src="images/AIMusic/prompt_section4.png" alt="ElevenLabs prompt example"
+                      class="my-4 rounded-lg" width="50%" />
+                  </li>
+                  <li>
+                    Repeat the entire process for your second section (e.g., if you
+                    started with the intro, repeat for the verse).
+                       <v-img src="images/AIMusic/prompt_section5.png" alt="ElevenLabs prompt example"
+                      class="my-4 rounded-lg" width="60%" />
+                  </li>
+                  
+                </ol>
+
+
+              </div>
+
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>Step 4: Generate Sections in ElevenLabs
+                </h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Use the prompts you developed with ChatGPT to generate each section of
+                  your composition in ElevenLabs AI music creator, and save the resulting audio file.
+                </div>
+
+
+                <p>Follow these steps for each section (e.g., intro and verse or verse and chorus):</p>
+                <ol>
+                  <li>Go to <a href="https://www.elevenlabs.io/" target="_blank">ElevenLabs AI music creator</a> and
+                    click <strong>Log in</strong>.</li>
+
+                  <li>
+                    Enter the prompts you generated with ChatGPT for the current section.
+                    <ul>                     
+                     
+                    </ul>
+                  </li>
+
+                  <li>
+                    Click <strong>Generate</strong> to produce your section.
+                    <ul>
+                      <li>Listen critically using the play button.</li>
+                      <li><strong>Recommendation:</strong> Avoid tweaking prompts immediately to conserve your monthly
+                        generation minutes. Save them for refinement if needed later.
+                         <li><v-img src="images/AIMusic/elevenlabs_section1.png" alt="ElevenLabs prompt example"
+                          class="my-4 rounded-lg" width="60%" /></li>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <strong>Adding a New Section:</strong>
+                    <ul>
+                      <li>To insert a section between existing ones, hover over the section in the section view and
+                        click the ”+ Add Section” icon that appears. This will add a section after the current section.
+                      </li>
+                      <!-- <li>To add a section at the end of your track, scroll to the end of the timeline and click the ”+”
+                        button.</li> -->
+                      <li>Drag the new section in the timeline to adjust its duration.</li>
+                        <li><v-img src="images/AIMusic/elevenlabs_section2.png" alt="ElevenLabs prompt example"
+                          class="my-4 rounded-lg" width="60%" /></li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <strong>Removing a Section:</strong>
+                    <ul>
+                      <li>Hover over the section you wish to remove in the song structure view.</li>
+                      <li>Click the delete icon (X) that appears in the corner of the section block.</li>
+                        <li><v-img src="images/AIMusic/elevenlabs_section3.png" alt="ElevenLabs prompt example"
+                          class="my-4 rounded-lg" width="60%" /></li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-share-variant</v-icon>Step 5: Save Your Composition for
+                  Later Posting on the Discussion Forum</h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Save your AI-generated composition for later posting to the discussion
+                  forum
+                  <strong>Part 2: Materials Collection</strong>.
+                </div>
+
+                <p>Follow these steps:</p>
+                <ol>
+                  <li>
+                    Copy the <strong>Share Page</strong> link from ElevenLabs.
+                    <ul>
+                      <li>Click the <strong>Share</strong> button at the bottom of ElevenLabs Music Creator.</li>
+                      <li>Select <strong>Share Public Page</strong>.
+                        <v-img src="images/AIMusic/elevenlabs3.png" alt="ElevenLabs share button"
+                          class="my-4 rounded-lg" width="60%" />
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    Save this Public Page link for posting in the discussion forum <strong>Part 2: Materials Collection</strong> in the step 6 below.
+                    <ul>
+                      <li>Ensure your post includes the composition containing two sections (e.g., intro and verse or verse and chorus).</li>
+                    </ul>
+                  </li>
+
+                </ol>
+
+
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+
+                <h3><v-icon color="primary" class="mr-2">mdi-file-document-outline</v-icon>Step 6: Document Your Work
+                  for Project 2, Part 2: Materials Collection</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Prepare documentation of your creative process and AI-generated materials
+                  for submission in
+                  <strong>Project 2, Part 2: Materials Collection</strong> on LEARN. This documentation will help you
+                  articulate your prompt decisions,
+                  reflect on AI-human collaboration, and plan for your final musical composition.
+                </div>
+
+                <p>Take notes on the following to prepare for your forum post:</p>
+
+                <ol>
+                  <li><strong>For each of your prompts provide:</strong>
+                    <ul>
+                      <li>Short annotation (1–2 sentences) explaining the creative intent behind the prompt or question.
+                      </li>
+                      <li>Describe what musical ideas (instruments, structure, and mood) the prompt is meant to explore.
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Brief reflection (2–3 sentences):</strong>
+                    <ul>
+                      <li>Discuss how your generated sections connect to your proposal and course ideas about AI,
+                        automation, and creativity.</li>
+                      <li>Reflect on how the AI collaboration influenced your musical decisions.</li>
+                      <li>Consider how these initial explorations might shape your final composition.</li>
+                    </ul>
+                  </li>
+                </ol>
+
+                <br>
+
+                <div class="tip-box">
+                  <p><strong>💡 Ready to Submit?</strong></p>
+                  <p>You now have everything you need for <a
+                      href="https://gbdawu.github.io/gbda412/group-project-2.html" target="_blank"> Project 2, Part 2: Materials
+                      Collection</a>:</p>
+                  <ul>
+                    <li>✅ PDF or Word document containing the final prompts for each section (submit only the final prompts not the whole conversation)</li>
+                    <li>✅ Share Page link from ElevenLabs containing your 1 - 1.5 minute composition (intro + verse or verse + chorus)</li>
+                    <li>✅ Documentation with short annotations for each prompt</li>
+                    <li>✅ Brief reflection connecting your work to your proposal and course concepts</li>
+                  </ul>
+                  <p>Post your materials in the discussion forum <strong>Part 2: Materials
+                      Collection</strong> on LEARN by the deadline. Consult detailed guidelines here: <a
+                      href="https://gbdawu.github.io/gbda412/group-project-2.html" target="_blank"> Project 2, Part 2: Materials
+                      Collection</a></p>
+                </div>
+
+              </div>
+
 
             </v-window-item>
 
