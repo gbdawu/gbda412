@@ -418,9 +418,9 @@
                 <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>What You Will Do</h3>
                 <p> You will record a 1-minute movement session using Strava, download your activity
                   data as a CSV file from the Strava desktop platform, and convert it into a MIDI file
-                  using <a href="https://csv-to-midi.evanking.io/" target="_blank">CSV-to-MIDI
-                    Converter</a>. You will then upload the resulting MIDI file into <a
-                    href="https://onlinesequencer.net/" target="_blank">Online Sequencer</a> to
+                  using <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank">csv to midi mapper</a>.
+                  You will then upload the resulting
+                  MIDI file into <a href="https://onlinesequencer.net/" target="_blank">Online Sequencer</a> to
                   experiment with different instruments and sonic textures. This process introduces
                   how the body’s movement can become a musical source. </p> <br>
                 <p> The outcome of this workshop will serve as preparation for <strong>Project 2, Part
@@ -451,7 +451,8 @@
                   <ul>
                     <li>Strava app on your smartphone</li>
                     <li>Strava desktop dashboard</li>
-                    <li>CSV-to-MIDI Converter</li>
+                    <li>FIT/GPX to CSV Converter </li>
+                    <li>CSV-to-MIDI Mapper</li>
                     <li>Online Sequencer</li>
                   </ul>
                 </div>
@@ -513,7 +514,8 @@
                   Strava Data</h3>
                 <div class="objective-box"> <strong>Objective:</strong> Access your recorded activity
                   data
-                  from the Strava desktop platform, export it as a GPX file, and convert it into a CSV
+                  from the Strava desktop platform, export it as a <b>FIT</b> or <b>GPX</b> file, and convert it into a
+                  CSV
                   format for later sound transformation. </div>
                 <p>Follow these steps:</p>
                 <ol>
@@ -548,53 +550,32 @@
                       </li>
                     </ul>
                   </li>
-                  <li> Export your data as a GPX file: <ul>
-                      <li>Click the <strong>three-dots icon (...) </strong> in the top-left corner
+                  <li> Export your data as a GPX or FIT file: <ul>
+                      <li>Click the <strong>three-dots icon (<v-icon color="primary"
+                            class="mx-1">mdi-dots-vertical</v-icon>) </strong> in the top-left corner
                         of
                         the activity page.</li>
-                      <li>Select <strong>Export GPX</strong> from the dropdown menu.
+                      <li>Select <strong>Export GPX</strong> or <strong>Export Original (FIT file)</strong> from the
+                        dropdown menu.
                         <v-img src="images/biofeedback/export-gpx.png" alt="Strava recording interface"
                           class="mx-2 rounded-lg" max-width="60%" />
                       </li>
-                      <li>The GPX file will automatically download to your computer.</li>
+                      <li>The file will automatically download to your computer.</li>
                     </ul>
                   </li>
-                  <li> Convert your GPX file into a CSV format using the <a href="https://mygeodata.cloud/"
-                      target="_blank">MyGeodata Converter</a>:
+
+                  <li><b>Convert your GPX or FIT file into a CSV</b>.
                     <ul>
-                      <li>Go to the MyGeodata website and upload your downloaded GPX file.</li>
-                      <li>Click <strong>Next</strong> to continue.</li>
-                      <li>In the preview window, check that the map location matches your route
-                        and
-                        click <strong>Looks good</strong>.</li>
-                      <li>Under <strong>Required Output Format</strong>, select <strong>CSV -
-                          Comma
-                          Separated Values</strong>.</li>
-                      <li>Click <strong>Convert</strong> → <strong>Download</strong> to save the
-                        converted file.</li>
-                    </ul>
-                  </li>
-                  <li> Save the downloaded folder to your computer and unzip (extract) it.
-                    <ul>
-                      <li>
-                        Learn how to unzip folders in Mac:
-                        <a href="https://support.apple.com/en-ca/guide/mac-help/mchlp2528/mac"
-                          target="_blank">https://support.apple.com/en-ca/guide/mac-help/mchlp2528/mac</a>
+                      <li>If you downloaded a <b>FIT file</b>, use the
+                        <a href="https://gotoes.org/strava/convert_fit_files_to_csv.php" target="_blank">
+                          FIT to CSV converter</a>.
                       </li>
-                      <li>
-                        Learn how to unzip folders in Windows:
-                        <a href="https://support.microsoft.com/en-us/windows/zip-and-unzip-files-8d28fa72-f2f9-712f-67df-f80cf89fd4e5"
-                          target="_blank">https://support.microsoft.com/en-us/windows/zip-and-unzip-files-8d28fa72-f2f9-712f-67df-f80cf89fd4e5</a>
+
+                      <li>If you downloaded a <b>GPX file</b>, use the
+                        <a href="https://gbdawu.github.io/gbda412/gpx-to-csv" target="_blank">
+                          GPX to CSV converter</a>.
                       </li>
                     </ul>
-                  <li>Inside the unzipped folder, you’ll find two files:
-                    <strong>tracks.csv</strong> and <strong>track_points.csv</strong>.
-                    <ul>
-                      <li>We will use the file named <strong>track_points.csv</strong> for the
-                        next
-                        step.</li>
-                  </li>
-                  </ul>
                   </li>
                 </ol>
               </div>
@@ -602,11 +583,12 @@
 
               <div class="section-divider"></div>
               <div class="step-section">
-                <h3><v-icon color="primary" class="mr-2">mdi-file-music</v-icon>3: Convert CSV to MIDI
+                <h3><v-icon color="primary" class="mr-2">mdi-file-music</v-icon>3: Map CSV Data to MIDI
                 </h3>
                 <div class="objective-box"> <strong>Objective:</strong> Transform your recorded motion
                   data
-                  into a musical format by converting your <strong>track_points.csv</strong> file into
+                  into a musical format by mapping the data in your <strong>FIT</strong> or <strong>GPX</strong> file
+                  into
                   a
                   MIDI file.
                   <br><br>
@@ -629,38 +611,42 @@
 
                 <p>Follow these steps:</p>
                 <ol>
-                  <li> Go to the CSV-to-MIDI Converter webpage: <a href="https://csv-to-midi.evanking.io/"
-                      target="_blank">https://csv-to-midi.evanking.io/</a> </li>
-                  <li> Load your <strong>track_points.csv</strong> file by clicking the <v-icon color="primary"
-                      class="mx-1">mdi-folder</v-icon> icon on the top-left side
-                    of
-                    the
-                    webpage and selecting your cvs file.
 
-                  <li>Select <strong>Export GPX</strong> from the dropdown menu.
-                    <v-img src="images/biofeedback/csv-midi.png" alt="Strava recording interface"
+
+
+
+                  <li> Go to the CSV-to-MIDI Mapper webpage: <a href="https://gbdawu.github.io/gbda412/csv-to-midi"
+                      target="_blank">https://gbdawu.github.io/gbda412/csv-to-midi</a> </li>
+                  <li> Load your CSV file
+
+                    <v-img src="images/biofeedback/csv-to-midi.png" alt="Strava recording interface"
                       class="mx-2 rounded-lg" max-width="60%" />
-                  </li>
-                  <li> Under <strong>Column Mappings</strong>, choose the parameters you want to map:
+                  <li> Under <strong>Column Mappings</strong>, choose the parameters you want to map. For example:
                     <ul>
-                      <li><strong>X</strong> or <strong>Y</strong> for the <em>note</em></li>
-                      <li><strong>X</strong> or <strong>Y</strong> for the <em>velocity</em>
+                      <li><strong>X</strong> or <strong>Y</strong> for the <em>Note</em></li>
+                      <li><strong>time</strong> for <em>Time</em> and <em>Duration</em></li>
+                      <li><strong>X</strong> or <strong>Y</strong> for the <em>Velocity</em>
+                      <li><strong>track_seg_point_id</strong> or <strong>speed</strong> for <em>Octave</em>
 
                         <v-img src="images/biofeedback/mapping.png" alt="Strava recording interface"
                           class="mx-2 rounded-lg" max-width="60%" />
                       </li>
                     </ul>
                   </li>
-                  <li> Experiment with the available parameters such as <strong>key</strong>,
-                    <strong>scale</strong>, <strong>duration</strong>, <strong>octave</strong>, and
-                    <strong>range</strong>. Don’t worry if you’re not sure what each one means — we
+                  <li> Experiment with other musical parameters such as <strong>scale</strong>,
+                    <strong>root note</strong>, and
+                    <strong>amplification</strong>. Don’t worry if you’re not sure what each one means — we
                     will
                     explore these settings in more detail in future workshops.
+                    <br>
+                    <v-img src="images/biofeedback/musical-settings.png" alt="Strava recording interface"
+                      class="mx-2 rounded-lg" max-width="55%" />
                   </li>
-                  <li> Once you’re satisfied with your configuration, save your new MIDI file by
+
+                  <li> Once you’re satisfied with your configuration, <b>save your new MIDI</b> file by
                     clicking
-                    the <v-icon color="primary" class="mx-1">mdi-content-save</v-icon> icon
-                    on the bottom-right side of the page.
+                    <b>Validate Data</b> → <b>Download Midi</b>
+                    at the bottom of the page.
 
                     <v-img src="images/biofeedback/save-mapping.png" alt="Strava recording interface"
                       class="mx-2 rounded-lg" max-width="60%" />
@@ -802,11 +788,10 @@
 
                 <h3><v-icon color="primary" class="mr-2">mdi-map-marker-path</v-icon>What You Will Do</h3>
                 <p> You will record another 1-minute movement session using Strava (with heart rate data
-                  if your device supports it), then download and convert your activity data to CSV format
-                  using <a href="https://mygeodata.cloud/converter/gpx-to-csv" target="_blank">MyGeodata
-                    Converter</a>. This time, you will open the CSV file to explore its structure and the
-                  different data columns it contains. After, using the <a href="https://csv-to-midi.evanking.io/"
-                    target="_blank">CSV-to-MIDI
+                  if your device supports it), then download and convert your activity data to CSV format. This time,
+                  you will open the CSV file to explore its structure and the
+                  different data columns it contains. After, using the <a
+                    href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank">CSV-to-MIDI
                     Converter</a>, you will create three different MIDI variations by experimenting with
                   different mapping strategies for notes, velocity, time, duration, scales, octaves, and ranges.
                 </p>
@@ -841,8 +826,8 @@
                   <ul>
                     <li>Strava app on your smartphone or watch (with optional heart rate monitor connection)</li>
                     <li>Strava desktop dashboard</li>
-                    <li>MyGeodata Converter (GPX to CSV)</li>
-                    <li>CSV-to-MIDI Converter</li>
+                    <li>FIT/GPX to CSV Converter </li>
+                    <li>CSV-to-MIDI Mapper</li>
                     <li>Online Sequencer</li>
                     <li>Spreadsheet software (Excel, Google Sheets, or Numbers) to view CSV data</li>
                   </ul>
@@ -948,7 +933,7 @@
                     </ul>
                   </li>
 
-                  <li><b>Go out the classroom to record for 1 minute</b> using the Strava app.
+                  <li><b>Go outdoors to record for 1 minute</b> using the Strava app.
                     <ul>
                       <li>Consult workshop 1 to see detailed instructions on how to record using Strava.</li>
                       <br>
@@ -970,14 +955,37 @@
 
                     </ul>
                   </li>
-                  <li>After recording, <b>download your activity as a GPX file</b> from Strava's website.
+                  <li>After recording, <b>download your activity from Strava</b>.
                     <ul>
-                      <li> Consult workshop 1 to see detailed instructions on how to download your data from Strava.
+                      <li>It is recommended to download the <b>Fit file</b>, as it contains additional data such as
+                        <em>speed</em>,
+                        <em>distance</em>, and <em>heart rate</em> (if connected to the Strava app). The <b>GPX file</b>
+                        can also be used,
+                        but may
+                        have less interesting data fields.
                       </li>
+                      <br>
+                      <li>Instructions to download:
+                        <ol>
+                          <li>From the top menu on Strava Desktop, select <b>Training → My Activities</b>.</li>
+                          <li>Locate the activity you recorded and click to open its detail page.</li>
+                          <li>Click the three-dots icon (<v-icon color="primary"
+                              class="mx-1">mdi-dots-vertical</v-icon>) in the top-left corner of the activity page.</li>
+                          <li>Select <b>Export GPX</b> or <b>Export Original (Fit file)</b> from the dropdown menu.</li>
+                          <div class="tip-box">
+                            <p><strong>💡</strong> Consult workshop 1 to see detailed instructions on how to download
+                              your data
+                              from Strava.
 
+                            </p>
+                          </div>
+                        </ol>
+                      </li>
                     </ul>
-
                   </li>
+
+
+
                 </ol>
               </div>
 
@@ -987,7 +995,8 @@
                 <h3><v-icon color="primary" class="mr-2">mdi-file-chart</v-icon>Step 3: Convert and Explore
                   Your Data</h3>
 
-                <div class="objective-box"><strong>Objective:</strong> Convert your GPX file to CSV format and examine
+                <div class="objective-box"><strong>Objective:</strong> Convert your FIT or GPX file to CSV format and
+                  examine
                   the data structure to understand what information your body generated
                   during movement. You will also begin planning how to structure your composition by analyzing the
                   time
@@ -995,35 +1004,63 @@
 
                 <ol>
 
-                  <li><b>Convert your GPX data to a CSV file</b>.
+                  <li><b>Convert your activity file into a CSV</b>.
                     <ul>
-                      <li>Consult workshop 1 to see detailed instructions on how to convert your GPX data to CSV using
-                        <a href="https://mygeodata.cloud/converter/gpx-to-csv" target="_blank">
-                          MyGeodata
-                          Converter</a>.
+                      <li>If you downloaded a <b>FIT file</b>, use the
+                        <a href="https://gotoes.org/strava/convert_fit_files_to_csv.php" target="_blank">
+                          FIT to CSV converter</a>.
+                      </li>
+
+                      <li>If you downloaded a <b>GPX file</b>, use the
+                        <a href="https://gbdawu.github.io/gbda412/gpx-to-csv" target="_blank">
+                          GPX to CSV converter</a>.
                       </li>
                     </ul>
                   </li>
-                  <li><strong>Open <code>track_points.csv</code> in Excel or Google Sheets</strong> to see what
-                    your body actually generated!</li>
 
-                  <li><strong>Examine the column headers</strong>. Your CSV file contains several columns of data.
-                    Here's what the most importnat mean:
+                  <li><strong>Open your generated CSV file</strong> in Excel or Google Sheets to explore the raw data
+                    recorded
+                    during your movement.</li>
 
+                  <li><strong>Examine the column headers</strong>. Depending on whether you exported a FIT or GPX file,
+                    you will see different sets of data:
                     <ul>
-                      <li><strong>X (Longitude):</strong> Your east-west position (e.g., -79.854715)</li>
-                      <li><strong>Y (Latitude):</strong> Your north-south position (e.g., 43.260595)</li>
-                      <li><strong>track_seg_point_id:</strong> Point identification number showing the sequence of
-                        your data points</li>
-                      <li><strong>ele:</strong> Elevation in meters—how high or low you were at each point</li>
-                      <li><strong>time:</strong> Timestamp showing exactly when each data point was recorded</li>
-                      <li><strong>hr (if available):</strong> Heart rate in beats per minute—this column only appears
-                        if you recorded with a heart rate monitor</li>
-                      <li><strong>track_fid, track_seg_id, geoidheight, name, etc: </strong> Usually empty (you can
-                        ignore these fields)
+                      <li><strong>timestamp:</strong> The exact moment each sample was recorded
+                        <em>(available in both FIT and GPX files)</em>
                       </li>
+
+                      <li><strong>latitude / longitude:</strong> Your geographic position at each moment
+                        <em>(available in both FIT and GPX files)</em>
+                      </li>
+
+
+
+                      <li><strong>altitude:</strong> Elevation above sea level
+                        <em>(available in FIT file)</em>
+                      </li>
+
+                      <li><strong>heart_rate:</strong> Your heart rate in beats per minute
+                        <em>(available in FIT if you recorded with your watch)</em>
+                      </li>
+
+                      <li><strong>speed:</strong> Your instantaneous speed in meters per second
+                        <em>(available in FIT file)</em>
+                      </li>
+
+                      <li><strong>distance:</strong> Total cumulative distance traveled
+                        <em>(available in FIT file)</em>
+                      </li>
+                      <li><strong>track_seg_point_id:</strong> The sequential index of each GPS point in the recording
+                        <em>(available in GPX file)</em>
+                      </li>
+
+                      <li><strong>ele (elevation):</strong> Your elevation above sea level at each GPS point
+                        <em>(available in GPX file)</em>
+                      </li>
+
                     </ul>
                   </li>
+
 
                   <li><strong>Look at your data patterns. Scroll through the spreadsheet and observe how the numbers
                       change row by row.</strong>
@@ -1071,7 +1108,8 @@
                   </p>
                   <ul>
                     <li><strong>Note:</strong> <em>Which data column controls which notes are played?</em> Usually
-                      X (longitude) or Y (latitude) coordinates. The CSV-to-MIDI converter scales your X/Y decimal
+                      longitude or latitude coordinates. The CSV-to-MIDI converter scales your latitude/longitude
+                      decimal
                       coordinates down to the MIDI note range (0-127), where each number represents a different pitch.
                       <span style="text-decoration: underline">Small changes in your coordinates create small pitch
                         changes</span>,
@@ -1137,11 +1175,10 @@
                 </div>
 
                 <ol>
-                  <li><strong> Upload your CSV file to <a href="https://csv-to-midi.evanking.io/"
+                  <li><strong> Upload your CSV file to <a href="https://gbdawu.github.io/gbda412/csv-to-midi"
                         target="_blank">CSV-to-MIDI converter</a> </strong>
-                    <ul>
-                      <li>Consult Workshop 1 for detailed instructions.</li>
-                    </ul>
+                    <v-img src="images/biofeedback/csv-to-midi.png" alt="Keyboard example showing octaves"
+                      class="my-4 rounded-lg" width="50%"></v-img>
                   </li>
 
                   <li><strong>Create 3 MIDI Variations using CSV-to-MIDI converter</strong>. Now you'll create three
@@ -1154,22 +1191,24 @@
                         <ul>
                           <li>Under <strong>Column Mappings</strong>, set:
                             <ul>
-                              <li><strong>Notes:</strong> Select the <strong>X column</strong> —
+                              <li><strong>Notes:</strong> Select the <strong>Longitude column</strong> —
                                 this maps your east-west movement to pitch</li>
-                              <li><strong>Velocity:</strong> Select the <strong>ele (elevation)</strong> column — this
+                              <li><strong>Velocity:</strong> Select the <strong>ele (elevation)</strong> column or
+                                <strong>altitude</strong> column — this
                                 makes
-                                changes in height affect note loudness</li>
-                              <li><strong>Time:</strong> Select the <strong>time</strong> column</li>
-                              <li><strong>Duration:</strong> Select the <strong>Y</strong> column</li>
+                                changes in height affect note loudness
+                              </li>
+                              <li><strong>Time:</strong> Select the <strong>timestamp</strong> column</li>
+                              <li><strong>Duration:</strong> Select the <strong>Latitude</strong> column</li>
 
                             </ul>
                           </li>
                           <li>Choose musical parameters:
                             <ul>
-                              <li><strong>Key:</strong> Try C or D</li>
+                              <li><strong>Root note:</strong> Try C or D</li>
                               <li><strong>Scale:</strong> Try Major or Pentatonic</li>
-                              <li><strong>Octave:</strong> Try 4 or 5</li>
-                              <li><strong>Range:</strong> Try 2 octaves</li>
+                              <li><strong>Octave:</strong> Try the Distance Column</li>
+                              <li><strong>Amplification:</strong> Try 100x</li>
                             </ul>
                           </li>
                           <li>Click <strong>Convert</strong> or <strong>Generate MIDI</strong> to create your file.</li>
@@ -1182,23 +1221,23 @@
                         <ul>
                           <li>Under <strong>Column Mappings</strong>, set:
                             <ul>
-                              <li><strong>Notes:</strong> This time, select the <strong>Y column</strong> — this maps
+                              <li><strong>Notes:</strong> This time, select the <strong>Latitude </strong> — this maps
                                 your
                                 north-south movement to pitch</li>
                               <li><strong>Velocity:</strong> Try <strong>hr (heart rate)</strong> if available, or
                                 <strong>ele
                                   (elevation)</strong> if not
                               </li>
-                              <li><strong>Time:</strong> Select the <strong>time</strong> column</li>
-                              <li><strong>Duration:</strong> Select the <strong>X</strong> column</li>
+                              <li><strong>Time:</strong> Select the <strong>timestamp</strong> column</li>
+                              <li><strong>Duration:</strong> Select the <strong>Longitude</strong> column</li>
                             </ul>
                           </li>
                           <li>Change musical parameters to create contrast with Variation 1:
                             <ul>
-                              <li><strong>Key:</strong> Try a different key (e.g., A or E♭)</li>
-                              <li><strong>Scale:</strong> Try Aeolian or a different scale type</li>
-                              <li><strong>Octave:</strong> Try a different octave (e.g., 3 if you used 5 before)</li>
-                              <li><strong>Range:</strong> Try a different range (e.g., 1 or 3 octaves)</li>
+                              <li><strong>Root note:</strong> Try a different key (e.g., A or E♭)</li>
+                              <li><strong>Scale:</strong> Try Minor </li>
+                              <li><strong>Octave:</strong> Try the Latitude column</li>
+                              <li><strong>Amplification:</strong> Try 400x</li>
                             </ul>
                           </li>
                           <li>Generate and download as <code>latitude-melody.mid</code>.</li>
@@ -1209,13 +1248,17 @@
                         <ol>
                           <li>Under <strong>Column Mappings</strong>, set:
                             <ul>
-                              <li><strong>Notes:</strong> Select <strong>ele (elevation)</strong> — this makes your
+                              <li><strong>Notes:</strong> Select <strong>altitude</strong> or <strong>ele
+                                  (elevation)</strong> — this makes your
                                 vertical
                                 movement the melody</li>
-                              <li><strong>Velocity:</strong> Select <strong>X or Y</strong> - this will make your
+                              <li><strong>Velocity:</strong> Select <strong>Longitude or Latitude</strong> - this will
+                                make your
                                 east-west/north-south make your notes louder or softer.</li>
-                              <li><strong>Time:</strong> Select the <strong>time</strong> column</li>
-                              <li><strong>Duration:</strong> Select the <strong>track_seg_point_id</strong> column</li>
+                              <li><strong>Time:</strong> Select the <strong>timestamp</strong> column</li>
+                              <li><strong>Duration:</strong> Select the the <strong>timestamp</strong> column or
+                                <strong>track_seg_point_id</strong> column
+                              </li>
 
                               <li><em>Alternative if you have heart rate data: Use <strong>hr</strong> as notes and
                                   <strong>ele</strong> as velocity to hear your heartbeat as melody</em></li>
@@ -1223,10 +1266,10 @@
                           </li>
                           <li>Experiment with a completely different sonic palette:
                             <ul>
-                              <li><strong>Key:</strong> Try something unexpected (e.g., F♯ or B♭)</li>
+                              <li><strong>Root note:</strong> Try something unexpected (e.g., F♯ or B♭)</li>
                               <li><strong>Scale:</strong> Try Chromatic or another scale you haven't used</li>
-                              <li><strong>Octave:</strong> Try extreme high (6-7) or low (2-3) octaves</li>
-                              <li><strong>Range:</strong> Try a very wide (3-4 octaves) or very narrow (1 octave) range
+                              <li><strong>Octave:</strong> Try the Speed column</li>
+                              <li><strong>Amplification:</strong> Try 800x
                               </li>
                             </ul>
                           </li>
@@ -1390,7 +1433,283 @@
             <v-window-item value="3">
               <h2>{{ streamAWorkshops[2].title }}</h2>
 
-              <p>Coming soon!</p>
+              <div class="intro-section">
+
+                <p>
+                  In this workshop, you will shift from data mapping to <strong>musical arrangement</strong>.
+                  Using the melody you previously generated from your movement data (Workshop 2), you will learn
+                  how to shape it into a richer, more expressive musical idea inside
+                  <a href="https://onlinesequencer.net/" target="_blank">Online Sequencer</a>.
+                  This workshop focuses on practical creative strategies—adding harmony, bass, and rhythm—even if
+                  you have no musical background.
+                </p>
+                <br>
+
+                <p>
+                  <em>
+                    If you’re curious about generating new data, or if you want to explore more detailed metrics such as
+                    <strong>speed</strong> and <strong>distance</strong>, you may revisit Workshop 2 and try working
+                    with a FIT file. FIT data often contains richer information than GPX and can lead to more nuanced
+                    musical results. You are also encouraged to try the <a
+                      href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank"> CSV-to-MIDI Mapper</a>
+                    developed for this
+                    class,
+                    which offers more flexible mapping options than the tool used last week.
+                    However, for this session, using the MIDI melody you already created in Workshop 2 is completely
+                    fine but may generate less interesting outputs.
+                  </em>
+                </p>
+
+                <br>
+
+                <h3><v-icon color="primary" class="mr-2">mdi-map-marker-path</v-icon>What You Will Do</h3>
+                <p>
+                  You will import your CSV-to-MIDI melody into Online Sequencer and learn how to shape it into a fuller
+                  composition by adding <strong>harmony</strong> (supporting notes), <strong>bass</strong> (foundation),
+                  and <strong>rhythm</strong> (pulse and movement).
+                  These techniques will help you transform an experimental, data-driven melody into a more structured,
+                  expressive, and aesthetically engaging musical sketch.
+
+                </p>
+                <br>
+
+                <div class="learning-objectives">
+                  <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
+                  <ul>
+                    <li>Practice arranging music visually using the Draw tool inside Online Sequencer.</li>
+                    <li>Learn the basic concepts of <strong>harmony</strong>, <strong>bass</strong>,
+                      and <strong>rhythm</strong> through simple, non-theoretical explanations.</li>
+                    <li>Create a short musical sketch that builds on your movement-derived melody and prepares you
+                      for later collaborative composition work.</li>
+                  </ul>
+                </div>
+
+                <br>
+
+                <div class="tools-section">
+                  <h3><v-icon color="primary" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
+                  <ul>
+                    <li>Your previously recorded movement data (CVS file from Workshop 2)</li>
+                    <li>CSV-to-MIDI Converter (to re-export your melody if needed)</li>
+                    <li><a href="https://onlinesequencer.net/" target="_blank">Online Sequencer</a></li>
+
+                  </ul>
+                </div>
+
+              </div>
+
+              <!-- Steps -->
+
+              <br>
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note-plus</v-icon>Step 1: Import Your MIDI and
+                  Explore the Sequencer</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Import your MIDI file into <a href="https://onlinesequencer.net/"
+                    target="_blank">Online Sequencer</a> and explore basic sequencing features.
+                </div>
+
+                <ol>
+                  <li><strong>Import your MIDI file:</strong> Use the MIDI file generated from Workshop 2, or try the
+                    <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank"> CSV-to-MIDI Mapper</a> for
+                    richer options.
+                    <ul>
+                      <li>Click <b> (<v-icon color="primary" class="mx-1">mdi-dots-vertical</v-icon>) → Import
+                          MIDI/Sequence File</b> in Online Sequencer and select your file.</li>
+                      <li>Your MIDI file will now appear as a melody track in the sequencer grid.</li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Explore Online Sequencer interface</strong> by playing with the following aspects of your
+                    MIDI file:
+                    <ul>
+                      <li>Tempo (speed) adjustment</li>
+                      <li>Using the drawing tool to add or edit notes</li>
+                      <li>Instrument selection </li>
+                      <li>Watch this video tutorial to learn how:</li>
+                      <iframe width="560" height="315"
+                        src="https://www.youtube.com/embed/Y-LJxTnRKQM?si=WhM4jHCEisPDolVp" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                    </ul>
+                  </li>
+
+
+                </ol>
+              </div>
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-notebook-edit</v-icon>Step 2: Creative Layering with
+                  Harmony</h3>
+
+                <div class="objective-box"><strong>Objective:</strong> Add harmonic layers to your main melody to enrich
+                  the musical texture and experiment with complementary sounds.</div>
+
+                <p>
+                  <b> Harmony</b> is when multiple notes play together to create a
+                  richer sound. In this step, you'll experiment with adding complementary or supporting notes to your
+                  main melody.
+
+                </p>
+
+                <ol>
+
+
+                  <li><strong>Choose a harmonic instrument:</strong> Pick an instrument like a piano or synth pad that
+                    works well for sustained notes (pads). This will form the base of your harmonic layer.
+                    <v-img src="images/biofeedback/electric-piano.png" alt="Keyboard example showing octaves"
+                      class="my-4 rounded-lg" width="15%"></v-img>
+
+                  </li>
+
+                  <li><strong>Analyze your melody:</strong> Look at the notes in your imported MIDI track and decide
+                    which notes you want to support with harmony. Think of harmony as adding “color” to your melody.
+
+                    <v-img src="images/biofeedback/single-notes.png" alt="Keyboard example showing octaves"
+                      class="my-4 rounded-lg" width="30%"></v-img>
+                  </li>
+
+                  <li><strong>Experiment with octaves:</strong> An <em>octave</em> is the same note, higher or lower.
+                    For example, C5 played one octave lower is C4. You can add harmonic notes in the same
+                    octave or an octave above/below to make your track sound fuller. <b>In the example below, the green
+                      notes are the imported notes from your data and the blue notes are octaves drawn with the Draw
+                      Tool:</b>
+                    <v-img src="images/biofeedback/octave-harmony-short-notes.png"
+                      alt="Keyboard example showing octaves" class="my-4 rounded-lg" width="30%"></v-img>
+                  </li>
+
+                  <li><strong>Create long notes (pads):</strong> In Online Sequencer, drag notes to extend their length.
+                    These sustained notes can support your main melody, creating a smooth background layer.
+                    <v-img src="images/biofeedback/octave-harmony.png" alt="Keyboard example showing octaves"
+                      class="my-4 rounded-lg" width="30%"></v-img>
+                  </li>
+
+                  <li><strong>Playful intervals: 3rd and 5th</strong>:
+                    <ul>
+                      <li>Imagine your melody notes as stepping stones.</li>
+                      <li>For each harmonic note, place a “buddy” note 2 steps above (3rd) or 4 steps above (5th) in the
+                        scale.
+                        This creates consonant harmony.</li>
+                      <li>Don’t worry about exact theory—just try moving notes up by 3 or 4 steps and listen: it should
+                        sound pleasing!
+
+                        <v-img src="images/biofeedback/3rd-notes.png" alt="Keyboard example showing octaves"
+                          class="my-4 rounded-lg" width="30%"></v-img>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li><strong>Layer and listen:</strong> Play your harmonic track together with your main melody. Adjust
+                    note placement and length until the combination sounds rich and coherent. Remember: experimentation
+                    is key!</li>
+                </ol>
+              </div>
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-music-note</v-icon>Step 3: Add a Bass Layer</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Enhance your melody by adding a bass line that gives depth and rhythm to
+                  your composition.
+                </div>
+
+                <p>A <strong>bass line</strong> is a sequence of low-pitched notes that support the main melody. It can
+                  make your music feel fuller, drive the rhythm, and create a sense of movement.</p>
+
+                <ol>
+                  <li><strong>Choose a bass instrument:</strong> Pick an instrument such as <em>Bass</em> or <em>Bass
+                      Guitar</em> in Online Sequencer.
+
+                    <v-img src="images/biofeedback/bass-dropdown.png" alt="Keyboard example showing octaves"
+                      class="my-4 rounded-lg" width="10%"></v-img>
+                  </li>
+                  <li><strong>Place notes in lower octaves:</strong> Remember, an <strong>octave</strong> is the same
+                    note, higher or lower. For example, C4 has the next C one octave
+                    lower at C3.
+                    <v-img src="images/biofeedback/bassC3.png" alt="Keyboard example showing octaves"
+                      class="my-4 rounded-lg" width="30%"></v-img>
+                  </li>
+                  <li><strong>Tips for creating playful bass lines:</strong>
+                    <ul>
+                      <li>Use the same <strong>notes</strong> of your main melody for cohesion.</li>
+                      <li>Experiment with <strong>repeating patterns</strong> that echo your melody in a simpler way.
+                      </li>
+
+                      <li>Keep your bass notes <strong>longer and simpler</strong> than your melody to avoid
+                        overcrowding the sound.</li>
+                      <li>See the following video starting in minute 6:33 to get an idea on how to add a bass line:
+                        <iframe width="560" height="315"
+                          src="https://www.youtube.com/embed/nuEkOA8qBDs?si=4phjNdPXc9Bvl2w6"
+                          title="YouTube video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </ul>
+                  </li>
+                  </li>
+                  <li><strong>Experiment freely:</strong> Explore different octaves, note lengths, and rhythmic
+                    placement.</li>
+                </ol>
+
+              </div>
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-drum</v-icon>Step 4: Explore Rhythm and Percussion</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Add rhythmic layers to your composition to give movement and groove to
+                  your melody, harmony, and bass tracks.
+                </div>
+
+                <p>
+                  <b>Rhythm</b> is the pattern of sounds over time that gives music its
+                  pulse and energy.
+                </p>
+                <ol>
+
+
+                  <li><strong>Choose percussion instruments:</strong> Open the instrument dropdown in Online Sequencer
+                    and explore the <strong>Percussion</strong> section. You can try instruments like:
+                    <ul>
+                      <li>Kick drum – for a steady pulse</li>
+                      <li>Snare – adds snap and accent</li>
+                      <li>Hi-hat or cymbals – for texture and faster patterns</li>
+                      <li>Other playful percussion sounds – anything you like!</li>
+                      <v-img src="images/biofeedback/drumset-dropdown.png" alt="Keyboard example showing octaves"
+                        class="my-4 rounded-lg" width="10%"></v-img>
+                    </ul>
+                  </li>
+
+                  <li><strong>Create your rhythmic pattern:</strong>
+                    <ul>
+                      <li>Use the draw tool to add notes on the percussion track, experimenting with different timing
+                        and placement.</li>
+                      <li>Try layering patterns with your bass and melody — you can create contrast by having some
+                        instruments play on every beat, and others on off-beats.</li>
+
+                      <li>Check the following video showing how to create a drum kit rhythm starting in minute 5:54:
+                        <iframe width="560" height="315"
+                          src="https://www.youtube.com/embed/k1B1n4tsQdw?si=A6Mf8GVoKrjzye7I&amp;start=352"
+                          title="YouTube video player" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                      </li>
+                    </ul>
+                  </li>
+
+                </ol>
+              </div>
+
+
             </v-window-item>
 
 
@@ -1880,16 +2199,16 @@
 
                   <li>
                     Save your prompts for this section in a notepad or Word document for later submission in step 6.
-                      <v-img src="images/AIMusic/prompt_section4.png" alt="ElevenLabs prompt example"
+                    <v-img src="images/AIMusic/prompt_section4.png" alt="ElevenLabs prompt example"
                       class="my-4 rounded-lg" width="50%" />
                   </li>
                   <li>
                     Repeat the entire process for your second section (e.g., if you
                     started with the intro, repeat for the verse).
-                       <v-img src="images/AIMusic/prompt_section5.png" alt="ElevenLabs prompt example"
+                    <v-img src="images/AIMusic/prompt_section5.png" alt="ElevenLabs prompt example"
                       class="my-4 rounded-lg" width="60%" />
                   </li>
-                  
+
                 </ol>
 
 
@@ -1915,8 +2234,8 @@
 
                   <li>
                     Enter the prompts you generated with ChatGPT for the current section.
-                    <ul>                     
-                     
+                    <ul>
+
                     </ul>
                   </li>
 
@@ -1926,10 +2245,10 @@
                       <li>Listen critically using the play button.</li>
                       <li><strong>Recommendation:</strong> Avoid tweaking prompts immediately to conserve your monthly
                         generation minutes. Save them for refinement if needed later.
-                         <li><v-img src="images/AIMusic/elevenlabs_section1.png" alt="ElevenLabs prompt example"
+                      <li><v-img src="images/AIMusic/elevenlabs_section1.png" alt="ElevenLabs prompt example"
                           class="my-4 rounded-lg" width="60%" /></li>
-                      </li>
-                    </ul>
+                  </li>
+                  </ul>
                   </li>
 
                   <li>
@@ -1941,7 +2260,7 @@
                       <!-- <li>To add a section at the end of your track, scroll to the end of the timeline and click the ”+”
                         button.</li> -->
                       <li>Drag the new section in the timeline to adjust its duration.</li>
-                        <li><v-img src="images/AIMusic/elevenlabs_section2.png" alt="ElevenLabs prompt example"
+                      <li><v-img src="images/AIMusic/elevenlabs_section2.png" alt="ElevenLabs prompt example"
                           class="my-4 rounded-lg" width="60%" /></li>
                     </ul>
                   </li>
@@ -1951,7 +2270,7 @@
                     <ul>
                       <li>Hover over the section you wish to remove in the song structure view.</li>
                       <li>Click the delete icon (X) that appears in the corner of the section block.</li>
-                        <li><v-img src="images/AIMusic/elevenlabs_section3.png" alt="ElevenLabs prompt example"
+                      <li><v-img src="images/AIMusic/elevenlabs_section3.png" alt="ElevenLabs prompt example"
                           class="my-4 rounded-lg" width="60%" /></li>
                     </ul>
                   </li>
@@ -1983,9 +2302,11 @@
                   </li>
 
                   <li>
-                    Save this Public Page link for posting in the discussion forum <strong>Part 2: Materials Collection</strong> in the step 6 below.
+                    Save this Public Page link for posting in the discussion forum <strong>Part 2: Materials
+                      Collection</strong> in the step 6 below.
                     <ul>
-                      <li>Ensure your post includes the composition containing two sections (e.g., intro and verse or verse and chorus).</li>
+                      <li>Ensure your post includes the composition containing two sections (e.g., intro and verse or
+                        verse and chorus).</li>
                     </ul>
                   </li>
 
@@ -2035,17 +2356,21 @@
                 <div class="tip-box">
                   <p><strong>💡 Ready to Submit?</strong></p>
                   <p>You now have everything you need for <a
-                      href="https://gbdawu.github.io/gbda412/group-project-2.html" target="_blank"> Project 2, Part 2: Materials
+                      href="https://gbdawu.github.io/gbda412/group-project-2.html" target="_blank"> Project 2, Part 2:
+                      Materials
                       Collection</a>:</p>
                   <ul>
-                    <li>✅ PDF or Word document containing the final prompts for each section (submit only the final prompts not the whole conversation)</li>
-                    <li>✅ Share Page link from ElevenLabs containing your 1 - 1.5 minute composition (intro + verse or verse + chorus)</li>
+                    <li>✅ PDF or Word document containing the final prompts for each section (submit only the final
+                      prompts not the whole conversation)</li>
+                    <li>✅ Share Page link from ElevenLabs containing your 1 - 1.5 minute composition (intro + verse or
+                      verse + chorus)</li>
                     <li>✅ Documentation with short annotations for each prompt</li>
                     <li>✅ Brief reflection connecting your work to your proposal and course concepts</li>
                   </ul>
                   <p>Post your materials in the discussion forum <strong>Part 2: Materials
                       Collection</strong> on LEARN by the deadline. Consult detailed guidelines here: <a
-                      href="https://gbdawu.github.io/gbda412/group-project-2.html" target="_blank"> Project 2, Part 2: Materials
+                      href="https://gbdawu.github.io/gbda412/group-project-2.html" target="_blank"> Project 2, Part 2:
+                      Materials
                       Collection</a></p>
                 </div>
 
@@ -2058,7 +2383,202 @@
             <v-window-item :value="6">
               <h2>{{ streamBWorkshops[2].title }}</h2>
 
-              <p>Coming soon!</p>
+              <div class="intro-section">
+                <p>
+                  In this workshop, you will combine your AI prompting skills and ElevenLabs editing to produce a
+                  complete song.
+                  You will practice structuring a longer composition of <strong>2-3 minutes</strong>, starting with a
+                  full-song prompt in ChatGPT,
+                  and then refining sections directly in ElevenLabs. Through this process, you’ll learn a workflow you
+                  can use for your final assignment.
+                </p>
+                <br>
+
+
+                <h3>
+                  <v-icon color="primary" class="mr-2">mdi-music-note</v-icon>
+                  What You Will Do
+                </h3>
+
+                <p>
+                  In this workshop, you will generate a full song prompt using ChatGPT. You will also experiment with
+                  editing individual sections directly in ElevenLabs
+                  to enhance your composition.
+                </p>
+                <br>
+
+                <div class="learning-objectives">
+                  <h3>
+                    <v-icon color="primary" class="mr-2">mdi-alert-circle-outline</v-icon>
+                    Subscription Disclaimer
+                  </h3>
+
+
+                  <p>If you choose to explore the topic of AI music, please note that you may need to upgrade to the $5
+                    USD one-month subscription of ElevenLabs. In many cases, the free version may be
+                    sufficient, but the subscription could be necessary to fully complete the assignment. Alternative
+                    options include changing to Stream A which uses free software.</p>
+                </div>
+
+                <div class="learning-objectives">
+                  <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
+                  <ul>
+                    <li>Develop skills in AI prompting for complex, multi-section compositions.</li>
+                    <li>Practice refining generated music by editing individual sections in ElevenLabs.</li>
+                    <li>Practice how to produce a full 2-3 minute song ready to share.</li>
+                  </ul>
+                </div>
+
+                <div class="tools-section">
+                  <h3><v-icon color="primary" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
+                  <ul>
+                    <li>ChatGPT</li>
+                    <li>ElevenLabs</li>
+                  </ul>
+                </div>
+
+              </div>
+
+              <!-- Steps -->
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-notebook-edit</v-icon>Step 1: Generate A Full-Song Prompt
+                  With ChatGPT</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Create a detailed prompt for your full 2-3 minute song using ChatGPT,
+                  which will guide the AI-generated composition in ElevenLabs.
+                </div>
+
+                <ol>
+                  <li>
+                    <strong>Follow the video tutorial to create a full-song prompt in ChatGPT.</strong>
+                    <br>
+                    <div class="tip-box">
+                      <p> 💡 Pay attention to how the use ChatGPT to include details such as genre, mood,
+                        instrumentation, structure
+                        (intro, verse,
+                        chorus, outro), and any other creative specifications.</p>
+                    </div>
+
+                  </li>
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/r3ctNrWzRLQ?si=eBx2gJPNPY3Q5z5M"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                  <div class="tip-box">
+                    <strong>💡 Tip:</strong> Use the glossary to describe musical elements accurately and expand your
+                    prompts with clear musical terminology.
+
+                    <!-- Collapsible glossary section -->
+                    <ul>
+                      <li><strong>Tempo:</strong> The speed of the music, measured in beats per minute (BPM).</li>
+                      <li><strong>Harmony:</strong> The combination of different musical notes played simultaneously.
+                      </li>
+                      <li><strong>Melody:</strong> A sequence of musical notes that forms the main theme of a song.
+                      </li>
+                      <li><strong>Rhythm:</strong> The pattern of sounds and silences in music.</li>
+                      <li><strong>Key:</strong> The main set of notes a song is based on. For example, a song in
+                        the key of C mostly uses notes from the C scale.</li>
+                      <li><strong>Scale:</strong>A series of notes arranged in order from low to high (or high to low).
+                        Scales help define the mood of a song—for example, major scales often sound bright or happy,
+                        while minor scales sound sad or more emotional.
+                      </li>
+                      <li><strong>Chord:</strong> A group of notes played together that harmonize.</li>
+                      <li><strong>Panning:</strong> The placement of sound in the stereo field (left or right).</li>
+                      <li><strong>Volume:</strong> The loudness or softness of a sound.</li>
+                      <li><strong>Verse:</strong> A section with lyrics that usually change each time it appears.</li>
+                      <li><strong>Chorus:</strong> A repeated section with the same lyrics and melody.</li>
+                      <li><strong>Bridge:</strong> A contrasting section connecting different parts of the song.</li>
+                      <li><strong>Fills:</strong> Short passages used to transition between sections.</li>
+                      <li><strong>Intro:</strong> The opening section of a song.</li>
+                      <li><strong>Outro:</strong> The ending section of a song.</li>
+                    </ul>
+
+                  </div>
+
+                </ol>
+              </div>
+
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-notebook-edit</v-icon>Step 2: Generate Your Song in
+                  ElevenLabs</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Use your completed ChatGPT prompt to generate a full 2–3 minute song in
+                  ElevenLabs, adjusting generation settings to shape your composition before moving on to section
+                  editing.
+                </div>
+
+                <ol>
+
+                  <li>
+                    <strong>Configure duration settings before generating the song:</strong>
+                    <ul>
+                      <li>Adjust the song duration to meet the requirement of 2–3 minutes. ElevenLabs will only generate
+                        30 seconds by default unless adjusted to 2 or 3 minutes.</li>
+                      <v-img src="images/AIMusic/length.png" alt="ElevenLabs share button" class="my-4 rounded-lg"
+                        width="60%" />
+                    </ul>
+                  </li>
+
+                  <li>
+                    <strong>Configure generation variants to only 1:</strong>
+                    <ul>
+                      <li>Change the variant number to 1. This way, ElevenLabs will only generate one song from your
+                        prompt which will allow you to save credits.</li>
+                      <v-img src="images/AIMusic/variant.png" alt="ElevenLabs share button" class="my-4 rounded-lg"
+                        width="60%" />
+
+                    </ul>
+                  </li>
+
+                  <li>
+                    <strong>Generate your full song in ElevenLabs:</strong>
+                    <ul>
+                      <li>Paste your completed prompt into the ElevenLabs Music Generation tool.</li>
+                      <li>Ensure core elements—intro, verse, chorus, and outro—are represented in the generated output.
+                      </li>
+                    </ul>
+                  </li>
+
+                </ol>
+              </div>
+
+              <div class="section-divider"></div>
+              <div class="step-section">
+                <h3><v-icon color="primary" class="mr-2">mdi-notebook-edit</v-icon>Step 3: Refine Your Song in
+                  ElevenLabs</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Edit and enhance the sections of your generated song to improve musical
+                  expression and production quality.
+                </div>
+
+                <ol>
+                  <li>
+                    <strong>Follow the official ELevenLabs video (starting in minute
+                      1:47) to edit individual sections such as intro, verse, chorus, and outro</strong>.
+
+                    <ul>
+                      <li>Adjust musical elements like melody, rhythm, and harmony where needed.</li>
+                      <li>Experiment with dynamics, volume, and panning to create depth and balance in your song.</li>
+                      <li>Add or adjust effects to shape the overall sound of each section.</li>
+
+
+                      <iframe width="560" height="315"
+                        src="https://www.youtube.com/embed/MCrkItqdRRI?si=4MUim99vhxdhXhRf&amp;start=107"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+
             </v-window-item>
 
 

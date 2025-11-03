@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GPX to CSV Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .upload-section {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        input[type="file"]:hover {
+            border-color: #764ba2;
+            background: #f8f9ff;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        .info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #004085;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚴 GPX to CSV</h1>
+        <p class="subtitle">Combine your fitness files and export to CSV</p>
+        
+        <!-- <div class="upload-section">
+            <label for="fitFile">FIT File (.fit)</label>
+            <input type="file" id="fitFile" accept=".fit">
+        </div> -->
+        
+        <div class="upload-section">
+            <label for="gpxFile">GPX File (.gpx)</label>
+            <input type="file" id="gpxFile" accept=".gpx">
+        </div>
+        
+        <button id="convertBtn" onclick="convertFiles()">Convert to CSV</button>
+        
+        <div id="status" class="status"></div>
+        
+        <div class="info">
+            <strong>How it works:</strong><br>
+            1. Select a GPX file (GPS track)<br>
+            2. Click convert to download as CSV
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fit-file-parser/1.9.0/fit-parser.min.js"></script>
+    <script>
+        let fitData = null;
+        let gpxData = null;
+
+        // document.getElementById('fitFile').addEventListener('change', async (e) => {
+        //     const file = e.target.files[0];
+        //     if (file) {
+        //         try {
+        //             const arrayBuffer = await file.arrayBuffer();
+        //             const parser = new FitParser({
+        //                 force: true,
+        //                 speedUnit: 'km/h',
+        //                 lengthUnit: 'km',
+        //                 temperatureUnit: 'celsius',
+        //                 elapsedRecordField: true,
+        //                 mode: 'cascade'
+        //             });
+        //             fitData = parser.parse(arrayBuffer);
+        //             showStatus('FIT file loaded successfully!', 'success');
+        //         } catch (error) {
+        //             showStatus('Error reading FIT file: ' + error.message, 'error');
+        //         }
+        //     }
+        // });
+
+        document.getElementById('gpxFile').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                try {
+                    const text = await file.text();
+                    gpxData = parseGPX(text);
+                    showStatus('GPX file loaded successfully!', 'success');
+                } catch (error) {
+                    showStatus('Error reading GPX file: ' + error.message, 'error');
+                }
+            }
+        });
+
+ function parseGPX(xmlText) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+
+    const tracks = xmlDoc.querySelectorAll('trk');
+    const points = [];
+    let track_fid = 0;
+
+    tracks.forEach(trk => {
+        const segments = trk.querySelectorAll('trkseg');
+        track_fid++;
+
+        let track_seg_id = 0;
+
+        segments.forEach(seg => {
+            track_seg_id++;
+            const trackPoints = seg.querySelectorAll('trkpt');
+
+            let track_seg_point_id = 0;
+
+            trackPoints.forEach(tp => {
+                track_seg_point_id++;
+
+                const lat = parseFloat(tp.getAttribute('lat'));
+                const lon = parseFloat(tp.getAttribute('lon'));
+                const ele = tp.querySelector('ele')?.textContent || '';
+                const time = tp.querySelector('time')?.textContent || '';
+
+                points.push({
+                    X: lon,
+                    Y: lat,
+                    track_fid: track_fid,
+                    track_seg_id: track_seg_id,
+                    track_seg_point_id: track_seg_point_id,
+                    ele: ele,
+                    time: time
+                });
+            });
+        });
+    });
+
+    return points;
+}
+
+function convertFiles() {
+    if (!gpxData) {
+        showStatus('Please upload a GPX file!', 'error');
+        return;
+    }
+
+    try {
+        const headers = ['X','Y','track_fid','track_seg_id','track_seg_point_id','ele','time'];
+        const csvRows = [headers.join(',')];
+
+        gpxData.forEach(pt => {
+            const row = [
+                pt.X,
+                pt.Y,
+                pt.track_fid,
+                pt.track_seg_id,
+                pt.track_seg_point_id,
+                pt.ele,
+                pt.time
+            ];
+            csvRows.push(row.join(','));
+        });
+
+        // Download CSV
+        const csvContent = csvRows.join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'track_points.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+
+        showStatus(`Success! Exported ${gpxData.length} points.`, 'success');
+    } catch (error) {
+        showStatus('Error converting files: ' + error.message, 'error');
+    }
+}
+
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = 'status ' + type;
+        }
+    </script>
+</body>
+</html>

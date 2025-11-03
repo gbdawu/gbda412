@@ -9,7 +9,7 @@ const App = {
       streamAWorkshops: [
         { title: "Workshop 1: Biofeedback practice (body as instrument)", description: "Learn to convert body movement data into music" },
         { title: "Workshop 2: Working with GPS + heart rate data + MIDI", description: "Coming soon!" },
-        { title: "Workshop 3: Data sonification with Online Sequencer", description: "Coming soon!" }
+        { title: "Workshop 3:Musica Arrangement with Online Sequencer", description: "Coming soon!" }
       ],
       streamBWorkshops: [
         { title: "Workshop 1: AI music tools (music machines)", description: "Establish creative parameters" },
