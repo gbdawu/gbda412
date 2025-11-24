@@ -224,7 +224,7 @@ createApp({
                     studentName: "Henrietta Van Niekerk",
                     songTitle: "Elegy for the Last Real Voice (Full Manifest Cut)",
                     description: "I created a ~4-minute dark cabaret piece tracing what happens when a synthetic voice tries—first earnestly, then catastrophically—to feel. My process began by drafting a detailed emotional arc and structural outline, which I refined with the help of ChatGPT used strictly as a clarity and line-editing tool. I deliberately avoided using AI for the lyrics at this stage in order to focus on shaping the performance logic. I tried AI lyrics once (ChatGPT and ElevenLabs) and both significantly flattened the complexity of the idea or were entirely nonsensical. So instead, I wrote my own lyrics, using chatGPT as more of a ‘line editor’. The first ElevenLabs render (the “Late-Night Cut”) interpreted this outline with notable restraint—soft dynamics, minimal contrast, and a shy, contained delivery.", 
-                    platform: "Elevenlabs & mp3",
+                    platform: "ElevenLabs & mp3",
                     source: "Elegy for the Last Real Voice.mp3"
                 },
 
