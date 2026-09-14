@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/night.css">
+
+    <style>
+        /* 1. Reset base */
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .reveal {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* 2. Tipografía para el cuerpo del texto usando variables CSS */
+        .reveal,
+        .reveal .slides,
+        .reveal .slides section,
+        .reveal .slides section p,
+        .reveal .slides section li,
+        .reveal .slides section span,
+        .reveal .slides section a,
+        .reveal .slides section div {
+            font-family: var(--body-font, 'Inter', sans-serif) !important;
+        }
+
+        /* Alineación a la izquierda */
+        .reveal .slides section {
+            text-align: left;
+        }
+
+        /* 3. Escalar texto del cuerpo */
+        .reveal .slides section p,
+        .reveal .slides section li,
+        .reveal .slides section span,
+        .reveal .slides section a {
+            font-size: 0.8em !important;
+            line-height: 1.4 !important;
+        }
+
+        /* 4. Tipografía para Títulos usando variables CSS */
+        .reveal .slides section h1,
+        .reveal .slides section h2,
+        .reveal .slides section h3,
+        .reveal .slides section h4,
+        .reveal .slides section h5,
+        .reveal .slides section h6 {
+            font-family: var(--title-font, 'Montserrat', sans-serif) !important;
+            font-weight: 800 !important;
+            text-transform: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="reveal" id="reveal-deck">
+        <div class="slides" id="slides-container">
+            <section>Cargando presentación...</section>
+        </div>
+    </div>
+
+    <!-- Supabase & Reveal.js Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+
+    <script>
+        // Configuración de Supabase
+        const SUPABASE_URL = 'https://jomqgtqtwgaxdgwywhtg.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXFndHF0d2dheGRnd3l3aHRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MTkyNDgsImV4cCI6MjA5ODQ5NTI0OH0.aTKt1oLBpyMMNL0S2Lcv3C1ZyOkmDcxNP2J2BgxluBg';
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const fontPairsMap = {
+            'montserrat-inter': {
+                title: 'Montserrat',
+                body: 'Inter',
+                url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap'
+            },
+            'playfair-lato': {
+                title: 'Playfair Display',
+                body: 'Lato',
+                url: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;800&display=swap'
+            },
+            'poppins-nunito': {
+                title: 'Poppins',
+                body: 'Nunito',
+                url: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@700;800&display=swap'
+            },
+            'space-grotesk-roboto': {
+                title: 'Space Grotesk',
+                body: 'Roboto',
+                url: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Space+Grotesk:wght@700&display=swap'
+            }
+        };
+
+        async function cargarPresentacionPublica() {
+            // Obtener el título desde la URL (?title=Nombre)
+            const urlParams = new URLSearchParams(window.location.search);
+            const title = urlParams.get('title');
+
+            if (!title) {
+                document.getElementById('slides-container').innerHTML = '<section>⚠️ No se especificó el título en la URL.</section>';
+                return;
+            }
+
+            // Consulta el Markdown y la configuración del tema
+            const { data, error } = await supabaseClient
+                .from('presentations')
+                .select('content_markdown, theme_config')
+                .eq('title', title)
+                .single();
+
+            if (error || !data) {
+                document.getElementById('slides-container').innerHTML = '<section>⚠️ Presentación no encontrada.</section>';
+                return;
+            }
+
+            // 1. Cargar la combinación de tipografías guardada
+            const savedFontId = data.theme_config?.fontPair || 'montserrat-inter';
+            const fontConfig = fontPairsMap[savedFontId] || fontPairsMap['montserrat-inter'];
+
+            // Inyectar enlace a Google Fonts si no existe previamente
+            if (!document.querySelector(`link[href="${fontConfig.url}"]`)) {
+                const fontLink = document.createElement('link');
+                fontLink.rel = 'stylesheet';
+                fontLink.href = fontConfig.url;
+                document.head.appendChild(fontLink);
+            }
+
+            // Asignar variables CSS en el contenedor de Reveal
+            const revealDeck = document.getElementById('reveal-deck');
+            revealDeck.style.setProperty('--title-font', `'${fontConfig.title}', sans-serif`);
+            revealDeck.style.setProperty('--body-font', `'${fontConfig.body}', sans-serif`);
+
+            // 2. Aplicar el gradiente guardado
+            const gradienteGuardado = data.theme_config?.gradient || 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)';
+            revealDeck.style.background = gradienteGuardado;
+
+            // 3. Cargar el Markdown en la estructura
+            document.getElementById('slides-container').innerHTML = `
+                <section data-markdown>
+                    <textarea data-template>${data.content_markdown}</textarea>
+                </section>
+            `;
+
+            // 4. Inicializar Reveal.js
+            const deck = new Reveal({
+                plugins: [RevealMarkdown],
+                hash: true
+            });
+
+            deck.initialize({ center: false });
+        }
+
+        cargarPresentacionPublica();
+    </script>
+</body>
+
+</html>
