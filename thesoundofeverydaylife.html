@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>The Sound of Everyday Life</title>
+  <title>The Politics of Sound and Place - Labs</title>
 
   <!-- Vuetify & Vue CDN -->
   <link href="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.css" rel="stylesheet" />
@@ -16,400 +16,476 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lato:wght@300;400;700&display=swap"
     rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    }
+
     body {
       margin: 0;
       font-family: 'Lato', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background-color: #f8fafc;
     }
 
-    h1 {
-      font-size: 1.75rem;
-      /* color: #1976d2; */
-      font-weight: 600;
+    .v-application {
+      font-family: 'Lato', sans-serif !important;
+      background-color: #f8fafc !important;
     }
 
-    h2 {
-      font-size: 1.5rem;
-      /* color: #1976d2; */
-      font-weight: 600;
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    h3 {
-      font-size: 1.25rem;
-      color: #424242;
-      font-weight: 500;
-    }
-
-    h4 {
-      font-size: 1.1rem;
-      color: #424242;
-      font-weight: 500;
-    }
-
-    h5 {
-      font-size: 1rem;
-      color: #424242;
-    }
-
-    .intro-section {
-      font-size: 1.25rem;
-      margin: 1.5rem;
-      line-height: 1.6;
-    }
-
-    .coming-soon-card {
-      margin: 20px auto;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
+      border-radius: 24px;
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+      border-radius: 50%;
+    }
+
+    /* Modern Card Styles */
+    .lab-card {
+      border-radius: 16px !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    }
+
+    .lab-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.01) !important;
     }
 
     .step-card {
-      margin: 20px auto;
-      padding: 1rem;
+      margin: 24px 0;
+      padding: 1.25rem;
       border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
     }
 
     .step-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    ol,
-    ul {
-      margin-left: 1rem;
-      padding-left: 1rem;
-      line-height: 1.6;
-    }
-
-    .v-img {
-      width: 100%;
-      max-width: 100%;
-      margin: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
     }
 
     .example {
       border: none;
       padding: 20px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+      background: #f0fdf4;
       margin: 20px 0;
-      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
-      border-left: 4px solid #4caf50;
-      font-size: 0.9rem;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1);
+      border-left: 4px solid #22c55e;
+      font-size: 0.95rem;
     }
 
     .example strong {
-      color: #2e7d32;
-      font-size: 1.1rem;
+      color: #15803d;
+      font-size: 1.05rem;
     }
 
     /* Custom Details Styling */
     .custom-details {
       margin: 20px 0;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
       background: white;
-      border: 1px solid rgba(25, 118, 210, 0.1);
+      border: 1px solid #e2e8f0;
     }
 
     .custom-details summary {
-      background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-      color: white;
-      padding: 16px 20px;
+      background: #f8fafc;
+      color: #1e293b;
+      padding: 18px 24px;
       cursor: pointer;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
+      font-weight: 700;
+      font-size: 1.05rem;
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
     .custom-details summary:hover {
-      background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
-      transform: translateY(-1px);
-    }
-
-    .custom-details summary::before {
-      content: '▶';
-      font-size: 0.8rem;
-      transition: transform 0.3s ease;
-    }
-
-    .custom-details[open] summary::before {
-      transform: rotate(90deg);
-    }
-
-    .custom-details[open] summary {
-      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      background: #f1f5f9;
     }
 
     .details-content {
       padding: 24px;
-      background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
-      border-top: 1px solid rgba(25, 118, 210, 0.1);
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
     }
 
-    /* Enhanced section spacing */
     .section-divider {
-      margin: 32px 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent 0%, #1976d2 50%, transparent 100%);
-      border-radius: 1px;
+      margin: 40px 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, #cbd5e1 50%, transparent 100%);
     }
 
-    /* Custom list styling */
-    .styled-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .styled-list li {
-      position: relative;
-      padding-left: 30px;
-      margin: 12px 0;
-    }
-
-    .styled-list li::before {
-      content: '🎵';
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-
-    /* Enhanced objective boxes */
     .objective-box {
-      background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-      border: 1px solid #ffb74d;
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
       border-radius: 12px;
-      padding: 16px;
+      padding: 18px;
       margin: 16px 0;
-      box-shadow: 0 4px 15px rgba(255, 183, 77, 0.2);
     }
 
-    .objective-box strong {
-      color: #f57c00;
-      font-size: 1.1rem;
-    }
-
-    /* Learning objectives styling */
     .learning-objectives {
-      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-      border-radius: 12px;
-      padding: 20px;
+      background: #eff6ff;
+      border-radius: 14px;
+      padding: 24px;
       margin: 20px 0;
-      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
-      border-left: 4px solid #2196f3;
+      border-left: 5px solid #3b82f6;
     }
 
     .tools-section {
-      background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-      border-radius: 12px;
-      padding: 20px;
+      background: #faf5ff;
+      border-radius: 14px;
+      padding: 24px;
       margin: 20px 0;
-      box-shadow: 0 4px 15px rgba(156, 39, 176, 0.2);
-      border-left: 4px solid #9c27b0;
+      border-left: 5px solid #a855f7;
     }
 
-    /* Enhanced link styling */
     a {
-      color: #1976d2;
+      color: #4f46e5;
       text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    a:hover {
-      color: #0d47a1;
-      text-decoration: underline;
-    }
-
-    /* Custom code styling */
-    code {
-      background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-family: 'Courier New', monospace;
-      color: #d32f2f;
       font-weight: 600;
     }
 
+    a:hover {
+      text-decoration: underline;
+    }
+
     .tip-box {
-      border-left: 4px solid orange;
-      border-radius: 10px;
-      padding: 8px 12px;
-      margin: 10px 0;
-      background: lightgray;
+      border-left: 4px solid #f59e0b;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 14px 0;
+      background: #fffbeb;
     }
   </style>
 </head>
 
 <body>
-  <!-- Baseline Layout -->
   <div id="app">
     <v-app>
 
       <!-- App Bar -->
-      <v-app-bar color="primary" dark elevation="8">
-        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>The Sound of Everyday Life Workshops</v-toolbar-title>
+      <v-app-bar flat color="slate-900" class="border-b" elevation="1">
+        <v-app-bar-nav-icon @click="drawer = !drawer" color="primary"></v-app-bar-nav-icon>
+        <v-toolbar-title class="font-weight-bold text-headline">
+          <v-icon color="indigo-accent-3" class="mr-2">mdi-waveform</v-icon>
+          The Politics of Sound & Place <span class="text-indigo-accent-2">Labs</span>
+        </v-toolbar-title>
       </v-app-bar>
 
-      <!-- Navigation Drawer -->
-      <v-navigation-drawer v-model="drawer" temporary>
-        <v-list density="compact" nav>
-          <v-list-item @click="tab = 0" prepend-icon="mdi-home" title="Home"></v-list-item>
-          <v-list-item v-for="(workshop, i) in workshops" :key="i" :title="workshop.title" :prepend-icon="workshop.icon"
-            @click="tab = i+1"></v-list-item>
+      <!-- Navigation Drawer (Main Content automatically shrinks when open) -->
+      <v-navigation-drawer v-model="drawer" width="280">
+        <div class="pa-4 text-overline text-grey-darken-1 font-weight-bold">Navigation</div>
+        <v-list density="comfortable" nav class="px-2">
+          <v-list-item @click="tab = '0'" :active="tab === '0'" active-color="indigo-accent-4"
+            prepend-icon="mdi-view-dashboard-outline" title="Home Overview" rounded="lg"></v-list-item>
+          <v-divider class="my-2"></v-divider>
+          <v-list-item v-for="(lab, i) in labs" :key="i" :active="tab === String(i+1)" active-color="indigo-accent-4"
+            :title="lab.shortTitle" :subtitle="'Lab 0' + (i+1)" :prepend-icon="lab.icon" @click="tab = String(i+1)"
+            rounded="lg"></v-list-item>
         </v-list>
       </v-navigation-drawer>
 
-      <!-- Main Content -->
+      <!-- Main Content Container -->
       <v-main>
-        <v-container class="py-10">
+        <v-container class="py-8 px-6" max-width="1200">
           <v-window v-model="tab">
-            <!-- Home -->
+
+            <!-- HOME / MAIN PAGE -->
             <v-window-item value="0">
-              <div class="intro-section">
-                <h1 class="mb-4">The Sound of Everyday Life Workshops</h1>
-                <ul class="styled-list">
-                  <li>These workshops are intended to help you develop the skills to create and experience soundwalks,
-                    using the Echoes app and other tools.</li>
-                  <li>These skills will be useful for completing the <i>Group Project 1: The Sound of Everyday Life</i>.
-                  </li>
-                  <li>Explore each workshop using the navigation menu.</li>
-                </ul>
-                <br>
-                <v-img src="/images/home-soundwalk.jpg" alt="People experiencing a soundwalk" class="my-6 rounded-lg"
-                  max-width="800" />
+              <!-- Hero Section -->
+              <div class="hero-banner pa-8 pa-md-12 mb-8">
+                <v-row align="center">
+                  <v-col cols="12" md="8">
+                    <v-chip color="indigo-lighten-3" class="mb-4 font-weight-bold" size="small" variant="flat">GBDA 412
+                      COURSE LABS</v-chip>
+                    <h1 class="text-h3 font-weight-bold mb-4">The Politics of Sound & Place Labs</h1>
+                    <p class="text-subtitle-1 text-slate-300 mb-6" style="line-height: 1.7;">
+                      These hands-on exercises are designed to equip you with concept ideation, recording, spatial
+                      mapping skills to build your soundwalk compositions.
+                    </p>
+                    <!-- <div class="d-flex ga-3 flex-wrap">
+                      <v-chip prepend-icon="mdi-flask" variant="outlined" color="white">3 Interactive Labs</v-chip>
+                      <v-chip prepend-icon="mdi-cellphone-sound" variant="outlined" color="white">Echoes Platform</v-chip>
+                      <v-chip prepend-icon="mdi-headphones" variant="outlined" color="white">Audio Editing</v-chip>
+                    </div> -->
+                  </v-col>
+                </v-row>
               </div>
+
+              <!-- Labs Grid View -->
+              <div class="d-flex align-center justify-space-between mb-6">
+                <div>
+                  <h2 class="text-h5 font-weight-bold">Course Labs</h2>
+                  <p class="text-body-2 text-grey-darken-1">Select a lab below or use the sidebar menu to begin.</p>
+                </div>
+              </div>
+
+              <v-row>
+                <v-col v-for="(lab, index) in labs" :key="index" cols="12" md="4">
+                  <v-card class="lab-card h-100 d-flex flex-column" elevation="0" @click="tab = String(index + 1)">
+                    <v-card-item>
+                      <template v-slot:prepend>
+                        <v-avatar :color="lab.color" size="48" variant="tonal" class="rounded-lg">
+                          <v-icon size="24">{{ lab.icon }}</v-icon>
+                        </v-avatar>
+                      </template>
+                      <v-card-title class="font-weight-bold text-wrap">{{ lab.title }}</v-card-title>
+                      <v-card-subtitle class="mt-1">Lab {{ index + 1 }}</v-card-subtitle>
+                    </v-card-item>
+
+                    <v-card-text class="text-body-2 text-grey-darken-1 flex-grow-1">
+                      {{ lab.description }}
+                    </v-card-text>
+
+                    <v-divider></v-divider>
+
+                    <v-card-actions class="pa-4 bg-grey-lighten-5 d-flex justify-space-between">
+                      <span class="text-caption font-weight-bold text-grey-darken-1">
+                        <v-icon size="small" class="mr-1">mdi-clock-outline</v-icon> {{ lab.duration }}
+                      </span>
+                      <v-btn color="indigo-accent-4" variant="text" append-icon="mdi-arrow-right">Start Lab</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-col>
+              </v-row>
             </v-window-item>
 
-            <!-- Workshop 1 -->
+            <!-- LAB 1 -->
             <v-window-item value="1">
-              <h2>{{ workshops[0].title }}</h2>
-              <div class="intro-section">
-                <p>In this workshop, You will embark on an auditory walk paying attention to the history woven into the
-                  streets surrounding the Stratford School of Interaction. As you move along St. Patrick Street and
-                  nearby landmarks, you’ll hear stories that evoke everyday life in Stratford. This workshop invites you
-                  to listen closely and discover how the city’s past and present continue to interact in the spaces we
-                  inhabit today.</p>
+              <v-breadcrumbs :items="['Labs', 'Lab 1']" class="px-0 py-2"></v-breadcrumbs>
+              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[0].title }}</h1>
 
-                <br>
+              <div class="intro-section px-0">
+                <p class="text-body-1">In this lab, you will start learning about soundwalks by listening at soundwalks
+                  made by students from last year. These soundwalks invite you to listen closely and discover how the
+                  city's past and present continue to interact in the spaces you inhabit today.</p>
+
                 <div class="learning-objectives">
-                  <h4><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
-                  <ul>
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
+                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
+                  <ul class="pl-4">
                     <li>Understand the concept and purpose of soundwalks.</li>
                     <li>Experience a soundwalk using the Echoes app.</li>
                     <li>Reflect on auditory experiences and space perception.</li>
                   </ul>
                 </div>
 
-                <br>
                 <div class="tools-section">
-                  <h3><v-icon color="purple" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
-                  <ul>
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
+                      class="mr-2">mdi-tools</v-icon>Tools You'll Use</h4>
+                  <ul class="pl-4">
                     <li>Headphones or earbuds</li>
                     <li>Your smartphone (iOS or Android)</li>
                   </ul>
                 </div>
 
-                <br>
-                <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>What is a Soundwalk?</h3>
+                <h3 class="mt-6 mb-2"><v-icon color="primary" class="mr-2">mdi-walk</v-icon>What is a Soundwalk?</h3>
                 <p>A soundwalk is an exploration of the environment through listening. Participants move through a
                   space, focusing on sounds both natural and human-made. Learn more <a
                     href="https://en.wikipedia.org/wiki/Soundwalk" target="_blank">here</a>.</p>
-
-                <br>
               </div>
 
               <!-- Steps -->
-              <v-card class="step-card" elevation="6" id="step-1">
+              <v-card class="step-card" elevation="0" id="step-1">
                 <v-card-text>
                   <h3><v-icon color="success" class="mr-2">mdi-numeric-1-circle</v-icon>Step 1: Install the Echoes App
                   </h3>
-                  <p>Get started by installing the Echoes app from:
-                    <a href="https://explore.echoes.xyz/" target="_blank">explore.echoes.xyz</a>
-                  </p>
-                  <br>
+                  <p class="mt-2">Get started by installing the Echoes app from: <a
+                      href="https://play.google.com/store/apps/details?id=xyz.echoes.android&hl=en_CA"
+                      target="_blank">Google Play</a>, or <a
+                      href="https://apps.apple.com/ca/app/echoes-interactive-sound-walks/id1021511722"
+                      target="_blank">Apple App Store</a></p>
                   <v-img src="images/soundwalk/steps part 1.png" alt="Install Echoes app screenshot"
                     class="my-4 rounded-lg" />
                 </v-card-text>
               </v-card>
 
-              <v-card class="step-card" elevation="6" id="step-2">
+              <v-card class="step-card" elevation="0" id="step-2">
                 <v-card-text>
-                  <h3><v-icon color="success" class="mr-2">mdi-numeric-2-circle</v-icon>Step 2: Access the Soundwalk
+                  <h3><v-icon color="success" class="mr-2">mdi-numeric-2-circle</v-icon>Step 2: Access a Soundwalk
                   </h3>
-                  <p>Scan the QR code or click below to access the soundwalk:</p>
-                  <a href="https://explore.echoes.xyz/collections/hjXuUnRjG9QN0SvP" target="_blank">
-                    https://explore.echoes.xyz/collections/hjXuUnRjG9QN0SvP
-                  </a>
-                  <br><br>
-                  <v-img src="images/soundwalk/instructionspart2.png" alt="Soundwalk collection screenshot"
+                  <ol class="mt-2">
+                    <li>Explore the following page with soundwalks from last year's GBDA students: <a
+                        href="https://gbdawu.github.io/gbda412/soundwalk-exhibition"
+                        target="_blank">https://gbdawu.github.io/gbda412/soundwalk-exhibition</a>
+                    </li>
+                    <li> Find one soundwalk you like and scan the QR code to access the soundwalk in the Echoes app</li>
+                  </ol>
+                  <v-img src="images/soundwalk/soundwalks-last-year.png" alt="Soundwalks from last year screenshot"
                     class="my-4 rounded-lg" />
                 </v-card-text>
               </v-card>
 
-              <v-card class="step-card" elevation="6" id="step-3">
+              <v-card class="step-card" elevation="0" id="step-3">
                 <v-card-text>
                   <h3><v-icon color="success" class="mr-2">mdi-numeric-3-circle</v-icon>Step 3: Follow the Map in the
                     App</h3>
-                  <p>Follow the map in the app to trigger audios at various locations near Stratford School.</p>
-                  <br>
+                  <p class="mt-2">Once your soundwalk is loaded, go out of the building and follow the map in the app to
+                    trigger audios at various locations near Stratford
+                    School.</p>
                   <v-img src="images/soundwalk/step10.jpeg" alt="Map with audio triggers screenshot"
                     class="my-4 rounded-lg" max-width="300" />
                 </v-card-text>
               </v-card>
 
-              <v-card class="step-card" elevation="6" id="step-4">
+              <v-card class="step-card" elevation="0" id="step-4">
                 <v-card-text>
                   <h3><v-icon color="success" class="mr-2">mdi-numeric-4-circle</v-icon>Step 4: Complete and Discuss
                   </h3>
-                  <p>Complete the handout during the soundwalk and discuss your experience with the class.</p>
-                  <br>
-                  <v-img src="images/soundwalk/handout.png" alt="Handout screenshot" class="my-4 rounded-lg"
+                  <p class="mt-2">Once you have completed the soundwalk, discuss your experience with the class:
+                  </p>
+
+                  <ul>
+                    <li> What did you hear? </li>
+                    <li> How did the sounds make you feel? </li>
+                    <li> What surprised you about the environment? </li>
+                    <li> What did you learn about the space you were in? </li>
+                  </ul>
+                  <!-- <v-img src="images/soundwalk/handout.png" alt="Handout screenshot" class="my-4 rounded-lg"
                     max-width="600" />
-                </v-card-text>
+                </v-card-text> -->
               </v-card>
+
+            <!-- HOMEWORK SECTION (Insert after Step 4 inside Lab 1) -->
+            <div class="section-divider"></div>
+
+            <v-card class="mt-8 pa-6 border" elevation="0"
+              style="border-radius: 20px; background: #faf5ff; border: 1px solid #e9d5ff !important;">
+              <div class="d-flex align-center mb-4">
+                <v-avatar color="purple-lighten-5" class="mr-3" size="44">
+                  <v-icon color="purple-darken-2" size="28">mdi-book-open-page-variant</v-icon>
+                </v-avatar>
+                <div>
+                  <h2 class="text-h5 font-weight-bold text-slate-900">Homework: Theme Ideation</h2>
+                  <span class="text-caption text-purple-darken-2 font-weight-bold">Due Before Next Class • Conceptual
+                    Prep for Lab 2</span>
+                </div>
+              </div>
+
+              <p class="text-body-1 text-slate-700 mb-4">
+                Before our next lab session, ideate a theme for your soundwalk project that critically
+                engages with the <b>politics of sound and place</b> at Stratford School and its immediate surroundings,
+                drawing connections to our readings from <b>Weeks 1 through 4</b>.
+              </p>
+
+              <!-- Objective Box -->
+              <div class="objective-box my-4" style="background-color: #fff; border-left: 4px solid #a855f7;">
+                <strong class="text-purple-darken-3 d-block mb-1">
+                  <v-icon size="small" class="mr-1">mdi-target</v-icon> Objective
+                </strong>
+                Select and articulate a theme exploring how auditory experiences shape spatial understanding, power
+                dynamics, community, or identity in and around campus.
+              </div>
+
+              <h4 class="text-subtitle-1 font-weight-bold text-slate-800 mt-6 mb-3">
+                <v-icon color="indigo-accent-4" class="mr-1">mdi-lightbulb-on-outline</v-icon> Prompts for Reflection:        </h4>
+
+              <v-row class="ga-0">
+                <v-col cols="12">
+                  <v-card variant="flat" class="pa-4 rounded-lg bg-white border mb-3">
+                    <div class="d-flex align-start">
+                      <v-icon color="indigo-accent-3" class="mr-3 mt-1">mdi-headphone-dot</v-icon>
+                      <ul>
+                        <li>In what ways can <b>
+                          walking and listening create a
+                          compelling story or narrative
+                        </b>of daily life on and around campus?</li>
+                      
+                        <li>How do <b>
+                          everyday sounds around Stratford shape your personal
+                          sense of place
+                        </b>, inclusion, or alienation?</li>
+                      
+                        <li>What<b>
+                           specific sounds are associated with different
+                          bodies
+                        </b>, social groups, or activities near Stratford School? </li>
+                      
+                        <li>Are there s<b>
+                          ounds or spaces that carry gendered,
+                          cultural, economic, or social meanings
+                        </b> in the city of Stratford? </li>
+                      
+                        <li>How do <b>
+                          rhythms, routines, or repetitions of sound reveal
+                          underlying patterns of time
+                        </b> in Stratford's everyday environment? </li>
+                      </ul>
+                    </div>
+                  </v-card>
+                </v-col>
+              </v-row>
+
+              <!-- Deliverable Card -->
+              <v-card class="pa-4 mt-4 bg-indigo-lighten-5 border-indigo" variant="outlined"
+                style="border-radius: 12px;">
+                <div class="d-flex align-center mb-2">
+                  <v-icon color="indigo-accent-4" class="mr-2">mdi-notebook-edit-outline</v-icon>
+                  <strong class="text-indigo-darken-3">Your Submission Deliverable:</strong>
+                </div>
+                <p class="text-body-2 text-slate-800 mb-0">
+                  Next class, bring 1-2 sentences</strong> linking your proposed soundwalk
+                  to at least one key concept or reading from Weeks 1-4. <i>Keep it flexible, as your theme will
+                    naturally evolve when we gather audio recordings next class.</i>
+                </p>
+              </v-card>
+            </v-card>
             </v-window-item>
 
-            <!-- Workshop 2 -->
+
+
+            <!-- LAB 2 -->
             <v-window-item value="2">
-              <h2>{{ workshops[1].title }}</h2>
+              <v-breadcrumbs :items="['Labs', 'Lab 2']" class="px-0 py-2"></v-breadcrumbs>
+              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[1].title }}</h1>
 
-              <div class="intro-section">
-                <p>This workshop will guide you through collecting and editing audio to give you ideas for
-                  your soundwalk recordings. By the end, you'll have hands-on experience with audio capture and editing
-                  techniques.</p>
+              <div class="intro-section px-0">
+                <p>This lab will guide you through collecting and editing audio to give you ideas for your soundwalk
+                  recordings. By the end, you'll have hands-on experience with audio capture and editing techniques.</p>
 
-                <br>
                 <div class="learning-objectives">
-                  <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
-                  <ul>
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
+                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
+                  <ul class="pl-4">
                     <li>Identify and extract sounds from archival media.</li>
                     <li>Capture your own recordings of campus life.</li>
                     <li>Layer recordings with narration or text-to-speech.</li>
                   </ul>
                 </div>
 
-                <br>
                 <div class="tools-section">
-                  <h3><v-icon color="purple" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
-                  <ul>
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
+                      class="mr-2">mdi-tools</v-icon>Tools You'll Use</h4>
+                  <ul class="pl-4">
                     <li>Headphones or earbuds</li>
                     <li>Sounds of Stratford website, Stratford School YouTube channel, Stratford City YouTube Channel
                     </li>
@@ -418,7 +494,6 @@
                   </ul>
                 </div>
 
-                <br>
                 <div class="section-divider"></div>
                 <h3><v-icon color="primary" class="mr-2">mdi-lightbulb</v-icon>Step 1: Start with a Theme</h3>
 
@@ -428,1123 +503,197 @@
                   readings.
                 </div>
 
-                <ol>
+                <ol class="pl-4">
                   <li>Revisit your proposal from last week. Remind yourself of the theme(s) you first imagined for your
                     soundwalk. You can also see what other people are planning by reading the proposals on the
                     discussion forum on LEARN.</li>
-
-                  <br>
-                  <li>Reflect on how your theme can connect with ideas from Weeks 1–4. For example:</li>
-                  <ul>
-                    <li>In what ways can walking and listening create a <b>story or narrative</b> of daily life on and
-                      around campus?</li>
-                    <li>How do everyday sounds around Stratford shape your sense of <b>place and belonging</b>?</li>
-                    <li>What sounds are associated with different <b>bodies and spaces</b> near Stratford School?</li>
-                    <li>Are there sounds or places that carry <b>gendered, cultural, or social meanings</b> in the
-                      context of Stratford School and its surroundings?</li>
-                    <li>How do rhythms, routines, or repetitions of sound reveal <b>patterns of time</b> in Stratford’s
-                      everyday environment?</li>
-                  </ul>
-
-                  <br>
-                  <li>Write down a refined theme statement (1-2 sentences). Keep it flexible — your theme can
-                    evolve as you gather new sounds and ideas. <b>If you haven't submitted a proposal yet, use this step
-                      to start your initial theme proposal (consult guideline on LEARN).</b>
+                  <li class="mt-2">Reflect on how your theme can connect with ideas from Weeks 1–4. For example:
+                    <ul>
+                      <li>In what ways can walking and listening create a <b>story or narrative</b> of daily life on and
+                        around campus?</li>
+                      <li>How do everyday sounds around Stratford shape your sense of <b>place and belonging</b>?</li>
+                      <li>What sounds are associated with different <b>bodies and spaces</b> near Stratford School?</li>
+                      <li>Are there sounds or places that carry <b>gendered, cultural, or social meanings</b> in the
+                        context of Stratford School and its surroundings?</li>
+                      <li>How do rhythms, routines, or repetitions of sound reveal <b>patterns of time</b> in
+                        Stratford’s everyday environment?</li>
+                    </ul>
                   </li>
+                  <li class="mt-2">Write down a refined theme statement (1-2 sentences). Keep it flexible — your theme
+                    can evolve as you gather new sounds and ideas. <b>If you haven't submitted a proposal yet, use this
+                      step to start your initial theme proposal (consult guideline on LEARN).</b></li>
                 </ol>
 
-                <br>
                 <div class="section-divider"></div>
                 <h3><v-icon color="primary" class="mr-2">mdi-microphone</v-icon>Step 2: Collect Sound Recordings</h3>
 
                 <p>Soundwalks can include many different types of recordings. For your project, you'll get to choose
                   between using existing audio from archival media or creating your own recordings with your cellphone
                   or field recorder or even text-to-speech tools.</p>
+                <p class="mt-2">For today's lab, start by exploring one of the sound collection streams below. If you
+                  finish one before class ends, try another! If you only get to one, that's fine too — you can always
+                  explore the others at home.</p>
 
-                <br>
-                <p>For today's workshop, start by exploring one of the sound collection streams below.
-                  If you finish one before class ends, try another! If you only get to one, that's fine too — you can
-                  always explore the others at home.</p>
-
-                <br>
                 <details class="custom-details">
-                  <summary>
-                    <v-icon class="mr-2">mdi-archive</v-icon>
-                    Stream 1: Collect Existing Audio Recordings
+                  <summary><v-icon class="mr-2">mdi-archive</v-icon>Stream 1: Collect Existing Audio Recordings
                   </summary>
                   <div class="details-content">
                     <div class="objective-box">
                       <strong>Objective:</strong> Identify and collect existing audio from archival media that reflect
-                      everyday life at Stratford School and its surroundings. You can choose to
-                      work with:
-                      <ul>
-                        <li>Audio-only archives, or</li>
-                        <li>Archival video footage</li>
+                      everyday life at Stratford School and its surroundings.
                     </div>
-
-
-                    <ol>
-                      <li><strong>Explore existing recordings (audio or video) that reflect everyday life at Stratford
-                          School and its surroundings:</strong>
-                        <br><br>
-                        <ul>
-                          <li><strong>If you choose audio-only archives:</strong>
-                            <ul>
-                              <li>Browse the following audio sources:
-                                <ul>
-                                  <li>Sounds of Stratford - Over Time: <a
-                                      href="https://www.streetsofstratford.ca/sounds-of-stratford"
-                                      target="_blank">https://www.streetsofstratford.ca/sounds-of-stratford</a></li>
-                                </ul>
-                              </li>
-                              <li>Identify a short audio that connects with the theme you brainstormed in Step
-                                1</li>
-                              <div class="example">
-                                <strong>Audio Example</strong><br>
-                                This archival recording recreates the sound of the City Hall Curfew Bell in Stratford as
-                                it might have been heard in 1897. The bell’s resonant tones mark the passage of time,
-                                echoing through the town and signaling daily routines and regulation: <a
-                                  href="https://drive.google.com/file/d/1nUiwTIjbMKvPpx2NmFYfLJDi4n-4jVlV/view"
-                                  target="_blank">
-                                  https://drive.google.com/file/d/1nUiwTIjbMKvPpx2NmFYfLJDi4n-4jVlV/view
-                                </a>
-                                <br><br>
-                                How this example connects to readinsg from week 1-4?
-                                <ul>
-                                  <li>Patterns of time: The regular ringing of the bell structures the day,
-                                    highlighting the importance of timekeeping in everyday life.</li>
-                                  <li>Bodies and spaces: The bell’s sound interacts with the physical space of
-                                    Stratford, influencing how people move through and experience the town.
-                                    <i>For example, would it be interesting to know whether the curfew bell applied to
-                                      women only, or to men as well?</i>
-                                  </li>
-                          </li>
+                    <p class="text-body-2">Follow the detailed steps to extract audio from video/audio archives and edit
+                      them in Clipchamp.</p>
                   </div>
-                  <li>Download the audio file to your computer</li>
-                  </ul>
-                  </li>
-                  <br>
-                  <li><strong>If you choose video footage archives:</strong>
-                    <ul>
-                      <li>Browse the following video sources:
-                        <ul>
-                          <li>Stratford School YouTube channel: <a href="https://www.youtube.com/@UWStratford/videos"
-                              target="_blank">https://www.youtube.com/@UWStratford/videos</a></li>
-                          <li>GBDA YouTube channel: <a
-                              href="https://www.youtube.com/playlist?list=PL9OAryISffri-T0N8MBsCpfu84eW-Ncjn"
-                              target="_blank">https://www.youtube.com/playlist?list=PL9OAryISffri-T0N8MBsCpfu84eW-Ncjn</a>
-                          </li>
-                          <li>Destination Stratford YouTube Channel: <a
-                              href="https://www.youtube.com/c/VisitStratfordCa/videos"
-                              target="_blank">https://www.youtube.com/c/VisitStratfordCa</a></li>
-                          <li>City of Statford YouTube Channel <a
-                              href="https://www.youtube.com/@thecityofstratford/videos"
-                              target="_blank">https://www.youtube.com/@thecityofstratford/videos</a> </li>
-                        </ul>
-                      </li>
-                      <li>Identify a short audio or video that connects with the theme you brainstormed in Step
-                        1</li>
-                      <div class="example">
-                        <strong>Video Example</strong><br>
-                        This video features a salesperson describing their daily work at <i>Resonance</i>, a clothing
-                        store in Stratford, as they introduce Canadian-made clothing and mention designers such
-                        as Eileen Fisher: <a href="https://youtu.be/kt_nNBA2MDE?si=W3B-B39IvaEVFwLB" target="_blank">
-                          https://youtu.be/kt_nNBA2MDE?si=W3B-B39IvaEVFwLB
-                        </a>
-                        <br><br>
-                        How this example connects to readinsg from week 1-4?
-                        <ul>
-                          <li>Narratives of daily life: The salesperson’s account of their
-                            work, paired with environmental sounds, creates a small story about the rhythms of
-                            retail in Stratford.</li>
-                          <li>Sense of place and belonging: The sales person highlights the availabilty of
-                            major Canadian-made products in a small city like Stratford.</li>
-                  </li>
-                  </ul>
+                </details>
 
+                <details class="custom-details">
+                  <summary><v-icon class="mr-2">mdi-cellphone</v-icon>Stream 2: Record Sounds With Your Cellphone or
+                    Field Recorder</summary>
+                  <div class="details-content">
+                    <div class="objective-box">
+                      <strong>Objective:</strong> Capture present-day sounds on campus to provide a current perspective
+                      using phone or Zoom H6 field recorders.
+                    </div>
+                    <p class="text-body-2">Follow the detailed steps to record field audio and upload it to your
+                      workstations.</p>
+                  </div>
+                </details>
+
+                <details class="custom-details">
+                  <summary><v-icon class="mr-2">mdi-account-voice</v-icon>Stream 3: Voice Annotations or Narrations
+                  </summary>
+                  <div class="details-content">
+                    <div class="objective-box">
+                      <strong>Objective:</strong> Create audio based on your own narration using the text-to-speech
+                      feature in Clipchamp.
+                    </div>
+                    <p class="text-body-2">Synthesize script readings with subtle background soundscapes for maximum
+                      clarity.</p>
+                  </div>
+                </details>
+
+                <div class="section-divider"></div>
+                <h3><v-icon color="success" class="mr-2">mdi-share-variant</v-icon>Step 3: Posting Your Sound Recording
+                  for Showcase</h3>
+
+                <div class="objective-box">
+                  <strong>Objective:</strong> Share your completed audio recording with the class by posting it to our
+                  collaborative whiteboard.
+                </div>
               </div>
-              <li>Download the video to your computer
-                <ul>
-                  <li>If the video is from YouTube, you can use the following tool <a href="https://ssvid.net/en"
-                      target="_blank">https://ssvid.net/en</a></li>
-                </ul>
-              </li>
-              </ul>
-              </li>
-              </ul>
-              </li>
+            </v-window-item>
 
-              <br>
-              <li><strong>Edit Your Audio Recording</strong>
-                <ul>
-                  <li>Sign in to Clipchamp:
-                    <div class="tip-box">
-                      <b>💡 Tip:</b> Clipchamp is a free, browser-based video and audio editor that works well for this
-                      activity. If you already know another editing tool (like Audition or Audacity), feel free to
-                      use that instead.
-                    </div>
+            <!-- LAB 3 -->
+            <v-window-item value="3">
+              <v-breadcrumbs :items="['Labs', 'Lab 3']" class="px-0 py-2"></v-breadcrumbs>
+              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[2].title }}</h1>
 
-                    <ul>
-                      <li>Go to <a href="https://app.clipchamp.com/login"
-                          target="_blank">https://app.clipchamp.com/login</a></li>
-                      <li>Click "Sign in for Clipchamp for Work or School Accounts" and sign in with your
-                        Stratford School email</li>
-                    </ul>
+              <div class="intro-section px-0">
+                <p>This lab will guide you through using the Echoes Creator platform to draft your own soundwalk. By the
+                  end, you'll have a working draft that you can test and refine before creating your final project.</p>
 
-
-                  </li>
-
-                  <br>
-                  <li>Create a new project:
-                    <ul>
-                      <li>Click <b>Create Video Project</b> and give your project a descriptive name.</li>
-                    </ul>
-                    <div class="tip-box">
-                      <strong>Tip:</strong> We’re using Clipchamp because it makes it easy to work with both audio and
-                      video.
-                      You can detach audio from video clips, add fades, and even use text-to-speech if you’d like to
-                      include narration. However, if you’re more comfortable with another editing tool (e.g., Adobe
-                      Audition,
-                      Audacity), feel free to use that instead.
-                    </div>
-                  </li>
-
-                  <br>
-                  <li>Import your media:
-                    <ul>
-                      <li>Click <b>Import Media</b> or drag your downloaded audio or video file into the media
-                        library</li>
-                      <li>Wait for the upload to complete</li>
-                    </ul>
-                  </li>
-                  <br>
-
-                  <li>Add your media to the timeline:</li>
-                  <ul>
-                    <li><strong>If you are working with audio-only files:</strong>
-                      <ul>
-                        <li>Drag your audio file to the timeline to start editing</li>
-                      </ul>
+                <div class="learning-objectives">
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
+                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
+                  <ul class="pl-4">
+                    <li>Refine your soundwalk theme based on feedback from peers and your professor.</li>
+                    <li>Create an Echoes Creator account and start a new project to draft your soundwalk.</li>
+                    <li>Test your soundwalk as a listener and reflect on improvements for your final group submission.
                     </li>
                   </ul>
+                </div>
 
-                  <br>
-                  <ul>
-                    <li><strong>If you are working with video files:</strong>
-                      <ul>
-                        <li>Drag your video from the media library to the timeline </li>
-                        <li>Right-click on the video in the timeline</li>
-                        <li>Select <b>Audio</b> → <b>Detach Audio</b> from the menu</li>
-                        <li>Delete the video track by selecting it and pressing Delete (keep only the audio
-                          track)</li>
-                        <li>Now your audio is ready for trimming, fades, or other edits</li>
-                      </ul>
-                    </li>
-                  </ul>
-                </ul>
-              </li>
-
-
-              <br>
-              <li>Edit your audio:
-                <ul>
-                  <li><b>Trim the audio:</b> Use the <b>Split tool</b> (scissor icon above the timeline) to cut unwanted
-                    portions
-                  </li>
-                  <li><b>Add fade effects:</b> Select your audio clip, then in the right panel select <b>Fade</b> to add
-                    <b>Fade In</b> and <b>Fade Out</b> effects
-                    <ul>
-                      <li>Adjust the duration of fades as needed (typically 0.5-2 seconds)</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <br>
-              <li>Export your audio:
-                <ul>
-                  <li>Click the <b>Export</b> button in the top right corner</li>
-                  <li>Select <b>More Options</b></li>
-                  <li>Choose <b>Audio-only</b></li>
-                  <li>Name your file</li>
-                  <li>Click <b>export</b></li>
-                  <li>Save your finished audio file to your computer</li>
-                </ul>
-              </li>
-              </ul>
-              </ol>
-  </div>
-  </details>
-
-
-  <details class="custom-details">
-    <summary>
-      <v-icon class="mr-2">mdi-cellphone</v-icon>
-      Stream 2: Record Sounds With Your Cellphone or Field Recorder
-    </summary>
-    <div class="details-content">
-      <div class="objective-box">
-        <strong>Objective:</strong> Capture present-day sounds on campus to provide a current perspective. You can
-        choose to work with:
-        <ul>
-          <li>Your cellphone recorder</li>
-          <li>A field recorder from Stratford School Media Services</li>
-        </ul>
-      </div>
-
-      <ol>
-        <li><strong>Choose an go to a location near Stratford School to record an audio based on the theme you
-            selected in
-            Step 1. Follow the steps below based on your recording device:</strong>
-          <br><br>
-          <ul>
-            <!-- Option A: Cellphone -->
-            <li><strong>If you choose to record with your cellphone:</strong></li>
-            <ul>
-              <li>Use your phone’s recorder to capture at least two to three different sounds related to your theme.
-                Keep each recording short (30–60 seconds).</li>
-              <li>Follow these tips for good recordings:
-                <ul>
-                  <li>Hold your phone steady and close to the sound source.</li>
-                  <li>Avoid covering the microphone.</li>
-                  <li>Minimize background noise (wind, traffic, etc.).</li>
-                  <li>Record multiple takes if needed.</li>
-                </ul>
-
-
-                <div class="example">
-                  <strong>Example</strong><br>
-                  Record near the entrance door of Stratford School. Capture layers of everyday sound such as footsteps,
-                  conversations, and doors opening.
-                  <br><br>
-
-                  How this example connects to readings from Weeks 1–4:
-                  <ul>
-                    <li><b>Pattern of time:</b> Notice how rhythms of arrival and departure mark the passage of time on
-                      campus.
-                      Consider whether certain voices or activities repeat daily, creating recognizable temporal
-                      patterns.</li>
-                    <li><b>Sense of place and belonging:</b> Reflect on how overlapping sounds form a shared soundscape,
-                      shaping feelings of community or exclusion in this space.</li>
+                <div class="tools-section">
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
+                      class="mr-2">mdi-tools</v-icon>Tools You'll Use</h4>
+                  <ul class="pl-4">
+                    <li>Headphones or earbuds</li>
+                    <li>Laptop</li>
+                    <li>Audio recordings from last week from Lab #2</li>
+                    <li>Echoes Creator platform (https://echoes.xyz)</li>
+                    <li>Smartphone (iOS or Android)</li>
                   </ul>
                 </div>
 
+                <div class="section-divider"></div>
+                <h3><v-icon color="primary" class="mr-2">mdi-lightbulb</v-icon>Step 1: Continue Refining Your Theme</h3>
+                <p class="my-2">Organize your themes and sounds using the options framework established in Lab 2.</p>
 
-              </li>
+                <div class="section-divider"></div>
+                <h3><v-icon color="primary" class="mr-2">mdi-microphone</v-icon>Step 2: Create a Draft Soundwalk in
+                  Echoes Creator</h3>
 
-
-              <li>Back in the classroom, transfer your recordings to your computer. (Options: email them to yourself,
-                use AirDrop, Google Drive, or OneDrive)</li>
-              <li>Rename your files descriptively (e.g., <code>sounds_from_campus_entrance_door</code>).</li>
-              <li>If your recordings are not already in .mp3 or .wav format, convert them using CloudConvert. These
-                format are compatible with a range of devices from cellphones to laptops.</li>
-            </ul>
-
-
-
-            <br>
-
-            <!-- Option B: Field Recorder -->
-            <li><strong>If you choose to record with the Zoom H6 field recorder:</strong></li>
-            <ul>
-              <li>Since you’ll be borrowing the H6 field recorder from Media Services, please <b>scan the QR code below
-                  to
-                  complete the Equipment Loan Agreement for the new school year</b>. This step is required in order to
-                access the equipment:
-              </li>
-              <img src="images/soundwalk/equipment loan qr 1.png" alt="Zoom H6 Equipment Loan Agreement QR Code" />
-
-              <li>Go to Media Services on the first floor of campus to borrow one Zoom H6 field recorder kit.
-                (The Media Services technician is aware of this workshop and will be ready to loan out the equipment
-                during today’s class.)
-              </li>
-              <li>Familiarize with the Zoom H6 field recorder:
-                <div>
-
-                  <iframe width="560" height="315" src="https://www.youtube.com/embed/_sFfOgsStzE?si=9ZoDA5jdHHSsFibo"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-              </li>
-              <li>Before going out to record:
-                <ul>
-                  <li>Check that the batteries and SD card are inserted and that you have fresh batteries.</li>
-                  <li>Choose the microphone capsule (X/Y or shotgun) based on your sound source
-                    (e.g., use the <b>X/Y capsule</b> for capturing the overall ambience of a busy hallway,
-                    or the <b>shotgun capsule</b> for focusing on a single speaker/source at a distance).
-                  </li>
-                  <li>Press<b>LR</b> buttons to turn on the microphone. </li>
-                  <li>Press <b>Record ⏺</b> once to start recording (the red light will be steady).</li>
-                  <li>Press <b>Play ▶</b> to listen to your recording.Use <b>⏮</b> or <b>⏭</b> to skip to other
-                    recordings.</li>
-                  <li>When finished, stop the recording and power off before removing the SD card.</li>
-                </ul>
-              </li>
-              <li>Go out to capture two to three different sounds related to your theme. Keep each recording
-                short (30–60 seconds).
-                <ul>
-                  <li>Follow these tips for good recordings:
-                    <ul>
-                      <li>Hold your phone steady and close to the sound source.</li>
-                      <li>Avoid covering the microphone.</li>
-                      <li>Minimize background noise (wind, traffic, etc.).</li>
-                      <li>Record multiple takes if needed.</li>
-                    </ul>
-                  </li>
-                </ul>
-
-                <div class="example">
-                  <strong>Example</strong><br>
-                  Use the shotgun microphone to focus on a single sound source, such as a street performer near
-                  Stratford’s City Hall. Capture the voice or instrument in detail while reducing background noise from
-                  passing cars or conversations.
-
-                  <br><br>
-
-                  How this example connects to readings from Weeks 1–4:
-                  <ul>
-                    <li><b>Bodies and spaces:</b> Reflect on how isolating one sound changes the narrative of the
-                      soundscape —
-                      what story emerges when we privilege an individual performer’s sound over the surrounding
-                      environment?</li>
-                    <li><b>Narratives of daily life:</b> Consider how this emphasis highlights cultural or social
-                      meanings
-                      connected to music and public space, and how listening practices shape collective experience.</li>
-                  </ul>
+                <div class="my-4">
+                  <iframe
+                    src="https://www.iorad.com/player/2614313/Creating-Soundwalks-with-Echoes-Creator---GBDA-412?iframeHash=watchsteps-1&src=iframe&oembed=1"
+                    width="100%" height="500px"
+                    style="width: 100%; height: 500px; border-radius: 12px; border: 1px solid #e2e8f0;" frameborder="0"
+                    allowfullscreen></iframe>
                 </div>
 
-
-              </li>
-
-              <li>Back in the classroom, transfer your files via the SD card reader or USB cable.</li>
-              <li>Rename your files descriptively (e.g., <code>performer_near_city_hall</code>).</li>
-            </ul>
-          </ul>
-        </li>
-        <br>
-
-
-
-        <br>
-        <li><strong>Edit Your Audio Recording</strong>
-          <ul>
-            <li>Sign in to Clipchamp:
-              <div class="tip-box">
-                <b>💡 Tip:</b> Clipchamp is a free, browser-based video and audio editor that works well for this
-                activity. If you already know another editing tool (like Audition or Audacity), feel free to
-                use that instead.
+                <div class="section-divider"></div>
+                <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>Step 3: Test Your Soundwalk Draft</h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Experience your soundwalk as a listener outside and take notes on what
+                  works and what could be improved.
+                </div>
               </div>
-
-              <ul>
-                <li>Go to <a href="https://app.clipchamp.com/login" target="_blank">https://app.clipchamp.com/login</a>
-                </li>
-                <li>Click "Sign in for Clipchamp for Work or School Accounts" and sign in with your
-                  Stratford School email</li>
-              </ul>
-
-
-            </li>
-
-            <br>
-            <li>Create a new project:
-              <ul>
-                <li>Click <b>Create Video Project</b> and give your project a descriptive name.</li>
-              </ul>
-              <div class="tip-box">
-                <strong>Tip:</strong> We’re using Clipchamp because it makes it easy to work with both audio and video.
-                You can detach audio from video clips, add fades, and even use text-to-speech if you’d like to
-                include narration. However, if you’re more comfortable with another editing tool (e.g., Adobe Audition,
-                Audacity), feel free to use that instead.
-              </div>
-            </li>
-
-
-            <br>
-            <li>Import your media:
-              <ul>
-                <li>Click <b>Import Media</b> or drag your downloaded audio or video file into the media
-                  library</li>
-                <li>Wait for the upload to complete</li>
-              </ul>
-            </li>
-            <br>
-
-            <li>Add your audio to the timeline:</li>
-            <ul>
-              <li>Drag your audio file to the timeline to start editing</li>
-
-            </ul>
-
-
-            <br>
-            <li>Edit your audio:
-              <ul>
-                <li><b>Trim the audio:</b> Use the <b>Split tool</b> (scissor icon above the timeline) to cut unwanted
-                  portions
-                </li>
-                <li><b>Add fade effects:</b> Select your audio clip, then in the right panel select <b>Fade</b> to add
-                  <b>Fade In</b> and <b>Fade Out</b> effects
-                  <ul>
-                    <li>Adjust the duration of fades as needed (typically 0.5-2 seconds)</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <br>
-            <li>Export your audio:
-              <ul>
-                <li>Click the <b>Export</b> button in the top right corner</li>
-                <li>Select <b>More Options</b></li>
-                <li>Choose <b>Audio-only</b></li>
-                <li>Name your file</li>
-                <li>Click <b>export</b></li>
-                <li>Save your finished audio file to your computer</li>
-              </ul>
-            </li>
-          </ul>
-      </ol>
-    </div>
-  </details>
-
-
-  <details class="custom-details">
-    <summary>
-      <v-icon class="mr-2">mdi-account-voice</v-icon>
-      Stream 3: Voice Annotations or Narrations
-    </summary>
-    <div class="details-content">
-      <div class="objective-box">
-        <strong>Objective:</strong> Create audio based on your own narration using the text-to-speech feature in
-        Clipchamp. You can:
-        <ul>
-          <li>Develop creative texts (e.g., stories, poems, reflections), or</li>
-          <li>Use factual texts (e.g., historical notes, news excerpts)</li>
-        </ul>
-      </div>
-
-      <ol>
-        <li>Choose a location or space at Stratford School that connects to your theme from Step 1.</li>
-
-        <br>
-        <li>Write a short script (2–3 sentences) describing your experience, observations, or reflections
-          on everyday life in that space.
-          <ul>
-            <li>Your script can be creative (e.g., a poem or story) or factual (e.g., historical
-              information or accessibility details).</li>
-            <ul>
-              <li>For factual or historical information, explore the <a
-                  href="https://www.streetsofstratford.ca/streets">Streets of Stratford</a> website.</li>
-            </ul>
-            <li>Try linking your script to themes from the readings (e.g., environment, place and belonging,
-              bodies and spaces, gender and culture, etc.).</li>
-          </ul>
-        </li>
-
-
-
-        <div class="example">
-          <strong>Example</strong><br>
-          Start by exploring St. Patrick Street near Stratford School. Research its history on the <a
-            href="https://www.streetsofstratford.ca/st-patrick-street" target="_blank">Streets of
-            Stratford</a> website. Create 2–3 short audio recordings (60–90 seconds each), combined with text-to-speech
-          narration that highlights historical facts, everyday sounds (footsteps, traffic, conversations), and
-          reflections
-          to tell a story of everyday life, past and present.
-
-          <br><br>
-
-          How this example connects to readings from Weeks 1–4:
-          <ul>
-            <li><b>Environmental change:</b> Consider how the soundscape has evolved over time, from historical events
-              to
-              the current everyday sounds of the street.</li>
-            <li><b>Social and cultural meanings:</b> Think about how certain sounds, spaces, or activities may carry
-              historical, cultural, or gendered significance.</li>
-          </ul>
-        </div>
-
-
-        <br>
-        <li>Generate an audio narration using Clipchamp's Text-to-Speech:
-          <ul>
-            <li>Sign in to Clipchamp:
-              <div class="tip-box">
-                <b>💡 Tip:</b> Clipchamp is a free, browser-based video and audio editor that works well for this
-                activity. If you already know another editing tool (like Audition or Audacity), feel free to
-                use that instead.
-              </div>
-
-              <ul>
-                <li>Go to <a href="https://app.clipchamp.com/login" target="_blank">https://app.clipchamp.com/login</a>
-                </li>
-                <li>Click "Sign in for Clipchamp for Work or School Accounts" and sign in with your
-                  Stratford School email</li>
-              </ul>
-
-
-            </li>
-
-            <br>
-            <li>Create a new project:
-              <ul>
-                <li>Click <b>Create Video Project</b> and give your project a descriptive name.</li>
-              </ul>
-              <div class="tip-box">
-                <strong>Tip:</strong> We’re using Clipchamp because it makes it easy to work with both audio and video.
-                You can detach audio from video clips, add fades, and even use text-to-speech if you’d like to
-                include narration. However, if you’re more comfortable with another editing tool (e.g., Adobe Audition,
-                Audacity), feel free to use that instead.
-              </div>
-            </li>
-
-            <br>
-            <li>Add your text-to-speech narration:
-              <ul>
-                <li>On the left panel, select <b>Record & Create</b> → <b>Text to Speech</b></li>
-                <li>Type your script into the text box and experiment with different voices and settings</li>
-              </ul>
-            </li>
-
-            <br>
-            <li>Optional: Add background music or ambient sound to layer with your narration
-              <ul>
-                <li>On the left panel, select <b>Music</b></li>
-                <li>Drag the desired music to the timeline</li>
-              </ul>
-            </li>
-
-            <br>
-            <li>Optional: Edit your music clip:
-              <ul>
-                <li><b>Trim the music:</b> Use the <b>Split tool</b> (scissor icon above the timeline) to cut unwanted
-                  portions
-                </li>
-                <li><b>Add fade effects:</b> Select your audio clip, then in the right panel select <b>Fade</b> to add
-                  <b>Fade In</b> and <b>Fade Out</b> effects
-                  <ul>
-                    <li>Adjust the duration of fades as needed (typically 0.5-2 seconds)</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <br>
-            <li>Export your audio recording (voice plus music):
-              <ul>
-                <li>Click the <b>Export</b> button in the top right corner</li>
-                <li>Select <b>More Options</b></li>
-                <li>Choose <b>Audio-only</b></li>
-                <li>Name your file</li>
-                <li>Click <b>export</b></li>
-                <li>Save your finished audio file to your computer</li>
-              </ul>
-            </li>
-          </ul>
-      </ol>
-    </div>
-  </details>
-  </div>
+            </v-window-item>
 
 
 
 
-
-  <br>
-  <div class="section-divider"></div>
-  <h3><v-icon color="success" class="mr-2">mdi-share-variant</v-icon>Step 3: Posting Your Sound Recording
-    for Showcase</h3>
-
-  <div class="objective-box">
-    <strong>Objective:</strong> Share your completed audio recording with the class by posting it to our
-    collaborative whiteboard.
-  </div>
-
-  <ol>
-    <li>Get your Clipchamp share link:
-      <ul>
-        <li>In Clipchamp, click the <b>Share</b> button</li>
-        <li>Select <b>Share</b> to get a shareable link to your project</li>
-        <li>Click <b>Settings icon ⚙</b> → <b>People in University of Waterloo</b> → <b>Can view</b> →
-          <b>Apply</b>
-        </li>
-        <li>Copy the generated link to share with the class (see next step below)</li>
-      </ul>
-    </li>
-
-    <br>
-    <li>Post your recording:
-      <ul>
-        <li>Open the collaborative whiteboard: <a
-            href="https://uofwaterloo-my.sharepoint.com/:wb:/g/personal/l4navarr_uwaterloo_ca/EVomyXSf4rZBnsZza79n7k4BErue5JQidV8zHm45mRic2w?e=4pmgpE"
-            target="_blank">Class Whiteboard</a></li>
-        <li>Sign in with your University of Waterloo credentials if prompted</li>
-        <li>Click the three dots on the bottom menu → <b>Links</b></li>
-        <li>Paste your Clipchamp link</li>
-      </ul>
-    </li>
-  </ol>
-  </v-window-item>
-
-  <!-- Workshop 3 -->
-  <v-window-item value="3">
-    <h2>{{ workshops[2].title }}</h2>
-    <!-- <v-card class="coming-soon-card" elevation="8">
-                <v-card-text class="text-center">
-                  <v-icon size="64" color="white">mdi-map-marker-multiple-outline</v-icon>
-                  <h3 class="mt-4" style="color: white;">Coming Soon</h3>
-                  <p style="color: rgba(255,255,255,0.9);">This workshop will introduce creating soundwalks with the
-                    Echoes app.</p> -->
-    <h2 title="Workshop 3: Drafting a Soundwalk in Echoes Creator" icon="mdi-music-note"></h2>
-
-    <div class="intro-section">
-      <p>
-        This workshop will guide you through using the Echoes Creator platform to draft your own soundwalk. By
-        the end,
-        you'll have a working draft that you can test and refine before creating your final project.
-      </p>
-
-      <br>
-      <div class="learning-objectives">
-        <h3><v-icon color="primary" class="mr-2">mdi-target</v-icon>Learning Objectives</h3>
-        <ul>
-          <li>Refine your soundwalk theme based on feedback from peers and your professor on your proposal and collected
-            sounds.</li>
-          <li>Create an Echoes Creator account and start a new project to draft your first version of a soundwalk.</li>
-          <li>Test your soundwalk as a listener and reflect on improvements for your final group submission.</li>
-        </ul>
-      </div>
-
-      <br>
-      <div class="tools-section">
-        <h3><v-icon color="purple" class="mr-2">mdi-tools</v-icon>Tools you'll use</h3>
-        <ul>
-          <li>Headphones or earbuds</li>
-          <li>Laptop</li>
-          <li>Audio recordings from last week from Workshop #2</li>
-          <li>Echoes Creator platform (https://echos.xyz)</li>
-          <li>Smartphone (iOS or Android)</li>
-        </ul>
-      </div>
-
-      <br>
-      <div class="section-divider"></div>
-      <h3><v-icon color="primary" class="mr-2">mdi-lightbulb</v-icon>Step 1: Continue Refining Your Theme (5-10 minutes)
-      </h3>
-
-      <div class="objective-box">
-        <strong>Objective:</strong> Take a third opportunity to refine your soundwalk theme and make your
-        project unique.
-        Use insights from peers, course readings, and your own ideas to strengthen your approach. Ask
-        questions to the
-        instructor if you need guidance.
-      </div>
-
-      <ol>
-        <li>Revisit your theme from your audio recordings and proposal posts one more time and consider what aspects you
-          could
-          emphasize or explore further to make it unique and exciting.
-          <ul>
-            <li>Explore the LEARN discussion forum to see other students’ proposals and draft sounds. Think about ways
-              to make your soundwalk distinctive while connecting with your theme.</li>
-            <li>Reflect how can you create complex or layered audio recordings that get the audience immersed (i.e.,
-              involved deeply) in the space? Ask yourself:</li>
-            <ul>
-              <li>Do your sounds stand out from the live environment? Do they guide the listener’s attention?</li>
-              <li>Which unique sounds or locations can help express your theme better?</li>
-              <li>Are there narrative choices that will make your soundwalk memorable?</li>
-              <li>What other connections to course readings can enhance your project?</li>
-            </ul>
-
-            <li>If your audio recordings blend in too much, consider layering multiple sounds or adding narration using
-              your voice or text-to-speech to create a richer experience.</li>
-          </ul>
-        <li>Create new sounds/audio recordings if necessary. <b>If you haven't submitted/posted your draft sounds, use
-            this step to draft them (check guidelines on LEARN)</b>.</li>
-
-        <li>Finally, check the table below with soundwalk options to help you organize your themes and sounds.
-          <table
-            style="width:100%; border-collapse:collapse; font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
-            <thead>
-              <tr>
-                <th style="border:1px solid #ddd; padding:12px; background:#f6f8fa; text-align:left;">
-                  Listening Soundwalk</th>
-                <th style="border:1px solid #ddd; padding:12px; background:#f6f8fa; text-align:left;">
-                  Audio Guide</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
-                  <strong>Main idea</strong><br>
-                  Share your own experience of a place through the sounds you hear there.
-                </td>
-                <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
-                  <strong>Main idea</strong><br>
-                  Teach or explain facts (history, culture, or daily life) about a place.
-                </td>
-              </tr>
-
-              <tr>
-                <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
-                  <strong>Narration &amp; sound</strong><br>
-                  Sounds and narration (voice commentary) can be equal, or one can lead.<br><br>
-                  <em>If you use little/no narration, make sure sounds are meaningful enough to convey
-                    the message, experience or feeling.</em>
-                  <br><br>
-                  <p>For more guidance, check Workshop #2 for tips on adding narration using text-to-speech, layering
-                    narration and sounds, balancing volume, and exporting audio. Explore this additional
-                    resource for other creative ways to work with audio in Clipchamp:
-                    <a href="https://clipchamp.com/en/blog/audio-editing-hacks/" target="_blank">Clipchamp Audio Editing Hacks</a>.
-
-
-                </td>
-                <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
-                  <strong>Narration &amp; sound</strong><br>
-                  Narration (voice commentary) is the main focus.<br>
-                  Sounds or music play in the background to support the voice and provide context or
-                  atmosphere.<br><br>
-                              <p>For more guidance, check Workshop #2 for tips on adding narration using text-to-speech, layering
-                    narration and sounds, balancing volume, and exporting audio. Explore this additional
-                    resource for other creative ways to work with audio in Clipchamp:
-                    <a href="https://clipchamp.com/en/blog/audio-editing-hacks/" target="_blank">Clipchamp Audio Editing Hacks</a>.
-                </td>
-              </tr>
-
-              <tr>
-                <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
-                  <strong>How to / Strategies</strong>
-                  <ul>
-                    <li>Layer and contrast sounds (mix sounds) to enrich meaning.</li>
-                    <li>Add short voice notes to ensure the message is clear (e.g., explanations,
-                      brief stories and poems, etc.).</li>
-                  </ul>
-                </td>
-                <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
-                  <strong>How to / Strategies</strong>
-                  <ul>
-                    <li>Write a clear script with key facts.</li>
-                    <li>Mix voice telling the facts with light background sounds or music.</li>
-                  </ul>
-                </td>
-              </tr>
-
-              <tr>
-                <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
-                  <strong>Technical tips (Echoes app)</strong>
-                  <ul>
-                    <li>Write a clear general description for the whole soundwalk.</li>
-                    <li>Add text for each echo to give hints, reflections, or extra info if you
-                      don’t use narration.</li>
-                  </ul>
-                </td>
-                <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
-                  <strong>Technical tips (Echoes app)</strong>
-                  <ul>
-                    <li>Use the general soundwalk description to highlight key facts or dates.</li>
-                    <li>Add short notes in each echo to remind listeners what to notice.</li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-
-        </li>
-      </ol>
-
-      <br>
-      <div class="section-divider"></div>
-      <h3><v-icon color="primary" class="mr-2">mdi-microphone</v-icon>Step 2: Create a Draft Soundwalk in
-        Echoes Creator (15 minues)</h3>
-
-      <div class="objective-box">
-        <strong>Objective:</strong> Create an Echoes Creator account, start a new project, and draft a simple
-        soundwalk following the tutorial below.
-      </div>
-      <p>Follow the tutorial below to create a draft soundwalk. You can use the sounds you collected last week or new
-        ones you’ve recorded.
-        The goal is to get a basic draft working that you can in step 3 below.</p>
-
-      <p>Explore the tutorial controls to play or pause, move between steps, change the language, or download a PDF
-        version.</p>
-
-      <br>
-
-      <div style="max-width: 100%; width: 800px; margin: 0 auto;">
-        <div style="display: none;">
-          <p style="display: none; text-align: center; margin-top: 10px;"> <i
-              style="font-style: italic; font-weight: bold; color: #CCCCCC; font-size: 18px;">34 STEPS</i> </p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 1. The first step is to
-            go to <a href="https://echoes.xyz/"><b
-                style="font-weight:normal;color:#FF00D6">https://echoes.xyz/</b></a><b
-              style="font-weight:normal;color:#FF00D6"> </b>and click <b
-              style="font-weight:normal;color:#FF00D6">Login</b> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=1&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 2. Click <b
-              style="font-weight:normal;color:#FF00D6">Sign Up</b> to create an account </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=2&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 3. Use your <b
-              style="font-weight:normal;color:#FF00D6">University of Waterloo email</b> to sign up </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=3&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 4. In the field asking
-            the reason you're signing up, you can mention you're enrolled in an audio course. <br /><br />Then create a
-            password, and click <b style="font-weight:normal;color:#FF00D6">Sign Up</b> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=4&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 5. <b
-              style="font-weight:normal;color:#FF00D6">Log into</b> your new account </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=5&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 6. Inside the Echoes
-            Creator, start your soundwalk project by clicking <b style="font-weight:normal;color:#FF00D6">Add New
-              Walk</b> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=6&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 7.
-            <span><span><span><span><span><span><span>Enter a title for your soundwalk and click <b
-                            style="font-weight:normal;color:#FF00D6">Create</b></span><span><b
-                            style="font-weight:normal;color:#FF00D6"><br /></b></span></span></span></span></span></span></span>
-          </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=7&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 8.
-            <span><span><span><span><span><span><span><span><span>To start setting up your soundwalk, add a cover image
-                              by clicking the <b style="font-weight:normal;color:#FF00D6">three dots</b>,
-                              then</span><span><b style="font-weight:normal;color:#FF00D6"> <span></span>upload cover
-                                image</b> and select an image from your
-                              computer</span></span></span></span></span></span></span></span></span>
-          </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=8&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 9. <span>Under
-            </span><b style="font-weight:normal;color:#FF00D6">Title</b><span>, you can modify the title of your
-              soundwalk, if necessary</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=9&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 10. Add a full <b
-              style="font-weight:normal;color:#FF00D6">description</b>: A summary of your proposal describing what is
-            the soundwalk about. For example, what is the main topic and what narrative do you want to convey, what are
-            the places people will visit and what type of sounds people will hear </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=10&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 11. <span>Everytime you
-              make changes, you can save them by clicking </span><b style="font-weight:normal;color:#FF00D6">Publish
-              Changes</b> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=11&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 12. <span>Click
-            </span><b style="font-weight:normal;color:#FF00D6">Echoes tab </b><span>to start creating your "echoes",
-              that is your locations plus your sounds</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=12&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 13. <span>To create an
-              <b style="font-weight:normal;color:#FF00D6">echo</b>, start by typing a place in Stratford </span><span>in
-              the search bar on the right. For example, type the university's location: </span><span>125 St Patrick St,
-              Stratford, ON</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=13&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 14. <span>Then, select
-              the matching option displayed in the dropdown menu</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=14&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 15. The map won’t take
-            you directly to the exact location, but it will get you to Stratford. Use the <b
-              style="font-weight:normal;color:#FF00D6">+ button</b> to zoom in until you find the place you’re looking
-            for. </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=15&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 16. Keep zooming in
-            until you can see the exact location you want </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=16&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 17. <span>Use the
-            </span><b style="font-weight:normal;color:#FF00D6">Circle tool </b><span>to mark a location you’d like to
-              add to your soundwalk</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=17&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 18. You can move the
-            circle by dragging it from its center </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=18&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 18b. Drop </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=18b&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 19. </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=19&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 20. <span>On the left
-              panel, you can configure your echo. Start by clicking </span><span></span><b
-              style="font-weight:normal;color:#FF00D6">Upload cover image </b><span>to add one</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=20&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 21. <span>Add a
-            </span><b style="font-weight:normal;color:#FF00D6">title</b><span> to your echo</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=21&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 22. <span>Add a
-            </span><b style="font-weight:normal;color:#FF00D6">description</b><span> to your echo</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=22&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 23. <span>If you scroll
-              down </span><span></span><span> you'll find the option </span><b
-              style="font-weight:normal;color:#FF00D6">Circle Radius</b><span>, which allows you to increase or decrease
-              the size of the circle </span><span></span><span>and the location</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=23&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 24. <span>To add a
-              sound, scroll down and click <b style="font-weight:normal;color:#FF00D6">Add sound element</b></span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=24&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 25. Select <b
-              style="font-weight:normal;color:#FF00D6">Upload New Sound</b> from the menu. Note that you can only upload
-            <b style="font-weight:normal;color:#FF00D6">one sound file at a time</b>. If you have multiple sounds, you
-            will need to <b style="font-weight:normal;color:#FF00D6">mix them together first</b> using software such as
-            Clipchamp, Adobe Audition, or Audacity before uploading
-          </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=25&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 26.
-            <span><span><span><span><span><span><span><span>To hear your sound, click the <b
-                              style="font-weight:normal;color:#FF00D6">play
-                              icon</b></span></span></span></span></span></span></span></span>
-          </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=26&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 27. Scroll down to <b
-              style="font-weight:normal;color:#FF00D6">Playback Options</b> and choose from <b
-              style="font-weight:normal;color:#FF00D6">Play Loop, One-Shot, Play Complete,</b> or <b
-              style="font-weight:normal;color:#FF00D6">Spatialization</b>. Try out the different options to see how each
-            affects your sound, and pick the one that best fits your creative vision! </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=27&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 28. <span>Scroll up and
-              click </span><span><b style="font-weight:normal;color:#FF00D6">Publish Changes</b></span><span> to apply
-              your edits</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=28&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 29. Follow the <b
-              style="font-weight:normal;color:#FF00D6">same steps</b> to add additional echoes. Remember, for your final
-            soundwalk, you need to have <b style="font-weight:normal;color:#FF00D6">7 distinct locations</b>, each with
-            its own unique sounds </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=29&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 30. <span>After adding
-              all your echoes, click </span><span></span><b style="font-weight:normal;color:#FF00D6">Walk</b><span>
-            </span><span></span><span>to return to the main page of your project</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=30&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 31. <span>Under
-            </span><span><b style="font-weight:normal;color:#FF00D6">Publish Status</b></span><span>, choose
-            </span><span><b style="font-weight:normal;color:#FF00D6">Public</b></span><span> to make your soundwalk
-              available in the Echoes cellphone app</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=31&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 32. <span>Click
-            </span><span><b style="font-weight:normal;color:#FF00D6">Publish Changes</b></span><span> to apply the
-              changes</span> </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=32&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 33. Scroll down and
-            select <b style="font-weight:normal;color:#FF00D6">QR Code &amp; Link</b> to generate a QR code for sharing
-            and testing your soundwalk in the cellphone app </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=33&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-          <p style='font-size: 15px; line-height: 136%; margin-top: 59px; margin-bottom: 51px;'> 34. That's it. You're
-            done. </p>
-          <p style="text-align: center;"><img
-              src="https://www.iorad.com/api/tutorial/stepScreenshot?tutorial_id=2614313&step_number=34&width=800&height=600&mobile_width=450&mobile_height=400&apply_resize=true&min_zoom=0.5"
-              style="max-width: 100%;max-height: 100%;border: none;" alt="" /></p>
-        </div>
-      </div>
-      <h3 style="display: none; font-size: 18px; margin-top: 89px; margin-bottom: 15px;"> Here's an interactive tutorial
-      </h3>
-      <p style="display: none;"> <a
-          href="https://www.iorad.com/player/2614313/Creating-Soundwalks-with-Echoes-Creator---GBDA-412?iframeHash=watchsteps-1">https://www.iorad.com/player/2614313/Creating-Soundwalks-with-Echoes-Creator---GBDA-412?iframeHash=watchsteps-1</a>
-      </p>
-      <p class="skiptranslate" style="border: 0; min-width: 100%; margin-bottom: 0; height: 501px;"><iframe
-          src="https://www.iorad.com/player/2614313/Creating-Soundwalks-with-Echoes-Creator---GBDA-412?iframeHash=watchsteps-1&src=iframe&oembed=1"
-          width="100%" height="500px" style="width: 100%; height: 500px; "
-          referrerpolicy="strict-origin-when-cross-origin" frameborder="0" webkitallowfullscreen="webkitallowfullscreen"
-          mozallowfullscreen="mozallowfullscreen" allowfullscreen="allowfullscreen"
-          allow="camera; microphone; clipboard-write;"
-          sandbox="allow-scripts allow-forms allow-same-origin allow-presentation allow-downloads allow-modals allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-top-navigation-by-user-activation"></iframe>
-      </p>
-      <div style="display: none;font-size: 18px; text-align: center;font-family: 'Libre Franklin', sans-serif;">
-        <br><br> <b style="font-weight: bold; color: #CCCCCC;"> Next step </b> <br><br>
-        <div style="display: inline-block;">
-          <div style="display: table-row;"> <a style="display: table-cell;" href="http://ior.ad/live/aY6l"
-              target="_blank"> <img src="https://www.iorad.com/golive.svg" style="border: none;" alt="Go Live" /> </a>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="section-divider"></div>
-      <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>Step 3: Test Your Soundwalk Draft (10 minutes)</h3>
-
-      <div class="objective-box">
-        <strong>Objective:</strong> Experience your soundwalk as a listener and take notes on what works and
-        what could be improved.
-      </div>
-
-      <ol>
-        <li>Use the QR code or link generated in the top menu to open your soundwalk on the cellphone app in your
-          cellphone.</li>
-        <li>Test your soundwalk by going outside and walking through your soundwalk as if you were a participant, paying
-          attention to the flow and clarity
-          of echoes.</li>
-        <li>Take notes on improvements: titles, descriptions, thematic connections, complexity/richness of sounds, and
-          timing.</li>
-        <li>Use your observations to inform the group soundwalk you will submit later this week.</li>
-      </ol>
-    </div>
-
-    </v-window>
-    </v-container>
-    </v-main>
+          </v-window>
+        </v-container>
+      </v-main>
     </v-app>
-    </div>
-    <script src="vue.js"></script>
+  </div>
 
+  <script>
+    const { createApp } = Vue;
+    const { createVuetify } = Vuetify;
+
+    const vuetify = createVuetify();
+
+    const app = createApp({
+      data() {
+        return {
+          drawer: true,
+          tab: '0',
+          labs: [
+            {
+              title: 'Lab 1: Exploring Soundwalks',
+              shortTitle: 'Lab 1: Exploring Soundwalks',
+              icon: 'mdi-walk',
+              color: 'indigo',
+              duration: '45 mins',
+              description: 'Embark on an auditory walk paying attention to the history woven into the streets surrounding Stratford School.'
+            },
+            {
+              title: 'Lab 2: Audio Collection & Editing',
+              shortTitle: 'Lab 2: Audio Collection & Editing',
+              icon: 'mdi-microphone',
+              color: 'purple',
+              duration: '60 mins',
+              description: 'Learn techniques to record field audio, gather archival clips, and mix soundscapes using Clipchamp.'
+            },
+            {
+              title: 'Lab 3: Drafting in Echoes Creator',
+              shortTitle: 'Lab 3: Echoes Creator Draft',
+              icon: 'mdi-map-marker-path',
+              color: 'teal',
+              duration: '60 mins',
+              description: 'Map out spatial audio triggers on the Echoes Creator platform and test your soundwalk draft live.'
+            }
+          ]
+        }
+      }
+    });
+
+    app.use(vuetify);
+    app.mount('#app');
+  </script>
 </body>
 
 </html>
