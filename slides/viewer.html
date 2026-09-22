@@ -166,7 +166,32 @@
                 hash: true
             });
 
-            deck.initialize({ center: true });
+            deck.initialize({
+                center: true,
+                slideNumber: 'c/t',
+                // controls: true,
+                controlsBackArrows: 'visible',
+                progress: true,
+                controlsLayout: 'top-right',
+                overview: true,
+                previewLinks: true,
+                autoAnimate: true,
+
+
+                width: 1280,
+                height: 720,
+
+                // Factor de escala: reduce el margen alrededor de la diapositiva
+                margin: 0.02, // Valor por defecto es 0.1 (al bajarlo a 0.02 ganas mucho espacio)
+
+                // Límites de escalado para pantallas grandes
+                minScale: 0.2,
+                maxScale: 2.0,
+
+                // Desactiva el centrado vertical automático si quieres aprovechar el alto desde arriba
+                // center: false
+            });
+
         }
 
         cargarPresentacionPublica();
