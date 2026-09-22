@@ -650,28 +650,28 @@
         // };
 
         // Estados reactivos para el modal de iFrame
-const dialogIframe = ref(false);
-const iframeUrl = ref('');
+        const dialogIframe = ref(false);
+        const iframeUrl = ref('');
 
-// Abrir modal al hacer clic en el botón
-const insertarIframe = () => {
-  iframeUrl.value = 'https://';
-  dialogIframe.value = true;
-};
+        // Abrir modal al hacer clic en el botón
+        const insertarIframe = () => {
+          iframeUrl.value = 'https://';
+          dialogIframe.value = true;
+        };
 
-// Confirmar e insertar el iFrame en el editor
-const confirmarInsertarIframe = () => {
-  if (!iframeUrl.value.trim()) return;
+        // Confirmar e insertar el iFrame en el editor
+        const confirmarInsertarIframe = () => {
+          if (!iframeUrl.value.trim()) return;
 
-  let url = iframeUrl.value.trim();
-  if (!/^https?:\/\//i.test(url)) {
-    url = 'https://' + url;
-  }
+          let url = iframeUrl.value.trim();
+          if (!/^https?:\/\//i.test(url)) {
+            url = 'https://' + url;
+          }
 
-  insertarEnCursor(`\n<iframe data-src="${url}" width="100%" height="800px" style="border:none;"></iframe>\n`);
-  dialogIframe.value = false;
-  iframeUrl.value = '';
-};
+          insertarEnCursor(`\n<iframe data-src="${url}" width="100%" height="800px" style="border:none;"></iframe>\n`);
+          dialogIframe.value = false;
+          iframeUrl.value = '';
+        };
 
         const listaPresentaciones = ref([]);
         const selectedPresentationId = ref(null);
@@ -946,7 +946,25 @@ const confirmarInsertarIframe = () => {
               plugins: [RevealMarkdown],
               embedded: true,
               keyboardCondition: 'focused',
-              center: true
+              center: true,
+              slideNumber: 'c/t',
+              // controls: true,
+              controlsBackArrows: 'visible',
+              progress: true,
+              controlsLayout: 'top-right',
+              overview: true,
+              previewLinks: true,
+              autoAnimate: true,
+              width: 1280,
+              height: 720,
+
+              // Factor de escala: reduce el margen alrededor de la diapositiva
+              margin: 0.02, // Valor por defecto es 0.1 (al bajarlo a 0.02 ganas mucho espacio)
+
+              // Límites de escalado para pantallas grandes
+              minScale: 0.2,
+              maxScale: 2.0,
+
             });
 
             revealInstance.initialize().then(() => {
