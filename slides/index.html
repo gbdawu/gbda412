@@ -68,6 +68,15 @@
       font-weight: 800 !important;
       text-transform: none !important;
     }
+
+    /* Mejora visual para los tags <mark> en Reveal.js */
+    .reveal mark {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
   </style>
 </head>
 
@@ -333,6 +342,61 @@
             </v-card>
           </v-menu>
 
+          <!-- Botón y Menú de Resaltado (<mark>) -->
+<v-menu offset-y>
+  <template v-slot:activator="{ props }">
+    <v-btn 
+      color="amber-accent-3" 
+      icon="mdi-format-color-highlight" 
+      title="Resaltar Texto (<mark>)" 
+      v-bind="props"
+    ></v-btn>
+  </template>
+  <v-list density="compact">
+    <v-list-subheader>COLOR DE RESALTADO</v-list-subheader>
+    
+    <!-- Opción por defecto (Amarillo clásico) -->
+    <v-list-item @click="insertarMark()">
+      <template v-slot:prepend>
+        <v-icon color="yellow-accent-4">mdi-circle</v-icon>
+      </template>
+      <v-list-item-title>Amarillo (Por defecto)</v-list-item-title>
+    </v-list-item>
+
+    <!-- Verde (ideal para avisos como LEARN) -->
+    <v-list-item @click="insertarMark('#a8f0c6')">
+      <template v-slot:prepend>
+        <v-icon color="green-lighten-2">mdi-circle</v-icon>
+      </template>
+      <v-list-item-title>Verde Lecturas</v-list-item-title>
+    </v-list-item>
+
+    <!-- Azul (Recursos / Enlaces) -->
+    <v-list-item @click="insertarMark('#a5d8ff')">
+      <template v-slot:prepend>
+        <v-icon color="blue-lighten-3">mdi-circle</v-icon>
+      </template>
+      <v-list-item-title>Azul Recursos</v-list-item-title>
+    </v-list-item>
+
+    <!-- Rosa / Coral (Avisos importantes) -->
+    <v-list-item @click="insertarMark('#ffc9c9')">
+      <template v-slot:prepend>
+        <v-icon color="red-lighten-3">mdi-circle</v-icon>
+      </template>
+      <v-list-item-title>Rosa Alerta</v-list-item-title>
+    </v-list-item>
+
+    <!-- Violeta / Púrpura -->
+    <v-list-item @click="insertarMark('#eebefa')">
+      <template v-slot:prepend>
+        <v-icon color="purple-lighten-3">mdi-circle</v-icon>
+      </template>
+      <v-list-item-title>Púrpura Conceptos</v-list-item-title>
+    </v-list-item>
+  </v-list>
+</v-menu>
+
           <v-btn 
             color="primary" 
             icon="mdi-view-column" 
@@ -514,7 +578,7 @@
               .from('imagenes-diapositivas')
               .getPublicUrl(fileName);
 
-            const htmlImage = `\n<img src="${publicUrlData.publicUrl}" width="600" style="display: block; margin: 0 auto;" />\n`;
+            const htmlImage = `\n<img src="${publicUrlData.publicUrl}" width="500" style="display: block; margin: 0 auto;" />\n`;
             insertarEnCursor(htmlImage);
             actualizarReveal();
           } catch (err) {
@@ -589,7 +653,7 @@
         };
 
         const insertarImagenDesdeGaleria = (url) => {
-          const htmlImage = `\n<img src="${url}" width="600" style="display: block; margin: 0 auto;" />\n`;
+          const htmlImage = `\n<img src="${url}" width="500" style="display: block; margin: 0 auto;" />\n`;
           insertarEnCursor(htmlImage);
           dialogGaleria.value = false;
         };
@@ -632,7 +696,7 @@
           const match = youtubeUrl.value.match(regExp);
           const videoId = (match && match[2].length === 11) ? match[2] : youtubeUrl.value;
 
-          insertarEnCursor(`\n<iframe data-src="https://www.youtube.com/embed/${videoId}" width="100%" height="600px" frameborder="0" allowfullscreen></iframe>\n`);
+          insertarEnCursor(`\n<iframe data-src="https://www.youtube.com/embed/${videoId}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>\n`);
           dialogYouTube.value = false;
           youtubeUrl.value = '';
         };
@@ -872,7 +936,7 @@
             url = 'https://' + url;
           }
 
-          const htmlLink = `<a href="${url}" target="_blank" style="color: #40c4ff;">${texto}</a>`;
+          const htmlLink = `<a href="${url}" target="_blank" >${texto}</a>`;
 
           if (textoSeleccionado) {
             markdownText.value = markdownText.value.substring(0, inicio) + htmlLink + markdownText.value.substring(fin);
@@ -888,22 +952,38 @@
             alert('Asigna un nombre al proyecto para abrir su vista previa completa.');
             return;
           }
-          const baseUrl = window.location.origin;
+
           const tituloEncoded = encodeURIComponent(presentationTitle.value.trim());
-          const urlVisor = `${baseUrl}/slides/viewer.html?title=${tituloEncoded}`;
+
+          // 1. Obtiene la ruta de la carpeta actual donde se ejecuta index.html
+          // (por ejemplo: '/gbda412/' en GH Pages o '/home/lui/Documents/slidesEditor/' en local)
+          const currentPath = window.location.pathname.substring(
+            0,
+            window.location.pathname.lastIndexOf('/') + 1
+          );
+
+          // 2. Construye la URL combinando el origen y la ruta relativa
+          const urlVisor = `${window.location.origin}${currentPath}/viewer.html?title=${tituloEncoded}`;
 
           window.open(urlVisor, '_blank');
         };
-
+        
         const copiarIframeViewer = () => {
           if (!presentationTitle.value.trim()) {
             alert('Asigna un nombre al proyecto para obtener su enlace.');
             return;
           }
 
-          const baseUrl = window.location.origin;
           const tituloEncoded = encodeURIComponent(presentationTitle.value.trim());
-          const urlViewer = `${baseUrl}/slides/viewer.html?title=${tituloEncoded}`;
+
+          // Obtiene la ruta actual donde reside el editor
+          const currentPath = window.location.pathname.substring(
+            0,
+            window.location.pathname.lastIndexOf('/') + 1
+          );
+
+          // Construye la URL relativa limpia apuntando a viewer.html
+          const urlViewer = `${window.location.origin}${currentPath}viewer.html?title=${tituloEncoded}`;
 
           const iframeCode = `<iframe src="${urlViewer}" width="100%" height="500px" style="border: none; border-radius: 8px;" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>`;
 
@@ -914,6 +994,34 @@
             alert('No se pudo copiar automáticamente. Copia este código manualmente:\n\n' + iframeCode);
           });
         };
+
+        // Función genérica para envolver el texto seleccionado con <mark>
+        const insertarMark = (color = null) => {
+          const textarea = editorRef.value?.$el?.querySelector('textarea') || editorRef.value;
+          if (!textarea) return;
+
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          const textoSeleccionado = markdownText.value.substring(start, end);
+
+          // Si no hay texto seleccionado, usa un texto por defecto
+          const contenido = textoSeleccionado || 'Texto destacado';
+
+          // Construye el tag con o sin estilo de color
+          const estiloColor = color ? ` style="background-color: ${color}; color: #000;"` : '';
+          const etiquetaMark = `<mark${estiloColor}>${contenido}</mark>`;
+
+          // Reemplaza o inserta en la posición del cursor
+          markdownText.value =
+            markdownText.value.substring(0, start) +
+            etiquetaMark +
+            markdownText.value.substring(end);
+
+          actualizarReveal();
+        };
+
+
+        // //////////
 
         const actualizarReveal = () => {
           let slideIndex = 0;
@@ -929,6 +1037,8 @@
               }
             }
           }
+
+
 
           nextTick(() => {
             if (revealInstance) revealInstance.destroy();
@@ -951,9 +1061,9 @@
               // controls: true,
               controlsBackArrows: 'visible',
               progress: true,
-              controlsLayout: 'top-right',
+              controlsLayout: 'edges',
               overview: true,
-              previewLinks: true,
+              // previewLinks: true,
               autoAnimate: true,
               width: 1280,
               height: 720,
@@ -1028,6 +1138,7 @@
           insertarIframe,
           confirmarInsertarIframe,
           copiarIframeViewer,
+          insertarMark,
           guardarPresentacion,
           actualizarReveal
         };
