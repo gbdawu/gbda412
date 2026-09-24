@@ -53,7 +53,7 @@
     .reveal .slides section li,
     .reveal .slides section span,
     .reveal .slides section a {
-      font-size: 0.8em !important;
+      font-size: 0.8em;
       line-height: 1.4 !important;
     }
 
@@ -76,6 +76,23 @@
       font-weight: 500;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
+    }
+
+    /* Clases de tamaño para Reveal.js */
+    .reveal .text-xs {
+      font-size: 0.55em !important;
+    }
+
+    .reveal .text-sm {
+      font-size: 0.8em !important;
+    }
+
+    .reveal .text-lg {
+      font-size: 1.25em !important;
+    }
+
+    .reveal .text-xl {
+      font-size: 1.6em !important;
     }
   </style>
 </head>
@@ -341,6 +358,49 @@
               </v-item-group>
             </v-card>
           </v-menu>
+
+          <!-- Botón Tamaño de Fuente (Menú desplegable) -->
+<v-menu offset-y>
+  <template v-slot:activator="{ props }">
+    <v-btn 
+      color="indigo-lighten-2" 
+      icon="mdi-format-size" 
+      title="Cambiar Tamaño de Texto" 
+      v-bind="props"
+    ></v-btn>
+  </template>
+  <v-list density="compact">
+    <v-list-subheader>TAMAÑO DE TEXTO</v-list-subheader>
+
+    <v-list-item @click="cambiarTamanoTexto('text-xl')">
+      <template v-slot:prepend>
+        <v-icon size="small">mdi-format-font-size-increase</v-icon>
+      </template>
+      <v-list-item-title>Muy Grande (XL)</v-list-item-title>
+    </v-list-item>
+
+    <v-list-item @click="cambiarTamanoTexto('text-lg')">
+      <template v-slot:prepend>
+        <v-icon size="small">mdi-format-text</v-icon>
+      </template>
+      <v-list-item-title>Grande (LG)</v-list-item-title>
+    </v-list-item>
+
+    <v-list-item @click="cambiarTamanoTexto('text-sm')">
+      <template v-slot:prepend>
+        <v-icon size="small">mdi-format-font-size-decrease</v-icon>
+      </template>
+      <v-list-item-title>Pequeño (SM)</v-list-item-title>
+    </v-list-item>
+
+    <v-list-item @click="cambiarTamanoTexto('text-xs')">
+      <template v-slot:prepend>
+        <v-icon size="small">mdi-size-xs</v-icon>
+      </template>
+      <v-list-item-title>Muy Pequeño (XS)</v-list-item-title>
+    </v-list-item>
+  </v-list>
+</v-menu>
 
           <!-- Botón y Menú de Resaltado (<mark>) -->
 <v-menu offset-y>
@@ -967,7 +1027,7 @@
 
           window.open(urlVisor, '_blank');
         };
-        
+
         const copiarIframeViewer = () => {
           if (!presentationTitle.value.trim()) {
             alert('Asigna un nombre al proyecto para obtener su enlace.');
@@ -1020,6 +1080,30 @@
           actualizarReveal();
         };
 
+        // Función para cambiar el tamaño del texto usando clases de Reveal
+        const cambiarTamanoTexto = (claseTamano) => {
+          const textarea = editorRef.value?.$el?.querySelector('textarea') || editorRef.value;
+          if (!textarea) return;
+
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          const textoSeleccionado = markdownText.value.substring(start, end).trim();
+
+          if (textoSeleccionado) {
+            // Siempre envuelve en un <div> dejando saltos de línea para que Markdown no falle
+            const textoConClase = `<div class="${claseTamano}">\n\n${textoSeleccionado}\n\n</div>`;
+            markdownText.value =
+              markdownText.value.substring(0, start) +
+              textoConClase +
+              markdownText.value.substring(end);
+          } else {
+            // Plantilla por defecto si no hay selección
+            const textoBase = `\n<div class="${claseTamano}">\n\nTexto de ejemplo...\n\n</div>\n`;
+            insertarEnCursor(textoBase);
+          }
+
+          actualizarReveal();
+        };
 
         // //////////
 
@@ -1140,6 +1224,7 @@
           copiarIframeViewer,
           insertarMark,
           guardarPresentacion,
+          cambiarTamanoTexto,
           actualizarReveal
         };
       }
