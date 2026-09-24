@@ -395,7 +395,7 @@
               <!-- HOMEWORK SECTION (Insert after Step 4 inside Lab 1) -->
               <div class="section-divider"></div>
 
-              <v-card class="mt-8 pa-6 border" elevation="0"
+              <v-card id="lab1-homework" class="mt-8 pa-6 border" elevation="0"
                 style="border-radius: 20px; background: #faf5ff; border: 1px solid #e9d5ff !important;">
                 <div class="d-flex align-center mb-4">
                   <v-avatar color="purple-lighten-5" class="mr-3" size="44">
@@ -488,8 +488,8 @@
               <h1 class="text-h4 font-weight-bold mb-4">{{ labs[1].title }}</h1>
 
               <div class="intro-section px-0">
-                <p>This lab will guide you through collecting and editing audio for your soundwalk creation. By the end,
-                  you'll have hands-on experience with audio capture and editing techniques.</p>
+                <p>This lab will guide you through collecting audios for your soundwalk creation. By the end,
+                  you'll have hands-on experience with audio capture techniques.</p>
 
                 <div class="learning-objectives">
                   <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
@@ -497,7 +497,7 @@
                   <ul class="pl-4">
                     <li>Capture your own recordings at Stratford School and its surroundings.</li>
                     <li>Identify and extract sounds from archival media from the city of Stratford.</li>
-                    <li>Layer recordings and optionally add narration or text-to-speech.</li>
+                    <li>Optionally create voice narration.</li>
                   </ul>
                 </div>
 
@@ -510,11 +510,8 @@
                     <li>Sounds of Stratford website, Stratford School YouTube channel, Stratford City YouTube Channel
                     </li>
                     <li>Your smartphone (iOS or Android)</li>
-                    <li>BandLab (<a href="https://www.bandlab.com/" target="_blank">https://www.bandlab.com/</a>)</li>
                   </ul>
                 </div>
-
-
 
                 <div class="section-divider"></div>
                 <h3><v-icon color="primary" class="mr-2">mdi-microphone</v-icon>Step 1: Collect Sound Recordings</h3>
@@ -522,18 +519,15 @@
                   <div class="objective-box">
                     <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
                     <strong>Objective:</strong> Soundwalks can include many different types of recordings. For your
-                    project, you'll get to choose
-                    between using existing audio from archival media or creating your own recordings with your cellphone
-                    or field recorder or even text-to-speech tools.
+                    project, you'll get to choose between using existing audio from archival media or creating your own
+                    recordings with your cellphone or field recorder or even text-to-speech tools.
 
                     <p class="mt-2">For today's lab, start by exploring one of the sound collection streams below. If
-                      you
-                      finish one before class ends, try another! If you only get to one, that's fine too as you can
-                      always
-                      explore the others at home.</p>
+                      you finish one before class ends, try another! If you only get to one, that's fine too as you can
+                      always explore the others at home.</p>
                   </div>
 
-
+                  <!-- STREAM 1 -->
                   <details class="custom-details">
                     <summary><v-icon class="mr-2">mdi-archive</v-icon>Stream 1: Collect Existing Audio Recordings
                     </summary>
@@ -541,10 +535,8 @@
                       <div class="objective-box">
                         <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
                         <strong>Objective:</strong> Identify and collect existing audio from archival media that reflect
-                        your theme. You can choose to
-                        work with audio-only archives, or archival video footage.
+                        your theme. You can choose to work with audio-only archives, or archival video footage.
                       </div>
-
 
                       <ol>
                         <li><strong>Explore existing recordings (audio or video) that reflect your theme:</strong>
@@ -559,590 +551,770 @@
                                         target="_blank">https://www.streetsofstratford.ca/sounds-of-stratford</a></li>
                                   </ul>
                                 </li>
-                                <li>Identify a short audio that connects with the theme you brainstormed in Lab
-                                  1</li>
-                                <div class="example">
-                                  <strong>Audio Example</strong><br>
-                                  This archival recording recreates the sound of the City Hall Curfew Bell in Stratford
-                                  as
-                                  it might have been heard in 1897. The bell’s resonant tones mark the passage of time,
-                                  echoing through the town and signaling daily routines and regulation: <a
-                                    href="https://drive.google.com/file/d/1nUiwTIjbMKvPpx2NmFYfLJDi4n-4jVlV/view"
-                                    target="_blank">
-                                    https://drive.google.com/file/d/1nUiwTIjbMKvPpx2NmFYfLJDi4n-4jVlV/view
-                                  </a>
-                                  <br><br>
-                                  How this example connects to readings from week 1-4?
+                                <li>Identify a short audio that connects with the theme you brainstormed in Lab 1</li>
+                              </ul>
+                              <div class="example mt-3">
+                                <strong>Audio Example</strong><br>
+                                This archival recording recreates the sound of the City Hall Curfew Bell in Stratford as
+                                it might have been heard in 1897. The bell’s resonant tones mark the passage of time,
+                                echoing through the town and signaling daily routines and regulation: <a
+                                  href="https://drive.google.com/file/d/1nUiwTIjbMKvPpx2NmFYfLJDi4n-4jVlV/view"
+                                  target="_blank">https://drive.google.com/file/d/1nUiwTIjbMKvPpx2NmFYfLJDi4n-4jVlV/view</a>
+                                <br><br>
+                                How this example connects to readings from week 1-4?
+                                <ul>
+                                  <li>Patterns of time: The regular ringing of the bell structures the day, highlighting
+                                    the importance of timekeeping in everyday life.</li>
+                                  <li>Bodies and spaces: The bell's sound interacts with the physical space of
+                                    Stratford, influencing how people move through and experience the town. <i>For
+                                      example, would it be interesting to know whether the curfew bell applied to women
+                                      only, or to men as well?</i></li>
+                                </ul>
+                              </div>
+                              <ul class="mt-2">
+                                <li>Download the audio file to your computer</li>
+                              </ul>
+                            </li>
+
+                            <li class="mt-4"><strong>If you choose video footage archives:</strong>
+                              <ul>
+                                <li>Browse the following video sources:
                                   <ul>
-                                    <li>Patterns of time: The regular ringing of the bell structures the day,
-                                      highlighting the importance of timekeeping in everyday life.</li>
-                                    <li>Bodies and spaces: The bell's sound interacts with the physical space of
-                                      Stratford, influencing how people move through and experience the town.
-                                      <i>For example, would it be interesting to know whether the curfew bell applied to
-                                        women only, or to men as well?</i>
+                                    <li>Stratford School YouTube channel: <a
+                                        href="https://www.youtube.com/@UWStratford/videos"
+                                        target="_blank">https://www.youtube.com/@UWStratford/videos</a></li>
+                                    <li>GBDA YouTube channel: <a
+                                        href="https://www.youtube.com/playlist?list=PL9OAryISffri-T0N8MBsCpfu84eW-Ncjn"
+                                        target="_blank">https://www.youtube.com/playlist?list=PL9OAryISffri-T0N8MBsCpfu84eW-Ncjn</a>
                                     </li>
+                                    <li>Destination Stratford YouTube Channel: <a
+                                        href="https://www.youtube.com/c/VisitStratfordCa/videos"
+                                        target="_blank">https://www.youtube.com/c/VisitStratfordCa</a></li>
+                                    <li>City of Statford YouTube Channel <a
+                                        href="https://www.youtube.com/@thecityofstratford/videos"
+                                        target="_blank">https://www.youtube.com/@thecityofstratford/videos</a></li>
+                                  </ul>
+                                </li>
+                                <li>Identify a short audio or video that connects with the theme you brainstormed in Lab
+                                  1</li>
+                              </ul>
+
+                              <div class="example mt-3">
+                                <strong>Video Example</strong><br>
+                                This video features a salesperson describing their daily work at <i>Resonance</i>, a
+                                clothing store in Stratford, as they introduce Canadian-made clothing and mention
+                                designers such as Eileen Fisher: <a
+                                  href="https://youtu.be/kt_nNBA2MDE?si=W3B-B39IvaEVFwLB"
+                                  target="_blank">https://youtu.be/kt_nNBA2MDE?si=W3B-B39IvaEVFwLB</a>
+                                <br><br>
+                                How this example connects to readings from week 1-4?
+                                <ul>
+                                  <li>Narratives of daily life: The salesperson's account of their work, paired with
+                                    environmental sounds, creates a small story about the rhythms of retail in
+                                    Stratford.</li>
+                                  <li>Sense of place and belonging: The sales person highlights the availabilty of major
+                                    Canadian-made products in a small city like Stratford.</li>
+                                </ul>
+                              </div>
+
+                              <ul class="mt-2">
+                                <li>Extract the video to your computer
+                                  <ul>
+                                    <li>If the video is from YouTube, you can use the following tool to extract the
+                                      audio: <a href="https://ssvid.net/en" target="_blank">https://ssvid.net/en</a>.
+                                      Please note you would need to install this tool in your computer.</li>
+                                  </ul>
+                                </li>
+                                <li>Once you have your recorded narration file ready, proceed to <b>Step 2</b> to
+                                  import, layer with other sounds, edit, and export your final audio mixdown.</li>
+                              </ul>
                             </li>
-                    </div>
-                    <li>Download the audio file to your computer</li>
-                    </ul>
-                    </li>
-                    <br>
-                    <li><strong>If you choose video footage archives:</strong>
-                      <ul>
-                        <li>Browse the following video sources:
-                          <ul>
-                            <li>Stratford School YouTube channel: <a href="https://www.youtube.com/@UWStratford/videos"
-                                target="_blank">https://www.youtube.com/@UWStratford/videos</a></li>
-                            <li>GBDA YouTube channel: <a
-                                href="https://www.youtube.com/playlist?list=PL9OAryISffri-T0N8MBsCpfu84eW-Ncjn"
-                                target="_blank">https://www.youtube.com/playlist?list=PL9OAryISffri-T0N8MBsCpfu84eW-Ncjn</a>
-                            </li>
-                            <li>Destination Stratford YouTube Channel: <a
-                                href="https://www.youtube.com/c/VisitStratfordCa/videos"
-                                target="_blank">https://www.youtube.com/c/VisitStratfordCa</a></li>
-                            <li>City of Statford YouTube Channel <a
-                                href="https://www.youtube.com/@thecityofstratford/videos"
-                                target="_blank">https://www.youtube.com/@thecityofstratford/videos</a> </li>
                           </ul>
                         </li>
-                        <li>Identify a short audio or video that connects with the theme you brainstormed in Lab
-                          1</li>
-                        <div class="example">
-                          <strong>Video Example</strong><br>
-                          This video features a salesperson describing their daily work at <i>Resonance</i>, a clothing
-                          store in Stratford, as they introduce Canadian-made clothing and mention designers such
-                          as Eileen Fisher: <a href="https://youtu.be/kt_nNBA2MDE?si=W3B-B39IvaEVFwLB" target="_blank">
-                            https://youtu.be/kt_nNBA2MDE?si=W3B-B39IvaEVFwLB
-                          </a>
+                      </ol>
+                    </div>
+                  </details>
+
+                  <!-- STREAM 2 -->
+                  <details class="custom-details">
+                    <summary><v-icon class="mr-2">mdi-cellphone</v-icon>Stream 2: Record Sounds With Your Cellphone or
+                      Field Recorder</summary>
+                    <div class="details-content">
+                      <div class="objective-box">
+                        <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
+                        <strong>Objective:</strong> Capture sounds in Stratford to provide a current perspective on your
+                        theme. You can record sounds using cellphone or Zoom H6 field recorders.
+                      </div>
+
+                      <ol>
+                        <li><strong>Choose and go to a location near Stratford School to record an audio based on the
+                            theme you selected in Step 1. Follow the steps below based on your recording
+                            device:</strong>
                           <br><br>
-                          How this example connects to readings from week 1-4?
                           <ul>
-                            <li>Narratives of daily life: The salesperson's account of their
-                              work, paired with environmental sounds, creates a small story about the rhythms of
-                              retail in Stratford.</li>
-                            <li>Sense of place and belonging: The sales person highlights the availabilty of
-                              major Canadian-made products in a small city like Stratford.</li>
-                    </li>
-                    </ul>
+                            <!-- Option A: Cellphone -->
+                            <li><strong>If you choose to record with your cellphone:</strong>
+                              <ul>
+                                <li>Use your phone's recorder to capture at least two to three different sounds related
+                                  to your theme. Keep each recording short (1 - 2 minutes long).</li>
+                                <li>Follow these tips for good recordings:
+                                  <ul>
+                                    <li>Hold your phone steady and close to the sound source.</li>
+                                    <li>Avoid covering the microphone.</li>
+                                    <li>Minimize background noise (wind, traffic, etc.).</li>
+                                    <li>Record multiple takes if needed.</li>
+                                  </ul>
 
+                                  <div class="example mt-3">
+                                    <strong>Example</strong><br>
+                                    Record near the entrance door of Stratford School. Capture layers of everyday sound
+                                    such as footsteps, conversations, and doors opening.
+                                    <br><br>
+                                    How this example connects to readings from Weeks 1-4:
+                                    <ul>
+                                      <li><b>Pattern of time:</b> Notice how rhythms of arrival and departure mark the
+                                        passage of time on campus. Consider whether certain voices or activities repeat
+                                        daily, creating recognizable temporal patterns.</li>
+                                      <li><b>Sense of place and belonging:</b> Reflect on how overlapping sounds form a
+                                        shared soundscape, shaping feelings of community or exclusion in this space.
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </li>
+                                <li>Back in the classroom, transfer your recordings to your computer (e.g., email them
+                                  to yourself, use AirDrop, Google Drive, or OneDrive)</li>
+                                <li>Rename your files descriptively (e.g.,
+                                  <code>sounds_from_campus_entrance_door</code>).
+                                </li>
+                                <li>If your recordings are not already in .mp3 or .wav format, convert them using a tool
+                                  like <a href="https://cloudconvert.com/" target="_blank">CloudConvert</a>. These
+                                  format are compatible with a range of devices from cellphones to laptops.</li>
+                              </ul>
+                            </li>
+
+                            <br>
+
+                            <!-- Option B: Field Recorder -->
+                            <li><strong>If you choose to record with the Zoom H6 field recorder:</strong>
+                              <ul>
+                                <li>Familiarize with the Zoom H6 field recorder:
+                                  <div class="my-3">
+                                    <iframe width="560" height="315"
+                                      src="https://www.youtube.com/embed/_sFfOgsStzE?si=9ZoDA5jdHHSsFibo"
+                                      title="YouTube video player" frameborder="0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                  </div>
+                                </li>
+                                <li>Before going out to record:
+                                  <ul>
+                                    <li>Check that the batteries and SD card are inserted and that you have fresh
+                                      batteries.</li>
+                                    <li>Choose the microphone capsule (X/Y or shotgun) based on your sound source (e.g.,
+                                      use the <b>X/Y capsule</b> for capturing the overall ambience of a busy hallway,
+                                      or the <b>shotgun capsule</b> for focusing on a single speaker/source at a
+                                      distance).</li>
+                                    <li>Press <b>LR</b> buttons to turn on the microphone.</li>
+                                    <li>Press <b>Record ⏺</b> once to start recording (the red light will be steady).
+                                    </li>
+                                    <li>Press <b>Play ▶</b> to listen to your recording. Use <b>⏮</b> or <b>⏭</b> to
+                                      skip to other recordings.</li>
+                                    <li>When finished, stop the recording and power off before removing the SD card.
+                                    </li>
+                                  </ul>
+                                </li>
+                                <li>Go out to capture two to three different sounds related to your theme. Keep each
+                                  recording short (1 - 2 minutes long).
+                                  <ul>
+                                    <li>Follow these tips for good recordings:
+                                      <ul>
+                                        <li>Hold your phone steady and close to the sound source.</li>
+                                        <li>Avoid covering the microphone.</li>
+                                        <li>Minimize background noise (wind, traffic, etc.).</li>
+                                        <li>Record multiple takes if needed.</li>
+                                      </ul>
+                                    </li>
+                                  </ul>
+
+                                  <div class="example mt-3">
+                                    <strong>Example</strong><br>
+                                    Use the shotgun microphone to focus on a single sound source, such as a street
+                                    performer near Stratford's City Hall. Capture the performer's voice or instrument in
+                                    detail while reducing background noise from passing cars or conversations.
+                                    <br><br>
+                                    How this example connects to readings from Weeks 1-4:
+                                    <ul>
+                                      <li><b>Bodies and spaces:</b> Reflect on how isolating one sound changes the
+                                        narrative of the soundscape. What story emerges when we privilege an individual
+                                        performer's sound over the surrounding environment?</li>
+                                      <li><b>Narratives of daily life:</b> Consider how this emphasis highlights
+                                        cultural or social meanings connected to music and public space, and how
+                                        listening practices shape collective experience.</li>
+                                    </ul>
+                                  </div>
+                                </li>
+                                <li>Back in the classroom, transfer your files via the SD card reader or USB cable.</li>
+                                <li>Rename your files descriptively (e.g., <code>performer_near_city_hall</code>).</li>
+                                <li class="mb-1">Once you have your recorded narration file ready, proceed to
+                                  <strong>Step 2</strong> to import, layer with other sounds, edit, and export your
+                                  final audio mixdown.
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ol>
+                    </div>
+                  </details>
+
+                  <!-- STREAM 3 -->
+                  <details class="custom-details">
+                    <summary>
+                      <v-icon class="mr-2">mdi-account-voice</v-icon>
+                      Stream 3: Voice Annotations or Narrations
+                    </summary>
+                    <div class="details-content">
+                      <div class="objective-box">
+                        <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
+                        <strong>Objective:</strong> Create audio based on your own narration and reflections. You can:
+                        <ul class="pl-6 mt-1">
+                          <li>Develop creative texts (e.g., stories, poems, reflections), or</li>
+                          <li>Use factual texts (e.g., historical notes, news excerpts)</li>
+                        </ul>
+                      </div>
+
+                      <ol class="pl-6 text-body-1" style="line-height: 1.8;">
+                        <li class="mb-3">Choose a location or space at Stratford that connects to your soundwalk theme.
+                        </li>
+                        <li class="mb-3">
+                          Write a short script (2–3 sentences) describing your experience, observations, or reflections
+                          on that space.
+                          <ul class="pl-6 mt-2">
+                            <li class="mb-1">Your script can be creative (e.g., a poem or story) or factual (e.g.,
+                              historical information or accessibility details).</li>
+                            <ul class="pl-6 mt-1">
+                              <li class="mb-1">For factual or historical information, explore the <a
+                                  href="https://www.streetsofstratford.ca/streets" target="_blank">Streets of
+                                  Stratford</a> website.</li>
+                            </ul>
+                            <li class="mb-1">Link your script to themes from the readings (e.g., environment, place and
+                              belonging, bodies and spaces, gender and culture, etc.).</li>
+                          </ul>
+
+                          <div class="example mt-3 pa-3 rounded bg-grey-lighten-4">
+                            <strong>Example</strong><br>
+                            Start by exploring St. Patrick Street near Stratford School. Research its history on the <a
+                              href="https://www.streetsofstratford.ca/st-patrick-street" target="_blank">Streets of
+                              Stratford</a> website. Create 2–3 short audio narration notes (60–90 seconds each) that
+                            highlight historical facts, everyday observations, and personal reflections to tell a story
+                            of everyday life, past and present.
+                            <br><br>
+                            How this example connects to readings from Weeks 1–4:
+                            <ul class="pl-6 mt-1">
+                              <li><b>Environmental change:</b> Consider how the soundscape has evolved over time, from
+                                historical events to the current everyday atmosphere of the street.</li>
+                              <li><b>Social and cultural meanings:</b> Think about how certain sounds, spaces, or
+                                activities may carry historical, cultural, or gendered significance.</li>
+                            </ul>
+                          </div>
+                        </li>
+
+                        <li class="mb-3">
+                          Record Your Voice Narration:
+                          <ul class="pl-6 mt-2">
+                            <li class="mb-1">Use your computer's microphone, phone recorder, or a field recorder to read
+                              and capture your written script aloud.</li>
+                            <li class="mb-1">Aim for a clear recording with minimal background disturbance/noise. Take a
+                              few tries if necessary.</li>
+                            <li class="mb-1">Transfer or save your raw voice recording file to your computer and rename
+                              it descriptively (e.g., <code>st_patrick_street_narration.wav</code>).</li>
+                            <li class="mb-1">Once you have your recorded narration file ready, proceed to <strong>Step
+                                2</strong> to import, layer with other sounds, edit, and export your final audio
+                              mixdown.</li>
+                          </ul>
+                        </li>
+                      </ol>
+                    </div>
+                  </details>
                 </div>
-                <li>Extract the video to your computer
-                  <ul>
-                    <li>If the video is from YouTube, you can use the following tool to extract the audio: <a
-                        href="https://ssvid.net/en" target="_blank">https://ssvid.net/en</a>. Please note you would need
-                      to install this tool in your computer.</li>
-                  </ul>
-                <li>
-                  Once you have your recorded narration file ready, proceed to <b>Step 2 </b>to import, layer with other
-                  sounds, edit, and export your final audio mixdown.
-                </li>
-                </ul>
-                </li>
-                </ul>
-                </li>
+
+                <!-- <div class="section-divider"></div> -->
 
 
+                <!-- STEP 2 -->
+                <div class="section-divider"></div>
 
+                <h3><v-icon color="primary" class="mr-2">mdi-share-variant</v-icon>Step 2: Posting Your Sound Recording
+                  for Showcase</h3>
+
+                <div class="objective-box">
+                  <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
+                  <strong>Objective:</strong> Share some of your audio recordings with the class to discuss strategies
+                  that worked for you.
+                </div>
+
+                <ol>
+                  <li>Select 1-2 recording and upload them it to the
+                    following class folder: <a
+                      href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
+                      target="_blank">Sounwalks - Work in Progress</a>.
+                  </li>
+                  <li>Discuss your sounds with the class.</li>
                 </ol>
 
-              </div>
-              </details>
 
-              <details class="custom-details">
-                <summary><v-icon class="mr-2">mdi-cellphone</v-icon>Stream 2: Record Sounds With Your Cellphone or
-                  Field Recorder</summary>
-                <div class="details-content">
-                  <div class="objective-box">
-                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                    <strong>Objective:</strong> Capture sounds in Stratford to provide a current perspective on your
-                    theme. You can
-                    record sounds
-                    using cellphone or Zoom H6 field recorders.
+
+                <!-- HOMEWORK SECTION LAB 2 -->
+                <div class="section-divider"></div>
+
+                <v-card id="lab2-homework" class="mt-8 pa-6 border" elevation="0"
+                  style="border-radius: 20px; background: #faf5ff; border: 1px solid #e9d5ff !important;">
+                  <div class="d-flex align-center mb-4">
+                    <v-avatar color="purple-lighten-5" class="mr-3" size="44">
+                      <v-icon color="purple-darken-2" size="28">mdi-folder-music-outline</v-icon>
+                    </v-avatar>
+                    <div>
+                      <h2 class="text-h5 font-weight-bold text-slate-900">Homework: Continue Gathering Audio Recordings
+                      </h2>
+                      <span class="text-caption text-purple-darken-2 font-weight-bold">Due Before Next Class • Field
+                        Recording & Asset Collection</span>
+                    </div>
                   </div>
 
-                  <ol>
-                    <li><strong>Choose and go to a location near Stratford School to record an audio based on the theme
-                        you
-                        selected in
-                        Step 1. Follow the steps below based on your recording device:</strong>
-                      <br><br>
-                      <ul>
-                        <!-- Option A: Cellphone -->
-                        <li><strong>If you choose to record with your cellphone:</strong></li>
-                        <ul>
-                          <li>Use your phone's recorder to capture at least two to three different sounds related to
-                            your theme.
-                            Keep each recording short (1 - 2 minutes long).</li>
-                          <li>Follow these tips for good recordings:
-                            <ul>
-                              <li>Hold your phone steady and close to the sound source.</li>
-                              <li>Avoid covering the microphone.</li>
-                              <li>Minimize background noise (wind, traffic, etc.).</li>
-                              <li>Record multiple takes if needed.</li>
-                            </ul>
+                  <p class="text-body-1 text-slate-700 mb-4">
+                    Building on the collection streams practiced in class, continue gathering audio recordings for your
+                    soundwalk. Expand your collection across <b>all three audio streams</b> (field recordings, archival
+                    material, and voice narrations) as you see fit, so you have a rich library of sound clips ready for
+                    editing next
+                    week.
+                  </p>
 
+                  <!-- Objective Box -->
+                  <div class="objective-box my-4" style="background-color: #fff; border-left: 4px solid #a855f7;">
+                    <strong class="text-purple-darken-3 d-block mb-1">
+                      <v-icon size="small" class="mr-1">mdi-target</v-icon> Objective
+                    </strong>
+                    Collect a varied set of high-quality audio files that explore your soundwalk theme through local
+                    environmental sounds, historical archival assets, and/or spoken reflections.
+                  </div>
 
-                            <div class="example">
-                              <strong>Example</strong><br>
-                              Record near the entrance door of Stratford School. Capture layers of everyday sound such
-                              as footsteps,
-                              conversations, and doors opening.
-                              <br><br>
+                  <h4 class="text-subtitle-1 font-weight-bold text-slate-800 mt-6 mb-3">
+                    <v-icon color="indigo-accent-4" class="mr-1">mdi-lightbulb-on-outline</v-icon> Choose from the
+                    following options:
+                  </h4>
 
-                              How this example connects to readings from Weeks 1-4:
-                              <ul>
-                                <li><b>Pattern of time:</b> Notice how rhythms of arrival and departure mark the passage
-                                  of time on
-                                  campus.
-                                  Consider whether certain voices or activities repeat daily, creating recognizable
-                                  temporal
-                                  patterns.</li>
-                                <li><b>Sense of place and belonging:</b> Reflect on how overlapping sounds form a shared
-                                  soundscape,
-                                  shaping feelings of community or exclusion in this space.</li>
-                              </ul>
-                            </div>
+                  <v-row class="ga-0">
+                    <v-col cols="12">
+                      <v-card variant="flat" class="pa-4 rounded-lg bg-white border mb-3">
+                        <div class="d-flex align-start">
+                          <v-icon color="indigo-accent-3" class="mr-3 mt-1">mdi-check-circle-outline</v-icon>
+                          <ul class="pl-4" style="line-height: 1.8;">
+                            <li><b>Field Recordings:</b> Capture <b>at least 3 to 4 distinct environmental or ambient
+                                sounds</b> around Stratford using the Zoom H6 field recorder.</li>
+                            <li><b>Archival Sources:</b> Extract or download <b>at least 2 archival audio/video
+                                assets</b> related to your theme from the provided sources (e.g., <i>Sounds of
+                                Stratford</i>, City/School YouTube channels).</li>
+                            <li><b>Voice Narrations:</b> Write and record <b>at least 2 short spoken voice annotations
+                                or reflections</b> (30–60 seconds each) connecting specific locations to concepts from
+                              Weeks 1–4.</li>
+                            <li>Organize and convert all your raw audio files into <b>MP3 formats</b>
+                              with clear, descriptive filenames (e.g., <code>st_patrick_street_ambience.wav</code>).
+                            </li>
+                          </ul>
+                        </div>
+                      </v-card>
+                    </v-col>
+                  </v-row>
 
+                  <!-- Deliverable Card -->
+                  <v-card class="pa-4 mt-4 bg-indigo-lighten-5 border-indigo" variant="outlined"
+                    style="border-radius: 12px;">
+                    <div class="d-flex align-center mb-2">
+                      <v-icon color="indigo-accent-4" class="mr-2">mdi-notebook-edit-outline</v-icon>
+                      <strong class="text-indigo-darken-3">Your Submission Deliverable:</strong>
+                    </div>
+                    <p class="text-body-2 text-slate-800 mb-0">
+                      Upload your raw audio files to the <a
+                        href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
+                        target="_blank">Soundwalks - Work in Progress</a> folder and bring them saved on your computer
+                      next class. We will use these assets to build your sound montages/collages in BandLab.
+                    </p>
+                  </v-card>
+                </v-card>
 
-                          </li>
+              </div>
+            </v-window-item>
+            <!-- TAB 3: NEW LAB 3 -->
 
+            <v-window-item value="3">
+              <v-breadcrumbs :items="['Labs', 'Lab 3']" class="px-0 py-2"></v-breadcrumbs>
+              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[2].title }}</h1>
 
-                          <li>Back in the classroom, transfer your recordings to your computer (e.g., email them to
-                            yourself,
-                            use AirDrop, Google Drive, or OneDrive)</li>
-                          <li>Rename your files descriptively (e.g., <code>sounds_from_campus_entrance_door</code>).
-                          </li>
-                          <li>If your recordings are not already in .mp3 or .wav format, convert them using a tool like
-                            <a href="https://cloudconvert.com/" target="_blank">CloudConvert</a>. These
-                            format are compatible with a range of devices from cellphones to laptops.
-                          </li>
-                        </ul>
+              <div class="intro-section px-0">
+                <p class="text-body-1">
+                  In this lab, you will learn how to design narrative sound montages by layering field recordings,
+                  ambient audio,
+                  and voice annotations in BandLab. You will complete <strong>1 sound montage (1-2 minutes
+                    long)</strong>
+                  during
+                  class. This workflow will be the same for your entire 7-location soundwalk project.
+                </p>
 
-
-
-                        <br>
-
-                        <!-- Option B: Field Recorder -->
-                        <li><strong>If you choose to record with the Zoom H6 field recorder:</strong></li>
-                        <ul>
-                          <!-- <li>Since you'll be borrowing the H6 field recorder from Media Services, please <b>scan the QR code below
-                  to
-                  complete the Equipment Loan Agreement for the new school year</b>. This step is required in order to
-                access the equipment:
-              </li>
-              <img src="images/soundwalk/equipment loan qr 1.png" alt="Zoom H6 Equipment Loan Agreement QR Code" />
-
-              <li>Go to Media Services on the first floor of campus to borrow one Zoom H6 field recorder kit.
-                (The Media Services technician is aware of this workshop and will be ready to loan out the equipment
-                during today’s class.)
-              </li> -->
-                          <li>Familiarize with the Zoom H6 field recorder:
-                            <div>
-
-                              <iframe width="560" height="315"
-                                src="https://www.youtube.com/embed/_sFfOgsStzE?si=9ZoDA5jdHHSsFibo"
-                                title="YouTube video player" frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                            </div>
-                          </li>
-                          <li>Before going out to record:
-                            <ul>
-                              <li>Check that the batteries and SD card are inserted and that you have fresh batteries.
-                              </li>
-                              <li>Choose the microphone capsule (X/Y or shotgun) based on your sound source
-                                (e.g., use the <b>X/Y capsule</b> for capturing the overall ambience of a busy hallway,
-                                or the <b>shotgun capsule</b> for focusing on a single speaker/source at a distance).
-                              </li>
-                              <li>Press<b>LR</b> buttons to turn on the microphone. </li>
-                              <li>Press <b>Record ⏺</b> once to start recording (the red light will be steady).</li>
-                              <li>Press <b>Play ▶</b> to listen to your recording.Use <b>⏮</b> or <b>⏭</b> to skip to
-                                other
-                                recordings.</li>
-                              <li>When finished, stop the recording and power off before removing the SD card.</li>
-                            </ul>
-                          </li>
-                          <li>Go out to capture two to three different sounds related to your theme. Keep each recording
-                            short (1 - 2 minutes long).
-                            <ul>
-                              <li>Follow these tips for good recordings:
-                                <ul>
-                                  <li>Hold your phone steady and close to the sound source.</li>
-                                  <li>Avoid covering the microphone.</li>
-                                  <li>Minimize background noise (wind, traffic, etc.).</li>
-                                  <li>Record multiple takes if needed.</li>
-                                </ul>
-                              </li>
-                            </ul>
-
-                            <div class="example">
-                              <strong>Example</strong><br>
-                              Use the shotgun microphone to focus on a single sound source, such as a street performer
-                              near
-                              Stratford's City Hall. Capture the performer's voice or instrument in detail while
-                              reducing background
-                              noise from
-                              passing cars or conversations.
-
-                              <br><br>
-
-                              How this example connects to readings from Weeks 1-4:
-                              <ul>
-                                <li><b>Bodies and spaces:</b> Reflect on how isolating one sound changes the narrative
-                                  of the
-                                  soundscape. What story emerges when we privilege an individual performer's sound over
-                                  the
-                                  surrounding
-                                  environment?</li>
-                                <li><b>Narratives of daily life:</b> Consider how this emphasis highlights cultural or
-                                  social
-                                  meanings
-                                  connected to music and public space, and how listening practices shape collective
-                                  experience.</li>
-                              </ul>
-                            </div>
-
-
-                          </li>
-
-                          <li>Back in the classroom, transfer your files via the SD card reader or USB cable.</li>
-                          <li>Rename your files descriptively (e.g., <code>performer_near_city_hall</code>).</li>
-                          <li class="mb-1">Once you have your recorded narration file ready, proceed to <strong>Step
-                              2</strong> to import, layer with other sounds, edit, and export your final audio mixdown.
-                          </li>
-                        </ul>
-                      </ul>
-                    </li>
-                    <br>
-                  </ol>
+                <div class="learning-objectives">
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
+                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
+                  <ul class="pl-4">
+                    <li>Import and arrange field recordings, found sound, and voice tracks on a timeline.</li>
+                    <li>Practice audio splicing, trimming, and looping using shortcut tools.</li>
+                    <li>Apply the 3-Layer Sound Collage framework (Foreground, Midground, Background).</li>
+                    <li>Build a 1-2 minute sound montage ready for your final spatial soundwalk project.</li>
+                  </ul>
                 </div>
-              </details>
 
+                <div class="tools-section">
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
+                      class="mr-2">mdi-tools</v-icon>Tools
+                    You'll Use</h4>
+                  <ul class="pl-4">
+                    <li>Field recordings and archival audios gathered in Lab 2</li>
+                    <li>Headphones or earbuds</li>
+                    <li>BandLab Studio (<a href="https://www.bandlab.com/" target="_blank">https://www.bandlab.com/</a>)
+                    </li>
+                    <li>Laptop / Workstation</li>
+                  </ul>
+                </div>
 
+                <div class="section-divider"></div>
 
-
-              <details class="custom-details">
-                <summary>
-                  <v-icon class="mr-2">mdi-account-voice</v-icon>
-                  Stream 3: Voice Annotations or Narrations
-                </summary>
+                <!-- STEP 1 -->
+                <h3><v-icon color="primary" class="mr-2">mdi-file-import-outline</v-icon>Step 1: Import Audio Recordings
+                </h3>
                 <div class="details-content">
                   <div class="objective-box">
                     <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                    <strong>Objective:</strong> Create audio based on your own narration and reflections. You can:
-                    <ul class="pl-6 mt-1">
-                      <li>Develop creative texts (e.g., stories, poems, reflections), or</li>
-                      <li>Use factual texts (e.g., historical notes, news excerpts)</li>
-                    </ul>
+                    <strong>Objective:</strong> Prepare a multi-track timeline in BandLab by adding your
+                    existing recordings (e.g., field recordings, archival audios and/or voice narrations).
                   </div>
 
                   <ol class="pl-6 text-body-1" style="line-height: 1.8;">
                     <li class="mb-3">
-                      Choose a location or space at Stratford that connects to your soundwalk theme.
-                    </li>
-
-                    <li class="mb-3">
-                      Write a short script (2–3 sentences) describing your experience, observations, or reflections on
-                      that space.
-                      <ul class="pl-6 mt-2">
-                        <li class="mb-1">Your script can be creative (e.g., a poem or story) or factual (e.g.,
-                          historical information or accessibility details).</li>
-                        <ul class="pl-6 mt-1">
-                          <li class="mb-1">For factual or historical information, explore the <a
-                              href="https://www.streetsofstratford.ca/streets" target="_blank">Streets of Stratford</a>
-                            website.</li>
-                        </ul>
-                        <li class="mb-1">Link your script to themes from the readings (e.g., environment, place
-                          and belonging, bodies and spaces, gender and culture, etc.).</li>
-                      </ul>
-
-                      <div class="example mt-3 pa-3 rounded bg-grey-lighten-4">
-                        <strong>Example</strong><br>
-                        Start by exploring St. Patrick Street near Stratford School. Research its history on the <a
-                          href="https://www.streetsofstratford.ca/st-patrick-street" target="_blank">Streets of
-                          Stratford</a> website. Create 2–3 short audio narration notes (60–90 seconds each) that
-                        highlight historical facts, everyday observations, and personal reflections to tell a story of
-                        everyday life, past and present.
-
-                        <br><br>
-
-                        How this example connects to readings from Weeks 1–4:
-                        <ul class="pl-6 mt-1">
-                          <li><b>Environmental change:</b> Consider how the soundscape has evolved over time, from
-                            historical events to the current everyday atmosphere of the street.</li>
-                          <li><b>Social and cultural meanings:</b> Think about how certain sounds, spaces, or activities
-                            may carry historical, cultural, or gendered significance.</li>
-                        </ul>
+                      <strong>Create a BandLab Account and Start a Project</strong>
+                      <div class="tip-box pa-3 my-2 rounded bg-blue-lighten-5 text-body-2">
+                        <b>💡 Tip:</b> BandLab is a free, browser-based digital audio workstation that makes it easy to
+                        multi-track, layer, and edit audio files for your soundwalk.
                       </div>
-                    </li>
-
-                    <li class="mb-3">
-                      Record Your Voice Narration:
                       <ul class="pl-6 mt-2">
-                        <li class="mb-1">Use your computer's microphone, phone recorder, or a field recorder to read and
-                          capture your written script aloud.</li>
-                        <li class="mb-1">Aim for a clear recording with minimal background disturbance/noise. Take a few
-                          tries
-                          if necessary.</li>
-                        <li class="mb-1">Transfer or save your raw voice recording file to your computer and rename it
-                          descriptively (e.g., <code>st_patrick_street_narration.wav</code>).</li>
-                        <li class="mb-1">Once you have your recorded narration file ready, proceed to <strong>Step
-                            2</strong> to import, layer with other sounds, edit, and export your final audio mixdown.
-                        </li>
+                        <li class="mb-1">Go to <a href="https://www.bandlab.com/"
+                            target="_blank">https://www.bandlab.com/</a></li>
+                        <li class="mb-1">Click <strong>Sign Up</strong> to create your free account using your school or
+                          personal email.</li>
+                        <li class="mb-1">Once logged in, click <strong>Create</strong> &gt; <strong>New Project</strong>
+                          to open a new project workspace.</li>
                       </ul>
+                    </li>
+                    <li class="mb-3">
+                      <strong>Import Audio Tracks:</strong> Drag and drop your field recordings, ambient textures, and
+                      archival
+                      sound clips onto separate tracks.
+                    </li>
+                    <li class="mb-3">
+                      <strong>Add Voice Annotations:</strong> Drag in existing narration audio or record your voiceover
+                      directly
+                      onto a separate track using your computer's microphone.
                     </li>
                   </ol>
                 </div>
-              </details>
 
-              <br><br>
+                <div class="section-divider"></div>
 
-              <!-- <div class="step-section pa-4 mb-4"> -->
-              <div class="section-divider"></div>
-
-              <h3 class="text-h6 font-weight-bold mb-3 d-flex align-center">
-                <v-icon color="primary" class="mr-2">mdi-tune-vertical</v-icon> Step 2: Edit Your Audio Recording
-              </h3>
-
-              <!-- Objective Box -->
-              <div class="objective-box pa-3 mb-4 rounded bg-grey-lighten-4">
-                <div class="d-flex align-center mb-1">
-                  <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                  <strong>Objective:</strong>
-                </div>
-                <p class="text-body-2 mb-0 text-grey-darken-2">
-                  Learn how to use BandLab to import, arrange, trim, layer, and export your soundwalk or field recording
-                  audio files cleanly.
-                </p>
-              </div>
-
-              <!-- Main Step List -->
-              <ul class="pl-6 text-body-1" style="line-height: 1.8;">
-                <li class="mb-3">
-                  <strong>Create a BandLab Account and Start a Project</strong>
-                  <div class="tip-box pa-3 my-2 rounded bg-blue-lighten-5 text-body-2">
-                    <b>💡 Tip:</b> BandLab is a free, browser-based digital audio workstation that makes it easy to
-                    multi-track, layer, and edit audio files for your soundwalk.
+                <!-- STEP 2 -->
+                <h3><v-icon color="primary" class="mr-2">mdi-content-cut</v-icon>Step 2: Splicing, Looping, and Basic FX
+                </h3>
+                <div class="details-content">
+                  <div class="objective-box">
+                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
+                    <strong>Objective:</strong> Clean up raw recordings, extract key moments, and experiment with basic
+                    audio
+                    effects.
                   </div>
-                  <ul class="pl-6 mt-2">
-                    <li class="mb-1">Go to <a href="https://www.bandlab.com/"
-                        target="_blank">https://www.bandlab.com/</a></li>
-                    <li class="mb-1">Click <strong>Sign Up</strong> to create your free account using your school or
-                      personal email.</li>
-                    <li class="mb-1">Once logged in, click <strong>Create</strong> &gt; <strong>New Project</strong> to
-                      open a new project workspace.</li>
-                  </ul>
-                </li>
 
-                <li class="mb-3">
-                  <strong>Import Your Media</strong>
-                  <ul class="pl-6 mt-2">
-                    <li class="mb-1">Click on <strong>Drop or drag a loop or audio</strong> and select the file to
-                      import.</li>
-                    <li class="mb-1">Wait for the file to upload and load onto your workspace timeline.</li>
-                    <li>Ensure your track is placed on the main timeline workspace to start editing.</li>
-
-                  </ul>
-
-                  <!-- </li> -->
-
-                  <!-- <li class="mb-3">
-                  <strong>Add and Arrange Your Media on the Timeline</strong>
-                  <ul class="pl-6 mt-2">
-                    <li class="mb-2"><strong>If you are working with audio-only files:</strong>
-                      <ul class="pl-6 mt-1">
-                        <li>Ensure your track is placed on the main timeline workspace to start editing and layering.
+                  <ul class="pl-6 text-body-1" style="line-height: 1.8;">
+                    <li class="mb-3">
+                      <strong>Slice & Trim:</strong> Move the white playhead to a position on your
+                      clip and
+                      press <strong>'S'</strong> to cut unwanted noise, isolate sharp spoken phrases, or split clips.
+                    </li>
+                    <li class="mb-3">
+                      <strong>Duplicate & Loop:</strong> Select a clip and press <code>Ctrl+D</code> (or
+                      <code>Cmd+D</code>) to
+                      repeat background textures or create rhythmic loops.
+                    </li>
+                    <li class="mb-3">
+                      <strong>Apply Audio Effects:</strong> Select a track, open the FX Panel, and test:
+                      <ul>
+                        <li><strong>Space Maker (Reverb):</strong> Adds spatial depth and simulates physical spaces.
                         </li>
-                      </ul>
-                    </li>
-                    <li class="mb-2"><strong>If you are working with extracted video audio:</strong>
-                      <ul class="pl-6 mt-1">
-                        <li>Verify that your imported file's audio track is active and positioned cleanly on the
-                          timeline track.</li>
-                        <li>Now your audio is ready for splitting, layering, or other edits.</li>
+                        <li><strong>Delay:</strong> Produces repeating echoes for abstract textures.</li>
+                        <!-- <li><strong>Equalizer (EQ):</strong> Cuts unwanted low-end rumbles or boosts vocal clarity.</li> -->
                       </ul>
                     </li>
                   </ul>
-                </li> -->
+                </div>
 
+                <div class="section-divider"></div>
 
+                <!-- STEP 3 -->
+                <h3><v-icon color="primary" class="mr-2">mdi-layers-triple-outline</v-icon>Step 3: Create the Sound
+                  Collage</h3>
+                <div class="details-content">
+                  <div class="objective-box">
+                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
+                    <strong>Objective:</strong> Stack audio layers vertically over time to create a rich, 3-dimensional
+                    sonic
+                    landscape.
+                  </div>
 
-                <li class="mb-3">
-                  <strong>Edit Your Audio</strong>
-                  <ul class="pl-6 mt-2">
-                    <li class="mb-1"><b>Trim and Split the audio:</b> Position the white playhead where you want to cut
-                      and <b>press 'S'</b> to cut unwanted portions, and delete sections you don't need.</li>
-                    <li class="mb-1"><b>Layer multiple sounds:</b> Import additional field recordings or archival files
-                      onto new tracks to build your sound collage.</li>
-                    <li class="mb-1"><b>Add fade effects:</b> Hover over the edges of your audio clips to drag and
-                      create smooth <b>Fade In</b> and <b>Fade Out</b> transitions.</li>
-                  </ul>
-                </li>
+                  <p class="text-body-1 mb-4">
+                    Layering is the art of placing multiple audio elements on top of each other simultaneously rather
+                    than in a
+                    single flat sequence. Aim for <strong>2 to 4 active tracks</strong> at any given time using the
+                    3-Layer
+                    Structure below:
+                  </p>
 
-                <li class="mb-3">
-                  <strong>Export Your Audio</strong>
-                  <ul class="pl-6 mt-2">
-                    <li class="mb-1">Click the <strong>hamburger menu</strong> in the top right corner of the Mix
-                      Editor. Then click <strong>Project</strong> &gt; <strong>Download</strong> &gt; <strong>Mixdown
-                        As</strong>.</li>
-                    <li class="mb-1">Choose <strong>MP3</strong>.</li>
-                    <li class="mb-1">Name your file and confirm the download.</li>
-                    <li class="mb-1">Save your finished audio file to your computer.</li>
-                  </ul>
-                </li>
-              </ul>
-              <!-- </div> -->
+                  <v-row class="mb-6">
+                    <v-col cols="12" md="4">
+                      <v-card class="pa-4 border text-center fill-height" elevation="0">
+                        <v-avatar color="indigo-lighten-5" class="mb-2">
+                          <v-icon color="indigo">mdi-waves</v-icon>
+                        </v-avatar>
+                        <div class="text-subtitle-1 font-weight-bold">1. Background Layer</div>
+                        <div class="text-caption text-grey-darken-1">Ambient environmental recordings, weather, or
+                          subtle drones.
+                          Set to lowest volume.</div>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" md="4">
+                      <v-card class="pa-4 border text-center fill-height" elevation="0">
+                        <v-avatar color="purple-lighten-5" class="mb-2">
+                          <v-icon color="purple">mdi-music-note-eighth</v-icon>
+                        </v-avatar>
+                        <div class="text-subtitle-1 font-weight-bold">2. Midground Layer</div>
+                        <div class="text-caption text-grey-darken-1">Rhythmic loops, musical textures, or specific
+                          secondary sound
+                          events.</div>
+                      </v-card>
+                    </v-col>
+                    <v-col cols="12" md="4">
+                      <v-card class="pa-4 border text-center fill-height" elevation="0">
+                        <v-avatar color="amber-lighten-5" class="mb-2">
+                          <v-icon color="amber-darken-3">mdi-account-voice</v-icon>
+                        </v-avatar>
+                        <div class="text-subtitle-1 font-weight-bold">3. Foreground Layer</div>
+                        <div class="text-caption text-grey-darken-1">Clear spoken narration, direct interviews, or
+                          primary focal
+                          sound elements.</div>
+                      </v-card>
+                    </v-col>
+                  </v-row>
 
-              <br><br>
+                  <details class="custom-details">
+                    <summary><v-icon class="mr-2">mdi-tune-variant</v-icon>Layering Best Practices & Balance Tips
+                    </summary>
+                    <div class="details-content">
+                      <ul>
+                        <li><strong>Stagger Entrances:</strong> Avoid starting every audio track at the exact same
+                          second. Fade
+                          layers in gently to guide the listener's focus.</li>
+                        <li><strong>Dynamic Volume Balance:</strong> Lower background and midground track volumes
+                          whenever
+                          narration or focal elements are active so the speech remains clear.</li>
+                        <li><strong>Smooth Transitions:</strong> Always add 1-to-2 second fade-ins and fade-outs at the
+                          edges of
+                          audio regions to avoid abrupt clicks or popping sounds.</li>
+                      </ul>
+                    </div>
+                  </details>
 
-              <div class="section-divider"></div>
-              <h3><v-icon color="primary" class="mr-2">mdi-share-variant</v-icon>Step 3: Posting Your Sound Recording
-                for Showcase</h3>
+                  <div class="example">
+                    <strong>Sound Collage Example</strong><br>
+                    <strong>Spot Location:</strong> Stratford School Courtyard Entrance.<br>
+                    <ul>
+                      <li><b>Background:</b> Ambient traffic rumble and wind across campus grounds (-18 dB).</li>
+                      <li><b>Midground:</b> Layered footsteps and door chimes looping periodically (-12 dB).</li>
+                      <li><b>Foreground:</b> Clear narration describing the spatial history of the entrance (-2 dB).
+                      </li>
+                    </ul>
+                  </div>
+                </div>
 
-              <div class="objective-box">
-                <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                <strong>Objective:</strong> Share your completed audio recording with the class by uploading it to the
-                following
-                class folder: <a
-                  href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
-                  target="_blank">Sounwalks - Work in Progress</a>.
+                <div class="section-divider"></div>
+
+                <!-- STEP 4 -->
+                <h3><v-icon color="primary" class="mr-2">mdi-export</v-icon>Step 4: Export & Submit Spot Montage</h3>
+                <div class="details-content">
+                  <div class="objective-box">
+                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
+                    <strong>Objective:</strong> Export your completed 1–2 minute spot montage audio file and submit your
+                    project
+                    share link.
+                  </div>
+
+                  <ol class="pl-6 text-body-1" style="line-height: 1.8;">
+                    <li>Click the <strong>hamburger menu</strong> in the top-left corner of the BandLab Mix Editor.</li>
+                    <li>Select <strong>Project</strong> &gt; <strong>Download</strong> &gt; <strong>Mixdown As</strong>.
+                    </li>
+                    <li>Choose <strong>MP3</strong> format, name your file <code>Soundwalk_Spot1_YourName</code>, and
+                      click
+                      Download.</li>
+                    <li>Upload your sound collage to the following class folder to discuss with the class: <a
+                        href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
+                        target="_blank">Sounwalks - Work in Progress</a>.
+                    </li>
+
+                  </ol>
+                </div>
               </div>
-  </div>
 
-  <!-- HOMEWORK SECTION (Insert at the end of Lab 2) -->
-  <div class="section-divider"></div>
+              <!-- HOMEWORK SECTION LAB 3 -->
+              <div class="section-divider"></div>
 
-  <v-card class="mt-8 pa-6 border" elevation="0"
-    style="border-radius: 20px; background: #faf5ff; border: 1px solid #e9d5ff !important;">
-    <div class="d-flex align-center mb-4">
-      <v-avatar color="purple-lighten-5" class="mr-3" size="44">
-        <v-icon color="purple-darken-2" size="28">mdi-headphones-box</v-icon>
-      </v-avatar>
-      <div>
-        <h2 class="text-h5 font-weight-bold text-slate-900">Homework: Create Soundscape Montages</h2>
-        <span class="text-caption text-purple-darken-2 font-weight-bold">Due Before Next Class • Applied Audio
-          Production</span>
-      </div>
-    </div>
+              <v-card id="lab3-homework" class="mt-8 pa-6 border" elevation="0"
+                style="border-radius: 20px; background: #faf5ff; border: 1px solid #e9d5ff !important;">
+                <div class="d-flex align-center mb-4">
+                  <v-avatar color="purple-lighten-5" class="mr-3" size="44">
+                    <v-icon color="purple-darken-2" size="28">mdi-folder-music-outline</v-icon>
+                  </v-avatar>
+                  <div>
+                    <h2 class="text-h5 font-weight-bold text-slate-900">Homework: Complete Soundwalk Montages For Each
+                      Spot/Location</h2>
+                    <span class="text-caption text-purple-darken-2 font-weight-bold">Due Before Next Class • Soundwalk
+                      Production</span>
+                  </div>
+                </div>
 
-    <p class="text-body-1 text-slate-700 mb-4">
-      Building on the recordings and editing techniques learned in class, continue your exploration of Stratford
-      by gathering additional field recordings at home or around the city. Produce <b>at least 3 finished audio collages
-        or montages</b>
-      that layer your sounds, voice narrations, and/or effects using BandLab.
-    </p>
+                <p class="text-body-1 text-slate-700 mb-4">
+                  Using the 4-step montage workflow practiced today in class, complete the sound montages for your
+                  entire
+                  soundwalk route comprised of at least 7 spots/locations. Each montage should be 1 to 2 minutes long
+                  and utilize multi-track the sound layering techniques suggested above.
+                </p>
 
-    <!-- Objective Box -->
-    <div class="objective-box my-4" style="background-color: #fff; border-left: 4px solid #a855f7;">
-      <strong class="text-purple-darken-3 d-block mb-1">
-        <v-icon size="small" class="mr-1">mdi-target</v-icon> Objective
-      </strong>
-      Apply multi-tracking, trimming, layering, and editing techniques in BandLab to create rich, narrative-driven
-      audio montages exploring the soundscapes of Stratford.
-    </div>
+                <div class="objective-box my-4" style="background-color: #fff; border-left: 4px solid #a855f7;">
+                  <strong class="text-purple-darken-3 d-block mb-1">
+                    <v-icon size="small" class="mr-1">mdi-target</v-icon> Objective
+                  </strong>
+                  Produce and export all remaining soundwalk spot montages using BandLab to prepare for spatial mapping
+                  in Echoes
+                  Creator next class.
+                </div>
 
-    <h4 class="text-subtitle-1 font-weight-bold text-slate-800 mt-6 mb-3">
-      <v-icon color="indigo-accent-4" class="mr-1">mdi-lightbulb-on-outline</v-icon> Approch Suggestions:
-    </h4>
+                <h4 class="text-subtitle-1 font-weight-bold text-slate-800 mt-6 mb-3">
+                  <v-icon color="indigo-accent-4" class="mr-1">mdi-lightbulb-on-outline</v-icon> Homework Checklist:
+                </h4>
 
-    <v-row class="ga-0">
-      <v-col cols="12">
-        <v-card variant="flat" class="pa-4 rounded-lg bg-white border mb-3">
-          <div class="d-flex align-start">
-            <v-icon color="indigo-accent-3" class="mr-3 mt-1">mdi-headphone-dot</v-icon>
-            <ul class="pl-4" style="line-height: 1.8;">
-              <li>Create <b>at least 3 distinct audio montages</b> (each 1–2 minutes long), exploring
-                different aspects of your chosen theme.</li>
-              <li>Combine <b>field recordings, voice narrations or annotations, and background
-                  textures</b> across your tracks.</li>
-              <li>Experiment with <b>BandLab editing tools</b>, including splits ('S'), timeline layering, volume
-                balancing, and smooth fade transitions.</li>
-              <li>Reflect on how juxtaposing different environmental sounds or spoken words changes the <b>narrative and
-                  spatial meaning</b> of Stratford locations.</li>
-            </ul>
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
+                <v-row class="ga-0">
+                  <v-col cols="12">
+                    <v-card variant="flat" class="pa-4 rounded-lg bg-white border mb-3">
+                      <div class="d-flex align-start">
+                        <v-icon color="indigo-accent-3" class="mr-3 mt-1">mdi-check-circle-outline</v-icon>
+                        <ul class="pl-4" style="line-height: 1.8;">
+                          <li>Create at least 7 soundwalk spot montages (1-2 minutes each).</li>
+                          <li>Apply the <strong>3-Layer Structure</strong> (Background, Midground, Foreground) to each
+                            spot
+                            montage.</li>
+                          <li>Export each completed spot as an individual <b>MP3 file</b>.
+                          </li>
+                        </ul>
+                      </div>
+                    </v-card>
+                  </v-col>
+                </v-row>
 
-    <!-- Deliverable Card -->
-    <v-card class="pa-4 mt-4 bg-indigo-lighten-5 border-indigo" variant="outlined" style="border-radius: 12px;">
-      <div class="d-flex align-center mb-2">
-        <v-icon color="indigo-accent-4" class="mr-2">mdi-notebook-edit-outline</v-icon>
-        <strong class="text-indigo-darken-3">Your Submission Deliverable:</strong>
-      </div>
-      <p class="text-body-2 text-slate-800 mb-0">
-        Export all 3 completed audio projects as <b>MP3 files</b> from BandLab and bring them to our next session.
-        We will use these to start building your final soundwalk in Echoes Creator.
-      </p>
-    </v-card>
-  </v-card>
-  </v-window-item>
-
-  <!-- LAB 3 -->
-  <v-window-item value="3">
-    <v-breadcrumbs :items="['Labs', 'Lab 3']" class="px-0 py-2"></v-breadcrumbs>
-    <h1 class="text-h4 font-weight-bold mb-4">{{ labs[2].title }}</h1>
-
-    <div class="intro-section px-0">
-      <p>This lab will guide you through using the Echoes Creator platform to draft your own soundwalk. By the
-        end, you'll have a working draft that you can test and refine before creating your final project.</p>
-
-      <div class="learning-objectives">
-        <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
-            class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
-        <ul class="pl-4">
-          <li>Refine your soundwalk theme based on feedback from peers and your professor.</li>
-          <li>Create an Echoes Creator account and start a new project to draft your soundwalk.</li>
-          <li>Test your soundwalk as a listener and reflect on improvements for your final group submission.
-          </li>
-        </ul>
-      </div>
-
-      <div class="tools-section">
-        <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple" class="mr-2">mdi-tools</v-icon>Tools
-          You'll Use</h4>
-        <ul class="pl-4">
-          <li>Headphones or earbuds</li>
-          <li>Laptop</li>
-          <li>Audio recordings from last week from Lab #2</li>
-          <li>Echoes Creator platform (https://echoes.xyz)</li>
-          <li>Smartphone (iOS or Android)</li>
-        </ul>
-      </div>
-
-      <div class="section-divider"></div>
-      <h3><v-icon color="primary" class="mr-2">mdi-lightbulb</v-icon>Step 1: Continue Refining Your Theme</h3>
-      <p class="my-2">Organize your themes and sounds using the options framework established in Lab 2.</p>
-
-      <div class="section-divider"></div>
-      <h3><v-icon color="primary" class="mr-2">mdi-microphone</v-icon>Step 2: Create a Draft Soundwalk in
-        Echoes Creator</h3>
-
-      <div class="my-4">
-        <iframe
-          src="https://www.iorad.com/player/2614313/Creating-Soundwalks-with-Echoes-Creator---GBDA-412?iframeHash=watchsteps-1&src=iframe&oembed=1"
-          width="100%" height="500px"
-          style="width: 100%; height: 500px; border-radius: 12px; border: 1px solid #e2e8f0;" frameborder="0"
-          allowfullscreen></iframe>
-      </div>
-
-      <div class="section-divider"></div>
-      <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>Step 3: Test Your Soundwalk Draft</h3>
-      <div class="objective-box">
-        <strong>Objective:</strong> Experience your soundwalk as a listener outside and take notes on what
-        works and what could be improved.
-      </div>
-    </div>
-  </v-window-item>
+                <v-card class="pa-4 mt-4 bg-indigo-lighten-5 border-indigo" variant="outlined"
+                  style="border-radius: 12px;">
+                  <div class="d-flex align-center mb-2">
+                    <v-icon color="indigo-accent-4" class="mr-2">mdi-notebook-edit-outline</v-icon>
+                    <strong class="text-indigo-darken-3">Your Submission Deliverable:</strong>
+                  </div>
+                  <p class="text-body-2 text-slate-800 mb-0">
+                    Bring all exported MP3 audio spot files next class. We will map
+                    these onto
+                    spatial GPS triggers using Echoes Creator. Optionally, you can share one to the
+                    <a href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
+                      target="_blank">Sounwalks - Work in Progress</a> folder to receive constructive feedback next
+                    class.
+                  </p>
+                </v-card>
+              </v-card>
+            </v-window-item>
 
 
+            <!-- LAB 4 -->
+            <v-window-item value="4">
+              <v-breadcrumbs :items="['Labs', 'Lab 4']" class="px-0 py-2"></v-breadcrumbs>
+              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[3].title }}</h1>
+
+              <div class="intro-section px-0">
+                <p>This lab will guide you through using the Echoes Creator platform to draft your own soundwalk. By the
+                  end, you'll have a working draft that you can test and refine before creating your final project.</p>
+
+                <div class="learning-objectives">
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
+                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
+                  <ul class="pl-4">
+                    <li>Refine your soundwalk theme based on feedback from peers and your professor.</li>
+                    <li>Create an Echoes Creator account and start a new project to draft your soundwalk.</li>
+                    <li>Test your soundwalk as a listener and reflect on improvements for your final group submission.
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="tools-section">
+                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
+                      class="mr-2">mdi-tools</v-icon>Tools
+                    You'll Use</h4>
+                  <ul class="pl-4">
+                    <li>Headphones or earbuds</li>
+                    <li>Laptop</li>
+                    <li>Audio recordings from last week from Lab #2</li>
+                    <li>Echoes Creator platform (https://echoes.xyz)</li>
+                    <li>Smartphone (iOS or Android)</li>
+                  </ul>
+                </div>
+
+                <div class="section-divider"></div>
+                <h3><v-icon color="primary" class="mr-2">mdi-lightbulb</v-icon>Step 1: Continue Refining Your Theme</h3>
+                <p class="my-2">Organize your themes and sounds using the options framework established in Lab 2.</p>
+
+                <div class="section-divider"></div>
+                <h3><v-icon color="primary" class="mr-2">mdi-microphone</v-icon>Step 2: Create a Draft Soundwalk in
+                  Echoes Creator</h3>
+
+                <div class="my-4">
+                  <iframe
+                    src="https://www.iorad.com/player/2614313/Creating-Soundwalks-with-Echoes-Creator---GBDA-412?iframeHash=watchsteps-1&src=iframe&oembed=1"
+                    width="100%" height="500px"
+                    style="width: 100%; height: 500px; border-radius: 12px; border: 1px solid #e2e8f0;" frameborder="0"
+                    allowfullscreen></iframe>
+                </div>
+
+                <div class="section-divider"></div>
+                <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>Step 3: Test Your Soundwalk Draft</h3>
+                <div class="objective-box">
+                  <strong>Objective:</strong> Experience your soundwalk as a listener outside and take notes on what
+                  works and what could be improved.
+                </div>
+              </div>
+            </v-window-item>
 
 
-  </v-window>
-  </v-container>
-  </v-main>
-  </v-app>
+
+
+          </v-window>
+        </v-container>
+      </v-main>
+    </v-app>
   </div>
 
   <script>
@@ -1155,7 +1327,7 @@
       data() {
         return {
           drawer: true,
-          tab: '0',
+          tab: this.getInitialTab(), // Initialize tab dynamically from URL hash
           labs: [
             {
               title: 'Lab 1: Exploring Soundwalks',
@@ -1166,16 +1338,24 @@
               description: 'Embark on an auditory walk paying attention to the history woven into the streets surrounding Stratford School.'
             },
             {
-              title: 'Lab 2: Audio Collection & Montage',
-              shortTitle: 'Lab 2: Audio Collection & Montage',
+              title: 'Lab 2: Audio Collection',
+              shortTitle: 'Lab 2: Audio Collection',
               icon: 'mdi-microphone',
               color: 'purple',
               duration: '60 mins',
-              description: 'Learn techniques to record field audio, gather archival clips, and mix soundscapes using Clipchamp.'
+              description: 'Learn techniques to record field audiom gather archival clips, and voice narrations.'
             },
             {
-              title: 'Lab 3: Drafting in Echoes Creator',
-              shortTitle: 'Lab 3: Echoes Creator Draft',
+              title: 'Lab 3: Creating Sound Montages',
+              shortTitle: 'Lab 3: Sound Montages',
+              icon: 'mdi-waveform',
+              color: 'amber-darken-2',
+              duration: '30 mins',
+              description: 'Slice, layer, and add effects to your sounds in BandLab to build a 1-2 minute soundscape montage for your soundwalk spots/locations.'
+            },
+            {
+              title: 'Lab 4: Drafting in Echoes Creator',
+              shortTitle: 'Lab 4: Echoes Creator Draft',
               icon: 'mdi-map-marker-path',
               color: 'teal',
               duration: '60 mins',
@@ -1183,7 +1363,74 @@
             }
           ]
         }
-      }
+      },
+
+      methods: {
+        // Map hash string to corresponding tab index
+        getTabFromHash(hash) {
+          if (!hash) return '0';
+
+          if (hash.startsWith('#lab1')) return '1';
+          if (hash.startsWith('#lab2')) return '2';
+          if (hash.startsWith('#lab3')) return '3';
+          if (hash.startsWith('#lab4')) return '4';
+
+          return '0';
+        },
+
+        // Parse hash on initial page load
+        getInitialTab() {
+          return this.getTabFromHash(window.location.hash);
+        },
+
+
+        // Update tab and handle scrolling to element if hash contains a section ID (e.g. #step-2)
+        handleHashChange() {
+          const hash = window.location.hash; // e.g., "#lab2-step-1"
+          if (!hash) return;
+
+          // 1. Activate correct tab
+          this.tab = this.getTabFromHash(hash);
+
+          // 2. Scroll to target element after Vuetify renders tab content
+          this.$nextTick(() => {
+            const targetElement = document.querySelector(hash);
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+          });
+        },
+      },
+
+      watch: {
+        tab(newTab) {
+          const hashes = ['#home', '#lab1', '#lab2', '#lab3', '#lab4'];
+          const currentHash = window.location.hash;
+
+          // Don't overwrite URL if user clicked or landed on a specific section/homework ID
+          const isSectionHash = currentHash.startsWith('#step-') || currentHash.startsWith('#homework-');
+
+          if (!isSectionHash || this.getTabFromHash(currentHash) !== newTab) {
+            if (history.pushState) {
+              history.pushState(null, null, hashes[newTab] || '#home');
+            } else {
+              window.location.hash = hashes[newTab] || '#home';
+            }
+          }
+        }
+      },
+      mounted() {
+        // Check for deep links on initial page load
+        this.handleHashChange();
+
+        // Listen for hash changes (e.g., back/forward browser buttons or direct anchor clicks)
+        window.addEventListener('hashchange', this.handleHashChange);
+      },
+
+      beforeUnmount() {
+        // Clean up event listener when component unmounts
+        window.removeEventListener('hashchange', this.handleHashChange);
+      },
     });
 
     app.use(vuetify);
