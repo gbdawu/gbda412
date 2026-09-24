@@ -49,7 +49,7 @@
         .reveal .slides section li,
         .reveal .slides section span,
         .reveal .slides section a {
-            font-size: 0.8em !important;
+            font-size: 0.8em;
             line-height: 1.4 !important;
         }
 
@@ -63,6 +63,32 @@
             font-family: var(--title-font, 'Montserrat', sans-serif) !important;
             font-weight: 800 !important;
             text-transform: none !important;
+        }
+
+        /* Mejora visual para los tags <mark> en Reveal.js */
+        .reveal mark {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+
+        /* Clases de tamaño para Reveal.js */
+        .reveal .text-xs {
+            font-size: 0.55em !important;
+        }
+
+        .reveal .text-sm {
+            font-size: 0.8em !important;
+        }
+
+        .reveal .text-lg {
+            font-size: 1.25em !important;
+        }
+
+        .reveal .text-xl {
+            font-size: 1.6em !important;
         }
     </style>
 </head>
