@@ -2,1472 +2,1131 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>The Politics of Sound and Place - Labs</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBDA 412 - Group Project 1: - The Politics of Sound and Place</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-  <!-- Vuetify & Vue CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.css" rel="stylesheet" />
-  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lato:wght@300;400;700&display=swap"
-    rel="stylesheet">
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
 
-  <style>
-    :root {
-      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-    }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'Lato', sans-serif;
-      background-color: #f8fafc;
-    }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
 
-    /* Global List Hierarchy Fix */
-    ul,
-    ol {
-      padding-left: 24px;
-      margin-bottom: 16px;
-    }
+        .project-overview {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
 
-    li {
-      margin-bottom: 6px;
-      line-height: 1.6;
-    }
+        .project-overview h2 {
+            color: white;
+            margin-top: 0;
+        }
 
-    ul ul {
-      margin-top: 4px;
-      margin-bottom: 4px;
-    }
+        .learning-outcomes {
+            background: #f8f9fa;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
 
-    .v-application {
-      font-family: 'Lato', sans-serif !important;
-      background-color: #f8fafc !important;
-    }
+        .learning-outcomes h3 {
+            color: #28a745;
+            margin-top: 0;
+        }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    .font-heading {
-      font-family: 'Plus Jakarta Sans', sans-serif !important;
-    }
+        .project-stages {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
 
-    /* Hero Banner */
-    .hero-banner {
-      background: linear-gradient(135deg, #1e293b 0%, #312e81 100%);
-      border-radius: 24px;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
+        .stage-card {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
 
-    .hero-banner::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
-      border-radius: 50%;
-    }
+        .stage-card.active {
+            border-color: #3498db;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
 
-    /* Modern Card Styles */
-    .lab-card {
-      border-radius: 16px !important;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      border: 1px solid rgba(226, 232, 240, 0.8) !important;
-    }
+        .stage-card.completed {
+            border-color: #28a745;
+            background: #f8fff9;
+        }
 
-    .lab-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.01) !important;
-    }
+        .stage-card.upcoming {
+            border-color: #ffc107;
+            background: #fffbf0;
+        }
 
-    .step-card {
-      margin: 24px 0;
-      padding: 1.25rem;
-      border-radius: 16px;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
+        .stage-header {
+            padding: 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
 
-    .step-card:hover {
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-    }
+        .stage-header:hover {
+            background: #e9ecef;
+        }
 
-    .example {
-      border: none;
-      padding: 20px;
-      border-radius: 12px;
-      background: #f0fdf4;
-      margin: 20px 0;
-      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1);
-      border-left: 4px solid #22c55e;
-      font-size: 0.95rem;
-    }
+        .stage-card.active .stage-header {
+            background: #1e323f;
+            color: white;
+        }
 
-    .example strong {
-      color: #15803d;
-      font-size: 1.05rem;
-    }
+        .stage-card.completed .stage-header {
+            background: #450f3f;
+            color: white;
+        }
 
-    /* Custom Details Styling */
-    .custom-details {
-      margin: 20px 0;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      background: white;
-      border: 1px solid #e2e8f0;
-    }
+        .stage-card.upcoming .stage-header {
+            background: #b33714;
+            color: white;
+        }
 
-    .custom-details summary {
-      background: #f8fafc;
-      color: #1e293b;
-      padding: 18px 24px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1.05rem;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .stage-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
 
-    .custom-details summary:hover {
-      background: #f1f5f9;
-    }
+        .stage-meta {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
 
-    .details-content {
-      padding: 24px;
-      background: #ffffff;
-      border-top: 1px solid #e2e8f0;
-    }
+        .expand-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
 
-    .section-divider {
-      margin: 40px 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent 0%, #cbd5e1 50%, transparent 100%);
-    }
+        .stage-content {
+            display: none;
+            padding: 30px;
+            border-top: 1px solid #e9ecef;
+        }
 
-    .objective-box {
-      background: #fffbe6;
-      border: 1px solid #ffe58f;
-      border-radius: 12px;
-      padding: 18px;
-      margin: 16px 0;
-    }
+        .stage-content.expanded {
+            display: block;
+        }
 
-    .learning-objectives {
-      background: #eff6ff;
-      border-radius: 14px;
-      padding: 24px;
-      margin: 20px 0;
-      border-left: 5px solid #3b82f6;
-    }
+        .stage-content.expanded+.stage-header .expand-icon {
+            transform: rotate(180deg);
+        }
 
-    .tools-section {
-      background: #faf5ff;
-      border-radius: 14px;
-      padding: 24px;
-      margin: 20px 0;
-      border-left: 5px solid #a855f7;
-    }
+        .requirement-box {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+        }
 
-    a {
-      color: #4f46e5;
-      text-decoration: none;
-      font-weight: 600;
-    }
+        .assessment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
+        .assessment-table th,
+        .assessment-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-    .tip-box {
-      border-left: 4px solid #f59e0b;
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin: 14px 0;
-      background: #fffbeb;
-    }
-  </style>
+        .assessment-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background: #1e323f;
+            color: white;
+        }
+
+        .status-completed {
+            background: #450f3f;
+            color: white;
+        }
+
+        .status-upcoming {
+            background: #b33714;
+            color: white;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .stages-timeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .current-focus {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .stages-timeline {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div id="app">
-    <v-app>
+    <div class="container">
+        <h1>GBDA 412 - Audio Cultures</h1>
 
-      <!-- App Bar -->
-      <v-app-bar flat color="slate-900" class="border-b" elevation="1">
-        <v-app-bar-nav-icon @click="drawer = !drawer" color="primary"></v-app-bar-nav-icon>
-        <v-toolbar-title class="font-weight-bold text-headline">
-          <v-icon color="indigo-accent-3" class="mr-2">mdi-waveform</v-icon>
-          The Politics of Sound & Place <span class="text-indigo-accent-2">Labs</span>
-        </v-toolbar-title>
-      </v-app-bar>
+        <div class="project-overview">
+            <h2>Group Project 1: The Politics of Sound and Place (35% total)</h2>
+            <p>Individually, you will create a soundwalk for a site or route at Stratford that explores the politics of
+                sound and place. Drawing on concepts and discussions from Weeks 1 to 4, your soundwalk will invite
+                listeners to explore the meanings, identities, power relations, and everyday experiences associated with
+                Stratford.
+            </p>
 
-      <!-- Navigation Drawer (Main Content automatically shrinks when open) -->
-      <v-navigation-drawer v-model="drawer" width="280">
-        <div class="pa-4 text-overline text-grey-darken-1 font-weight-bold">Navigation</div>
-        <v-list density="comfortable" nav class="px-2">
-          <v-list-item @click="tab = '0'" :active="tab === '0'" active-color="indigo-accent-4"
-            prepend-icon="mdi-view-dashboard-outline" title="Home Overview" rounded="lg"></v-list-item>
-          <v-divider class="my-2"></v-divider>
-          <v-list-item v-for="(lab, i) in labs" :key="i" :active="tab === String(i+1)" active-color="indigo-accent-4"
-            :title="lab.shortTitle" :subtitle="'Lab 0' + (i+1)" :prepend-icon="lab.icon" @click="tab = String(i+1)"
-            rounded="lg"></v-list-item>
-        </v-list>
-      </v-navigation-drawer>
+            <p><strong>What is a soundwalk?</strong> A soundwalk is a form of active listening that focuses on the
+                acoustic environment of a specific location or route. Participants walk through a space while paying
+                particular attention to the sounds around them. <a href="https://en.wikipedia.org/wiki/Soundwalk"
+                    target="_blank" style="color: #fff; text-decoration: underline;">Learn more</a></p>
+        </div>
 
-      <!-- Main Content Container -->
-      <v-main>
-        <v-container class="py-8 px-6" max-width="1200">
-          <v-window v-model="tab">
+        <div class="learning-outcomes">
+            <h3>Overall Learning Outcomes</h3>
+            <p>By completing this project, students will:</p>
+            <ol>
+                <li><strong>Create site-specific sound art:</strong> Develop technical proficiency in field recording,
+                    audio editing, and location-based technology to produce original artwork that reveals
+                    new perspectives on familiar spaces.</li>
+                <li><strong>Connect artistic practice to theoretical frameworks:</strong> Analyze how sound-based art
+                    can illuminate theoretical ideas about space, sound, and everyday experience.
+                </li>
+                <li><strong>Reflect critically on creative learning:</strong> Articulate creative decisions, evaluate
+                    different artistic approaches, and analyze personal development throughout the project process using
+                    clear written and oral communication.</li>
+            </ol>
+        </div>
 
-            <!-- HOME / MAIN PAGE -->
-            <v-window-item value="0">
-              <!-- Hero Section -->
-              <div class="hero-banner pa-8 pa-md-12 mb-8">
-                <v-row align="center">
-                  <v-col cols="12" md="8">
-                    <v-chip color="indigo-lighten-3" class="mb-4 font-weight-bold" size="small" variant="flat">GBDA 412
-                      COURSE LABS</v-chip>
-                    <h1 class="text-h3 font-weight-bold mb-4">The Politics of Sound & Place Labs</h1>
-                    <p class="text-subtitle-1 text-slate-300 mb-6" style="line-height: 1.7;">
-                      These hands-on exercises are designed to equip you with concept ideation, recording, spatial
-                      mapping skills to build your soundwalk compositions.
-                    </p>
-                    <!-- <div class="d-flex ga-3 flex-wrap">
-                      <v-chip prepend-icon="mdi-flask" variant="outlined" color="white">3 Interactive Labs</v-chip>
-                      <v-chip prepend-icon="mdi-cellphone-sound" variant="outlined" color="white">Echoes Platform</v-chip>
-                      <v-chip prepend-icon="mdi-headphones" variant="outlined" color="white">Audio Editing</v-chip>
-                    </div> -->
-                  </v-col>
-                </v-row>
-              </div>
+        <div class="stages-timeline">
+            <!-- <div class="timeline-item status-completed">Part 1: Sep 8<br>Proposals</div> -->
 
-              <!-- Labs Grid View -->
-              <div class="d-flex align-center justify-space-between mb-6">
-                <div>
-                  <h2 class="text-h5 font-weight-bold">Course Labs</h2>
-                  <p class="text-body-2 text-grey-darken-1">Select a lab below or use the sidebar menu to begin.</p>
-                </div>
-              </div>
+            <div class="timeline-item status-active"><b>Part 1: Oct 4<br>Artistic Composition (20%)</b> <br>
+                Individual
+                Submission</div>
+            <div class="timeline-item status-completed"><b>Part 2: Oct 19<br>In-class Exhibition (5%)</b> <br>
+                Individual
+                Participation
+            </div>
+            <div class="timeline-item status-upcoming"><b>Part 3: oct 25<br>Analytical Reflection (10%)</b> <br>
+                Individual
+                Submission
+            </div>
+        </div>
+        <!-- <div class="current-focus">
+            <h3>🎯 Current Focus: Part 1: Artistic Composition</h3>
+            <p><strong>Due:</strong> October 20 | <strong>Grace period:</strong> October 26|
+                <strong>Submission:</strong>
+                Pair Submission
+            </p>
+            <p> In this final reflection, your team analyze your experience creating the soundwalk, incorporating
+                personal insights, technical reflections, and connections to course concepts. This is your opportunity
+                to examine how the process shaped your understanding of everyday life at Stratford School through sound,
+                movement, and creative collaboration.</p>
+        </div> -->
 
-              <v-row>
-                <v-col v-for="(lab, index) in labs" :key="index" cols="12" md="4">
-                  <v-card class="lab-card h-100 d-flex flex-column" elevation="0" @click="tab = String(index + 1)">
-                    <v-card-item>
-                      <template v-slot:prepend>
-                        <v-avatar :color="lab.color" size="48" variant="tonal" class="rounded-lg">
-                          <v-icon size="24">{{ lab.icon }}</v-icon>
-                        </v-avatar>
-                      </template>
-                      <v-card-title class="font-weight-bold text-wrap">{{ lab.title }}</v-card-title>
-                      <v-card-subtitle class="mt-1">Lab {{ index + 1 }}</v-card-subtitle>
-                    </v-card-item>
-
-                    <v-card-text class="text-body-2 text-grey-darken-1 flex-grow-1">
-                      {{ lab.description }}
-                    </v-card-text>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions class="pa-4 bg-grey-lighten-5 d-flex justify-space-between">
-                      <span class="text-caption font-weight-bold text-grey-darken-1">
-                        <v-icon size="small" class="mr-1">mdi-clock-outline</v-icon> {{ lab.duration }}
-                      </span>
-                      <v-btn color="indigo-accent-4" variant="text" append-icon="mdi-arrow-right">Start Lab</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-window-item>
-
-            <!-- LAB 1 -->
-            <v-window-item value="1">
-              <v-breadcrumbs :items="['Labs', 'Lab 1']" class="px-0 py-2"></v-breadcrumbs>
-              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[0].title }}</h1>
-
-              <div class="intro-section px-0">
-                <p class="text-body-1">In this lab, you will start learning about soundwalks by listening at soundwalks
-                  made by students from last year. These soundwalks invite you to listen closely and discover how the
-                  city's past and present continue to interact in the spaces you inhabit today.</p>
-
-                <div class="learning-objectives">
-                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
-                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
-                  <ul class="pl-4">
-                    <li>Understand the concept and purpose of soundwalks.</li>
-                    <li>Experience a soundwalk using the Echoes app.</li>
-                    <li>Reflect on auditory experiences and space perception.</li>
-                  </ul>
-                </div>
-
-                <div class="tools-section">
-                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
-                      class="mr-2">mdi-tools</v-icon>Tools You'll Use</h4>
-                  <ul class="pl-4">
-                    <li>Headphones or earbuds</li>
-                    <li>Your smartphone (iOS or Android)</li>
-                  </ul>
-                </div>
-
-                <h3 class="mt-6 mb-2"><v-icon color="primary" class="mr-2">mdi-walk</v-icon>What is a Soundwalk?</h3>
-                <p>A soundwalk is an exploration of the environment through listening. Participants move through a
-                  space, focusing on sounds both natural and human-made. Learn more <a
-                    href="https://en.wikipedia.org/wiki/Soundwalk" target="_blank">here</a>.</p>
-              </div>
-
-              <!-- Steps -->
-              <v-card class="step-card" elevation="0" id="step-1">
-                <v-card-text>
-                  <h3><v-icon color="success" class="mr-2">mdi-numeric-1-circle</v-icon>Step 1: Install the Echoes App
-                  </h3>
-                  <p class="mt-2">Get started by installing the Echoes app from: <a
-                      href="https://play.google.com/store/apps/details?id=xyz.echoes.android&hl=en_CA"
-                      target="_blank">Google Play</a>, or <a
-                      href="https://apps.apple.com/ca/app/echoes-interactive-sound-walks/id1021511722"
-                      target="_blank">Apple App Store</a></p>
-                  <v-img src="images/soundwalk/steps part 1.png" alt="Install Echoes app screenshot"
-                    class="my-4 rounded-lg" />
-                </v-card-text>
-              </v-card>
-
-              <v-card class="step-card" elevation="0" id="step-2">
-                <v-card-text>
-                  <h3><v-icon color="success" class="mr-2">mdi-numeric-2-circle</v-icon>Step 2: Access a Soundwalk
-                  </h3>
-                  <ol class="mt-2">
-                    <li>Explore the following page with soundwalks from last year's GBDA students: <a
-                        href="https://gbdawu.github.io/gbda412/soundwalk-exhibition"
-                        target="_blank">https://gbdawu.github.io/gbda412/soundwalk-exhibition</a>
-                    </li>
-                    <li> Find one soundwalk you like and scan the QR code to access the soundwalk in the Echoes app</li>
-                  </ol>
-                  <v-img src="images/soundwalk/soundwalks-last-year.png" alt="Soundwalks from last year screenshot"
-                    class="my-4 rounded-lg" />
-                </v-card-text>
-              </v-card>
-
-              <v-card class="step-card" elevation="0" id="step-3">
-                <v-card-text>
-                  <h3><v-icon color="success" class="mr-2">mdi-numeric-3-circle</v-icon>Step 3: Follow the Map in the
-                    App</h3>
-                  <p class="mt-2">Once your soundwalk is loaded, go out of the building and follow the map in the app to
-                    trigger audios at various locations near Stratford
-                    School.</p>
-                  <v-img src="images/soundwalk/step10.jpeg" alt="Map with audio triggers screenshot"
-                    class="my-4 rounded-lg" max-width="300" />
-                </v-card-text>
-              </v-card>
-
-              <v-card class="step-card" elevation="0" id="step-4">
-                <v-card-text>
-                  <h3><v-icon color="success" class="mr-2">mdi-numeric-4-circle</v-icon>Step 4: Complete and Discuss
-                  </h3>
-                  <p class="mt-2">Once you have completed the soundwalk, discuss your experience with the class:
-                  </p>
-
-                  <ul>
-                    <li> What did you hear? </li>
-                    <li> How did the sounds make you feel? </li>
-                    <li> What surprised you about the environment? </li>
-                    <li> What did you learn about the space you were in? </li>
-                  </ul>
-                  <!-- <v-img src="images/soundwalk/handout.png" alt="Handout screenshot" class="my-4 rounded-lg"
-                    max-width="600" />
-                </v-card-text> -->
-              </v-card>
-
-              <!-- HOMEWORK SECTION (Insert after Step 4 inside Lab 1) -->
-              <div class="section-divider"></div>
-
-              <v-card id="lab1-homework" class="mt-8 pa-6 border" elevation="0"
-                style="border-radius: 20px; background: #faf5ff; border: 1px solid #e9d5ff !important;">
-                <div class="d-flex align-center mb-4">
-                  <v-avatar color="purple-lighten-5" class="mr-3" size="44">
-                    <v-icon color="purple-darken-2" size="28">mdi-book-open-page-variant</v-icon>
-                  </v-avatar>
-                  <div>
-                    <h2 class="text-h5 font-weight-bold text-slate-900">Homework: Theme Ideation</h2>
-                    <span class="text-caption text-purple-darken-2 font-weight-bold">Due Before Next Class • Conceptual
-                      Prep for Lab 2</span>
-                  </div>
-                </div>
-
-                <p class="text-body-1 text-slate-700 mb-4">
-                  Before our next lab session, ideate a theme for your soundwalk project that critically
-                  engages with the <b>politics of sound and place</b> at Stratford School and its immediate
-                  surroundings,
-                  drawing connections to our readings from <b>Weeks 1 through 4</b>.
-                </p>
-
-                <!-- Objective Box -->
-                <div class="objective-box my-4" style="background-color: #fff; border-left: 4px solid #a855f7;">
-                  <strong class="text-purple-darken-3 d-block mb-1">
-                    <v-icon size="small" class="mr-1">mdi-target</v-icon> Objective
-                  </strong>
-                  Select and articulate a theme exploring how auditory experiences shape spatial understanding, power
-                  dynamics, community, or identity in and around campus.
-                </div>
-
-                <h4 class="text-subtitle-1 font-weight-bold text-slate-800 mt-6 mb-3">
-                  <v-icon color="indigo-accent-4" class="mr-1">mdi-lightbulb-on-outline</v-icon> Prompts for Reflection:
-                </h4>
-
-                <v-row class="ga-0">
-                  <v-col cols="12">
-                    <v-card variant="flat" class="pa-4 rounded-lg bg-white border mb-3">
-                      <div class="d-flex align-start">
-                        <v-icon color="indigo-accent-3" class="mr-3 mt-1">mdi-headphone-dot</v-icon>
-                        <ul>
-                          <li>In what ways can <b>
-                              walking and listening create a
-                              compelling story or narrative
-                            </b>of daily life on and around campus?</li>
-
-                          <li>How do <b>
-                              everyday sounds around Stratford shape your personal
-                              sense of place
-                            </b>, inclusion, or alienation?</li>
-
-                          <li>What<b>
-                              specific sounds are associated with different
-                              bodies
-                            </b>, social groups, or activities near Stratford School? </li>
-
-                          <li>Are there s<b>
-                              ounds or spaces that carry gendered,
-                              cultural, economic, or social meanings
-                            </b> in the city of Stratford? </li>
-
-                          <li>How do <b>
-                              rhythms, routines, or repetitions of sound reveal
-                              underlying patterns of time
-                            </b> in Stratford's everyday environment? </li>
-                        </ul>
-                      </div>
-                    </v-card>
-                  </v-col>
-                </v-row>
-
-                <!-- Deliverable Card -->
-                <v-card class="pa-4 mt-4 bg-indigo-lighten-5 border-indigo" variant="outlined"
-                  style="border-radius: 12px;">
-                  <div class="d-flex align-center mb-2">
-                    <v-icon color="indigo-accent-4" class="mr-2">mdi-notebook-edit-outline</v-icon>
-                    <strong class="text-indigo-darken-3">Your Submission Deliverable:</strong>
-                  </div>
-                  <p class="text-body-2 text-slate-800 mb-0">
-                    Next class, bring 1-2 sentences</strong> linking your proposed soundwalk
-                    to at least one key concept or reading from Weeks 1-4. <i>Keep it flexible, as your theme will
-                      naturally evolve when we gather audio recordings next class.</i>
-                  </p>
-                </v-card>
-              </v-card>
-            </v-window-item>
-
-
-
-            <!-- LAB 2 -->
-            <v-window-item value="2">
-              <v-breadcrumbs :items="['Labs', 'Lab 2']" class="px-0 py-2"></v-breadcrumbs>
-              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[1].title }}</h1>
-
-              <div class="intro-section px-0">
-                <p>This lab will guide you through collecting audios for your soundwalk creation. By the end,
-                  you'll have hands-on experience with audio collection and capturing techniques.</p>
-
-                <div class="learning-objectives">
-                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
-                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
-                  <ul class="pl-4">
-                    <li>Capture your own recordings at Stratford School and its surroundings.</li>
-                    <li>Identify and extract sounds from archival media from the city of Stratford.</li>
-                    <li>Optionally create voice narration.</li>
-                  </ul>
-                </div>
-
-                <div class="tools-section">
-                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
-                      class="mr-2">mdi-tools</v-icon>Tools You'll Use</h4>
-                  <ul class="pl-4">
-                    <li>Your Soundwalk theme</li>
-                    <li>Headphones or earbuds</li>
-                    <li>Sounds of Stratford website, Stratford School YouTube channel, Stratford City YouTube Channel
-                    </li>
-                    <li>Your smartphone (iOS or Android)</li>
-                  </ul>
-                </div>
-
-                <div class="section-divider"></div>
-                <h3><v-icon color="primary" class="mr-2">mdi-microphone</v-icon>Step 1: Collecting Sound Recordings</h3>
-                <div class="details-content">
-                  <div class="objective-box">
-                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                    <strong>Objective:</strong> Soundwalks can include many different types of recordings. For your
-                    project, you'll get to choose between using existing audio from archival media or creating your own
-                    recordings with your cellphone or field recorder or even text-to-speech tools.
-
-                    <p class="mt-2">For today's lab, start by exploring one of the sound collection strategies below. If
-                      you finish one before class ends, try another! If you only get to one, that's fine too as you can
-                      always explore the others at home.</p>
-                  </div>
-
-                  <!-- Strategy 1 -->
-                  <details class="custom-details">
-                    <summary><v-icon class="mr-2">mdi-archive</v-icon>Strategy 1: Collect Existing Audio Recordings
-                    </summary>
-                    <div class="details-content">
-                      <div class="objective-box">
-                        <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                        <strong>Objective:</strong> Identify and collect existing audio from archival media that reflect
-                        your theme. You can choose to work with audio-only archives, or archival video footage.
-                      </div>
-
-                      <ol>
-                        <li><strong>Explore existing recordings (audio or video) that reflect your theme:</strong>
-                          <br><br>
-                          <ul>
-                            <li><strong>If you choose audio-only archives:</strong>
-                              <ul>
-                                <li>Browse the following audio sources:
-                                  <ul>
-                                    <li>Sounds of Stratford - Over Time: <a
-                                        href="https://www.streetsofstratford.ca/sounds-of-stratford"
-                                        target="_blank">https://www.streetsofstratford.ca/sounds-of-stratford</a></li>
-                                  </ul>
-                                </li>
-                                <li>Identify a short audio that connects with the theme you brainstormed in Lab 1</li>
-                              </ul>
-                              <div class="example mt-3">
-                                <strong>Audio Example</strong><br>
-                                This archival recording recreates the sound of the City Hall Curfew Bell in Stratford as
-                                it might have been heard in 1897. The bell’s resonant tones mark the passage of time,
-                                echoing through the town and signaling daily routines and regulation: <a
-                                  href="https://drive.google.com/file/d/1nUiwTIjbMKvPpx2NmFYfLJDi4n-4jVlV/view"
-                                  target="_blank">https://drive.google.com/file/d/1nUiwTIjbMKvPpx2NmFYfLJDi4n-4jVlV/view</a>
-                                <br><br>
-                                How this example connects to readings from week 1-4?
-                                <ul>
-                                  <li>Patterns of time: The regular ringing of the bell structures the day, highlighting
-                                    the importance of timekeeping in everyday life.</li>
-                                  <li>Bodies and spaces: The bell's sound interacts with the physical space of
-                                    Stratford, influencing how people move through and experience the town. <i>For
-                                      example, would it be interesting to know whether the curfew bell applied to women
-                                      only, or to men as well?</i></li>
-                                </ul>
-                              </div>
-                              <ul class="mt-2">
-                                <li>Download the audio file to your computer</li>
-                              </ul>
-                            </li>
-
-                            <li class="mt-4"><strong>If you choose video footage archives:</strong>
-                              <ul>
-                                <li>Browse the following video sources:
-                                  <ul>
-                                    <li>Stratford School YouTube channel: <a
-                                        href="https://www.youtube.com/@UWStratford/videos"
-                                        target="_blank">https://www.youtube.com/@UWStratford/videos</a></li>
-                                    <li>GBDA YouTube channel: <a
-                                        href="https://www.youtube.com/playlist?list=PL9OAryISffri-T0N8MBsCpfu84eW-Ncjn"
-                                        target="_blank">https://www.youtube.com/playlist?list=PL9OAryISffri-T0N8MBsCpfu84eW-Ncjn</a>
-                                    </li>
-                                    <li>Destination Stratford YouTube Channel: <a
-                                        href="https://www.youtube.com/c/VisitStratfordCa/videos"
-                                        target="_blank">https://www.youtube.com/c/VisitStratfordCa</a></li>
-                                    <li>City of Statford YouTube Channel <a
-                                        href="https://www.youtube.com/@thecityofstratford/videos"
-                                        target="_blank">https://www.youtube.com/@thecityofstratford/videos</a></li>
-                                  </ul>
-                                </li>
-                                <li>Identify a short audio or video that connects with the theme you brainstormed in Lab
-                                  1</li>
-                              </ul>
-
-                              <div class="example mt-3">
-                                <strong>Video Example</strong><br>
-                                This video features a salesperson describing their daily work at <i>Resonance</i>, a
-                                clothing store in Stratford, as they introduce Canadian-made clothing and mention
-                                designers such as Eileen Fisher: <a
-                                  href="https://youtu.be/kt_nNBA2MDE?si=W3B-B39IvaEVFwLB"
-                                  target="_blank">https://youtu.be/kt_nNBA2MDE?si=W3B-B39IvaEVFwLB</a>
-                                <br><br>
-                                How this example connects to readings from week 1-4?
-                                <ul>
-                                  <li>Narratives of daily life: The salesperson's account of their work, paired with
-                                    environmental sounds, creates a small story about the rhythms of retail in
-                                    Stratford.</li>
-                                  <li>Sense of place and belonging: The sales person highlights the availabilty of major
-                                    Canadian-made products in a small city like Stratford.</li>
-                                </ul>
-                              </div>
-
-                              <ul class="mt-2">
-                                <li>Extract the video to your computer
-                                  <ul>
-                                    <li>If the video is from YouTube, you can use the following tool to extract the
-                                      audio: <a href="https://ssvid.net/en" target="_blank">https://ssvid.net/en</a>.
-                                      Please note you would need to install this tool in your computer.</li>
-                                  </ul>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                        <li>Once you have your audio file ready, proceed to <b>Step 2</b> to
-                          import, layer with other sounds, edit, and export your final audio mixdown.</li>
-                      </ol>
-                    </div>
-                  </details>
-
-                  <!-- Strategy 2 -->
-                  <details class="custom-details">
-                    <summary><v-icon class="mr-2">mdi-cellphone</v-icon>Strategy 2: Record Sounds With Your Cellphone or
-                      Field Recorder</summary>
-                    <div class="details-content">
-                      <div class="objective-box">
-                        <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                        <strong>Objective:</strong> Capture sounds in Stratford to provide a current perspective on your
-                        theme. You can record sounds using cellphone or Zoom H6 field recorders.
-                      </div>
-
-                      <ol>
-                        <li><strong>Choose and go to a location near Stratford School to record an audio based on the
-                            theme you selected in Step 1. Follow the steps below based on your recording
-                            device:</strong>
-                          <br><br>
-                          <ul>
-                            <!-- Option A: Cellphone -->
-                            <li><strong>If you choose to record with your cellphone:</strong>
-                              <ul>
-                                <li>Use your phone's recorder to capture at least two to three different sounds related
-                                  to your theme. Keep each recording short (1 - 2 minutes long).</li>
-                                <li>Follow these tips for good recordings:
-                                  <ul>
-                                    <li>Hold your phone steady and close to the sound source.</li>
-                                    <li>Avoid covering the microphone.</li>
-                                    <li>Minimize background noise (wind, traffic, etc.).</li>
-                                    <li>Record multiple takes if needed.</li>
-                                  </ul>
-
-                                  <div class="example mt-3">
-                                    <strong>Example</strong><br>
-                                    Record near the entrance door of Stratford School. Capture layers of everyday sound
-                                    such as footsteps, conversations, and doors opening.
-                                    <br><br>
-                                    How this example connects to readings from Weeks 1-4:
-                                    <ul>
-                                      <li><b>Pattern of time:</b> Notice how rhythms of arrival and departure mark the
-                                        passage of time on campus. Consider whether certain voices or activities repeat
-                                        daily, creating recognizable temporal patterns.</li>
-                                      <li><b>Sense of place and belonging:</b> Reflect on how overlapping sounds form a
-                                        shared soundscape, shaping feelings of community or exclusion in this space.
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </li>
-                                <li>Back in the classroom, transfer your recordings to your computer (e.g., email them
-                                  to yourself, use AirDrop, Google Drive, or OneDrive)</li>
-                                <li>Rename your files descriptively (e.g.,
-                                  <code>sounds_from_campus_entrance_door</code>).
-                                </li>
-                                <li>If your recordings are not already in .mp3 or .wav format, convert them using a tool
-                                  like <a href="https://cloudconvert.com/" target="_blank">CloudConvert</a>. These
-                                  format are compatible with a range of devices from cellphones to laptops.</li>
-                              </ul>
-                            </li>
-
-                            <br>
-
-                            <!-- Option B: Field Recorder -->
-                            <li><strong>If you choose to record with the Zoom H6 field recorder:</strong>
-                              <ul>
-                                <li>Familiarize with the Zoom H6 field recorder:
-                                  <div class="my-3">
-                                    <iframe width="560" height="315"
-                                      src="https://www.youtube.com/embed/_sFfOgsStzE?si=9ZoDA5jdHHSsFibo"
-                                      title="YouTube video player" frameborder="0"
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                  </div>
-                                </li>
-                                <li>Before going out to record:
-                                  <ul>
-                                    <li>Check that the batteries and SD card are inserted and that you have fresh
-                                      batteries.</li>
-                                    <li>Choose the microphone capsule (X/Y or shotgun) based on your sound source (e.g.,
-                                      use the <b>X/Y capsule</b> for capturing the overall ambience of a busy hallway,
-                                      or the <b>shotgun capsule</b> for focusing on a single speaker/source at a
-                                      distance).</li>
-                                    <li>Press <b>LR</b> buttons to turn on the microphone.</li>
-                                    <li>Press <b>Record ⏺</b> once to start recording (the red light will be steady).
-                                    </li>
-                                    <li>Press <b>Play ▶</b> to listen to your recording. Use <b>⏮</b> or <b>⏭</b> to
-                                      skip to other recordings.</li>
-                                    <li>When finished, stop the recording and power off before removing the SD card.
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li>Go out to capture two to three different sounds related to your theme. Keep each
-                                  recording short (1 - 2 minutes long).
-                                  <ul>
-                                    <li>Follow these tips for good recordings:
-                                      <ul>
-                                        <li>Hold your phone steady and close to the sound source.</li>
-                                        <li>Avoid covering the microphone.</li>
-                                        <li>Minimize background noise (wind, traffic, etc.).</li>
-                                        <li>Record multiple takes if needed.</li>
-                                      </ul>
-                                    </li>
-                                  </ul>
-
-                                  <div class="example mt-3">
-                                    <strong>Example</strong><br>
-                                    Use the shotgun microphone to focus on a single sound source, such as a street
-                                    performer near Stratford's City Hall. Capture the performer's voice or instrument in
-                                    detail while reducing background noise from passing cars or conversations.
-                                    <br><br>
-                                    How this example connects to readings from Weeks 1-4:
-                                    <ul>
-                                      <li><b>Bodies and spaces:</b> Reflect on how isolating one sound changes the
-                                        narrative of the soundscape. What story emerges when we privilege an individual
-                                        performer's sound over the surrounding environment?</li>
-                                      <li><b>Narratives of daily life:</b> Consider how this emphasis highlights
-                                        cultural or social meanings connected to music and public space, and how
-                                        listening practices shape collective experience.</li>
-                                    </ul>
-                                  </div>
-                                </li>
-                                <li>Back in the classroom, transfer your files via the SD card reader or USB cable.</li>
-                                <li>Rename your files descriptively (e.g., <code>performer_near_city_hall</code>).</li>
-                                <li class="mb-1">Once you have your recorded narration file ready, proceed to
-                                  <strong>Step 2</strong> to import, layer with other sounds, edit, and export your
-                                  final audio mixdown.
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ol>
-                    </div>
-                  </details>
-
-                  <!-- Strategy 3 -->
-                  <details class="custom-details">
-                    <summary>
-                      <v-icon class="mr-2">mdi-account-voice</v-icon>
-                      Strategy 3: Create Voice Annotations or Narrations
-                    </summary>
-                    <div class="details-content">
-                      <div class="objective-box">
-                        <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                        <strong>Objective:</strong> Create audio based on your own narration and reflections. You can:
-                        <ul class="pl-6 mt-1">
-                          <li>Develop creative texts (e.g., stories, poems, reflections), or</li>
-                          <li>Use factual texts (e.g., historical notes, news excerpts)</li>
-                        </ul>
-                      </div>
-
-                      <ol class="pl-6 text-body-1" style="line-height: 1.8;">
-                        <li class="mb-3">Choose a location or space at Stratford that connects to your soundwalk theme.
-                        </li>
-                        <li class="mb-3">
-                          Write a short script (2–3 sentences) describing your experience, observations, or reflections
-                          on that space.
-                          <ul class="pl-6 mt-2">
-                            <li class="mb-1">Your script can be creative (e.g., a poem or story) or factual (e.g.,
-                              historical information or accessibility details).</li>
-                            <ul class="pl-6 mt-1">
-                              <li class="mb-1">For factual or historical information, explore the <a
-                                  href="https://www.streetsofstratford.ca/streets" target="_blank">Streets of
-                                  Stratford</a> website.</li>
-                            </ul>
-                            <li class="mb-1">Link your script to themes from the readings (e.g., environment, place and
-                              belonging, bodies and spaces, gender and culture, etc.).</li>
-                          </ul>
-
-                          <div class="example mt-3 pa-3 rounded bg-grey-lighten-4">
-                            <strong>Example</strong><br>
-                            Start by exploring St. Patrick Street near Stratford School. Research its history on the <a
-                              href="https://www.streetsofstratford.ca/st-patrick-street" target="_blank">Streets of
-                              Stratford</a> website. Create 2–3 short audio narration notes (60–90 seconds each) that
-                            highlight historical facts, everyday observations, and personal reflections to tell a story
-                            of everyday life, past and present.
-                            <br><br>
-                            How this example connects to readings from Weeks 1–4:
-                            <ul class="pl-6 mt-1">
-                              <li><b>Environmental change:</b> Consider how the soundscape has evolved over time, from
-                                historical events to the current everyday atmosphere of the street.</li>
-                              <li><b>Social and cultural meanings:</b> Think about how certain sounds, spaces, or
-                                activities may carry historical, cultural, or gendered significance.</li>
-                            </ul>
-                          </div>
-                        </li>
-
-                        <li class="mb-3">
-                          Record Your Voice Narration:
-                          <ul class="pl-6 mt-2">
-                            <li class="mb-1">Use your computer's microphone, phone recorder, or a field recorder to read
-                              and capture your written script aloud.</li>
-                            <li class="mb-1">Aim for a clear recording with minimal background disturbance/noise. Take a
-                              few tries if necessary.</li>
-                            <li class="mb-1">Transfer or save your raw voice recording file to your computer and rename
-                              it descriptively (e.g., <code>st_patrick_street_narration.wav</code>).</li>
-                            <li class="mb-1">Once you have your recorded narration file ready, proceed to <strong>Step
-                                2</strong> to import, layer with other sounds, edit, and export your final audio
-                              mixdown.</li>
-                          </ul>
-                        </li>
-                      </ol>
-                    </div>
-                  </details>
-                </div>
-
-                <!-- <div class="section-divider"></div> -->
-
-
-                <!-- STEP 2 -->
-                <div class="section-divider"></div>
-
-                <h3><v-icon color="primary" class="mr-2">mdi-share-variant</v-icon>Step 2: Posting Your Sound Recording
-                  for Showcase</h3>
-
-                <div class="objective-box">
-                  <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                  <strong>Objective:</strong> Share some of your audio recordings with the class to discuss strategies
-                  that worked for you.
-                </div>
-
-                <ol>
-                  <li>Select 1-2 recording and upload them it to the
-                    following class folder: <a
-                      href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
-                      target="_blank">Sounwalks - Work in Progress</a>.
-                  </li>
-                  <li>Discuss your sounds with the class.</li>
-                </ol>
-
-
-
-                <!-- HOMEWORK SECTION LAB 2 -->
-                <div class="section-divider"></div>
-
-                <v-card id="lab2-homework" class="mt-8 pa-6 border" elevation="0"
-                  style="border-radius: 20px; background: #faf5ff; border: 1px solid #e9d5ff !important;">
-                  <div class="d-flex align-center mb-4">
-                    <v-avatar color="purple-lighten-5" class="mr-3" size="44">
-                      <v-icon color="purple-darken-2" size="28">mdi-folder-music-outline</v-icon>
-                    </v-avatar>
+        <div class="project-stages">
+            <!-- <div class="stage-card completed">
+                <div class="stage-header" onclick="toggleStage('part1')">
                     <div>
-                      <h2 class="text-h5 font-weight-bold text-slate-900">Homework: Continue Gathering Audio Recordings
-                      </h2>
-                      <span class="text-caption text-purple-darken-2 font-weight-bold">Due Before Next Class • Field
-                        Recording & Sound Collection</span>
+                        <div class="stage-title">Part 1: Proposal & Concept Development</div>
+                        <div class="stage-meta">5% • Individual • Due Sep 14</div>
                     </div>
-                  </div>
-
-                  <p class="text-body-1 text-slate-700 mb-4">
-                    Building on the sound collection strategies practiced in class, continue gathering audio recordings
-                    for your
-                    soundwalk. Expand your collection across <b>all three audio strategies</b> (field recordings,
-                    archival
-                    material, and voice narrations) as you see fit, so you have a rich library of sound clips ready for
-                    editing next
-                    week.
-                  </p>
-
-                  <!-- Objective Box -->
-                  <div class="objective-box my-4" style="background-color: #fff; border-left: 4px solid #a855f7;">
-                    <strong class="text-purple-darken-3 d-block mb-1">
-                      <v-icon size="small" class="mr-1">mdi-target</v-icon> Objective
-                    </strong>
-                    Collect a varied set of high-quality audio files that explore your soundwalk theme through local
-                    environmental sounds, historical archival assets, and/or spoken reflections.
-                  </div>
-
-                  <h4 class="text-subtitle-1 font-weight-bold text-slate-800 mt-6 mb-3">
-                    <v-icon color="indigo-accent-4" class="mr-1">mdi-lightbulb-on-outline</v-icon> Explore the
-                    following options:
-                  </h4>
-
-                  <v-row class="ga-0">
-                    <v-col cols="12">
-                      <v-card variant="flat" class="pa-4 rounded-lg bg-white border mb-3">
-                        <div class="d-flex align-start">
-                          <v-icon color="indigo-accent-3" class="mr-3 mt-1">mdi-check-circle-outline</v-icon>
-                          <ul class="pl-4" style="line-height: 1.8;">
-                            <li><b>Field Recordings:</b> Capture <b>at least 3 to 4 distinct environmental or ambient
-                                sounds</b> around Stratford using the Zoom H6 field recorder.</li>
-                            <li><b>Archival Sources:</b> Extract or download <b>at least 2 archival audio/video
-                                assets</b> related to your theme from the provided sources (e.g., <i>Sounds of
-                                Stratford</i>, City/School YouTube channels).</li>
-                            <li><b>Voice Narrations:</b> Write and record <b>at least 2 short spoken voice annotations
-                                or reflections</b> (30–60 seconds each) connecting specific locations to concepts from
-                              Weeks 1–4.</li>
-                            <!-- <li>Organize and convert all your raw audio files into <b>MP3 formats</b>
-                              with clear, descriptive filenames (e.g., <code>st_patrick_street_ambience.wav</code>).
-                            </li> -->
-                          </ul>
-                        </div>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-
-                  <!-- Deliverable Card -->
-                  <v-card class="pa-4 mt-4 bg-indigo-lighten-5 border-indigo" variant="outlined"
-                    style="border-radius: 12px;">
-                    <div class="d-flex align-center mb-2">
-                      <v-icon color="indigo-accent-4" class="mr-2">mdi-notebook-edit-outline</v-icon>
-                      <strong class="text-indigo-darken-3">Your Submission Deliverable:</strong>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="stage-content" id="part1">
+                    <div class="requirement-box">
+                        <strong>Status:</strong> <span class="status-badge status-completed">Completed</span>
+                        <br><strong>Due:</strong> September 14 by 11:59 pm
+                        <br><strong>Grace period:</strong> Until September 21 by 11:59 pm without penalty
+                        <br><strong>Afte grace period:</strong> Submissions made after the grace period will be
+                        penalized 5% for each additional day,
+                        including Saturdays and Sundays. Submissions made one week (seven days) after the grace period
+                        will not be accepted and will receive a 0% grade.
+                        <br><strong>Submission Type:</strong> Individual
                     </div>
-                    <p class="text-body-2 text-slate-800 mb-0">
-                      Upload your raw audio files to the <a
-                        href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
-                        target="_blank">Soundwalks - Work in Progress</a> folder and bring them saved on your computer
-                      next class. We will use these assets to build your sound montages/collages in BandLab.
-                    </p>
-                  </v-card>
-                </v-card>
+               
 
-              </div>
-            </v-window-item>
-            <!-- TAB 3: NEW LAB 3 -->
-
-            <v-window-item value="3">
-              <v-breadcrumbs :items="['Labs', 'Lab 3']" class="px-0 py-2"></v-breadcrumbs>
-              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[2].title }}</h1>
-
-              <div class="intro-section px-0">
-                <p class="text-body-1">
-                  In this lab, you will learn how to design narrative sound montages by layering field recordings,
-                  ambient audio,
-                  and voice annotations in BandLab. You will complete <strong>1 sound montage (1-2 minutes
-                    long)</strong>
-                  during
-                  class. This workflow will be the same for your entire 7-location soundwalk for Project 1.
-                </p>
-
-                <div class="learning-objectives">
-                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
-                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
-                  <ul class="pl-4">
-                    <li>Import and arrange field recordings, found sound, and voice tracks on a timeline.</li>
-                    <li>Practice audio splicing, trimming, and looping using shortcut tools.</li>
-                    <li>Apply the 3-Layer Sound Collage framework (Foreground, Midground, Background).</li>
-                    <li>Build a 1-2 minute sound montage ready for your final spatial soundwalk project.</li>
-                  </ul>
-                </div>
-
-                <div class="tools-section">
-                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
-                      class="mr-2">mdi-tools</v-icon>Tools
-                    You'll Use</h4>
-                  <ul class="pl-4">
-                    <li>Field recordings, archival audios, and voice annotations/narrations gathered in Lab 2</li>
-                    <li>Headphones or earbuds</li>
-                    <li>BandLab Studio (<a href="https://www.bandlab.com/" target="_blank">https://www.bandlab.com/</a>)
-                    </li>
-                    <li>Laptop / Workstation</li>
-                  </ul>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <!-- STEP 1 -->
-                <h3><v-icon color="primary" class="mr-2">mdi-file-import-outline</v-icon>Step 1: Import Audio Recordings
-                </h3>
-                <div class="details-content">
-                  <div class="objective-box">
-                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                    <strong>Objective:</strong> Prepare a multi-track timeline in BandLab by adding your
-                    existing recordings (e.g., field recordings, archival audios and/or voice narrations).
-                  </div>
-
-                  <ol class="pl-6 text-body-1" style="line-height: 1.8;">
-                    <li class="mb-3">
-                      <strong>Create a BandLab Account and Start a Project</strong>
-                      <div class="tip-box pa-3 my-2 rounded bg-blue-lighten-5 text-body-2">
-                        <b>💡 Tip:</b> BandLab is a free, browser-based digital audio workstation that makes it easy to
-                        multi-track, layer, and edit audio files for your soundwalk.
-                      </div>
-                      <ul class="pl-6 mt-2">
-                        <li class="mb-1">Go to <a href="https://www.bandlab.com/"
-                            target="_blank">https://www.bandlab.com/</a></li>
-                        <li class="mb-1">Click <strong>Sign Up</strong> to create your free account using your school or
-                          personal email.</li>
-                        <li class="mb-1">Once logged in, click <strong>Create</strong> &gt; <strong>New Project</strong>
-                          to open a new project workspace.</li>
-                      </ul>
-                    </li>
-                    <li class="mb-3">
-                      <strong>Import Audio Tracks:</strong> Drag and drop your field recordings, ambient textures, and
-                      archival
-                      sound clips onto separate tracks.
-                    </li>
-                    <li class="mb-3">
-                      <strong>Add Voice Annotations:</strong> Drag in existing narration audio or record your voiceover
-                      directly
-                      onto a separate track using your computer's microphone.
-                    </li>
-
-                    <v-img src="images/soundwalk/lab3-step1-import-audio-tracks.gif" width="100%" contain></v-img>
-                  </ol>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <!-- STEP 2 -->
-                <h3><v-icon color="primary" class="mr-2">mdi-content-cut</v-icon>Step 2: Splicing, Looping, and Basic FX
-                </h3>
-                <div class="details-content">
-                  <div class="objective-box">
-                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                    <strong>Objective:</strong> Clean up raw recordings, extract key moments, and experiment with basic
-                    audio
-                    effects.
-                  </div>
-                  <div class="tip-box pa-3 my-2 rounded bg-blue-lighten-5 text-body-2">
-                    <b>💡 Tip:</b> <strong>Mute Individual Tracks:</strong> Mute tracks that you won't be working with
-                    by
-                    pressing the
-                    <strong>'M'</strong> button on each track.
-                  </div>
-
-                  <ul class="pl-6 text-body-1" style="line-height: 1.8;">
-                    <li class="mb-3">
-                      <strong>Slice & Trim:</strong> Move the white playhead to a position on your
-                      clip and
-                      press <strong>'S'</strong> to cut unwanted noise, isolate sharp spoken phrases, or split clips.
-                      Check the video below for a demonstration of how to slice and trim audio clips in BandLab.
-                    </li>
-
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/1x8EHo20Z28?si=AXTUDyXi9o0X--DS"
-                      title="YouTube video player" frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-                    <li class="mb-3">
-                      <strong>Duplicate Audios:</strong> This is useful when create rhythmic
-                      loops with your
-                      environment sounds. To do this, select an audio clip and press <code>Ctrl+C</code> or
-                      <code>Cmd+C</code> to
-                      copy the clip. Then place the playhead where you want to paste the clip and press
-                      <code>Ctrl+P</code> or <code>Cmd+P</code> to paste it. Check the video
-                      below for a demonstration of
-                      how to duplicate audio clips in BandLab.
-                    </li>
-
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/p-Vgt1isu6E?si=6BrAF7H1h3PiseUA"
-                      title="YouTube video player" frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-                    <li class="mb-3">
-                      <strong>Apply Audio Effects:</strong> Select a track, open the FX Panel located at the bottom of
-                      the screen, and test different effects to match your sound collage vision. See the video below for
-                      a demonstration of how to apply audio effects in BandLab:
-                    </li>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/f6CzQ7Efdx4?si=4JCL50rXpJf2bVHq"
-                      title="YouTube video player" frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                  </ul>
-                </div>
-
-                <div class="section-divider"></div>
-
-                <!-- STEP 3 -->
-                <h3><v-icon color="primary" class="mr-2">mdi-layers-triple-outline</v-icon>Step 3: Create the Sound
-                  Collage</h3>
-                <div class="details-content">
-                  <div class="objective-box">
-                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                    <strong>Objective:</strong> Stack audio layers vertically over time to create a rich, 3-dimensional
-                    sonic
-                    landscape.
-                  </div>
-
-                  <p class="text-body-1 mb-4">
-                    Layering is the art of placing multiple audio elements on top of each other simultaneously rather
-                    than in a
-                    single flat sequence. Experiment having <strong>2 to 4 active tracks</strong> at any given time
-                    using the
-                    3-Layer
-                    Structure below:
-                  </p>
-
-                  <v-row class="mb-6">
-                    <v-col cols="12" md="4">
-                      <v-card class="pa-4 border text-center fill-height" elevation="0">
-                        <v-avatar color="indigo-lighten-5" class="mb-2">
-                          <v-icon color="indigo">mdi-waves</v-icon>
-                        </v-avatar>
-                        <div class="text-subtitle-1 font-weight-bold">1. Background Layer</div>
-                        <div class="text-caption ">Ambient environmental recordings, weather, or
-                          subtle drones.
-                          Set to lowest volume.</div>
-                      </v-card>
-                    </v-col>
-                    <v-col cols="12" md="4">
-                      <v-card class="pa-4 border text-center fill-height" elevation="0">
-                        <v-avatar color="purple-lighten-5" class="mb-2">
-                          <v-icon color="purple">mdi-music-note-eighth</v-icon>
-                        </v-avatar>
-                        <div class="text-subtitle-1 font-weight-bold">2. Midground Layer</div>
-                        <div class="text-caption ">Rhythmic loops, musical textures, or specific
-                          secondary sound
-                          events.</div>
-                      </v-card>
-                    </v-col>
-                    <v-col cols="12" md="4">
-                      <v-card class="pa-4 border text-center fill-height" elevation="0">
-                        <v-avatar color="amber-lighten-5" class="mb-2">
-                          <v-icon color="amber-darken-3">mdi-account-voice</v-icon>
-                        </v-avatar>
-                        <div class="text-subtitle-1 font-weight-bold">3. Foreground Layer</div>
-                        <div class="text-caption">Clear spoken narration, direct interviews, or
-                          primary focal
-                          sound elements.</div>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-
-                  <details class="custom-details">
-                    <summary><v-icon class="mr-2">mdi-tune-variant</v-icon>Layering Best Practices & Balance Tips
-                    </summary>
-                    <div class="details-content">
-                      <ul>
-                        <li><strong>Stagger Entrances:</strong> Avoid starting every audio track at the exact same
-                          second. Fade
-                          layers in gently to guide the listener's focus.</li>
-                        <li><strong>Dynamic Volume Balance:</strong> Lower background and midground track volumes
-                          whenever
-                          narration or focal elements are active so the speech remains clear.</li>
-                        <li><strong>Smooth Transitions:</strong> Always add 1-to-2 second fade-ins and fade-outs at the
-                          edges of
-                          audio regions to avoid abrupt clicks or popping sounds.</li>
-                      </ul>
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight">
+                        Individually, submit a short proposal that outlines a concept for a soundwalk you will later
+                        create with your partner. The purpose of this step is to generate creative options that you and
+                        your partner can later choose from or combine.
                     </div>
-                  </details>
 
-                  <div class="example">
-                    <strong>Sound Collage Example</strong><br>
-                    <strong>Spot Location:</strong> Stratford Theatre Entrance.<br>
+                    <hr>
+                    <h3>Learning Objectives</h3>
+
                     <ul>
-                      <li><b>Foreground:</b> Clear narration describing the history of the entrance. </li>
-                      <li><b>Midground:</b> Layered footsteps and door chimes looping periodically.</li>
-                      <li><b>Background:</b> Ambient traffic rumble and wind across happening near the builiding.</li>
+                        <li>Generate creative concepts that connect theoretical ideas to spatial experience</li>
+                        <li>Develop skills in articulating artistic vision through written or video proposals</li>
+                        <li>Practice peer review and constructive feedback in creative contexts</li>
+                        <li>Begin connecting course concepts to potential artistic practice</li>
                     </ul>
-                  </div>
 
-                  Check the following video for a demonstration of how to create a sound collage in BandLab: <br><br>
-                  <iframe width="560" height="315"
-                    src="https://www.youtube.com/embed/PxxQkKGXTac?si=p3_uxHouCWGrYAnc&amp;start=310"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
 
-                <div class="section-divider"></div>
+                    <hr>
+                    <h3>Submission Instructions</h3>
 
-                <!-- STEP 4 -->
-                <h3><v-icon color="primary" class="mr-2">mdi-export</v-icon>Step 4: Export Your Spot Montage</h3>
-                <div class="details-content">
-                  <div class="objective-box">
-                    <v-icon color="info" size="small" class="mr-2">mdi-bullseye-arrow</v-icon>
-                    <strong>Objective:</strong> Export your completed sound montage and optionally, share it with the
-                    class to receive constructive feedback.
-                  </div>
+                    <ol>
+                        <li><b>Post your proposal</b> to the LEARN Discussion Forum "Group Project 1 - Proposal
+                            & Concept Development" </li>
+                        <li><b>Provide peer feedback</b> to your project partner and one other student in the class by
+                            responding to their post. Provide feedback by the same deadline or grace period </li>
+                    </ol>
 
-                  <ol class="pl-6 text-body-1" style="line-height: 1.8;">
-                    <li>Click the <strong>hamburger menu</strong> in the top-left corner of the BandLab Mix Editor.</li>
-                    <li>Select <strong>Project</strong> &gt; <strong>Download</strong> &gt; <strong>Mixdown As</strong>.
-                    </li>
-                    <li>Choose <strong>MP3</strong> format, name your file <code>Soundwalk_Spot1_YourName</code>, and
-                      click
-                      Download.</li>
-                    <li>Upload your sound collage to the following class folder to discuss with the class: <a
-                        href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
-                        target="_blank">Sounwalks - Work in Progress</a>.
-                    </li>
+                    <h4>Proposal Requirements</h4>
 
-                  </ol>
-                </div>
-              </div>
 
-              <!-- HOMEWORK SECTION LAB 3 -->
-              <div class="section-divider"></div>
-
-              <v-card id="lab3-homework" class="mt-8 pa-6 border" elevation="0"
-                style="border-radius: 20px; background: #faf5ff; border: 1px solid #e9d5ff !important;">
-                <div class="d-flex align-center mb-4">
-                  <v-avatar color="purple-lighten-5" class="mr-3" size="44">
-                    <v-icon color="purple-darken-2" size="28">mdi-folder-music-outline</v-icon>
-                  </v-avatar>
-                  <div>
-                    <h2 class="text-h5 font-weight-bold text-slate-900">Homework: Complete Soundwalk Montages For Each
-                      Spot/Location</h2>
-                    <span class="text-caption text-purple-darken-2 font-weight-bold">Due Before Next Class • Soundwalk
-                      Production</span>
-                  </div>
-                </div>
-
-                <p class="text-body-1 text-slate-700 mb-4">
-                  Using the workflow practiced today in class, complete the sound montages for your
-                  soundwalk route comprised of at least 7 spots/locations. Each montage should be 1 to 2 minutes long
-                  and utilize multi-track the sound layering techniques suggested above.
-                </p>
-
-                <div class="objective-box my-4" style="background-color: #fff; border-left: 4px solid #a855f7;">
-                  <strong class="text-purple-darken-3 d-block mb-1">
-                    <v-icon size="small" class="mr-1">mdi-target</v-icon> Objective
-                  </strong>
-                  Produce and export all remaining soundwalk spot montages using BandLab to prepare for spatial mapping
-                  in Echoes
-                  Creator next class.
-                </div>
-
-                <h4 class="text-subtitle-1 font-weight-bold text-slate-800 mt-6 mb-3">
-                  <v-icon color="indigo-accent-4" class="mr-1">mdi-lightbulb-on-outline</v-icon> Homework Checklist:
-                </h4>
-
-                <v-row class="ga-0">
-                  <v-col cols="12">
-                    <v-card variant="flat" class="pa-4 rounded-lg bg-white border mb-3">
-                      <div class="d-flex align-start">
-                        <v-icon color="indigo-accent-3" class="mr-3 mt-1">mdi-check-circle-outline</v-icon>
-                        <ul class="pl-4" style="line-height: 1.8;">
-                          <li>Create at least 7 soundwalk spot montages (1-2 minutes each).</li>
-                          <li>Apply the <strong>3-Layer Structure</strong> (Background, Midground, Foreground) to each
-                            spot
-                            montage.</li>
-                          <li>Export each completed spot as an individual <b>MP3 file</b>.
-                          </li>
-                          <li>Ensure your sound montages are connected to your sounwak theme and route</li>
+                    <ol>
+                        <li>Post either:</li>
+                        <ul>
+                            <li>Written proposal (300-500 words), OR</li>
+                            <li>Video pitch (2-4 minutes)</li>
                         </ul>
-                      </div>
-                    </v-card>
-                  </v-col>
-                </v-row>
 
-                <v-card class="pa-4 mt-4 bg-indigo-lighten-5 border-indigo" variant="outlined"
-                  style="border-radius: 12px;">
-                  <div class="d-flex align-center mb-2">
-                    <v-icon color="indigo-accent-4" class="mr-2">mdi-notebook-edit-outline</v-icon>
-                    <strong class="text-indigo-darken-3">Your Submission Deliverable:</strong>
-                  </div>
-                  <p class="text-body-2 text-slate-800 mb-0">
-                    Bring all exported MP3 audio spot files next class. We will map
-                    these onto
-                    spatial GPS triggers using Echoes Creator. Optionally, you can share one to the
-                    <a href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgD8-3LNotYRQaEhDwbivZhCAaZdaff7_xpk9dMcO4ysAYk?e=ykTEII"
-                      target="_blank">Sounwalks - Work in Progress</a> folder to receive constructive feedback next
-                    class.
-                  </p>
-                </v-card>
-              </v-card>
-            </v-window-item>
+                        <li>Connect your concept to at least one topic and reading from weeks 1-4</li>
+
+                        <li>Include at least one illustrative element such as:</li>
+                        <ul>
+                            <li>Sketch or map of the proposed site/route</li>
+                            <li>Short audio snippet or recorded sound sample</li>
+                        </ul>
+                    </ol>
 
 
-            <!-- LAB 4 -->
-            <v-window-item value="4">
-              <v-breadcrumbs :items="['Labs', 'Lab 4']" class="px-0 py-2"></v-breadcrumbs>
-              <h1 class="text-h4 font-weight-bold mb-4">{{ labs[3].title }}</h1>
+                    <h4>Peer Feedback Requirements</h4>
 
-              <div class="intro-section px-0">
-                <p>This lab will guide you through using the Echoes Creator platform to draft your own soundwalk. By the
-                  end, you'll have a working draft that you can test and refine before creating your final project.</p>
+                    <h5> Provide constructive feedback (3-5 sentences each) to:</h5>
+                    <ul>
+                        <li>Your partner's submission</li>
+                        <li>One other student in the class</li>
+                    </ul>
 
-                <div class="learning-objectives">
-                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="primary"
-                      class="mr-2">mdi-target</v-icon>Learning Objectives</h4>
-                  <ul class="pl-4">
-                    <li>Create an Echoes Creator account and start a new project to draft your soundwalk.</li>
-                    <li>Test your soundwalk as a listener and reflect on improvements for your final group submission.
-                    </li>
-                    </li>
-                  </ul>
+
+                    <h5>Focus feedback on:</h5>
+
+                    <ul>
+                        <li>What is clear and engaging about the proposal</li>
+                        <li>Suggestions for improvement or development</li>
+                        <li>Connections you see or could been made to course topics and readings</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Grace period advice</h3>
+
+
+                    <p><b>By September 14:</b> Post proposal + provide feedback to partner and one other student. Early
+                        submissions will have more peer proposals available for feedback selection</p>
+
+                    <p><b>September 15-21 (grace period):</b> Can still post proposal, but fewer peers may be available
+                        for feedback exchange</p>
+
+                    <hr>
+                    <h3>Assessment (Pass/Fail)</h3>
+
+                    <p><strong>Pass if:</strong></p>
+                    <ul>
+                        <li>You post your proposal on time (or within grace period) with all required elements </li>
+                        <li>You provide constructive feedback to your partner and one other student on time (or within
+                            the grace period) </li>
+                    </ul>
+
+                    <p><strong>Fail if:</strong></p>
+                    <ul>
+                        <li>Your proposal is missing required elements, OR </li>
+                        <li>You fail to provide peer feedback </li>
+
+                    </ul>
+
                 </div>
+            </div>
 
-                <div class="tools-section">
-                  <h4 class="text-subtitle-1 font-weight-bold mb-2"><v-icon color="purple"
-                      class="mr-2">mdi-tools</v-icon>Tools
-                    You'll Use</h4>
-                  <ul class="pl-4">
-                    <li>Headphones or earbuds</li>
-                    <li>Laptop</li>
-                    <li>Audio montages from Lab 3</li>
-                    <li>Echoes Creator platform (<a href="https://echoes.xyz" target="_blank">https://echoes.xyz</a>)
-                    </li>
-                    <li>Smartphone (iOS or Android)</li>
-                  </ul>
+            <div class="stage-card completed">
+                <div class="stage-header" onclick="toggleStage('part2')">
+                    <div>
+                        <div class="stage-title">Part 2: Materials Collection</div>
+                        <div class="stage-meta">5% • Individual • Due Sep 21</div>
+
+                    </div>
+                    <div class="expand-icon">▼</div>
                 </div>
+                <div class="stage-content" id="part2">
+                    <div class="requirement-box">
+                        <strong>Status:</strong> <span class="status-badge status-completed">Completed</span>
+                        <br><strong>Due:</strong> September 21 by 11:59 pm
+                        <br><strong>Grace period:</strong> Until September 28 by 11:59 pm without penalty
+                        <br><strong>Afte grace period:</strong> Submissions made after the grace period will be
+                        penalized 5% for each additional day,
+                        including Saturdays and Sundays. Submissions made one week (seven days) after the grace period
+                        will not be accepted and will receive a 0% grade.
+                        <br><strong>Submission Type:</strong> Individual
+                    </div>
+
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight">
+                        Individually, gather sound materials based on their Part 1 proposal concept. Your collection can
+                        be made up of original field recordings, archival materials, or a combination of both. The goal
+                        is to build an audio palette that reflects your proposed site or route near Stratford School and
+                        connects to the themes of everyday life. In Part 3, you and your partner will decide which
+                        proposal
+                        and materials to use for your final soundwalk.
+                    </div>
+
+                    <hr>
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Develop technical skills in field recording and archival research</li>
+                        <li>Practice critical selection of audio materials for artistic purposes</li>
+                        <li>Learn to document and annotate creative materials systematically</li>
+                        <li>Build foundations for collaborative creative decision-making</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Submission Instructions </h3>
+                    <ol>
+                        <li>Post your materials to the LEARN Discussion Forum "Group Project 1 - Materials Collection"
+                        </li>
+                        <li>Provide peer feedback to your assigned partner and one other student in the class by
+                            responding to their post. Provide feedback by the same deadline or grace period </li>
+                    </ol>
+
+                    <h4>Materials Requirements</h4>
+                    <ul>
+                        <li><strong>At least 3 sounds</strong> consisting of:</li>
+                        <ul>
+                            <li>Original field recordings (captured by you on campus), AND/OR</li>
+                            <li>Archival sounds (Stratford library archive, YouTube, historical recordings, etc.)</li>
+                        </ul>
+                        </li>
+                        <li>A short annotation for each sound (1-2 sentences):</li>
+                        <ul>
+                            <li>Where the sound comes from (location or source)</li>
+                            <li>Why it's relevant to your concept</li>
+                        </ul>
+                        <li>Brief reflection (2-3 sentences) connecting materials to your Part 1 proposal</li>
+                    </ul>
+
+                    <h4>Peer Feedback Requirements</h4>
+                    <h5>Provide constructive feedback (3-5 sentences each) to: </h5>
+                    <ul>
+                        <li>Your partner's submission </li>
+                        <li>One other student in the class </li>
+                    </ul>
 
 
-                <div class="section-divider"></div>
-                <h3><v-icon color="primary" class="mr-2">mdi-microphone</v-icon>Step 1: Creating a Soundwalk in
-                  Echoes Creator</h3>
+                    <h5>Focus feedback on: </h5>
+                    <ul>
+                        <li>Quality and relevance of sound choices</li>
+                        <li>Clarity of annotations </li>
+                        <li>Creative potential of the collected material</li>
+                    </ul>
 
-                <div class="my-4">
-                  <iframe
-                    src="https://www.iorad.com/player/2614313/Creating-Soundwalks-with-Echoes-Creator---GBDA-412?iframeHash=watchsteps-1&src=iframe&oembed=1"
-                    width="100%" height="500px"
-                    style="width: 100%; height: 500px; border-radius: 12px; border: 1px solid #e2e8f0;" frameborder="0"
-                    allowfullscreen></iframe>
+                    <hr>
+                    <h3>Assessment (Pass/Fail)</h3>
+                    <p><strong>Pass if:</strong> Working folder link + 3+ sounds + clear annotations + reflection + peer
+                        feedback submitted on time (or in grace period)</p>
+                    <p><strong>Fail if:</strong> Missing elements OR no peer feedback</p>
                 </div>
+            </div> -->
 
-                <div class="section-divider"></div>
-                <h3><v-icon color="primary" class="mr-2">mdi-walk</v-icon>Step 2: Testing Your Soundwalk</h3>
-                <div class="objective-box">
-                  <strong>Objective:</strong> Experience your soundwalk as a listener outside and take notes on what
-                  works and what could be improved.
+            <!-- <div class="stage-card upcoming"> -->
+            <div class="stage-card active">
+                <div class="stage-header" onclick="toggleStage('part1')">
+                    <div>
+                        <div class="stage-title">Part 1: Artistic Composition</div>
+                        <div class="stage-meta">20% • Due October 4</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
                 </div>
-              </div>
-            </v-window-item>
+                <div class="stage-content" id="part1">
+                    <div class="requirement-box">
+                        <!-- <strong>Status:</strong> <span class="status-badge status-upcoming">Upcoming</span> -->
+                        <!-- <strong>Status:</strong> <span class="status-badge status-active">Active</span> -->
+                        <br><strong>Due:</strong> October 4 by 11:59 pm
+                        <br><strong>Grace period:</strong> Until October 7 by 11:59 pm without penalty. Submissions made
+                        after the grace period will be
+                        penalized 5% for each additional day,
+                        including Saturdays and Sundays. Submissions made one week (seven days) after the grace period
+                        will not be accepted and will receive a 0% grade.
+                        <!-- <br><strong>Submission Type:</strong> Individual -->
+                    </div>
+
+                    <hr>
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight">
+                        <p>
+                            Individually, create a soundwalk using Echoes Creator. Echoes
+                            Creator is a platform that allows you to create location-based audio experiences triggered
+                            by GPS coordinates. Your soundwalk should be a cohesive composition that reveals the
+                            politics of sound of a chosen site near Stratford School. Your soundwalk should
+                            connect to
+                            topics and readings from weeks 1-4 (e.g., gender and sound, race/ethnicity and sound,
+                            disability and sound, etc).
+                        </p>
+                    </div>
+
+
+                    <!-- <b>Example:</b> Explore this soundwalk for reference: <a
+                            href="https://explore.echoes.xyz/collections/hjXuUnRjG9QN0SvP" target="_blank"
+                            style="color: #000; text-decoration: underline;">"Stratford School in 2011"</a>
+                    </div> -->
+
+                    <hr>
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <!-- <li>Collaborate effectively to synthesize individual concepts into cohesive artistic work
+                        </li> -->
+                        <li>Develop technical proficiency with location-based audio technology</li>
+                        <li>Practice creating site-specific art that reveals spatial experience</li>
+                        <li>Learn to articulate creative decisions and process through written statements</li>
+                    </ul>
+
+                    <hr>
+                    <h3>What You'll Do (Suggested workflow)</h3>
+                    <ul>
+
+                        <li>Select a site or route near Stratford School</li>
+                        <li>Select your primary concept</li>
+                        <li>Collect or create sound recordings </li>
+                        <li>Create the soundwalk using the Echoes Creator platform</li>
+                        <li>Write an artist statement explaining your decisions</li>
+                    </ul>
 
 
 
+                    <hr>
+                    <h3>Submission Requirements</h3>
 
-          </v-window>
-        </v-container>
-      </v-main>
-    </v-app>
-  </div>
+                    <ol>
+                        <li>Echoes QR code or link to your soundwalk posted on LEARN's dropbox " Project 1, Part 1 –
+                            Artistic Composition"</li>
+                        <li>An Artist statement as PDF or Word file uploaded to the same
+                            folder</li>
+                    </ol>
 
-  <script>
-    const { createApp } = Vue;
-    const { createVuetify } = Vuetify;
+                    <h4>Soundwalk Requirements</h4>
+                    <ul>
 
-    const vuetify = createVuetify();
+                        <li><strong>At least 7 distinct locations</strong> near Stratford School of Interaction</li>
+                        <li><strong>GPS-triggered sounds</strong> via the Echoes Creator and the Echoes cellphone app
+                            <ul>
+                                <li>Your audio recordings can come from different sources including archival, recorded,
+                                    narrated,
+                                    or a mix
+                                    of these</li>
+                            </ul>
+                        <li><strong> Between 15 - 20 minute experience time </strong> including both the time spent
+                            walking to different locations and listening at each site.</li>
+                        </li>
 
-    const app = createApp({
-      data() {
-        return {
-          drawer: true,
-          tab: this.getInitialTab(), // Initialize tab dynamically from URL hash
-          labs: [
-            {
-              title: 'Lab 1: Exploring Soundwalks',
-              shortTitle: 'Lab 1: Exploring Soundwalks',
-              icon: 'mdi-walk',
-              color: 'indigo',
-              duration: '45 mins',
-              description: 'Embark on an auditory walk paying attention to the history woven into the streets surrounding Stratford School.'
-            },
-            {
-              title: 'Lab 2: Audio Collection Strategies',
-              shortTitle: 'Lab 2: Audio Collection Strategies',
-              icon: 'mdi-microphone',
-              color: 'purple',
-              duration: '60 mins',
-              description: 'Learn techniques to record field sounds, gather archival audios, and create voice narrations.'
-            },
-            {
-              title: 'Lab 3: Creating Sound Montages',
-              shortTitle: 'Lab 3: Creating Sound Montages',
-              icon: 'mdi-waveform',
-              color: 'amber-darken-2',
-              duration: '30 mins',
-              description: 'Slice, layer, and add effects to your sounds in BandLab to build a 1-2 minute soundscape montage for your soundwalk spots/locations.'
-            },
-            {
-              title: 'Lab 4: Drafting in Echoes Creator',
-              shortTitle: 'Lab 4: Echoes Creator Draft',
-              icon: 'mdi-map-marker-path',
-              color: 'teal',
-              duration: '60 mins',
-              description: 'Map out spatial audio triggers on the Echoes Creator platform and test your soundwalk draft live.'
-            }
-          ]
-        }
-      },
+                        <li>Suggested Soundwalk options: <br><br>
+                            <ul>
+                                <table
+                                    style="width:100%; border-collapse:collapse; font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                style="border:1px solid #ddd; padding:12px; background:#f6f8fa; text-align:left; width: 50%;">
+                                                Listening Soundwalk</th>
+                                            <th
+                                                style="border:1px solid #ddd; padding:12px; background:#f6f8fa; text-align:left;">
+                                                Audio Guide</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
+                                                <strong>Main idea</strong><br>
+                                                Share your own experience (in connection to course topics) of a place
+                                                through the sounds you hear there.
+                                            </td>
+                                            <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
+                                                <strong>Main idea</strong><br>
+                                                Teach or explain facts (history, culture, or daily life) about a place
+                                                and in connection to course themes.
+                                            </td>
+                                        </tr>
 
-      methods: {
-        // Map hash string to corresponding tab index
-        getTabFromHash(hash) {
-          if (!hash) return '0';
+                                        <tr>
+                                            <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
+                                                <strong>Narration &amp; sound</strong><br>
+                                                Sounds and narration (voice commentary) can be equal, or one can
+                                                lead.<br><br>
+                                                <em>If you use little/no narration, make sure sounds are meaningful
+                                                    enough to convey
+                                                    the message, experience or feeling.</em>
+                                                <br><br>
+                                                <p>For more guidance, check Workshop #2 for tips on adding narration
+                                                    using text-to-speech, layering
+                                                    narration and sounds, balancing volume, and exporting audio.
+                                                    <!-- Explore
+                                                    this additional
+                                                    resource for other creative ways to work with audio in Clipchamp:
+                                                    <a href="https://clipchamp.com/en/blog/audio-editing-hacks/"
+                                                        target="_blank">Clipchamp Audio Editing Hacks</a>. -->
+                                            </td>
+                                            <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
+                                                <strong>Narration &amp; sound</strong><br>
+                                                Narration (voice commentary) is the main focus.<br>
+                                                Sounds or music play in the background to support the voice and provide
+                                                context or
+                                                atmosphere.
+                                                <br><br>
+                                                <!-- <p>For more guidance, check Workshop #2 for tips on adding narration
+                                                    using text-to-speech, layering
+                                                    narration and sounds, balancing volume, and exporting audio. Explore
+                                                    this additional
+                                                    resource for other creative ways to work with audio in Clipchamp:
+                                                    <a href="https://clipchamp.com/en/blog/audio-editing-hacks/"
+                                                        target="_blank">Clipchamp Audio Editing Hacks</a>. -->
+                                            </td>
+                                        </tr>
 
-          if (hash.startsWith('#lab1')) return '1';
-          if (hash.startsWith('#lab2')) return '2';
-          if (hash.startsWith('#lab3')) return '3';
-          if (hash.startsWith('#lab4')) return '4';
+                                        <tr>
+                                            <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
+                                                <strong>How to / Strategies</strong>
+                                                <ul>
+                                                    <li>Layer and contrast sounds (mix sounds) to enrich meaning.</li>
+                                                    <li>Add short voice notes to ensure the message is clear (e.g.,
+                                                        explanations,
+                                                        brief stories and poems, etc.).</li>
+                                                </ul>
+                                            </td>
+                                            <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
+                                                <strong>How to / Strategies</strong>
+                                                <ul>
+                                                    <li>Write a clear script with key facts.</li>
+                                                    <li>Mix voice telling the facts with light background sounds or
+                                                        music.</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
 
-          return '0';
-        },
+                                        <tr>
+                                            <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
+                                                <strong>Technical tips (Echoes app)</strong>
+                                                <ul>
+                                                    <li>Write a clear general description for the whole soundwalk.</li>
+                                                    <li>Add text for each echo to give hints, reflections, or extra info
+                                                        if you
+                                                        don’t use narration.</li>
+                                                </ul>
+                                            </td>
+                                            <td style="border:1px solid #ddd; padding:12px; vertical-align:top;">
+                                                <strong>Technical tips (Echoes app)</strong>
+                                                <ul>
+                                                    <li>Use the general soundwalk description to highlight key facts or
+                                                        dates.</li>
+                                                    <li>Add short notes in each echo to remind listeners what to notice.
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-        // Parse hash on initial page load
-        getInitialTab() {
-          return this.getTabFromHash(window.location.hash);
-        },
+
+                            </ul>
+                        </li>
+
+                    </ul>
 
 
-        // Update tab and handle scrolling to element if hash contains a section ID (e.g. #step-2)
-        handleHashChange() {
-          const hash = window.location.hash; // e.g., "#lab2-step-1"
-          if (!hash) return;
+                    <h4>Artist Statement Requirements</h4>
+                    <p><strong>500 words</strong> addressing the following points: </p>
+                    <ul>
+                        <!-- <li>How your final concept developed from the proposal stage (which proposal did you choose
+                            and
+                            why?)</li>
+                        <li>Where the sounds came from (recordings, archives, online sources, etc.)</li>
+                        <li>Why these specific sounds were chosen and how they connect to the site</li>
+                        <li>How your soundwalk connects to topics and readings from week 1 - 4</li>
+                        <li>Creative decisions and any challenges encountered</li> -->
+                        <li><b>The central theme, story, or sonic argument of
+                            the
+                            composition</b>. Explain why this specific site or route was chosen and what
+                            or
+                            acoustic experience you are creating for the listener.</li>
 
-          // 1. Activate correct tab
-          this.tab = this.getTabFromHash(hash);
+                        <li><b>ituate the work within the broader discourse of acoustic ecology, sound
+                            art, or sound studies</b>. Draw connections to key concepts from Weeks 1–4 to ground the
+                            creative practice in theory.</li>
 
-          // 2. Scroll to target element after Vuetify renders tab content
-          this.$nextTick(() => {
-            const targetElement = document.querySelector(hash);
-            if (targetElement) {
-              targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
-          });
-        },
-      },
+                        <li><b>Describe the nature
+                            and
+                            origin of your source materials </b>, including field recordings, archival samples, or ambient
+                            acoustics, and explain how these serve the narrative.
+                        </li>
 
-      watch: {
-        tab(newTab) {
-          const hashes = ['#home', '#lab1', '#lab2', '#lab3', '#lab4'];
-          const currentHash = window.location.hash;
+                        <li><b>Explain other structural and technical choices </b> (e.g., panning, layering,
+                            site-specificity, looping, rhythm, contrast) used guide the listener's physical journey
+                            through the
+                            environment.</li>
+                    </ul>
 
-          // Don't overwrite URL if user clicked or landed on a specific section/homework ID
-          const isSectionHash = currentHash.startsWith('#step-') || currentHash.startsWith('#homework-');
+                    <h4>Additional Tips on Audio Recodings</h4>
+                    <p>Reflect how can you create complex or layered audio recordings that get the audience immersed
+                        (i.e., involved deeply) in the space? Ask yourself:</p>
+                    <ul>
+                        <li>Do your sounds stand out from the live environment? Do they guide the listener’s attention?
+                        </li>
+                        <li>Which unique sounds or locations can help express your theme better?</li>
+                        <li>Are there narrative choices that will make your soundwalk memorable?</li>
+                        <li>What other connections to course readings can enhance your project?</li>
+                    </ul>
 
-          if (!isSectionHash || this.getTabFromHash(currentHash) !== newTab) {
-            if (history.pushState) {
-              history.pushState(null, null, hashes[newTab] || '#home');
+                    <li><strong>If your audio recordings blend in too much, consider layering multiple sounds or adding
+                            narration using your voice or text-to-speech to create a richer experience</strong>.</li>
+                    <ul>
+                        <li>You can layer sound in multiple tracks using Clipchamp (consult <a
+                                href="https://gbdawu.github.io/gbda412/thesoundofeverydaylife.html"
+                                target="_blank">Workshop #2</a> to learn how)
+                        </li>
+
+                    </ul>
+                    <hr>
+                    <h3>Assessment (10%)</h3>
+                    <table class="assessment-table">
+                        <tr>
+                            <th>Criterion</th>
+                            <th>Description</th>
+                            <th>Weight</th>
+                        </tr>
+                        <tr>
+                            <td>Cohesion & Flow</td>
+                            <td>Sounds and locations are arranged thoughtfully; they feel intentional and create a
+                                meaningful experience of the site</td>
+                            <td>5%</td>
+                        </tr>
+                        <tr>
+                            <td>Creativity & Concept</td>
+                            <td>Demonstrates originality in combining sounds and concepts; effectively engages
+                                themes and readings from weeks 1–4</td>
+                            <td>5%</td>
+                        </tr>
+                        <tr>
+                            <td>Sound Selection & Relevance</td>
+                            <td>Sounds are appropriate, varied, and rich; they stand on their own and are clearly
+                                connected to the chosen site and concept
+                            </td>
+
+                            <td>5%</td>
+                        </tr>
+                        <tr>
+                            <td>Artist Statement</td>
+                            <td>Clearly explains concept development, sound sources, creative decisions, and changes
+                                from original proposals </td>
+                            <td>5%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="stage-card completed">
+                <div class="stage-header" onclick="toggleStage('part2')">
+                    <div>
+                        <div class="stage-title">Part 4: In-Class Exhibition</div>
+                        <div class="stage-meta">5% • Oct 19 (In-class Participation)</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="stage-content" id="part2">
+                    <div class="requirement-box">
+                        <!-- <strong>Status:</strong> <span class="status-badge status-completed">Completed</span> -->
+                        <!-- <strong>Status:</strong> <span class="status-badge status-active">In Progress</span> -->
+                        <br><strong>Due:</strong> October 19 (in-class activity)
+                        <br><strong>No grace period</strong> - Students must attend class
+                        <!-- <br><strong>Submission Type:</strong> Pair Participation -->
+                    </div>
+
+                    <hr>
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight">
+                        <p>
+                            Each soundwalk will be accessible to the class.
+                            Students will explore different soundwalks around Strarford School of Interaction and
+                            provide constructive
+                            oral feedback to their peers. The entire class period is dedicated to this exhibition
+                            activity.
+                        </p>
+                    </div>
+
+                    <hr>
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Experience and critically engage with peer-created sound-based artworks</li>
+                        <li>Develop skills in providing constructive feedback on creative work</li>
+                        <li>Practice active listening and spatial awareness through soundwalk participation</li>
+                        <li>Learn to articulate responses to artistic work in oral discussion</li>
+                    </ul>
+
+                    <hr>
+                    <h3>Exhibition Structure</h3>
+                    <p><strong>First hour:</strong> Experience 2+ different soundwalks around campus</p>
+                    <p><strong>Second hour:</strong> Classroom feedback session</p>
+
+                    <h4>What to Bring</h4>
+                    <ul>
+                        <li>Smartphone with Echoes app</li>
+                        <li>Headphones/earbuds</li>
+                        <li>Notebook to take notes about the soundwalk</li>
+                    </ul>
+
+
+                    <h4>Exhibition participation:</h4>
+
+                    <ul>
+                        <li>Be present for the full 2 hours of class</li>
+                        <li>Experience at least 2 different soundwalks created by your peers</li>
+                        <li>Select soundwalks based on sites you are comfortable accessing (all locations are at a
+                            walking distance from Stratford School of Interaction campus
+                            to ensure accessibility)</li>
+                        <li>Actively engage by listening thoughtfully and taking notes for feedback</li>
+                    </ul>
+
+                    <h4>Feedback requirements:</h4>
+
+                    After experiencing each soundwalk, provide constructive oral feedback to the
+                    presenting team focusing on:
+
+                    <ul>
+                        <li>Specific observations about what worked well</li>
+                        <li>Concrete suggestions for improvement</li>
+                        <li>Questions about creative choices or technical decisions</li>
+                        <li>Connections to course themes and concepts</li>
+                    </ul>
+
+
+
+                    <h4>Example Feedback Prompts</h4>
+
+                    Use these prompts to guide your constructive feedback:
+
+                    <ul>
+                        <li>What aspects of the soundwalk did you find most engaging or thought-provoking?</li>
+                        <li>How did the sound selection contribute to your experience of the site?</li>
+                        <li>Were the transitions between sounds smooth? Did they create a cohesive journey?</li>
+                        <li>How did the soundwalk make you think differently about this space?
+                            (Even if the change feels small, try to notice new details, perspectives, or feelings you
+                            may not have considered before.)</li>
+                        <li>What specific improvements or adjustments would enhance the experience?</li>
+                        <li>How effectively did the work connect to course themes from weeks 1-4?</li>
+                    </ul>
+
+
+
+                    <!-- Contingency Plans
+
+                    Weather: If conditions are unsafe for outdoor activity, the exhibition will be rescheduled
+
+                    Technical issues: If Echoes.xyz experiences problems, the exhibition will be rescheduled -->
+
+
+                    <hr>
+                    <h3>Assessment (5%)</h3>
+                    <table class="assessment-table">
+                        <tr>
+                            <th>Criterion</th>
+                            <th>Description</th>
+                            <th>Weight</th>
+                        </tr>
+                        <tr>
+                            <td>Active Participation</td>
+                            <td>Full attendance and engaged listening during at least 2 soundwalks; demonstrates
+                                thoughtful attention to the works </td>
+                            <td>2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Constructive Feedback</td>
+                            <td>Provides specific, helpful feedback to at least 2 teams; offers concrete
+                                observations
+                                and suggestions rather than general comments </td>
+                            <td>2.5%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="stage-card upcoming">
+                <div class="stage-header" onclick="toggleStage('part3')">
+                    <div>
+                        <div class="stage-title">Part 5: Analytical Reflection</div>
+                        <div class="stage-meta">10% • Due oct 25</div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="stage-content" id="part3">
+                    <div class="requirement-box">
+                        <!-- <strong>Status:</strong> <span class="status-badge status-active">Due</span> -->
+                        <!-- <strong>Status:</strong> <span class="status-badge status-active">In Progress</span> -->
+                        <br><strong>Due:</strong> October 25 by 11:59 pm
+                        <br><strong>Grace period</strong> Until October 28 by 11:59 pm without penalty. Submissions made
+                        after the grace period will be
+                        penalized 5% for each additional day, including Saturdays and Sundays. Submissions made one
+                        week (seven days) after the grace period
+                        will not be accepted and will receive a 0% grade.
+                        <!-- <br><strong>Submission Type:</strong> Pair Submission -->
+
+                    </div>
+
+
+                    <h3>What You Need to Do</h3>
+                    <div class="highlight">
+                        <p>
+                            In this final reflection, your will discuss your experience creating the soundwalk,
+                            incorporating personal insights, technical reflections, and connections to course concepts.
+                            This is your opportunity to examine how the process shaped your understanding of the politics of space at Stratford through sound, movement, and creative collaboration.
+                        </p>
+                    </div>
+
+                    <hr>
+                    <h3>Learning Objectives</h3>
+                    <ul>
+                        <li>Critically analyze your creative process and technical decisions</li>
+                        <li>Reflect on how sound-based art can reveal new perspectives on familiar spaces</li>
+                        <li>Evaluate peer feedback and integrate insights from others' creative approaches</li>
+                        <li>Connect your artistic practice to broader themes in audio cultures, practices and
+                            technologies
+                        </li>
+                    </ul>
+
+                    <hr>
+                    <h3>Submission Requirements</h3>
+                    <ol>
+                        <li><strong>1000-1250 words</strong> double-space analytical reflection submited on LEARN's
+                            dropbox "Project 1,
+                            Part 3 - Analytical Reflection"</li>
+                        <ul>
+                            <li>Submit as a <strong>PDF or Word</strong> document</li>
+                            <li>Include a cover page</li>
+                            <li>Use <strong>clear headings</strong> to organize your sections</li>
+                            <li>Provide <strong>specific examples</strong> from your project and exhibition experience
+                                and feedback</li>
+                            <li>Include <strong>APA citations</strong> if referencing course materials</li>
+                        </ul>
+                    </ol>
+
+                    <hr>
+                    <h3>Content Areas to Address</h3>
+                    <ol>
+                        <li>
+                            <h4>Personal creative insights</h4>
+                            <ul>
+                                <li>How did creating this soundwalk change your understanding of the chosen space? </li>
+                                <li>How did creating this soundwalk deepen your understanding of the themes and readings
+                                    from Weeks 1–4?</li>
+                                <li>What did you discover about your own creative process
+                                    and collaboration with your partner? </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>Technical process analysis</h4>
+                            <ul>
+                                <li>Discuss your <b>sound collection techniques</b> and challenges</li>
+                                <li>Discuss your <b>audio editing decisions</b>, software use and learning curve</li>
+                                <li>Discuss your <b>Echoes app integration process</b>, focusing on spatial and timing
+                                    considerations</li>
+                                <li>How <b>technical limitations</b> or capabilities influenced your creative choices
+                                </li>
+                            </ul>
+                        <li>
+                            <h4>Peer learning integration</h4>
+                            <ul>
+                                <li>
+                                    How did you respond to feedback received
+                                    during
+                                    the exhibition?
+                                </li>
+                                <li>
+                                    What would you change based on peer input given during the exhibition?
+                                </li>
+                                <li>How did this feedback process during the exhibition
+                                    contribute to your learning?</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>Critical comparison</h4>
+                            <p>Reflect on other soundwalks you experienced during the exhibition,
+                                focusing
+                                on: </p>
+                            <ul>
+                                <li>The different <b>technical approaches</b> or creative solutions used by other teams
+                                </li>
+                                <li>How explicit were the other teams’ connections to readings or themes from weeks 1-4
+                                    compared to yours</li>
+                                <li>The <b>level of clarity</b> in conveying directions and interactivity</li>
+                                <li>Any creative <b>innovations</b> that impressed or inspired you</li>
+                                <li><b>What these comparisons taught you</b> about sound-based art</li>
+                                <li><b>What you found effective</b> or less effective in other teams' work</li>
+                                <li><b>How their approaches influenced your thinking</b> about soundwalk creation</li>
+                            </ul>
+
+                    </ol>
+                    <hr>
+                    <h3>Assessment (10%)</h3>
+
+                    <table class="assessment-table">
+                        <tr>
+                            <th>Criterion</th>
+                            <th>Description</th>
+                            <th>Weight</th>
+                        </tr>
+                        <tr>
+                            <td>Personal Creative Insights</td>
+                            <td>Demonstrates genuine reflection on how the project changed your perspective on space
+                                and
+                                creative process; shows self-awareness about learning </td>
+                            <td>2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Technical Process Analysis</td>
+                            <td>Thoughtful analysis of sound collection, editing, and Echoes integration challenges
+                                and
+                                decisions; connects technical choices to creative outcomes </td>
+                            <td>2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Peer Learning Integration</td>
+                            <td>Meaningful engagement with feedback received and insights gained from experiencing
+                                others' work; shows ability to learn from peers </td>
+                            <td>2.5%</td>
+                        </tr>
+                        <tr>
+                            <td>Critical Comparison</td>
+                            <td>Insightful analysis of different creative and technical approaches observed in peer
+                                works; demonstrates understanding of various possibilities in sound-based art </td>
+                            <td>2.5%</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleStage(stageId) {
+            const content = document.getElementById(stageId);
+            const icon = content.previousElementSibling.querySelector('.expand-icon');
+
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
             } else {
-              window.location.hash = hashes[newTab] || '#home';
+                // Close all other stages
+                const allContents = document.querySelectorAll('.stage-content');
+                const allIcons = document.querySelectorAll('.expand-icon');
+                allContents.forEach(c => c.classList.remove('expanded'));
+                allIcons.forEach(i => i.style.transform = 'rotate(0deg)');
+
+                // Open clicked stage
+                content.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
             }
-          }
         }
-      },
-      mounted() {
-        // Check for deep links on initial page load
-        this.handleHashChange();
 
-        // Listen for hash changes (e.g., back/forward browser buttons or direct anchor clicks)
-        window.addEventListener('hashchange', this.handleHashChange);
-      },
-
-      beforeUnmount() {
-        // Clean up event listener when component unmounts
-        window.removeEventListener('hashchange', this.handleHashChange);
-      },
-    });
-
-    app.use(vuetify);
-    app.mount('#app');
-  </script>
+        // Auto-expand current active stage on load
+        document.addEventListener('DOMContentLoaded', function () {
+            const activeStage = document.querySelector('.stage-card.active .stage-content');
+            if (activeStage) {
+                activeStage.classList.add('expanded');
+            }
+        });
+    </script>
 </body>
 
 </html>
