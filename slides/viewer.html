@@ -149,7 +149,7 @@
             // Consulta el Markdown y la configuración del tema
             const { data, error } = await supabaseClient
                 .from('presentations')
-                .select('content_markdown, theme_config')
+                .select('title, content_markdown, theme_config') // <-- Puedes pedir 'title' implícitamente o usar la variable
                 .eq('title', title)
                 .single();
 
@@ -157,6 +157,9 @@
                 document.getElementById('slides-container').innerHTML = '<section>⚠️ Presentación no encontrada.</section>';
                 return;
             }
+
+            // 🌟 AQUÍ: Asigna el título real de la presentación a la pestaña del navegador
+            document.title = data.title || title;
 
             // 1. Cargar la combinación de tipografías guardada
             const savedFontId = data.theme_config?.fontPair || 'montserrat-inter';
