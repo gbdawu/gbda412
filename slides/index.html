@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor Reveal.js + Editor.js + Supabase</title>
+
+  <!-- Vuetify CSS & Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.5.2/dist/vuetify.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+
+  <!-- Reveal.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/night.css">
+
+  <!-- Editor.js Core & Plugins CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/editorjs-text-alignment-blocktune@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/editorjs-text-color-plugin@2.0.4/dist/bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+  <!-- Plugin de Columnas para Editor.js -->
+  <!-- Reemplaza el script de columnas en el <head> por este: -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+  <style>
+    .reveal-container {
+      width: 100%;
+      height: 520px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .title-input {
+      max-width: 300px;
+    }
+
+    /* Estilos del Contenedor de Editor.js */
+    .editorjs-container {
+      background-color: #1e1e1e;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 440px;
+      max-height: 520px;
+      overflow-y: auto;
+      color: #fff;
+    }
+
+    /* Adaptación de Editor.js a Tema Oscuro */
+    .codex-editor__redactor {
+      padding-bottom: 100px !important;
+    }
+
+    .ce-block__content,
+    .ce-toolbar__content {
+      max-width: 90% !important;
+    }
+
+    .ce-toolbar__plus,
+    .ce-toolbar__settings-btn {
+      color: #fff !important;
+      background-color: #2d2d2d !important;
+    }
+
+    .ce-popover {
+      background-color: #2b2b2b !important;
+      color: #000000 !important;
+      border: 1px solid #444 !important;
+    }
+
+    .ce-popover__item-icon {
+      background-color: #383838 !important;
+      color: #000000 !important;
+    }
+
+    .ce-popover__item:hover {
+      background-color: #3d3d3d !important;
+    }
+
+    /* Fondo e input de búsqueda (filtro) del menú + */
+    .ce-popover__custom-search,
+    .ce-popover-header__input,
+    .cdx-search-field__input {
+      color: #000000 !important;
+      /* Texto que escribes en la búsqueda */
+      background-color: #ffffff !important;
+      /* Fondo claro para mayor contraste */
+    }
+
+    /* Base Typography Reveal */
+    .reveal,
+    .reveal .slides,
+    .reveal .slides section,
+    .reveal .slides section p,
+    .reveal .slides section li,
+    .reveal .slides section span,
+    .reveal .slides section a {
+      font-family: var(--body-font, 'Inter', sans-serif) !important;
+    }
+
+    .reveal .slides section p,
+    .reveal .slides section li {
+      font-size: 0.8em;
+      line-height: 1.4 !important;
+      /* white-space: pre-wrap; */
+    }
+
+    .reveal .slides section h1,
+    .reveal .slides section h2,
+    .reveal .slides section h3,
+    .reveal .slides section h4 {
+      font-family: var(--title-font, 'Montserrat', sans-serif) !important;
+      font-weight: 800 !important;
+      text-transform: none !important;
+      /* white-space: pre-wrap; */
+    }
+
+    /* Respetar la alineación de texto y saltos de línea */
+    .reveal .slides section h1,
+    .reveal .slides section h2,
+    .reveal .slides section h3,
+    .reveal .slides section h4,
+    .reveal .slides section p,
+    .reveal .slides section ul,
+    .reveal .slides section ol,
+    .reveal .slides section blockquote {
+      white-space: pre-wrap;
+      text-align: inherit;
+      /* Permite heredar el style="text-align: ..." del contenedor o elemento */
+    }
+
+    .reveal mark {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+      background-color: #fde047;
+      color: #000;
+    }
+
+    /* Soporte para bloques de columnas en Reveal.js */
+    .editor-columns-container {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 20px !important;
+      width: 100% !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+    }
+
+    .editor-column {
+      flex: 1 !important;
+      min-width: 0 !important;
+    }
+
+    /* Overlay translúcido del Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    /* Tarjeta del Modal */
+    .modal-card {
+      background: #ffffff;
+      margin-top: 1rem;
+      width: 90vw;
+      /* Ocupa el 100% del ancho de la pantalla */
+      height: 100vh;
+      /* Ocupa el 100% del alto de la pantalla */
+      max-width: 100vw;
+      /* Elimina la restricción previa de 900px */
+      border-radius: 0;
+      /* Remueve bordes redondeados para pantalla completa */
+      display: flex;
+      flex-direction: column;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 1rem 1.5rem;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #1e293b;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #64748b;
+      box-shadow: none;
+      margin: 0;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-body.iframe-step {
+      padding: 0.75rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.25rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      box-sizing: border-box;
+      color: black;
+    }
+
+    .admin-notice {
+      font-size: 0.85rem;
+      color: #2563eb;
+      background: #eff6ff;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Iframe que carga el panel de administración */
+    .forum-admin-iframe {
+      width: 100%;
+      flex-grow: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-secondary {
+      background: #64748b;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-success {
+      background: #22c55e;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app"></div>
+
+  <!-- SDK de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Vue 3 & Vuetify 3 Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.19/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.5.2/dist/vuetify.min.js"></script>
+
+  <!-- Reveal.js -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://jomqgtqtwgaxdgwywhtg.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXFndHF0d2dheGRnd3l3aHRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MTkyNDgsImV4cCI6MjA5ODQ5NTI0OH0.aTKt1oLBpyMMNL0S2Lcv3C1ZyOkmDcxNP2J2BgxluBg';
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
+    const { createVuetify } = Vuetify;
+
+    const vuetify = createVuetify({ theme: { defaultTheme: 'dark' } });
+
+    // --- Parser Liviano: Editor.js JSON -> HTML para Reveal.js ---
+    // --- Parser Liviano: Editor.js JSON -> HTML para Reveal.js ---
+    function editorJsToHtml(editorData) {
+      if (!editorData || !editorData.blocks || !Array.isArray(editorData.blocks)) return '';
+
+      return editorData.blocks.map(block => {
+        if (!block) return '';
+
+        // Mover aquí la extracción de alineación para que lea el 'block' activo de la iteración
+        const align = block.tunes?.alignmentTune?.alignment || block.data?.alignment || 'left';
+        const alignStyle = `style="text-align: ${align} !important;"`;
+
+
+        switch (block.type) {
+          // ---> CASO DE COLUMNAS <---
+          // case 'columns':
+          //   const cols = block.data?.cols || [];
+          //   const columnsHtml = cols.map(col => {
+          //     // Procesa de forma recursiva los bloques dentro de cada columna
+          //     const colContent = editorJsToHtml({ blocks: col.blocks || [] });
+          //     return `<div class="editor-column">${colContent}</div>`;
+          //   }).join('');
+
+          //   return `<div class="editor-columns-container">${columnsHtml}</div>`;
+
+          case 'table':
+            const content = block.data?.content || [];
+            const rowsHtml = content.map(row => {
+              const cellsHtml = row.map(cell => `<td>${cell || ''}</td>`).join('');
+              return `<tr>${cellsHtml}</tr>`;
+            }).join('');
+
+            return `<table class="invisible-table">${rowsHtml}</table>`;
+
+          case 'header':
+            return `<h${block.data?.level || 2} ${alignStyle}>${block.data?.text || ''}</h${block.data?.level || 2}>`;
+
+          case 'paragraph':
+            const textWithBreaks = (block.data?.text || '').replace(/\n/g, '<br>');
+            return `<p ${alignStyle}>${textWithBreaks}</p>`;
+
+          case 'list':
+            const tag = block.data?.style === 'ordered' ? 'ol' : 'ul';
+            const renderItems = (items) => items.map(item => {
+              const text = typeof item === 'string' ? item : (item.content || '');
+              const subItems = item.items && item.items.length > 0 ? `<${tag}>${renderItems(item.items)}</${tag}>` : '';
+              return `<li>${text}${subItems}</li>`;
+            }).join('');
+            return `<${tag} ${alignStyle}>${renderItems(block.data?.items || [])}</${tag}>`;
+
+          case 'image':
+            const imgUrl = block.data?.file?.url || '';
+            if (!imgUrl) return '';
+            const caption = block.data?.caption ? `<figcaption>${block.data.caption}</figcaption>` : '';
+            return `<figure ${alignStyle}><img src="${imgUrl}" style="max-height: 400px; margin: 0 auto; display: block;" />${caption}</figure>`;
+
+          case 'embed':
+            return `<iframe data-src="${block.data?.embed || ''}" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>`;
+
+          case 'quote':
+            return `<blockquote ${alignStyle}>${block.data?.text || ''} <cite>${block.data?.caption || ''}</cite></blockquote>`;
+
+          case 'raw':
+            return block.data?.html || '';
+
+          default:
+            return '';
+        }
+      }).join('\n');
+    }
+
+    const App = {
+      template: `
+      <v-app>
+        <!-- Header Principal -->
+        <v-app-bar color="surface-variant" density="compact" elevation="2">
+          <v-app-bar-title class="font-weight-bold d-flex align-center">
+            <v-icon icon="mdi-presentation-play" class="mr-2" color="primary"></v-icon>
+            Editor Reveal + Editor.js
+          </v-app-bar-title>
+
+          <!-- Abrir Presentación -->
+          <v-select
+            v-model="selectedPresentationId"
+            :items="presentacionesFiltradas"
+            item-title="title"
+            item-value="id"
+            placeholder="Abrir guardada..."
+            density="compact"
+            variant="solo-filled"
+            hide-details
+            class="mx-2"
+            style="max-width: 220px;"
+            prepend-inner-icon="mdi-folder-open"
+            @update:model-value="cargarPresentacionSeleccionada"
+            :loading="cargandoLista"
+          ></v-select>
+
+          <!-- Campo Curso / Carpeta -->
+          <v-combobox
+            v-model="currentCourse"
+            :items="listaCursos"
+            placeholder="Curso / Carpeta"
+            density="compact"
+            variant="solo-filled"
+            hide-details
+            class="mx-2"
+            style="max-width: 200px;"
+            prepend-inner-icon="mdi-folder-account"
+            @update:model-value="selectedPresentationId = null"
+          ></v-combobox>
+
+          <!-- Nombre de la Presentación -->
+          <v-text-field
+            v-model="presentationTitle"
+            placeholder="Nombre del archivo / proyecto"
+            density="compact"
+            variant="solo-filled"
+            hide-details
+            class="title-input mx-4"
+            prepend-inner-icon="mdi-file-document-edit"
+          ></v-text-field>
+
+          <v-spacer></v-spacer>
+
+          <v-btn color="success" variant="elevated" prepend-icon="mdi-cloud-upload" @click="guardarPresentacion" :loading="cargandoGuardado">
+            Guardar
+          </v-btn>
+
+          <v-btn 
+            v-if="currentId"
+            color="error" 
+            variant="elevated" 
+            prepend-icon="mdi-delete" 
+            class="ml-2"
+            @click="eliminarPresentacion" 
+            :loading="cargandoEliminar"
+          >
+            Eliminar
+          </v-btn>
+        </v-app-bar>
+
+        <v-main class="bg-grey-darken-4">
+          <v-container fluid class="fill-height align-start pa-4">
+            
+            <!-- Barra Superior de Herramientas y Paginación de Diapositivas -->
+            <v-row class="mb-2">
+              <v-col cols="12" class="d-flex align-center justify-space-between bg-surface pa-2 rounded elevation-2">
+                
+                <!-- Paginador de Diapositivas (Tabs) -->
+                <div class="d-flex align-center ga-1 style-scroll" style="overflow-x: auto; max-width: 70%;">
+                  <v-btn-toggle v-model="activeSlideIndex" mandatory color="primary" density="compact" variant="outlined">
+                    <v-btn 
+                      v-for="(slide, index) in slides" 
+                      :key="index" 
+                      :value="index"
+                      class="text-none"
+                    >
+                      Slide {{ index + 1 }}
+                    </v-btn>
+                  </v-btn-toggle>
+
+                  <v-btn icon="mdi-plus" size="small" color="success" variant="tonal" title="Agregar Diapositiva" @click="agregarDiapositiva"></v-btn>
+                  <v-btn 
+                    icon="mdi-minus" 
+                    size="small" 
+                    color="error" 
+                    variant="tonal" 
+                    title="Eliminar Diapositiva Actual" 
+                    :disabled="slides.length <= 1"
+                    @click="eliminarDiapositivaActual"
+                  ></v-btn>
+
+
+                  <!-- Agrega esto junto al botón de agregar (+) y eliminar (-) -->
+<v-btn 
+  icon="mdi-chevron-left" 
+  size="small" 
+  color="info" 
+  variant="tonal" 
+  title="Mover Diapositiva a la Izquierda" 
+  :disabled="activeSlideIndex === 0"
+  @click="moverDiapositivaIzquierda"
+></v-btn>
+
+<v-btn 
+  icon="mdi-chevron-right" 
+  size="small" 
+  color="info" 
+  variant="tonal" 
+  title="Mover Diapositiva a la Derecha" 
+  :disabled="activeSlideIndex === slides.length - 1"
+  @click="moverDiapositivaDerecha"
+></v-btn>
+                </div>
+
+                <!-- Personalización de Tema / Estilos -->
+                <div class="d-flex align-center ga-2">
+                  <v-select
+                    v-model="selectedFontPair"
+                    :items="fontPairs"
+                    item-title="label"
+                    item-value="id"
+                    density="compact"
+                    variant="outlined"
+                    hide-details
+                    style="width: 180px;"
+                    @update:model-value="aplicarTipografia"
+                  ></v-select>
+
+                  <v-menu offset-y :close-on-content-click="false">
+                    <template v-slot:activator="{ props }">
+                      <v-btn color="purple" icon="mdi-palette" density="compact" title="Cambiar Gradiente" v-bind="props"></v-btn>
+                    </template>
+                    <v-card width="300" class="pa-3">
+                      <v-card-title class="text-subtitle-2 pa-0 mb-2">Selecciona un Gradiente</v-card-title>
+                      <v-item-group v-model="selectedGradient" mandatory @update:model-value="aplicarEstilo">
+                        <v-row dense>
+                          <v-col v-for="(grad, index) in gradientes" :key="index" cols="6">
+                            <v-item v-slot="{ isSelected, toggle }">
+                              <v-card
+                                :style="{ background: grad.value }"
+                                height="40"
+                                class="d-flex align-center justify-center cursor-pointer border"
+                                @click="toggle"
+                              >
+                                <v-icon v-if="isSelected" icon="mdi-check" color="white"></v-icon>
+                              </v-card>
+                            </v-item>
+                          </v-col>
+                        </v-row>
+                      </v-item-group>
+                    </v-card>
+                  </v-menu>
+
+  
+                  <v-btn 
+  color="deep-purple-accent-2" 
+  icon="mdi-forum" 
+  density="compact" 
+  title="Configurar Foro de Discusión" 
+  @click="abrirModalForo"
+></v-btn>
+
+                  <v-btn color="primary" icon="mdi-open-in-new" density="compact" title="embed" @click="agregarFondoForo"></v-btn>
+<!-- Modal para Crear/Configurar Foro de Discusión -->
+<div v-if="mostrarModalForo" class="modal-overlay">
+  <div class="modal-card">
+    
+    <!-- Encabezado del Modal -->
+    <div class="modal-header">
+      <h3>💬 Configurar Foro de Discusión</h3>
+      <button @click="cerrarModalForo" class="close-btn">&times;</button>
+    </div>
+
+    <!-- PASO 1: Ingrese el ID / Slug de la Sesión -->
+    <div v-if="pasoModal === 1" class="modal-body">
+      <label>Introduce el identificador único para esta sesión:</label>
+      <input 
+        v-model="sessionIdInput" 
+        type="text" 
+        placeholder="ej. 550-22-module1-seminar-discussion" 
+        class="modal-input"
+      />
+      <small>Este ID servirá para enlazar las preguntas y respuestas en la base de datos.</small>
+      
+      <div class="modal-actions">
+        <button @click="cerrarModalForo" class="btn-secondary">Cancelar</button>
+        <button @click="irAlPaso2" :disabled="!sessionIdInput.trim()" class="btn-primary">
+          Siguiente ➔
+        </button>
+      </div>
+    </div>
+
+    <!-- PASO 2: Iframe con la interfaz Admin cargada -->
+    <div v-if="pasoModal === 2" class="modal-body iframe-step">
+      <p class="admin-notice">
+        🛠️ Configura las instrucciones y preguntas del foro a continuación. Al finalizar, haz clic en <strong>"Incrustar en Diapositiva"</strong>.
+      </p>
+      
+      <iframe :src="adminUrlIframe" class="forum-admin-iframe"></iframe>
+
+      <div class="modal-actions">
+        <button @click="pasoModal = 1" class="btn-secondary">⬅ Volver</button>
+        <button @click="confirmarEIncrustarForo" class="btn-success">
+          🚀 Incrustar Foro en la Diapositiva
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+                  <v-btn color="light-green" icon="mdi-open-in-new" density="compact" title="Abrir Visor" @click="abrirVisorNuevaPestana"></v-btn>
+                  
+
+                  <!-- Botón para Gerar Código de Embebido (iFrame) -->
+<v-btn 
+  color="cyan" 
+  icon="mdi-code-tags" 
+  density="compact" 
+  title="Obtener código iFrame" 
+  class="ml-1"
+  :disabled="!presentationTitle"
+  @click="abrirDialogoEmbed"
+></v-btn>
+
+<!-- Diálogo Modal para Copiar el iFrame -->
+<v-dialog v-model="dialogEmbed" max-width="600">
+  <v-card>
+    <v-card-title class="text-h6 font-weight-bold d-flex align-center">
+      <v-icon icon="mdi-code-tags" class="mr-2" color="cyan"></v-icon>
+      Incorporar Presentación (iFrame)
+    </v-card-title>
+    
+    <v-card-text>
+      <p class="text-body-2 mb-3">Copia este código HTML para insertar tu presentación en cualquier sitio web o plataforma LMS:</p>
+      <v-textarea
+        v-model="iframeCode"
+        readonly
+        rows="4"
+        variant="outlined"
+        density="compact"
+        hide-details
+        class="font-monospace"
+      ></v-textarea>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="grey-lighten-1" variant="text" @click="dialogEmbed = false">Cerrar</v-btn>
+      <v-btn color="cyan" variant="elevated" prepend-icon="mdi-content-copy" @click="copiarIframe">
+        {{ textoBotonCopiar }}
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
+                </div>
+              </v-col>
+            </row>
+
+            <!-- Grid Editor / Preview -->
+            <v-row class="fill-height">
+              
+              <!-- Columna Editor.js -->
+              <v-col cols="12" md="6">
+                <v-card class="pa-3 fill-height d-flex flex-column" elevation="3">
+                  <div class="text-subtitle-2 font-weight-bold mb-2 d-flex align-center text-primary">
+                    <v-icon icon="mdi-square-edit-outline" class="mr-1"></v-icon>
+                    Editando Diapositiva {{ activeSlideIndex + 1 }}
+                  </div>
+
+                  <!-- Contenedor donde se monta Editor.js -->
+                  <div id="editorjs-holder" class="editorjs-container flex-grow-1"></div>
+                </card>
+              </v-col>
+
+              <!-- Columna Vista Previa Reveal.js -->
+              <v-col cols="12" md="6">
+                <v-card class="pa-4 fill-height" elevation="3">
+                  <v-card-title class="text-subtitle-1 pa-0 mb-2 d-flex align-center">
+                    <v-icon icon="mdi-eye" class="mr-2"></v-icon> Vista Previa en Vivo
+                  </v-card-title>
+
+                  <div class="reveal-container">
+                    <div class="reveal" ref="revealRef">
+                      <div class="slides" id="slides-container">
+                        <!-- Las diapositivas se renderizan dinámicamente aquí -->
+                      </div>
+                    </div>
+                  </div>
+                </v-card>
+              </v-col>
+
+            </row>
+          </v-container>
+        </v-main>
+      </v-app>
+    `,
+      setup() {
+        const revealRef = ref(null);
+        let revealInstance = null;
+        let editorInstance = null;
+
+        const currentId = ref(null);
+        const presentationTitle = ref('Nueva Presentación Editor.js');
+        const currentCourse = ref('General');
+        const listaCursos = ref(['General', 'Diseño Web', 'Base de Datos', 'Audiovisual']);
+
+        const slides = ref([
+          {
+            blocks: [
+              { type: 'header', data: { text: 'Título de la Diapositiva 1', level: 2 } },
+              { type: 'paragraph', data: { text: 'Haz clic aquí para editar con Editor.js...' } }
+            ]
+          }
+        ]);
+
+        const activeSlideIndex = ref(0);
+        const cargandoGuardado = ref(false);
+        const cargandoEliminar = ref(false);
+        const cargandoLista = ref(false);
+
+        const listaPresentaciones = ref([]);
+        const selectedPresentationId = ref(null);
+
+        // Variables reactivas para el diálogo del iFrame
+        const dialogEmbed = ref(false);
+        const iframeCode = ref('');
+        const textoBotonCopiar = ref('Copiar Código');
+
+
+        // Variables reactivas para el Modal
+        const mostrarModalForo = ref(false);
+        const pasoModal = ref(1);
+        const sessionIdInput = ref('');
+        const adminUrlIframe = ref('');
+
+        // Abrir el modal desde el botón de la barra de herramientas
+        const abrirModalForo = () => {
+          sessionIdInput.value = `session-${Date.now().toString().slice(-6)}`;
+          pasoModal.value = 1;
+          mostrarModalForo.value = true;
+        };
+
+        // Cerrar Modal
+        const cerrarModalForo = () => {
+          mostrarModalForo.value = false;
+        };
+
+        // Avanzar al Paso 2: Cargar la interfaz Admin en el Iframe
+        const irAlPaso2 = () => {
+          if (!sessionIdInput.value.trim()) return;
+
+          const cleanId = sessionIdInput.value.trim();
+          const baseUrl = "https://dmgc-courses.github.io/discussions/index.html";
+
+          // Construir la URL de administración
+          adminUrlIframe.value = `${baseUrl}?session=${cleanId}&admin=profesor123`;
+          pasoModal.value = 2;
+        };
+
+        // Paso 3: Confirmar e Insertar en Editor.js
+        const confirmarEIncrustarForo = () => {
+          const cleanId = sessionIdInput.value.trim();
+          const studentUrl = `https://dmgc-courses.github.io/discussions/index.html?session=${cleanId}`;
+
+          // Formato HTML para Reveal.js iframe
+          const htmlRaw = `<section data-background-iframe="${studentUrl}" data-background-interactive>\n</section>`;
+
+          if (editorInstance) {
+            editorInstance.blocks.insert('raw', {
+              html: htmlRaw
+            });
+            cerrarModalForo();
+          } else {
+            console.warn("La instancia de Editor.js aún no está lista.");
+          }
+        };
+
+        // Función adaptada para Vue
+        // Función adaptada para Vue (usando la variable let editorInstance)
+        const agregarFondoForo = () => {
+          const url = prompt("Introduce la URL del foro de discusión:");
+          if (!url) return;
+
+          const htmlRaw = `<section data-background-iframe="${url.trim()}" data-background-interactive>\n</section>`;
+
+          // Se evalúa directamente editorInstance sin .value
+          if (editorInstance) {
+            editorInstance.blocks.insert('raw', {
+              html: htmlRaw
+            });
+          } else {
+            console.warn("La instancia de Editor.js aún no está lista.");
+          }
+        };
+
+        const abrirDialogoEmbed = () => {
+          if (!presentationTitle.value.trim()) {
+            alert('Asigna un nombre a la presentación primero.');
+            return;
+          }
+
+          // Construir la URL completa apuntando a viewer_new.html
+          const urlViewer = `${window.location.origin}${window.location.pathname.replace('index.html', '')}viewer_new.html?title=${encodeURIComponent(presentationTitle.value.trim())}`;
+
+          // Generar la etiqueta iframe
+          iframeCode.value = `<iframe src="${urlViewer}" width="100%" height="500px" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>`;
+
+          textoBotonCopiar.value = 'Copiar Código';
+          dialogEmbed.value = true;
+        };
+
+        const copiarIframe = async () => {
+          try {
+            await navigator.clipboard.writeText(iframeCode.value);
+            textoBotonCopiar.value = '¡Copiado!';
+            setTimeout(() => {
+              textoBotonCopiar.value = 'Copiar Código';
+            }, 2000);
+          } catch (err) {
+            alert('Error al copiar al portapapeles: ' + err.message);
+          }
+        };
+
+        // Configuración de Editor.js
+        const inicializarEditorJS = async (dataInicial) => {
+          if (editorInstance && typeof editorInstance.destroy === 'function') {
+            await editorInstance.destroy();
+            editorInstance = null;
+          }
+
+          // Sanitizar el objeto eliminando Proxies de Vue
+          let cleanData = { blocks: [] };
+          if (dataInicial && dataInicial.blocks) {
+            cleanData = JSON.parse(JSON.stringify(dataInicial));
+            // Asegurar que ningún bloque párrafo/header tenga texto undefined
+            cleanData.blocks = cleanData.blocks.map(block => {
+              if (!block.data) block.data = {};
+              if (block.type === 'paragraph' || block.type === 'header') {
+                if (typeof block.data.text !== 'string') block.data.text = '';
+              }
+              return block;
+            });
+          } else {
+            cleanData = {
+              blocks: [
+                { type: 'header', data: { text: 'Título de la Diapositiva', level: 2 } },
+                { type: 'paragraph', data: { text: '' } }
+              ]
+            };
+          }
+
+          // Define las herramientas que estarán disponibles dentro de las columnas
+          const columnTools = {
+            header: Header,
+            list: NestedList,
+            image: ImageTool,
+            quote: Quote
+          };
+
+          editorInstance = new EditorJS({
+            holder: 'editorjs-holder',
+            data: cleanData,
+            placeholder: 'Escribe contenido o presiona "/" para elegir un bloque...',
+            tools: {
+              alignmentTune: {
+                class: AlignmentBlockTune,
+                config: {
+                  default: 'left',
+                  blocks: {
+                    header: 'left',
+                    paragraph: 'left'
+                  }
+                }
+              },
+              // Herramienta Raw HTML para código y layouts
+              raw: {
+                class: RawTool,
+                placeholder: '<div class="editor-columns-container">\n  <div class="editor-column">Columna 1</div>\n  <div class="editor-column">Columna 2</div>\n</div>'
+              },
+
+              table: {
+                class: Table,
+                inlineToolbar: true,
+                config: {
+                  rows: 1,
+                  cols: 2,
+                },
+              },
+
+              header: {
+                class: Header,
+                shortcut: 'CMD+SHIFT+H',
+                tunes: ['alignmentTune'],
+                config: { levels: [1, 2, 3, 4], defaultLevel: 2 }
+              },
+              list: { class: NestedList, inlineToolbar: true },
+              quote: { class: Quote, inlineToolbar: true, tunes: ['alignmentTune'] },
+              // marker: { class: Marker },
+              // Reemplaza 'marker: { class: Marker }' por esto:
+              // Herramienta 1: Resaltador de Fondo (Marker)
+              Marker: {
+                class: window.ColorPlugin,
+                config: {
+                  colorCollections: ['#FFF066', '#A0FE00', '#00E5FF', '#FFB74D', '#FF80AB'],
+                  type: 'marker',
+                  customPicker: true
+                }
+              },
+
+              // Herramienta 2: Color de Texto (TextColor)
+              TextColor: {
+                class: window.ColorPlugin,
+                config: {
+                  colorCollections: ['#E53935', '#1E88E5', '#43A047', '#FB8C00', '#8E24AA'],
+                  type: 'text',
+                  customPicker: true
+                }
+              },
+
+              inlineCode: { class: InlineCode },
+              embed: { class: Embed, config: { services: { youtube: true } } },
+              image: {
+                class: ImageTool,
+                config: {
+                  uploader: {
+                    async uploadByFile(file) {
+                      try {
+                        const fileName = `${Date.now()}_${file.name}`;
+                        const { error } = await supabaseClient.storage.from('imagenes-diapositivas').upload(fileName, file);
+                        if (error) throw error;
+                        const { data: publicUrlData } = supabaseClient.storage.from('imagenes-diapositivas').getPublicUrl(fileName);
+                        return { success: 1, file: { url: publicUrlData.publicUrl } };
+                      } catch (err) {
+                        alert('Error al subir imagen: ' + err.message);
+                        return { success: 0 };
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            // Habilitar la alineación por defecto para todos los bloques comunes
+            tunes: ['alignmentTune'],
+            onChange: async () => {
+              const savedData = await editorInstance.save();
+              slides.value[activeSlideIndex.value] = savedData;
+              actualizarReveal();
+            }
+          });
+          // ---> PEGAR AQUÍ (Justo después de instanciar EditorJS y antes de cerrar la función) <---
+          nextTick(() => {
+            const holder = document.getElementById('editorjs-holder');
+            if (holder) {
+              document.addEventListener('click', async (e) => {
+                if (e.target.closest('.ce-popover') || e.target.closest('.ce-toolbar')) {
+                  setTimeout(async () => {
+                    if (editorInstance && typeof editorInstance.save === 'function') {
+                      const savedData = await editorInstance.save();
+                      slides.value[activeSlideIndex.value] = savedData;
+                      actualizarReveal();
+                    }
+                  }, 100);
+                }
+              });
+            }
+          });
+        };
+
+        // Renderizado e Inicialización de Reveal.js
+        const actualizarReveal = () => {
+          const slidesContainer = document.getElementById('slides-container');
+          if (!slidesContainer) return;
+
+          // Construye las secciones HTML para cada slide
+          const htmlSlides = slides.value.map(slideData => {
+            const innerHTML = editorJsToHtml(slideData);
+            return `<section>${innerHTML || '<h3>Diapositiva Vacía</h3>'}</section>`;
+          }).join('\n');
+
+          slidesContainer.innerHTML = htmlSlides;
+
+          nextTick(() => {
+            if (revealInstance) revealInstance.destroy();
+
+            revealInstance = new Reveal(revealRef.value, {
+              embedded: true,
+              keyboardCondition: 'focused',
+              center: true,
+              slideNumber: 'c/t',
+              controls: true,
+              progress: true,
+              width: 1280,
+              height: 720,
+            });
+
+            revealInstance.initialize().then(() => {
+              aplicarEstilo();
+              aplicarTipografia();
+              if (revealInstance && typeof revealInstance.slide === 'function') {
+                revealInstance.slide(activeSlideIndex.value, 0);
+              }
+            });
+          });
+        };
+
+        // Cambio de pestaña/slide
+        watch(activeSlideIndex, async (newIndex) => {
+          if (slides.value[newIndex]) {
+            await inicializarEditorJS(slides.value[newIndex]);
+            if (revealInstance && typeof revealInstance.slide === 'function') {
+              revealInstance.slide(newIndex, 0);
+            }
+          }
+        });
+
+        const agregarDiapositiva = async () => {
+          const nuevaSlide = {
+            blocks: [{ type: 'header', data: { text: `Nueva Diapositiva`, level: 2 } }]
+          };
+
+          // Inserta la nueva diapositiva justo después del índice activo
+          slides.value.splice(activeSlideIndex.value + 1, 0, nuevaSlide);
+
+          // Cambia el enfoque a la nueva diapositiva recién creada
+          activeSlideIndex.value = activeSlideIndex.value + 1;
+        };
+
+        const eliminarDiapositivaActual = () => {
+          if (slides.value.length <= 1) return;
+          slides.value.splice(activeSlideIndex.value, 1);
+          if (activeSlideIndex.value >= slides.value.length) {
+            activeSlideIndex.value = slides.value.length - 1;
+          } else {
+            inicializarEditorJS(slides.value[activeSlideIndex.value]);
+            actualizarReveal();
+          }
+        };
+
+        const moverDiapositivaIzquierda = () => {
+          if (activeSlideIndex.value > 0) {
+            const slideActual = slides.value.splice(activeSlideIndex.value, 1)[0];
+            slides.value.splice(activeSlideIndex.value - 1, 0, slideActual);
+            activeSlideIndex.value--;
+          }
+        };
+
+        const moverDiapositivaDerecha = () => {
+          if (activeSlideIndex.value < slides.value.length - 1) {
+            const slideActual = slides.value.splice(activeSlideIndex.value, 1)[0];
+            slides.value.splice(activeSlideIndex.value + 1, 0, slideActual);
+            activeSlideIndex.value++;
+          }
+        };
+
+        // Persistencia con Supabase
+        const guardarPresentacion = async () => {
+          if (!presentationTitle.value.trim()) {
+            alert('Por favor asigna un nombre a la presentación.');
+            return;
+          }
+
+          cargandoGuardado.value = true;
+          try {
+            // Guarda el contenido activo del editor en el arreglo
+            if (editorInstance) {
+              slides.value[activeSlideIndex.value] = await editorInstance.save();
+            }
+
+            const themeConfig = {
+              gradient: gradientes.value[selectedGradient.value].value,
+              fontPair: selectedFontPair.value
+            };
+
+            const payload = {
+              title: presentationTitle.value.trim(),
+              course: currentCourse.value.trim() || 'General',
+              content_json: slides.value, // Nueva Columna JSON
+              theme_config: themeConfig,
+              is_published: true,
+              updated_at: new Date()
+            };
+
+            if (currentId.value) {
+              payload.id = currentId.value;
+            }
+
+            const { data, error } = await supabaseClient
+              .from('presentations')
+              .upsert(payload, { onConflict: 'title' })
+              .select();
+
+            if (error) throw error;
+
+            if (data && data.length > 0) {
+              currentId.value = data[0].id;
+            }
+
+            alert(`¡Presentación "${presentationTitle.value}" guardada correctamente!`);
+            await obtenerPresentaciones();
+          } catch (err) {
+            alert('Error al guardar en Supabase: ' + err.message);
+          } finally {
+            cargandoGuardado.value = false;
+          }
+        };
+
+        const obtenerPresentaciones = async () => {
+          cargandoLista.value = true;
+          try {
+            const { data, error } = await supabaseClient
+              .from('presentations')
+              .select('id, title, content_json, theme_config, course')
+              .order('course', { ascending: true })
+              .order('updated_at', { ascending: false });
+
+            if (error) throw error;
+
+            listaPresentaciones.value = (data || []).map(item => ({
+              ...item,
+              course: item.course || 'Sin Curso'
+            }));
+
+            const cursosUnicos = [...new Set(listaPresentaciones.value.map(p => p.course))];
+            if (cursosUnicos.length > 0) listaCursos.value = cursosUnicos;
+          } catch (err) {
+            console.error('Error al listar presentaciones:', err.message);
+          } finally {
+            cargandoLista.value = false;
+          }
+        };
+
+        const cargarPresentacionSeleccionada = async (id) => {
+          const item = listaPresentaciones.value.find(p => p.id === id);
+          if (!item) return;
+
+          currentId.value = item.id;
+          presentationTitle.value = item.title;
+          currentCourse.value = item.course || 'General';
+
+          // Lógica Fallback: Preferir JSON, si no existe, procesar Markdown antiguo
+          if (item.content_json && Array.isArray(item.content_json) && item.content_json.length > 0) {
+            slides.value = item.content_json;
+          } else if (item.content_markdown) {
+            // Dividir las diapositivas antiguas si usabas separadores como '---'
+            const markdownSlides = item.content_markdown.split('---');
+            slides.value = markdownSlides.map(text => ({
+              blocks: [
+                { type: 'paragraph', data: { text: text.trim() } }
+              ]
+            }));
+          } else {
+            slides.value = [{ blocks: [{ type: 'header', data: { text: item.title, level: 2 } }] }];
+          }
+
+          if (item.content_json && Array.isArray(item.content_json)) {
+            slides.value = item.content_json;
+          } else {
+            slides.value = [{ blocks: [{ type: 'header', data: { text: item.title, level: 2 } }] }];
+          }
+
+          if (item.theme_config?.gradient !== undefined) {
+            const indexGrad = gradientes.value.findIndex(g => g.value === item.theme_config.gradient);
+            if (indexGrad !== -1) selectedGradient.value = indexGrad;
+          }
+
+          if (item.theme_config?.fontPair) {
+            selectedFontPair.value = item.theme_config.fontPair;
+            aplicarTipografia();
+          }
+
+          activeSlideIndex.value = 0;
+          await inicializarEditorJS(slides.value[0]);
+          actualizarReveal();
+        };
+
+        const eliminarPresentacion = async () => {
+          if (!currentId.value) return;
+          if (!confirm(`¿Eliminar la presentación "${presentationTitle.value}"?`)) return;
+
+          cargandoEliminar.value = true;
+          try {
+            const { error } = await supabaseClient.from('presentations').delete().eq('id', currentId.value);
+            if (error) throw error;
+
+            alert('Presentación eliminada.');
+            currentId.value = null;
+            selectedPresentationId.value = null;
+            presentationTitle.value = 'Nueva Presentación';
+            slides.value = [{ blocks: [{ type: 'header', data: { text: 'Diapositiva 1', level: 2 } }] }];
+            activeSlideIndex.value = 0;
+            await inicializarEditorJS(slides.value[0]);
+            await obtenerPresentaciones();
+            actualizarReveal();
+          } catch (err) {
+            alert('Error al eliminar: ' + err.message);
+          } finally {
+            cargandoEliminar.value = false;
+          }
+        };
+
+
+
+        // Tipografías y Gradientes
+
+        // Tipografías
+        const fontPairs = [
+          {
+            id: 'montserrat-inter',
+            label: 'Montserrat / Inter',
+            titleFont: 'Montserrat',
+            bodyFont: 'Inter',
+            url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap'
+          },
+          {
+            id: 'playfair-lato',
+            label: 'Playfair / Lato',
+            titleFont: 'Playfair Display',
+            bodyFont: 'Lato',
+            url: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@700;800&display=swap'
+          },
+          {
+            id: 'poppins-nunito',
+            label: 'Poppins / Nunito',
+            titleFont: 'Poppins',
+            bodyFont: 'Nunito',
+            url: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@700;800&display=swap'
+          },
+          {
+            id: 'space-grotesk-roboto',
+            label: 'Space Grotesk / Roboto',
+            titleFont: 'Space Grotesk',
+            bodyFont: 'Roboto',
+            url: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Space+Grotesk:wght@700&display=swap'
+          }
+        ];
+
+        const selectedFontPair = ref('montserrat-inter');
+
+        const aplicarTipografia = () => {
+          const pair = fontPairs.find(p => p.id === selectedFontPair.value) || fontPairs[0];
+          if (!document.querySelector(`link[href="${pair.url}"]`)) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = pair.url;
+            document.head.appendChild(link);
+          }
+          if (revealRef.value) {
+            revealRef.value.style.setProperty('--title-font', `'${pair.titleFont}', sans-serif`);
+            revealRef.value.style.setProperty('--body-font', `'${pair.bodyFont}', sans-serif`);
+          }
+        };
+
+        const gradientes = ref([
+          { name: 'Verde Esmeralda', value: 'linear-gradient(135deg, #052e16 0%, #14532d 50%, #15803d 100%)' },
+          { name: 'Púrpura Neón', value: 'linear-gradient(135deg, #240b36 0%, #c31432 100%)' },
+          { name: 'Azul Cósmico', value: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%)' },
+          { name: 'Bosque Profundo', value: 'linear-gradient(135deg, #134e5e 0%, #71b280 100%)' },
+          { name: 'Café Calidez', value: 'linear-gradient(135deg, #271c19 0%, #4a2e2b 50%, #78350f 100%)' },
+          { name: 'Aqua', value: 'linear-gradient(90deg, #07aeea 0.000%, #2bf598 100.000%)' },
+          { name: 'Mar', value: 'linear-gradient(90deg, #a47451 0.000%, #9c9881 16.667%, #73a09d 33.333%, #3b899a 50.000%, #095b79 66.667%, #002847 83.333%, #000116 100.000%)' },
+          { name: 'Elegante', value: 'linear-gradient(90deg, #121216 0.000%, #121216 7.692%, #16171a calc(7.692% + 1px), #16171a 15.385%, #1a1b1f calc(15.385% + 1px), #1a1b1f 23.077%, #1f2023 calc(23.077% + 1px), #1f2023 30.769%, #232427 calc(30.769% + 1px), #232427 38.462%, #27282b calc(38.462% + 1px), #27282b 46.154%, #2b2c2f calc(46.154% + 1px), #2b2c2f 53.846%, #2f3033 calc(53.846% + 1px), #2f3033 61.538%, #323337 calc(61.538% + 1px), #323337 69.231%, #36373a calc(69.231% + 1px), #36373a 76.923%, #38393d calc(76.923% + 1px), #38393d 84.615%, #3b3c40 calc(84.615% + 1px), #3b3c40 92.308%, #3d3e42 calc(92.308% + 1px) 100.000%)' },
+          { name: 'Serio', value: 'linear-gradient(90deg, #2f1136 0.000%, #2f1136 7.692%, #341234 calc(7.692% + 1px), #341234 15.385%, #3a1634 calc(15.385% + 1px), #3a1634 23.077%, #421c38 calc(23.077% + 1px), #421c38 30.769%, #4a233e calc(30.769% + 1px), #4a233e 38.462%, #532d46 calc(38.462% + 1px), #532d46 46.154%, #5b3751 calc(46.154% + 1px), #5b3751 53.846%, #63435d calc(53.846% + 1px), #63435d 61.538%, #69506b calc(61.538% + 1px), #69506b 69.231%, #6e5c7a calc(69.231% + 1px), #6e5c7a 76.923%, #70688a calc(76.923% + 1px), #70688a 84.615%, #707499 calc(84.615% + 1px), #707499 92.308%, #6e7ea9 calc(92.308% + 1px) 100.000%)' },
+          { name: 'Divertido', value: 'linear-gradient(225deg, #631683 0.000%, #7f237e 14.286%, #9e3980 28.571%, #bc5588 42.857%, #d57496 57.143%, #e494a8 71.429%, #e7b1be 85.714%, #dec8d6 100.000%)' },
+          { name: 'Morado', value: 'linear-gradient(335deg, #ffc695 0.000%, #636676 50.000%, #001426 100.000%)' },
+          { name: 'Azul', value: ' linear-gradient(135deg, #000032 0.000%, #184664 50.000%, #4eb490 100.000%)' },
+          { name: 'Azul_Dos', value: 'linear-gradient(0deg, #0a0000 0.000%, #250a26 25.000%, #49457a 50.000%, #767baa 75.000%, #aba9b5 100.000%)' }
+        ]);
+
+        const selectedGradient = ref(0);
+
+        const aplicarEstilo = () => {
+          const gradientValue = gradientes.value[selectedGradient.value].value;
+          if (revealRef.value) revealRef.value.style.background = gradientValue;
+        };
+
+        const abrirVisorNuevaPestana = () => {
+          if (!presentationTitle.value.trim()) return alert('Asigna un nombre al proyecto primero.');
+          const urlVisor = `viewer_new.html?title=${encodeURIComponent(presentationTitle.value.trim())}`;
+          window.open(urlVisor, '_blank');
+        };
+
+        const presentacionesFiltradas = computed(() => {
+          if (!currentCourse.value) return listaPresentaciones.value;
+          const curso = typeof currentCourse.value === 'object' ? currentCourse.value.title : currentCourse.value;
+          return listaPresentaciones.value.filter(p => p.course === curso);
+        });
+
+        onMounted(async () => {
+          await obtenerPresentaciones();
+          await inicializarEditorJS(slides.value[0]);
+          actualizarReveal();
+        });
+
+        return {
+          presentationTitle,
+          currentCourse,
+          listaCursos,
+          slides,
+          activeSlideIndex,
+          revealRef,
+          cargandoGuardado,
+          cargandoEliminar,
+          cargandoLista,
+          listaPresentaciones,
+          selectedPresentationId,
+          presentacionesFiltradas,
+          fontPairs,
+          selectedFontPair,
+          gradientes,
+          selectedGradient,
+          agregarDiapositiva,
+          eliminarDiapositivaActual,
+          moverDiapositivaIzquierda,
+          moverDiapositivaDerecha,
+          guardarPresentacion,
+          cargarPresentacionSeleccionada,
+          currentId,             // <--- Para que funcione el v-if="currentId"
+          cargandoEliminar,      // <--- Para el :loading del botón
+          eliminarPresentacion,
+          aplicarTipografia,
+          aplicarEstilo,
+          abrirVisorNuevaPestana,
+          dialogEmbed,
+          iframeCode,
+          textoBotonCopiar,
+          abrirDialogoEmbed,
+          copiarIframe,
+          agregarFondoForo,
+          // --- REGISTRAR MODAL DE FORO ---
+          mostrarModalForo,
+          pasoModal,
+          sessionIdInput,
+          adminUrlIframe,
+          abrirModalForo,
+          cerrarModalForo,
+          irAlPaso2,
+          confirmarEIncrustarForo
+        };
+      }
+    };
+
+    createApp(App).use(vuetify).mount('#app');
+  </script>
+</body>
+
+</html>
