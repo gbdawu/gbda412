@@ -39,7 +39,7 @@
             font-family: var(--body-font, 'Inter', sans-serif) !important;
         }
 
-        /* Alineación a la izquierda */
+        /* Alineación predeterminada */
         .reveal .slides section {
             text-align: left;
         }
@@ -49,11 +49,11 @@
         .reveal .slides section li,
         .reveal .slides section span,
         .reveal .slides section a {
-            font-size: 0.8em;
-            line-height: 1.4 !important;
+            font-size: 1em;
+            line-height: 1 !important;
         }
 
-        /* 4. Tipografía para Títulos usando variables CSS */
+        /* 4. Tipografía para Títulos */
         .reveal .slides section h1,
         .reveal .slides section h2,
         .reveal .slides section h3,
@@ -65,21 +65,7 @@
             text-transform: none !important;
         }
 
-        /* Mejora visual para los tags <mark> en Reveal.js */
-        .reveal mark {
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 500;
-            box-decoration-break: clone;
-            -webkit-box-decoration-break: clone;
-        }
-
-        /* Cambiar esto en el <style>: */
-        .reveal .slides section {
-            text-align: left;
-        }
-
-        /* Por esto: */
+        /* Prevenir saltos de línea extraños */
         .reveal .slides section p,
         .reveal .slides section h1,
         .reveal .slides section h2,
@@ -92,22 +78,53 @@
             text-align: inherit;
         }
 
-        /* Clases de tamaño para Reveal.js */
-        .reveal .text-xs {
-            font-size: 0.55em !important;
+        /* Mejora visual para los tags <mark> */
+        .reveal mark {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
         }
 
-        .reveal .text-sm {
-            font-size: 0.8em !important;
+        /* 💡 ESTILOS PARA COLUMNAS EN REVEAL.JS 💡 */
+        .reveal .editor-columns-container {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            gap: 20px !important;
+            width: 100% !important;
+            margin: 15px 0 !important;
         }
 
-        .reveal .text-lg {
-            font-size: 1.25em !important;
+        .reveal .editor-column {
+            flex: 1 1 0px !important;
+            min-width: 0 !important;
         }
 
-        .reveal .text-xl {
-            font-size: 1.6em !important;
+        .reveal .editor-column img {
+            max-width: 100% !important;
+            height: auto !important;
         }
+
+        /* Estilos para tablas invisibles/limpias */
+        .reveal table.invisible-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .reveal table.invisible-table td {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+        }
+
+        /* Clases de tamaño */
+        .reveal .text-xs { font-size: 0.55em !important; }
+        .reveal .text-sm { font-size: 0.8em !important; }
+        .reveal .text-lg { font-size: 1.25em !important; }
+        .reveal .text-xl { font-size: 1.6em !important; }
     </style>
 </head>
 
@@ -124,7 +141,6 @@
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
 
     <script>
-        // Configuración de Supabase
         const SUPABASE_URL = 'https://jomqgtqtwgaxdgwywhtg.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXFndHF0d2dheGRnd3l3aHRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MTkyNDgsImV4cCI6MjA5ODQ5NTI0OH0.aTKt1oLBpyMMNL0S2Lcv3C1ZyOkmDcxNP2J2BgxluBg';
 
@@ -163,37 +179,59 @@
                 const align = block.tunes?.alignmentTune?.alignment || block.data?.alignment || 'left';
                 const alignStyle = `style="text-align: ${align} !important;"`;
 
+                // Función para forzar apertura de enlaces en nueva pestaña
+                const formatLinks = (htmlText) => {
+                    if (!htmlText) return '';
+                    return htmlText.replace(/<a\s+(?:[^>]*?\s+)?href=/gi, '<a target="_blank" rel="noopener noreferrer" href=');
+                };
+
                 switch (block.type) {
+                    case 'columns':
+                        const cols = block.data?.cols || [];
+                        const columnsHtml = cols.map(col => {
+                            const colContent = editorJsToHtml({ blocks: col.blocks || [] });
+                            return `<div class="editor-column">${colContent}</div>`;
+                        }).join('');
+                        return `<div class="editor-columns-container">${columnsHtml}</div>`;
+
+                    case 'table':
+                        const content = block.data?.content || [];
+                        const rowsHtml = content.map(row => {
+                            const cellsHtml = row.map(cell => `<td>${formatLinks(cell || '')}</td>`).join('');
+                            return `<tr>${cellsHtml}</tr>`;
+                        }).join('');
+                        return `<table class="invisible-table">${rowsHtml}</table>`;
+
                     case 'header':
-                        return `<h${block.data?.level || 2} ${alignStyle}>${block.data?.text || ''}</h${block.data?.level || 2}>`;
+                        return `<h${block.data?.level || 2} ${alignStyle}>${formatLinks(block.data?.text || '')}</h${block.data?.level || 2}>`;
 
                     case 'paragraph':
                         const textWithBreaks = (block.data?.text || '').replace(/\n/g, '<br>');
-                        return `<p ${alignStyle}>${textWithBreaks}</p>`;
+                        return `<p ${alignStyle}>${formatLinks(textWithBreaks)}</p>`;
 
                     case 'list':
                         const tag = block.data?.style === 'ordered' ? 'ol' : 'ul';
                         const renderItems = (items) => items.map(item => {
                             const text = typeof item === 'string' ? item : (item.content || '');
                             const subItems = item.items && item.items.length > 0 ? `<${tag}>${renderItems(item.items)}</${tag}>` : '';
-                            return `<li>${text}${subItems}</li>`;
+                            return `<li>${formatLinks(text)}${subItems}</li>`;
                         }).join('');
                         return `<${tag} ${alignStyle}>${renderItems(block.data?.items || [])}</${tag}>`;
 
                     case 'image':
                         const imgUrl = block.data?.file?.url || '';
                         if (!imgUrl) return '';
-                        const caption = block.data?.caption ? `<figcaption>${block.data.caption}</figcaption>` : '';
+                        const caption = block.data?.caption ? `<figcaption>${formatLinks(block.data.caption)}</figcaption>` : '';
                         return `<figure ${alignStyle}><img src="${imgUrl}" style="max-height: 400px; margin: 0 auto; display: block;" />${caption}</figure>`;
 
                     case 'embed':
                         return `<iframe data-src="${block.data?.embed || ''}" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>`;
 
                     case 'quote':
-                        return `<blockquote ${alignStyle}>${block.data?.text || ''} <cite>${block.data?.caption || ''}</cite></blockquote>`;
+                        return `<blockquote ${alignStyle}>${formatLinks(block.data?.text || '')} <cite>${formatLinks(block.data?.caption || '')}</cite></blockquote>`;
 
                     case 'raw':
-                        return block.data?.html || '';
+                        return formatLinks(block.data?.html || '');
 
                     default:
                         return '';
@@ -201,167 +239,90 @@
             }).join('\n');
         }
 
-        // async function cargarPresentacionPublica() {
-        //     const urlParams = new URLSearchParams(window.location.search);
-        //     const title = urlParams.get('title');
-
-        //     if (!title) {
-        //         document.getElementById('slides-container').innerHTML = '<section>⚠️ No se especificó el título en la URL.</section>';
-        //         return;
-        //     }
-
-        //     // Consultar 'content_json' en lugar de 'content_markdown'
-        //     const { data, error } = await supabaseClient
-        //         .from('presentations')
-        //         .select('title, content_json, content_markdown, theme_config') // Solicitamos ambos campos                .eq('title', title)
-        //         .single();
-
-        //     if (error || !data) {
-        //         document.getElementById('slides-container').innerHTML = '<section>⚠️ Presentación no encontrada.</section>';
-        //         return;
-        //     }
-
-        //     document.title = data.title || title;
-
-        //     // 1. Cargar tipografías
-        //     const savedFontId = data.theme_config?.fontPair || 'montserrat-inter';
-        //     const fontConfig = fontPairsMap[savedFontId] || fontPairsMap['montserrat-inter'];
-
-        //     if (!document.querySelector(`link[href="${fontConfig.url}"]`)) {
-        //         const fontLink = document.createElement('link');
-        //         fontLink.rel = 'stylesheet';
-        //         fontLink.href = fontConfig.url;
-        //         document.head.appendChild(fontLink);
-        //     }
-
-        //     const revealDeck = document.getElementById('reveal-deck');
-        //     revealDeck.style.setProperty('--title-font', `'${fontConfig.title}', sans-serif`);
-        //     revealDeck.style.setProperty('--body-font', `'${fontConfig.body}', sans-serif`);
-
-        //     // 2. Aplicar gradiente
-        //     const gradienteGuardado = data.theme_config?.gradient || 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)';
-        //     revealDeck.style.background = gradienteGuardado;
-
-        //     // 3. Convertir arreglos JSON de Editor.js a <section> HTML
-        //     const slidesJson = data.content_json || [];
-        //     if (Array.isArray(slidesJson) && slidesJson.length > 0) {
-        //         const htmlSlides = slidesJson.map(slideData => {
-        //             const innerHTML = editorJsToHtml(slideData);
-        //             return `<section>${innerHTML || '<h3>Diapositiva Vacía</h3>'}</section>`;
-        //         }).join('\n');
-
-        //         document.getElementById('slides-container').innerHTML = htmlSlides;
-        //     } else {
-        //         document.getElementById('slides-container').innerHTML = '<section>⚠️ La presentación no tiene contenido.</section>';
-        //     }
-
-        //     // 4. Inicializar Reveal.js
-        //     const deck = new Reveal({
-        //         hash: true,
-        //         center: true,
-        //         slideNumber: 'c/t',
-        //         controlsBackArrows: 'visible',
-        //         progress: true,
-        //         controlsLayout: 'edges',
-        //         overview: true,
-        //         autoAnimate: true,
-        //         width: 1280,
-        //         height: 720,
-        //         margin: 0.02,
-        //         minScale: 0.2,
-        //         maxScale: 2.0
-        //     });
-
-        //     deck.initialize();
-        // }
-
-        // cargarPresentacionPublica();
-
         async function cargarPresentacionPublica() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const title = urlParams.get('title');
+            const urlParams = new URLSearchParams(window.location.search);
+            const title = urlParams.get('title');
 
-    if (!title) {
-        document.getElementById('slides-container').innerHTML = '<section>⚠️ No se especificó el título en la URL.</section>';
-        return;
-    }
+            if (!title) {
+                document.getElementById('slides-container').innerHTML = '<section>⚠️ No se especificó el título en la URL.</section>';
+                return;
+            }
 
-    // 1. Consultar ambas columnas
-    const { data, error } = await supabaseClient
-        .from('presentations')
-        .select('title, content_json, content_markdown, theme_config')
-        .eq('title', title)
-        .single();
+            const { data, error } = await supabaseClient
+                .from('presentations')
+                .select('title, content_json, content_markdown, theme_config')
+                .eq('title', title)
+                .single();
 
-    if (error || !data) {
-        document.getElementById('slides-container').innerHTML = '<section>⚠️ Presentación no encontrada.</section>';
-        return;
-    }
+            if (error || !data) {
+                document.getElementById('slides-container').innerHTML = '<section>⚠️ Presentación no encontrada.</section>';
+                return;
+            }
 
-    document.title = data.title || title;
+            document.title = data.title || title;
 
-    // 2. Cargar tipografías
-    const savedFontId = data.theme_config?.fontPair || 'montserrat-inter';
-    const fontConfig = fontPairsMap[savedFontId] || fontPairsMap['montserrat-inter'];
+            // Cargar tipografías
+            const savedFontId = data.theme_config?.fontPair || 'montserrat-inter';
+            const fontConfig = fontPairsMap[savedFontId] || fontPairsMap['montserrat-inter'];
 
-    if (!document.querySelector(`link[href="${fontConfig.url}"]`)) {
-        const fontLink = document.createElement('link');
-        fontLink.rel = 'stylesheet';
-        fontLink.href = fontConfig.url;
-        document.head.appendChild(fontLink);
-    }
+            if (!document.querySelector(`link[href="${fontConfig.url}"]`)) {
+                const fontLink = document.createElement('link');
+                fontLink.rel = 'stylesheet';
+                fontLink.href = fontConfig.url;
+                document.head.appendChild(fontLink);
+            }
 
-    const revealDeck = document.getElementById('reveal-deck');
-    revealDeck.style.setProperty('--title-font', `'${fontConfig.title}', sans-serif`);
-    revealDeck.style.setProperty('--body-font', `'${fontConfig.body}', sans-serif`);
+            const revealDeck = document.getElementById('reveal-deck');
+            revealDeck.style.setProperty('--title-font', `'${fontConfig.title}', sans-serif`);
+            revealDeck.style.setProperty('--body-font', `'${fontConfig.body}', sans-serif`);
 
-    // 3. Aplicar gradiente
-    const gradienteGuardado = data.theme_config?.gradient || 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)';
-    revealDeck.style.background = gradienteGuardado;
+            // Aplicar gradiente
+            const gradienteGuardado = data.theme_config?.gradient || 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)';
+            revealDeck.style.background = gradienteGuardado;
 
-    // 4. Soporte Híbrido: Renderizar JSON o Markdown
-    if (data.content_json && Array.isArray(data.content_json) && data.content_json.length > 0) {
-        const htmlSlides = data.content_json.map(slideData => {
-            const innerHTML = editorJsToHtml(slideData);
-            return `<section>${innerHTML || '<h3>Diapositiva Vacía</h3>'}</section>`;
-        }).join('\n');
+            // Renderizar JSON o Markdown
+            if (data.content_json && Array.isArray(data.content_json) && data.content_json.length > 0) {
+                const htmlSlides = data.content_json.map(slideData => {
+                    const innerHTML = editorJsToHtml(slideData);
+                    return `<section>${innerHTML || '<h3>Diapositiva Vacía</h3>'}</section>`;
+                }).join('\n');
 
-        document.getElementById('slides-container').innerHTML = htmlSlides;
+                document.getElementById('slides-container').innerHTML = htmlSlides;
 
-    } else if (data.content_markdown) {
-        const markdownSlides = data.content_markdown.split('---');
-        const htmlSlides = markdownSlides.map(text => {
-            const textFormatted = text.trim().replace(/\n/g, '<br>');
-            return `<section><p>${textFormatted}</p></section>`;
-        }).join('\n');
+            } else if (data.content_markdown) {
+                const markdownSlides = data.content_markdown.split('---');
+                const htmlSlides = markdownSlides.map(text => {
+                    const textFormatted = text.trim().replace(/\n/g, '<br>');
+                    return `<section><p>${textFormatted}</p></section>`;
+                }).join('\n');
 
-        document.getElementById('slides-container').innerHTML = htmlSlides;
+                document.getElementById('slides-container').innerHTML = htmlSlides;
 
-    } else {
-        document.getElementById('slides-container').innerHTML = '<section>⚠️ La presentación no tiene contenido.</section>';
-    }
+            } else {
+                document.getElementById('slides-container').innerHTML = '<section>⚠️ La presentación no tiene contenido.</section>';
+            }
 
-    // 5. Inicializar Reveal.js
-    const deck = new Reveal({
-        hash: true,
-        center: true,
-        slideNumber: 'c/t',
-        controlsBackArrows: 'visible',
-        progress: true,
-        controlsLayout: 'edges',
-        overview: true,
-        autoAnimate: true,
-        width: 1280,
-        height: 720,
-        margin: 0.02,
-        minScale: 0.2,
-        maxScale: 2.0
-    });
+            // Inicializar Reveal.js
+            const deck = new Reveal({
+                hash: true,
+                center: true,
+                slideNumber: 'c/t',
+                controlsBackArrows: 'visible',
+                progress: true,
+                controlsLayout: 'edges',
+                overview: true,
+                autoAnimate: true,
+                width: 1280,
+                height: 720,
+                margin: 0.02,
+                minScale: 0.2,
+                maxScale: 2.0
+            });
 
-    deck.initialize();
-}
+            deck.initialize();
+        }
 
-cargarPresentacionPublica();
+        cargarPresentacionPublica();
     </script>
 </body>
 
