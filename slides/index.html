@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editor Reveal.js + Editor.js + Supabase</title>
+  <title>Slides Editor</title>
 
   <!-- Vuetify CSS & Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3.5.2/dist/vuetify.min.css">
@@ -27,9 +27,10 @@
   <script src="https://cdn.jsdelivr.net/npm/editorjs-text-alignment-blocktune@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/editorjs-text-color-plugin@2.0.4/dist/bundle.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
-  <!-- Plugin de Columnas para Editor.js -->
-  <!-- Reemplaza el script de columnas en el <head> por este: -->
+  <script src="https://cdn.jsdelivr.net/npm/@calumk/editorjs-columns@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/editorjs-font-size-plugin@latest/dist/bundle.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+
   <style>
     .reveal-container {
       width: 100%;
@@ -56,7 +57,6 @@
       color: #fff;
     }
 
-    /* Adaptación de Editor.js a Tema Oscuro */
     .codex-editor__redactor {
       padding-bottom: 100px !important;
     }
@@ -87,14 +87,11 @@
       background-color: #3d3d3d !important;
     }
 
-    /* Fondo e input de búsqueda (filtro) del menú + */
     .ce-popover__custom-search,
     .ce-popover-header__input,
     .cdx-search-field__input {
       color: #000000 !important;
-      /* Texto que escribes en la búsqueda */
       background-color: #ffffff !important;
-      /* Fondo claro para mayor contraste */
     }
 
     /* Base Typography Reveal */
@@ -110,9 +107,8 @@
 
     .reveal .slides section p,
     .reveal .slides section li {
-      font-size: 0.8em;
-      line-height: 1.4 !important;
-      /* white-space: pre-wrap; */
+      font-size: 1em;
+      line-height: 1 !important;
     }
 
     .reveal .slides section h1,
@@ -122,10 +118,8 @@
       font-family: var(--title-font, 'Montserrat', sans-serif) !important;
       font-weight: 800 !important;
       text-transform: none !important;
-      /* white-space: pre-wrap; */
     }
 
-    /* Respetar la alineación de texto y saltos de línea */
     .reveal .slides section h1,
     .reveal .slides section h2,
     .reveal .slides section h3,
@@ -136,7 +130,6 @@
     .reveal .slides section blockquote {
       white-space: pre-wrap;
       text-align: inherit;
-      /* Permite heredar el style="text-align: ..." del contenedor o elemento */
     }
 
     .reveal mark {
@@ -147,7 +140,6 @@
       color: #000;
     }
 
-    /* Soporte para bloques de columnas en Reveal.js */
     .editor-columns-container {
       display: flex !important;
       flex-direction: row !important;
@@ -177,18 +169,13 @@
       z-index: 9999;
     }
 
-    /* Tarjeta del Modal */
     .modal-card {
       background: #ffffff;
       margin-top: 1rem;
       width: 90vw;
-      /* Ocupa el 100% del ancho de la pantalla */
       height: 100vh;
-      /* Ocupa el 100% del alto de la pantalla */
       max-width: 100vw;
-      /* Elimina la restricción previa de 900px */
       border-radius: 0;
-      /* Remueve bordes redondeados para pantalla completa */
       display: flex;
       flex-direction: column;
       box-shadow: none;
@@ -253,7 +240,6 @@
       margin-bottom: 0.5rem;
     }
 
-    /* Iframe que carga el panel de administración */
     .forum-admin-iframe {
       width: 100%;
       flex-grow: 1;
@@ -298,6 +284,20 @@
       cursor: pointer;
       font-weight: 600;
     }
+
+    .ce-toolbar__actions {
+      background: transparent !important;
+    }
+
+    .font-size-option {
+      color: black;
+    }
+
+    .ce-inline-tool-dropdown,
+    .cdx-settings,
+    .color-picker__dropdown {
+      z-index: 9999 !important;
+    }
   </style>
 </head>
 
@@ -327,69 +327,67 @@
     const vuetify = createVuetify({ theme: { defaultTheme: 'dark' } });
 
     // --- Parser Liviano: Editor.js JSON -> HTML para Reveal.js ---
-    // --- Parser Liviano: Editor.js JSON -> HTML para Reveal.js ---
     function editorJsToHtml(editorData) {
       if (!editorData || !editorData.blocks || !Array.isArray(editorData.blocks)) return '';
 
       return editorData.blocks.map(block => {
         if (!block) return '';
 
-        // Mover aquí la extracción de alineación para que lea el 'block' activo de la iteración
         const align = block.tunes?.alignmentTune?.alignment || block.data?.alignment || 'left';
         const alignStyle = `style="text-align: ${align} !important;"`;
 
+        const formatLinks = (htmlText) => {
+          if (!htmlText) return '';
+          return htmlText.replace(/<a\s+(?:[^>]*?\s+)?href=/gi, '<a target="_blank" rel="noopener noreferrer" href=');
+        };
 
         switch (block.type) {
-          // ---> CASO DE COLUMNAS <---
-          // case 'columns':
-          //   const cols = block.data?.cols || [];
-          //   const columnsHtml = cols.map(col => {
-          //     // Procesa de forma recursiva los bloques dentro de cada columna
-          //     const colContent = editorJsToHtml({ blocks: col.blocks || [] });
-          //     return `<div class="editor-column">${colContent}</div>`;
-          //   }).join('');
-
-          //   return `<div class="editor-columns-container">${columnsHtml}</div>`;
+          case 'columns':
+            const cols = block.data?.cols || [];
+            const columnsHtml = cols.map(col => {
+              const colContent = editorJsToHtml({ blocks: col.blocks || [] });
+              return `<div class="editor-column">${colContent}</div>`;
+            }).join('');
+            return `<div class="editor-columns-container">${columnsHtml}</div>`;
 
           case 'table':
             const content = block.data?.content || [];
             const rowsHtml = content.map(row => {
-              const cellsHtml = row.map(cell => `<td>${cell || ''}</td>`).join('');
+              const cellsHtml = row.map(cell => `<td>${formatLinks(cell || '')}</td>`).join('');
               return `<tr>${cellsHtml}</tr>`;
             }).join('');
-
             return `<table class="invisible-table">${rowsHtml}</table>`;
 
           case 'header':
-            return `<h${block.data?.level || 2} ${alignStyle}>${block.data?.text || ''}</h${block.data?.level || 2}>`;
+            return `<h${block.data?.level || 2} ${alignStyle}>${formatLinks(block.data?.text || '')}</h${block.data?.level || 2}>`;
 
           case 'paragraph':
             const textWithBreaks = (block.data?.text || '').replace(/\n/g, '<br>');
-            return `<p ${alignStyle}>${textWithBreaks}</p>`;
+            return `<p ${alignStyle}>${formatLinks(textWithBreaks)}</p>`;
 
           case 'list':
             const tag = block.data?.style === 'ordered' ? 'ol' : 'ul';
             const renderItems = (items) => items.map(item => {
               const text = typeof item === 'string' ? item : (item.content || '');
               const subItems = item.items && item.items.length > 0 ? `<${tag}>${renderItems(item.items)}</${tag}>` : '';
-              return `<li>${text}${subItems}</li>`;
+              return `<li>${formatLinks(text)}${subItems}</li>`;
             }).join('');
             return `<${tag} ${alignStyle}>${renderItems(block.data?.items || [])}</${tag}>`;
 
           case 'image':
             const imgUrl = block.data?.file?.url || '';
             if (!imgUrl) return '';
-            const caption = block.data?.caption ? `<figcaption>${block.data.caption}</figcaption>` : '';
+            const caption = block.data?.caption ? `<figcaption>${formatLinks(block.data.caption)}</figcaption>` : '';
             return `<figure ${alignStyle}><img src="${imgUrl}" style="max-height: 400px; margin: 0 auto; display: block;" />${caption}</figure>`;
 
           case 'embed':
             return `<iframe data-src="${block.data?.embed || ''}" width="100%" height="400px" frameborder="0" allowfullscreen></iframe>`;
 
           case 'quote':
-            return `<blockquote ${alignStyle}>${block.data?.text || ''} <cite>${block.data?.caption || ''}</cite></blockquote>`;
+            return `<blockquote ${alignStyle}>${formatLinks(block.data?.text || '')} <cite>${formatLinks(block.data?.caption || '')}</cite></blockquote>`;
 
           case 'raw':
-            return block.data?.html || '';
+            return formatLinks(block.data?.html || '');
 
           default:
             return '';
@@ -402,9 +400,9 @@
       <v-app>
         <!-- Header Principal -->
         <v-app-bar color="surface-variant" density="compact" elevation="2">
-          <v-app-bar-title class="font-weight-bold d-flex align-center">
-            <v-icon icon="mdi-presentation-play" class="mr-2" color="primary"></v-icon>
-            Editor Reveal + Editor.js
+          <v-app-bar-title class="font-weight-bold d-flex align-center text-subtitle-1">
+            <v-icon icon="mdi-presentation-play" class="mr-2" color="black"></v-icon>
+            Slides
           </v-app-bar-title>
 
           <!-- Abrir Presentación -->
@@ -441,7 +439,7 @@
           <!-- Nombre de la Presentación -->
           <v-text-field
             v-model="presentationTitle"
-            placeholder="Nombre del archivo / proyecto"
+            placeholder="Nombre del archivo"
             density="compact"
             variant="solo-filled"
             hide-details
@@ -461,236 +459,262 @@
             variant="elevated" 
             prepend-icon="mdi-delete" 
             class="ml-2"
-            @click="eliminarPresentacion" 
-            :loading="cargandoEliminar"
+            @click="abrirDialogoEliminar" 
+            
           >
             Eliminar
           </v-btn>
         </v-app-bar>
 
         <v-main class="bg-grey-darken-4">
-          <v-container fluid class="fill-height align-start pa-4">
+          <v-container fluid class="fill-height align-start pa-4 d-flex flex-column">
             
-            <!-- Barra Superior de Herramientas y Paginación de Diapositivas -->
-            <v-row class="mb-2">
-              <v-col cols="12" class="d-flex align-center justify-space-between bg-surface pa-2 rounded elevation-2">
+            <!-- Barra Superior de Herramientas y Paginación (Modificada para no desbordar) -->
+            <v-toolbar color="surface" elevation="2" rounded class="mb-4 flex-none px-2" density="compact">
+              
+              <!-- Paginador de Diapositivas (Tabs) encapsulado con ancho máximo -->
+              <div style="flex: 0 1 35%; min-width: 200px; max-width: 450px;" class="mr-2">
+                <v-tabs
+                  v-model="activeSlideIndex"
+                  show-arrows
+                  density="compact"
+                  color="primary"
+                >
+                  <v-tab
+                    v-for="(slide, index) in slides"
+                    :key="index"
+                    :value="index"
+                    class="text-none"
+                  >
+                    Slide {{ index + 1 }}
+                  </v-tab>
+                </v-tabs>
+              </div>
+
+              <v-divider vertical class="mx-2"></v-divider>
+
+              <!-- Botones de Acción de Diapositiva -->
+              <div class="d-flex align-center ga-1">
+                <v-btn icon="mdi-plus" size="small" color="success" variant="tonal" title="Agregar Diapositiva" @click="agregarDiapositiva"></v-btn>
+                <v-btn 
+                  icon="mdi-minus" 
+                  size="small" 
+                  color="error" 
+                  variant="tonal" 
+                  title="Eliminar Diapositiva Actual" 
+                  :disabled="slides.length <= 1"
+                  @click="eliminarDiapositivaActual"
+                ></v-btn>
+                <v-btn 
+                  icon="mdi-chevron-left" 
+                  size="small" 
+                  color="info" 
+                  variant="tonal" 
+                  title="Mover Diapositiva a la Izquierda" 
+                  :disabled="activeSlideIndex === 0"
+                  @click="moverDiapositivaIzquierda"
+                ></v-btn>
+                <v-btn 
+                  icon="mdi-chevron-right" 
+                  size="small" 
+                  color="info" 
+                  variant="tonal" 
+                  title="Mover Diapositiva a la Derecha" 
+                  :disabled="activeSlideIndex === slides.length - 1"
+                  @click="moverDiapositivaDerecha"
+                ></v-btn>
+              </div>
+
+              <!-- v-spacer empuja todo el contenido a la derecha -->
+              <v-spacer></v-spacer>
+
+              <!-- Personalización de Tema / Estilos y Extras -->
+              <div class="d-flex align-center ga-2" style="overflow-x: auto;">
+                <v-select
+                  v-model="selectedFontPair"
+                  :items="fontPairs"
+                  item-title="label"
+                  item-value="id"
+                  density="compact"
+                  variant="outlined"
+                  hide-details
+                  style="min-width: 150px; max-width: 170px;"
+                  @update:model-value="aplicarTipografia"
+                ></v-select>
+
+                <v-menu offset-y :close-on-content-click="false">
+                  <template v-slot:activator="{ props }">
+                    <v-btn color="purple" icon="mdi-palette" variant="tonal" density="compact" title="Cambiar Gradiente" v-bind="props"></v-btn>
+                  </template>
+                  <v-card width="300" class="pa-3">
+                    <v-card-title class="text-subtitle-2 pa-0 mb-2">Selecciona un Gradiente</v-card-title>
+                    <v-item-group v-model="selectedGradient" mandatory @update:model-value="aplicarEstilo">
+                      <v-row dense>
+                        <v-col v-for="(grad, index) in gradientes" :key="index" cols="6">
+                          <v-item v-slot="{ isSelected, toggle }">
+                            <v-card
+                              :style="{ background: grad.value }"
+                              height="40"
+                              class="d-flex align-center justify-center cursor-pointer border"
+                              @click="toggle"
+                            >
+                              <v-icon v-if="isSelected" icon="mdi-check" color="white"></v-icon>
+                            </v-card>
+                          </v-item>
+                        </v-col>
+                      </v-row>
+                    </v-item-group>
+                  </v-card>
+                </v-menu>
+
+                <v-btn color="deep-purple-accent-2" icon="mdi-forum" variant="tonal" density="compact" title="Configurar Foro de Discusión" @click="abrirModalForo"></v-btn>
+                <v-btn color="primary" icon="mdi-open-in-new" variant="tonal" density="compact" title="Incrustar Foro en Fondo" @click="agregarFondoForo"></v-btn>
+                <v-btn color="light-green" icon="mdi-eye" variant="tonal" density="compact" title="Abrir Visor" @click="abrirVisorNuevaPestana"></v-btn>
                 
-                <!-- Paginador de Diapositivas (Tabs) -->
-                <div class="d-flex align-center ga-1 style-scroll" style="overflow-x: auto; max-width: 70%;">
-                  <v-btn-toggle v-model="activeSlideIndex" mandatory color="primary" density="compact" variant="outlined">
-                    <v-btn 
-                      v-for="(slide, index) in slides" 
-                      :key="index" 
-                      :value="index"
-                      class="text-none"
-                    >
-                      Slide {{ index + 1 }}
-                    </v-btn>
-                  </v-btn-toggle>
+                <v-btn 
+                  color="cyan" 
+                  icon="mdi-code-tags" 
+                  variant="tonal" 
+                  density="compact" 
+                  title="Obtener código iFrame" 
+                  :disabled="!presentationTitle"
+                  @click="abrirDialogoEmbed"
+                ></v-btn>
+              </div>
+            </v-toolbar>
 
-                  <v-btn icon="mdi-plus" size="small" color="success" variant="tonal" title="Agregar Diapositiva" @click="agregarDiapositiva"></v-btn>
-                  <v-btn 
-                    icon="mdi-minus" 
-                    size="small" 
-                    color="error" 
-                    variant="tonal" 
-                    title="Eliminar Diapositiva Actual" 
-                    :disabled="slides.length <= 1"
-                    @click="eliminarDiapositivaActual"
-                  ></v-btn>
+            <!-- Diálogo Modal para Copiar el iFrame (Movido fuera del contenedor flexible) -->
+            <v-dialog v-model="dialogEmbed" max-width="600">
+              <v-card>
+                <v-card-title class="text-h6 font-weight-bold d-flex align-center">
+                  <v-icon icon="mdi-code-tags" class="mr-2" color="cyan"></v-icon>
+                  Incorporar Presentación (iFrame)
+                </v-card-title>
 
-
-                  <!-- Agrega esto junto al botón de agregar (+) y eliminar (-) -->
-<v-btn 
-  icon="mdi-chevron-left" 
-  size="small" 
-  color="info" 
-  variant="tonal" 
-  title="Mover Diapositiva a la Izquierda" 
-  :disabled="activeSlideIndex === 0"
-  @click="moverDiapositivaIzquierda"
-></v-btn>
-
-<v-btn 
-  icon="mdi-chevron-right" 
-  size="small" 
-  color="info" 
-  variant="tonal" 
-  title="Mover Diapositiva a la Derecha" 
-  :disabled="activeSlideIndex === slides.length - 1"
-  @click="moverDiapositivaDerecha"
-></v-btn>
-                </div>
-
-                <!-- Personalización de Tema / Estilos -->
-                <div class="d-flex align-center ga-2">
-                  <v-select
-                    v-model="selectedFontPair"
-                    :items="fontPairs"
-                    item-title="label"
-                    item-value="id"
-                    density="compact"
+                               
+                <v-card-text>
+                  <p class="text-body-2 mb-3">Copia este código HTML para insertar tu presentación en cualquier sitio web o plataforma LMS:</p>
+                  <v-textarea
+                    v-model="iframeCode"
+                    readonly
+                    rows="4"
                     variant="outlined"
+                    density="compact"
                     hide-details
-                    style="width: 180px;"
-                    @update:model-value="aplicarTipografia"
-                  ></v-select>
+                    class="font-monospace"
+                  ></v-textarea>
+                </v-card-text>
 
-                  <v-menu offset-y :close-on-content-click="false">
-                    <template v-slot:activator="{ props }">
-                      <v-btn color="purple" icon="mdi-palette" density="compact" title="Cambiar Gradiente" v-bind="props"></v-btn>
-                    </template>
-                    <v-card width="300" class="pa-3">
-                      <v-card-title class="text-subtitle-2 pa-0 mb-2">Selecciona un Gradiente</v-card-title>
-                      <v-item-group v-model="selectedGradient" mandatory @update:model-value="aplicarEstilo">
-                        <v-row dense>
-                          <v-col v-for="(grad, index) in gradientes" :key="index" cols="6">
-                            <v-item v-slot="{ isSelected, toggle }">
-                              <v-card
-                                :style="{ background: grad.value }"
-                                height="40"
-                                class="d-flex align-center justify-center cursor-pointer border"
-                                @click="toggle"
-                              >
-                                <v-icon v-if="isSelected" icon="mdi-check" color="white"></v-icon>
-                              </v-card>
-                            </v-item>
-                          </v-col>
-                        </v-row>
-                      </v-item-group>
-                    </v-card>
-                  </v-menu>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="grey-lighten-1" variant="text" @click="dialogEmbed = false">Cerrar</v-btn>
+                  <v-btn color="cyan" variant="elevated" prepend-icon="mdi-content-copy" @click="copiarIframe">
+                    {{ textoBotonCopiar }}
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
 
-  
-                  <v-btn 
-  color="deep-purple-accent-2" 
-  icon="mdi-forum" 
-  density="compact" 
-  title="Configurar Foro de Discusión" 
-  @click="abrirModalForo"
-></v-btn>
-
-                  <v-btn color="primary" icon="mdi-open-in-new" density="compact" title="embed" @click="agregarFondoForo"></v-btn>
-<!-- Modal para Crear/Configurar Foro de Discusión -->
-<div v-if="mostrarModalForo" class="modal-overlay">
-  <div class="modal-card">
-    
-    <!-- Encabezado del Modal -->
-    <div class="modal-header">
-      <h3>💬 Configurar Foro de Discusión</h3>
-      <button @click="cerrarModalForo" class="close-btn">&times;</button>
-    </div>
-
-    <!-- PASO 1: Ingrese el ID / Slug de la Sesión -->
-    <div v-if="pasoModal === 1" class="modal-body">
-      <label>Introduce el identificador único para esta sesión:</label>
-      <input 
-        v-model="sessionIdInput" 
-        type="text" 
-        placeholder="ej. 550-22-module1-seminar-discussion" 
-        class="modal-input"
-      />
-      <small>Este ID servirá para enlazar las preguntas y respuestas en la base de datos.</small>
-      
-      <div class="modal-actions">
-        <button @click="cerrarModalForo" class="btn-secondary">Cancelar</button>
-        <button @click="irAlPaso2" :disabled="!sessionIdInput.trim()" class="btn-primary">
-          Siguiente ➔
-        </button>
-      </div>
-    </div>
-
-    <!-- PASO 2: Iframe con la interfaz Admin cargada -->
-    <div v-if="pasoModal === 2" class="modal-body iframe-step">
-      <p class="admin-notice">
-        🛠️ Configura las instrucciones y preguntas del foro a continuación. Al finalizar, haz clic en <strong>"Incrustar en Diapositiva"</strong>.
-      </p>
-      
-      <iframe :src="adminUrlIframe" class="forum-admin-iframe"></iframe>
-
-      <div class="modal-actions">
-        <button @click="pasoModal = 1" class="btn-secondary">⬅ Volver</button>
-        <button @click="confirmarEIncrustarForo" class="btn-success">
-          🚀 Incrustar Foro en la Diapositiva
-        </button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-                  <v-btn color="light-green" icon="mdi-open-in-new" density="compact" title="Abrir Visor" @click="abrirVisorNuevaPestana"></v-btn>
-                  
-
-                  <!-- Botón para Gerar Código de Embebido (iFrame) -->
-<v-btn 
-  color="cyan" 
-  icon="mdi-code-tags" 
-  density="compact" 
-  title="Obtener código iFrame" 
-  class="ml-1"
-  :disabled="!presentationTitle"
-  @click="abrirDialogoEmbed"
-></v-btn>
-
-<!-- Diálogo Modal para Copiar el iFrame -->
-<v-dialog v-model="dialogEmbed" max-width="600">
+            <!-- Diálogo de Confirmación para Eliminar -->
+<v-dialog v-model="dialogEliminar" max-width="450" persistent>
   <v-card>
-    <v-card-title class="text-h6 font-weight-bold d-flex align-center">
-      <v-icon icon="mdi-code-tags" class="mr-2" color="cyan"></v-icon>
-      Incorporar Presentación (iFrame)
+    <v-card-title class="text-h6 font-weight-bold d-flex align-center text-error pt-4">
+      <v-icon icon="mdi-alert-circle" class="mr-2"></v-icon>
+      Confirmar Eliminación
     </v-card-title>
     
-    <v-card-text>
-      <p class="text-body-2 mb-3">Copia este código HTML para insertar tu presentación en cualquier sitio web o plataforma LMS:</p>
-      <v-textarea
-        v-model="iframeCode"
-        readonly
-        rows="4"
-        variant="outlined"
-        density="compact"
-        hide-details
-        class="font-monospace"
-      ></v-textarea>
+    <v-card-text class="py-3">
+      ¿Estás seguro de que deseas eliminar la presentación <strong>"{{ presentationTitle }}"</strong>? Esta acción no se puede deshacer.
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions class="px-4 pb-4">
       <v-spacer></v-spacer>
-      <v-btn color="grey-lighten-1" variant="text" @click="dialogEmbed = false">Cerrar</v-btn>
-      <v-btn color="cyan" variant="elevated" prepend-icon="mdi-content-copy" @click="copiarIframe">
-        {{ textoBotonCopiar }}
+      <v-btn color="grey-darken-1" variant="text" @click="dialogEliminar = false" :disabled="cargandoEliminar">
+        Cancelar
+      </v-btn>
+      <v-btn color="error" variant="elevated" @click="confirmarEliminarPresentacion" :loading="cargandoEliminar">
+        Sí, eliminar
       </v-btn>
     </v-card-actions>
   </v-card>
 </v-dialog>
-                </div>
-              </v-col>
-            </row>
 
-            <!-- Grid Editor / Preview -->
-            <v-row class="fill-height">
+            <!-- Modal para Crear/Configurar Foro de Discusión (Movido fuera del contenedor flexible) -->
+            <div v-if="mostrarModalForo" class="modal-overlay">
+              <div class="modal-card">
+                <div class="modal-header">
+                  <h3>💬 Configurar Foro de Discusión</h3>
+                  <button @click="cerrarModalForo" class="close-btn">&times;</button>
+                </div>
+
+                <div v-if="pasoModal === 1" class="modal-body">
+                  <label>Introduce el identificador único para esta sesión:</label>
+                  <input 
+                    v-model="sessionIdInput" 
+                    type="text" 
+                    placeholder="ej. 550-22-module1-seminar-discussion" 
+                    class="modal-input"
+                  />
+                  <small>Este ID servirá para enlazar las preguntas y respuestas en la base de datos.</small>
+                  
+                  <div class="modal-actions">
+                    <button @click="cerrarModalForo" class="btn-secondary">Cancelar</button>
+                    <button @click="irAlPaso2" :disabled="!sessionIdInput.trim()" class="btn-primary">
+                      Siguiente ➔
+                    </button>
+                  </div>
+                </div>
+
+                <div v-if="pasoModal === 2" class="modal-body iframe-step">
+                  <p class="admin-notice">
+                    🛠️ Configura las instrucciones y preguntas del foro a continuación. Al finalizar, haz clic en <strong>"Incrustar en Diapositiva"</strong>.
+                  </p>
+                  
+                  <iframe :src="adminUrlIframe" class="forum-admin-iframe"></iframe>
+
+                  <div class="modal-actions">
+                    <button @click="pasoModal = 1" class="btn-secondary">⬅ Volver</button>
+                    <button @click="confirmarEIncrustarForo" class="btn-success">
+                      🚀 Incrustar Foro en la Diapositiva
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grid Editor / Preview (Expandido dinámicamente) -->
+            <v-row class="flex-grow-1 w-100 ma-0">
               
               <!-- Columna Editor.js -->
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="6" class="pl-0 pb-0 pt-0 pr-md-2">
                 <v-card class="pa-3 fill-height d-flex flex-column" elevation="3">
                   <div class="text-subtitle-2 font-weight-bold mb-2 d-flex align-center text-primary">
                     <v-icon icon="mdi-square-edit-outline" class="mr-1"></v-icon>
                     Editando Diapositiva {{ activeSlideIndex + 1 }}
                   </div>
-
                   <!-- Contenedor donde se monta Editor.js -->
                   <div id="editorjs-holder" class="editorjs-container flex-grow-1"></div>
-                </card>
+                </v-card>
               </v-col>
 
               <!-- Columna Vista Previa Reveal.js -->
-              <v-col cols="12" md="6">
-                <v-card class="pa-4 fill-height" elevation="3">
-                  <v-card-title class="text-subtitle-1 pa-0 mb-2 d-flex align-center">
-                    <v-icon icon="mdi-eye" class="mr-2"></v-icon> Vista Previa en Vivo
+              <v-col cols="12" md="6" class="pr-0 pb-0 pt-0 pl-md-2">
+                <v-card class="pa-4 fill-height d-flex flex-column" elevation="3">
+                  <v-card-title class="text-subtitle-1 pa-0 mb-2 d-flex align-center justify-space-between">
+                    <div class="d-flex align-center">
+                      <v-icon icon="mdi-eye" class="mr-2"></v-icon> Vista Previa
+                    </div>
+                    <v-btn 
+                      icon="mdi-refresh" 
+                      size="small" 
+                      color="primary" 
+                      variant="tonal" 
+                      title="Actualizar Vista Previa" 
+                      @click="refrescarPreview"
+                    ></v-btn>
                   </v-card-title>
 
-                  <div class="reveal-container">
+                  <div class="reveal-container flex-grow-1">
                     <div class="reveal" ref="revealRef">
                       <div class="slides" id="slides-container">
                         <!-- Las diapositivas se renderizan dinámicamente aquí -->
@@ -700,15 +724,40 @@
                 </v-card>
               </v-col>
 
-            </row>
+            </v-row>
           </v-container>
         </v-main>
+
+        <!-- Sistema de Notificaciones Global -->
+        <v-snackbar v-model="snackbar.show" :color="snackbar.color" :timeout="3500">
+          {{ snackbar.text }}
+          <template v-slot:actions>
+            <v-btn variant="text" icon="mdi-close" @click="snackbar.show = false"></v-btn>
+          </template>
+        </v-snackbar>
       </v-app>
     `,
       setup() {
         const revealRef = ref(null);
         let revealInstance = null;
         let editorInstance = null;
+
+        // 1. Añade esta nueva variable reactiva junto a las demás (ej. debajo de dialogEmbed)
+        const dialogEliminar = ref(false);
+
+        // 2. Función para abrir el modal
+        const abrirDialogoEliminar = () => {
+          if (!currentId.value) return;
+          dialogEliminar.value = true;
+        };
+
+        const snackbar = ref({ show: false, text: '', color: 'success' });
+
+        const mostrarMensaje = (texto, color = 'success') => {
+          snackbar.value.text = texto;
+          snackbar.value.color = color;
+          snackbar.value.show = true;
+        };
 
         const currentId = ref(null);
         const presentationTitle = ref('Nueva Presentación Editor.js');
@@ -732,48 +781,40 @@
         const listaPresentaciones = ref([]);
         const selectedPresentationId = ref(null);
 
-        // Variables reactivas para el diálogo del iFrame
         const dialogEmbed = ref(false);
         const iframeCode = ref('');
         const textoBotonCopiar = ref('Copiar Código');
 
-
-        // Variables reactivas para el Modal
         const mostrarModalForo = ref(false);
         const pasoModal = ref(1);
         const sessionIdInput = ref('');
         const adminUrlIframe = ref('');
+        const onChangeDebounceTimer = ref(null);
 
-        // Abrir el modal desde el botón de la barra de herramientas
         const abrirModalForo = () => {
           sessionIdInput.value = `session-${Date.now().toString().slice(-6)}`;
           pasoModal.value = 1;
           mostrarModalForo.value = true;
         };
 
-        // Cerrar Modal
         const cerrarModalForo = () => {
           mostrarModalForo.value = false;
         };
 
-        // Avanzar al Paso 2: Cargar la interfaz Admin en el Iframe
         const irAlPaso2 = () => {
           if (!sessionIdInput.value.trim()) return;
 
           const cleanId = sessionIdInput.value.trim();
           const baseUrl = "https://dmgc-courses.github.io/discussions/index.html";
 
-          // Construir la URL de administración
           adminUrlIframe.value = `${baseUrl}?session=${cleanId}&admin=profesor123`;
           pasoModal.value = 2;
         };
 
-        // Paso 3: Confirmar e Insertar en Editor.js
         const confirmarEIncrustarForo = () => {
           const cleanId = sessionIdInput.value.trim();
           const studentUrl = `https://dmgc-courses.github.io/discussions/index.html?session=${cleanId}`;
 
-          // Formato HTML para Reveal.js iframe
           const htmlRaw = `<section data-background-iframe="${studentUrl}" data-background-interactive>\n</section>`;
 
           if (editorInstance) {
@@ -786,15 +827,12 @@
           }
         };
 
-        // Función adaptada para Vue
-        // Función adaptada para Vue (usando la variable let editorInstance)
         const agregarFondoForo = () => {
           const url = prompt("Introduce la URL del foro de discusión:");
           if (!url) return;
 
           const htmlRaw = `<section data-background-iframe="${url.trim()}" data-background-interactive>\n</section>`;
 
-          // Se evalúa directamente editorInstance sin .value
           if (editorInstance) {
             editorInstance.blocks.insert('raw', {
               html: htmlRaw
@@ -806,16 +844,12 @@
 
         const abrirDialogoEmbed = () => {
           if (!presentationTitle.value.trim()) {
-            alert('Asigna un nombre a la presentación primero.');
+            mostrarMensaje('Asigna un nombre a la presentación primero.', 'warning');
             return;
           }
 
-          // Construir la URL completa apuntando a viewer_new.html
           const urlViewer = `${window.location.origin}${window.location.pathname.replace('index.html', '')}viewer_new.html?title=${encodeURIComponent(presentationTitle.value.trim())}`;
-
-          // Generar la etiqueta iframe
-          iframeCode.value = `<iframe src="${urlViewer}" width="100%" height="500px" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>`;
-
+          iframeCode.value = `<iframe src="${urlViewer}" width="100%" height="600px" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>`;
           textoBotonCopiar.value = 'Copiar Código';
           dialogEmbed.value = true;
         };
@@ -828,22 +862,19 @@
               textoBotonCopiar.value = 'Copiar Código';
             }, 2000);
           } catch (err) {
-            alert('Error al copiar al portapapeles: ' + err.message);
+            mostrarMensaje('Error al copiar al portapapeles: ' + err.message);
           }
         };
 
-        // Configuración de Editor.js
         const inicializarEditorJS = async (dataInicial) => {
           if (editorInstance && typeof editorInstance.destroy === 'function') {
             await editorInstance.destroy();
             editorInstance = null;
           }
 
-          // Sanitizar el objeto eliminando Proxies de Vue
           let cleanData = { blocks: [] };
           if (dataInicial && dataInicial.blocks) {
             cleanData = JSON.parse(JSON.stringify(dataInicial));
-            // Asegurar que ningún bloque párrafo/header tenga texto undefined
             cleanData.blocks = cleanData.blocks.map(block => {
               if (!block.data) block.data = {};
               if (block.type === 'paragraph' || block.type === 'header') {
@@ -860,13 +891,15 @@
             };
           }
 
-          // Define las herramientas que estarán disponibles dentro de las columnas
           const columnTools = {
             header: Header,
             list: NestedList,
             image: ImageTool,
             quote: Quote
           };
+
+          const ColumnsTool = window.editorjsColumns || window.EditorJSColumns || editorjsColumns;
+          const FontSizeTool = window.FontSizeTool;
 
           editorInstance = new EditorJS({
             holder: 'editorjs-holder',
@@ -883,7 +916,30 @@
                   }
                 }
               },
-              // Herramienta Raw HTML para código y layouts
+
+              fontSize: {
+                class: FontSizeTool,
+                inlineToolbar: true,
+                config: {
+                  fontSizes: [
+                    { size: "0.25em", label: "0.25em" },
+                    { size: "0.5em", label: "0.5em" },
+                    { size: "0.8em", label: "0.8em" },
+                    { size: "1em", label: "1em" },
+                    { size: "1.5em", label: "1.5em" },
+                    { size: "1.8em", label: "1.8em" },
+                    { size: "2em", label: "2em" },
+                    { size: "2.5em", label: "2.5em" },
+                    { size: "2.8em", label: "2.8em" },
+                    { size: "3em", label: "3em" },
+                    { size: "3.5em", label: "3.5em" },
+                    { size: "3.8em", label: "3.8em" },
+                    { size: "4em", label: "4em" },
+                  ],
+                  // defaultSize: "1em",
+                },
+              },
+
               raw: {
                 class: RawTool,
                 placeholder: '<div class="editor-columns-container">\n  <div class="editor-column">Columna 1</div>\n  <div class="editor-column">Columna 2</div>\n</div>'
@@ -898,6 +954,123 @@
                 },
               },
 
+              // columns: {
+              //   class: ColumnsTool,
+              //   config: {
+              //     tools: {
+              //       header: Header,
+              //       list: NestedList,
+              //       image: {
+              //         class: ImageTool,
+              //         config: {
+              //           uploader: {
+              //             async uploadByFile(file) {
+              //               try {
+              //                 const fileName = `${Date.now()}_${file.name}`;
+              //                 const { error } = await supabaseClient.storage.from('imagenes-diapositivas').upload(fileName, file);
+              //                 if (error) throw error;
+              //                 const { data: publicUrlData } = supabaseClient.storage.from('imagenes-diapositivas').getPublicUrl(fileName);
+              //                 return { success: 1, file: { url: publicUrlData.publicUrl } };
+              //               } catch (err) {
+              //                 mostrarMensaje('Error al subir imagen: ' + err.message);
+              //                 return { success: 0 };
+              //               }
+              //             }
+              //           }
+              //         }
+              //       },
+              //       quote: Quote
+              //     },
+              //     EditorJsLibrary: window.EditorJS || EditorJS
+              //   }
+              // },
+
+              columns: {
+                class: ColumnsTool,
+                config: {
+                  tools: {
+                    header: {
+                      class: Header,
+                      shortcut: 'CMD+SHIFT+H',
+                      tunes: ['alignmentTune'],
+                      config: { levels: [1, 2, 3, 4], defaultLevel: 2 }
+                    },
+                    list: { class: NestedList, inlineToolbar: true },
+                    quote: { class: Quote, inlineToolbar: true, tunes: ['alignmentTune'] },
+
+                    // --- Herramientas añadidas para que coincidan con el editor principal ---
+                    fontSize: {
+                      class: FontSizeTool,
+                      inlineToolbar: true,
+                      config: {
+                        fontSizes: [
+                          { size: "0.25em", label: "" },
+                          { size: "0.5em", label: "" },
+                          { size: "0.8em", label: "" },
+                          { size: "1em", label: "" },
+                          { size: "1.5em", label: "" },
+                          { size: "1.8em", label: "" },
+                          { size: "2em", label: "" },
+                          { size: "2.5em", label: "" },
+                          { size: "2.8em", label: "" },
+                          { size: "3em", label: "" },
+                          { size: "3.5em", label: "" },
+                          { size: "3.8em", label: "" },
+                          { size: "4em", label: "" },
+                        ],
+                      },
+                    },
+
+
+                    TextColor: {
+                      class: window.ColorPlugin.default || window.ColorPlugin,
+                      config: {
+                        // Le pasamos ambas por si el plugin busca una u otra internamente
+                        colorCollections: ['#E53935', '#1E88E5', '#43A047', '#FB8C00', '#8E24AA', '#000000', '#FFFFFF'],
+                        colors: ['#E53935', '#1E88E5', '#43A047', '#FB8C00', '#8E24AA', '#000000', '#FFFFFF'],
+                        defaultColor: '#FF1300',
+                        type: 'text',
+                        customPicker: true
+                      }
+                    },
+                    Marker: {
+                      class: window.ColorPlugin.default || window.ColorPlugin,
+                      config: {
+                        colorCollections: ['#FFF066', '#A0FE00', '#00E5FF', '#FFB74D', '#FF80AB'],
+                        colors: ['#FFF066', '#A0FE00', '#00E5FF', '#FFB74D', '#FF80AB'],
+                        defaultColor: '#FFF066',
+                        type: 'marker',
+                        customPicker: true
+                      }
+                    },
+
+
+                    inlineCode: { class: InlineCode },
+
+                    image: {
+                      class: ImageTool,
+                      config: {
+                        uploader: {
+                          async uploadByFile(file) {
+                            try {
+                              const fileName = `${Date.now()}_${file.name}`;
+                              const { error } = await supabaseClient.storage.from('imagenes-diapositivas').upload(fileName, file);
+                              if (error) throw error;
+                              const { data: publicUrlData } = supabaseClient.storage.from('imagenes-diapositivas').getPublicUrl(fileName);
+                              return { success: 1, file: { url: publicUrlData.publicUrl } };
+                            } catch (err) {
+                              mostrarMensaje('Error al subir imagen: ' + err.message);
+                              return { success: 0 };
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  EditorJsLibrary: window.EditorJS || EditorJS
+                }
+              },
+
               header: {
                 class: Header,
                 shortcut: 'CMD+SHIFT+H',
@@ -906,30 +1079,33 @@
               },
               list: { class: NestedList, inlineToolbar: true },
               quote: { class: Quote, inlineToolbar: true, tunes: ['alignmentTune'] },
-              // marker: { class: Marker },
-              // Reemplaza 'marker: { class: Marker }' por esto:
-              // Herramienta 1: Resaltador de Fondo (Marker)
               Marker: {
-                class: window.ColorPlugin,
+                class: window.ColorPlugin.default || window.ColorPlugin,
                 config: {
                   colorCollections: ['#FFF066', '#A0FE00', '#00E5FF', '#FFB74D', '#FF80AB'],
+                  colors: ['#E53935', '#1E88E5', '#43A047', '#FB8C00', '#8E24AA', '#000000', '#FFFFFF'],
                   type: 'marker',
                   customPicker: true
                 }
               },
 
-              // Herramienta 2: Color de Texto (TextColor)
               TextColor: {
-                class: window.ColorPlugin,
+                class: window.ColorPlugin.default || window.ColorPlugin,
                 config: {
                   colorCollections: ['#E53935', '#1E88E5', '#43A047', '#FB8C00', '#8E24AA'],
+                  colors: ['#E53935', '#1E88E5', '#43A047', '#FB8C00', '#8E24AA', '#000000', '#FFFFFF'],
+
                   type: 'text',
                   customPicker: true
                 }
               },
 
               inlineCode: { class: InlineCode },
-              embed: { class: Embed, config: { services: { youtube: true } } },
+              embed: {
+                class: Embed,
+                config: { services: { youtube: true } },
+                inlineToolbar: true,
+              },
               image: {
                 class: ImageTool,
                 config: {
@@ -942,7 +1118,7 @@
                         const { data: publicUrlData } = supabaseClient.storage.from('imagenes-diapositivas').getPublicUrl(fileName);
                         return { success: 1, file: { url: publicUrlData.publicUrl } };
                       } catch (err) {
-                        alert('Error al subir imagen: ' + err.message);
+                        mostrarMensaje('Error al subir imagen: ' + err.message);
                         return { success: 0 };
                       }
                     }
@@ -950,71 +1126,76 @@
                 }
               }
             },
-            // Habilitar la alineación por defecto para todos los bloques comunes
-            tunes: ['alignmentTune'],
-            onChange: async () => {
-              const savedData = await editorInstance.save();
-              slides.value[activeSlideIndex.value] = savedData;
-              actualizarReveal();
-            }
-          });
-          // ---> PEGAR AQUÍ (Justo después de instanciar EditorJS y antes de cerrar la función) <---
-          nextTick(() => {
-            const holder = document.getElementById('editorjs-holder');
-            if (holder) {
-              document.addEventListener('click', async (e) => {
-                if (e.target.closest('.ce-popover') || e.target.closest('.ce-toolbar')) {
-                  setTimeout(async () => {
-                    if (editorInstance && typeof editorInstance.save === 'function') {
-                      const savedData = await editorInstance.save();
-                      slides.value[activeSlideIndex.value] = savedData;
-                      actualizarReveal();
-                    }
-                  }, 100);
+
+            onChange: (api, event) => {
+              clearTimeout(onChangeDebounceTimer.value);
+              onChangeDebounceTimer.value = setTimeout(async () => {
+                if (!editorInstance) return;
+
+                let contieneColumnas = false;
+                const cantidadBloques = api.blocks.getBlocksCount();
+
+                for (let i = 0; i < cantidadBloques; i++) {
+                  const bloque = api.blocks.getBlockByIndex(i);
+                  if (bloque && bloque.name === 'columns') {
+                    contieneColumnas = true;
+                    break;
+                  }
                 }
-              });
-            }
+
+                if (!contieneColumnas && typeof editorInstance.save === 'function') {
+                  const savedData = await editorInstance.save();
+                  slides.value[activeSlideIndex.value] = savedData;
+                  actualizarReveal();
+                }
+              }, 800);
+            },
+
+            tunes: ['alignmentTune'],
           });
         };
 
-        // Renderizado e Inicialización de Reveal.js
         const actualizarReveal = () => {
           const slidesContainer = document.getElementById('slides-container');
           if (!slidesContainer) return;
 
-          // Construye las secciones HTML para cada slide
           const htmlSlides = slides.value.map(slideData => {
             const innerHTML = editorJsToHtml(slideData);
             return `<section>${innerHTML || '<h3>Diapositiva Vacía</h3>'}</section>`;
           }).join('\n');
 
-          slidesContainer.innerHTML = htmlSlides;
+          if (!revealInstance) {
+            slidesContainer.innerHTML = htmlSlides;
+            nextTick(() => {
+              revealInstance = new Reveal(revealRef.value, {
+                embedded: true,
+                keyboardCondition: 'focused',
+                center: true,
+                slideNumber: 'c/t',
+                controls: true,
+                progress: true,
+                width: 1280,
+                height: 720,
+              });
 
-          nextTick(() => {
-            if (revealInstance) revealInstance.destroy();
-
-            revealInstance = new Reveal(revealRef.value, {
-              embedded: true,
-              keyboardCondition: 'focused',
-              center: true,
-              slideNumber: 'c/t',
-              controls: true,
-              progress: true,
-              width: 1280,
-              height: 720,
+              revealInstance.initialize().then(() => {
+                aplicarEstilo();
+                aplicarTipografia();
+                revealInstance.slide(activeSlideIndex.value, 0);
+              });
             });
+          } else {
+            slidesContainer.innerHTML = htmlSlides;
+            revealInstance.sync();
 
-            revealInstance.initialize().then(() => {
-              aplicarEstilo();
-              aplicarTipografia();
+            setTimeout(() => {
               if (revealInstance && typeof revealInstance.slide === 'function') {
                 revealInstance.slide(activeSlideIndex.value, 0);
               }
-            });
-          });
+            }, 50);
+          }
         };
 
-        // Cambio de pestaña/slide
         watch(activeSlideIndex, async (newIndex) => {
           if (slides.value[newIndex]) {
             await inicializarEditorJS(slides.value[newIndex]);
@@ -1024,27 +1205,34 @@
           }
         });
 
+        const refrescarPreview = async () => {
+          if (editorInstance && typeof editorInstance.save === 'function') {
+            const savedData = await editorInstance.save();
+            slides.value[activeSlideIndex.value] = savedData;
+            actualizarReveal();
+          }
+        };
+
         const agregarDiapositiva = async () => {
           const nuevaSlide = {
             blocks: [{ type: 'header', data: { text: `Nueva Diapositiva`, level: 2 } }]
           };
 
-          // Inserta la nueva diapositiva justo después del índice activo
           slides.value.splice(activeSlideIndex.value + 1, 0, nuevaSlide);
-
-          // Cambia el enfoque a la nueva diapositiva recién creada
           activeSlideIndex.value = activeSlideIndex.value + 1;
+          actualizarReveal();
         };
 
         const eliminarDiapositivaActual = () => {
           if (slides.value.length <= 1) return;
+
           slides.value.splice(activeSlideIndex.value, 1);
           if (activeSlideIndex.value >= slides.value.length) {
             activeSlideIndex.value = slides.value.length - 1;
-          } else {
-            inicializarEditorJS(slides.value[activeSlideIndex.value]);
-            actualizarReveal();
           }
+
+          inicializarEditorJS(slides.value[activeSlideIndex.value]);
+          actualizarReveal();
         };
 
         const moverDiapositivaIzquierda = () => {
@@ -1063,16 +1251,14 @@
           }
         };
 
-        // Persistencia con Supabase
         const guardarPresentacion = async () => {
           if (!presentationTitle.value.trim()) {
-            alert('Por favor asigna un nombre a la presentación.');
+            mostrarMensaje('Por favor asigna un nombre a la presentación.', 'warning');
             return;
           }
 
           cargandoGuardado.value = true;
           try {
-            // Guarda el contenido activo del editor en el arreglo
             if (editorInstance) {
               slides.value[activeSlideIndex.value] = await editorInstance.save();
             }
@@ -1085,7 +1271,7 @@
             const payload = {
               title: presentationTitle.value.trim(),
               course: currentCourse.value.trim() || 'General',
-              content_json: slides.value, // Nueva Columna JSON
+              content_json: slides.value,
               theme_config: themeConfig,
               is_published: true,
               updated_at: new Date()
@@ -1106,15 +1292,45 @@
               currentId.value = data[0].id;
             }
 
-            alert(`¡Presentación "${presentationTitle.value}" guardada correctamente!`);
+            mostrarMensaje(`¡Presentación "${presentationTitle.value}" guardada correctamente!`);
             await obtenerPresentaciones();
           } catch (err) {
-            alert('Error al guardar en Supabase: ' + err.message);
+            mostrarMensaje('Error al guardar en Supabase: ' + err.message);
           } finally {
             cargandoGuardado.value = false;
           }
         };
 
+
+        // 3. Función que ejecuta la eliminación (reemplaza a tu eliminarPresentacion anterior)
+        const confirmarEliminarPresentacion = async () => {
+          cargandoEliminar.value = true;
+          try {
+            const { error } = await supabaseClient.from('presentations').delete().eq('id', currentId.value);
+            if (error) throw error;
+
+            mostrarMensaje('Presentación eliminada correctamente.');
+
+            // Limpiar estado
+            currentId.value = null;
+            selectedPresentationId.value = null;
+            presentationTitle.value = 'Nueva Presentación';
+            slides.value = [{ blocks: [{ type: 'header', data: { text: 'Diapositiva 1', level: 2 } }] }];
+            activeSlideIndex.value = 0;
+
+            // Cerrar el modal
+            dialogEliminar.value = false;
+
+            // Recargar vista
+            await inicializarEditorJS(slides.value[0]);
+            await obtenerPresentaciones();
+            actualizarReveal();
+          } catch (err) {
+            mostrarMensaje('Error al eliminar: ' + err.message, 'error');
+          } finally {
+            cargandoEliminar.value = false;
+          }
+        };
         const obtenerPresentaciones = async () => {
           cargandoLista.value = true;
           try {
@@ -1148,11 +1364,9 @@
           presentationTitle.value = item.title;
           currentCourse.value = item.course || 'General';
 
-          // Lógica Fallback: Preferir JSON, si no existe, procesar Markdown antiguo
           if (item.content_json && Array.isArray(item.content_json) && item.content_json.length > 0) {
             slides.value = item.content_json;
           } else if (item.content_markdown) {
-            // Dividir las diapositivas antiguas si usabas separadores como '---'
             const markdownSlides = item.content_markdown.split('---');
             slides.value = markdownSlides.map(text => ({
               blocks: [
@@ -1163,15 +1377,10 @@
             slides.value = [{ blocks: [{ type: 'header', data: { text: item.title, level: 2 } }] }];
           }
 
-          if (item.content_json && Array.isArray(item.content_json)) {
-            slides.value = item.content_json;
-          } else {
-            slides.value = [{ blocks: [{ type: 'header', data: { text: item.title, level: 2 } }] }];
-          }
-
           if (item.theme_config?.gradient !== undefined) {
             const indexGrad = gradientes.value.findIndex(g => g.value === item.theme_config.gradient);
             if (indexGrad !== -1) selectedGradient.value = indexGrad;
+            aplicarEstilo();
           }
 
           if (item.theme_config?.fontPair) {
@@ -1193,7 +1402,7 @@
             const { error } = await supabaseClient.from('presentations').delete().eq('id', currentId.value);
             if (error) throw error;
 
-            alert('Presentación eliminada.');
+            mostrarMensaje('Presentación eliminada.');
             currentId.value = null;
             selectedPresentationId.value = null;
             presentationTitle.value = 'Nueva Presentación';
@@ -1203,17 +1412,12 @@
             await obtenerPresentaciones();
             actualizarReveal();
           } catch (err) {
-            alert('Error al eliminar: ' + err.message);
+            mostrarMensaje('Error al eliminar: ' + err.message);
           } finally {
             cargandoEliminar.value = false;
           }
         };
 
-
-
-        // Tipografías y Gradientes
-
-        // Tipografías
         const fontPairs = [
           {
             id: 'montserrat-inter',
@@ -1285,7 +1489,7 @@
         };
 
         const abrirVisorNuevaPestana = () => {
-          if (!presentationTitle.value.trim()) return alert('Asigna un nombre al proyecto primero.');
+          if (!presentationTitle.value.trim()) return mostrarMensaje('Asigna un nombre al proyecto primero.');
           const urlVisor = `viewer_new.html?title=${encodeURIComponent(presentationTitle.value.trim())}`;
           window.open(urlVisor, '_blank');
         };
@@ -1303,6 +1507,8 @@
         });
 
         return {
+          refrescarPreview,
+          snackbar,
           presentationTitle,
           currentCourse,
           listaCursos,
@@ -1321,13 +1527,16 @@
           selectedGradient,
           agregarDiapositiva,
           eliminarDiapositivaActual,
+
           moverDiapositivaIzquierda,
           moverDiapositivaDerecha,
           guardarPresentacion,
           cargarPresentacionSeleccionada,
-          currentId,             // <--- Para que funcione el v-if="currentId"
-          cargandoEliminar,      // <--- Para el :loading del botón
+          currentId,
           eliminarPresentacion,
+          dialogEliminar,
+          abrirDialogoEliminar,
+          confirmarEliminarPresentacion,
           aplicarTipografia,
           aplicarEstilo,
           abrirVisorNuevaPestana,
@@ -1337,7 +1546,6 @@
           abrirDialogoEmbed,
           copiarIframe,
           agregarFondoForo,
-          // --- REGISTRAR MODAL DE FORO ---
           mostrarModalForo,
           pasoModal,
           sessionIdInput,
