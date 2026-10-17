@@ -511,9 +511,28 @@ createApp({
                 </v-card-text>
 
                 <!-- Listeners -->
+                  <strong>Listened by:</strong>
+
+                 <v-text-field
+                  v-model="newListenerName[sw.id]"
+                  label="Type your name if you listened to this soundwalk."
+                  variant="outlined"
+                  density="compact"
+                  hide-details
+                  class="mt-4"
+                ></v-text-field>
+
+                <v-btn
+                  color="deep-orange"
+                  variant="tonal"
+                  size="small"
+                  @click="addListener(sw.id)"
+                >
+                  Add Name
+                </v-btn>
+
                 <v-divider></v-divider>
                 <v-card-text>
-                  <strong>Listened by:</strong>
                   <div v-if="sw.listeners.length">
                     <v-chip
                       v-for="(name, index) in sw.listeners"
@@ -544,20 +563,3 @@ createApp({
 }).use(vuetify).mount("#app");
 
 
-//  <v-text-field
-//                   v-model="newListenerName[sw.id]"
-//                   label="Your team name"
-//                   variant="outlined"
-//                   density="compact"
-//                   hide-details
-//                   class="mt-4"
-//                 ></v-text-field>
-
-//                 <v-btn
-//                   color="deep-orange"
-//                   variant="tonal"
-//                   size="small"
-//                   @click="addListener(sw.id)"
-//                 >
-//                   Add Name
-//                 </v-btn>
