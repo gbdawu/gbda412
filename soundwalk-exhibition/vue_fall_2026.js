@@ -519,7 +519,8 @@ createApp({
                   variant="outlined"
                   density="compact"
                   hide-details
-                  class="mt-4"
+                  class="mt-2 mb-2"
+                  width="50%"
                 ></v-text-field>
 
                 <v-btn
@@ -527,6 +528,7 @@ createApp({
                   variant="tonal"
                   size="small"
                   @click="addListener(sw.id)"
+                  class="mb-2"
                 >
                   Add Name
                 </v-btn>
