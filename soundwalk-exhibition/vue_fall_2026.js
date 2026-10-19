@@ -170,7 +170,7 @@ createApp({
                 // team 12
                 id: 12,
                 title: "Low Water: A Fisherman's Avon",
-                author: "Mary-Ann & Dawson",
+                author: "Peter Kravetz",
                 description: "Low Water is a seven-stop soundwalk that leads listeners from Stratford School down to the Avon River and Lake Victoria, guided by an old fisherman who has fished the river for forty years. He is a persona: the voice of a wise, patient listener, but the reflections he speaks are my own. Stratford usually presents its river as scenery: swans, theatre crowds, a calm lake behind the Festival. The fisherman hears it differently, as a living system that is under stress. The walk is built around a real event. In July 2025 a severe storm pushed debris into the RT Orr Dam, a sluice gate jammed open, and Lake Victoria drained. Little rain followed, the lake stayed far below its normal depth, and the Boathouse suspended boat rentals for the first time in its sixty-year history. My sonic argument is that climate change in Stratford is not distant or abstract. It can be heard, and the clearest sign of it is a silence where water should be.",
                 qr: "images/qr-codes-fall-2026/12.png",
                 link: "https://explore.echoes.xyz/collections/oN9o8Vk4f4qpb0EQ",
@@ -313,16 +313,16 @@ createApp({
             },
 
 
-            // {
-            //     // team 25
-            //     id: 25,
-            //     title: "Stratford: Echoes Between Tracks and Stars",
-            //     author: "Saybe & Nirthika",
-            //     description: "Welcome to Nirthika and Saybe's soundwalk Stratford: Echoes Between Tracks and Stars. This walk consists of 5 locations. In which order is important to preserve the flow of the story! 1. Grand Trunk Railway - where the journey begins. 2. The Starlight 3. The Spa Near The Tracks 4. Bru Garden 5. Movies Under The Stars - where the journey ends. You will be transported into a day filled with history, relaxation, culinary delight, and nostalgia. We advise you to jot down one word that resonates with you at each location, so please listen closely and take your time.",
-            //     qr: "images/qr-codes-fall-2026/25.png",
-            //     link: "https://explore.echoes.xyz/collections/nywTb9xJVGVeZtsA",
-            //     listeners: [],
-            // },
+            {
+                // team 25
+                id: 25,
+                title: "Sounds of the Stratford campus",
+                author: "Zain Jafrani",
+                description: "An interactive Audio Guide Walkthrough of the Stratford School of Interaction design and it's history.",
+                qr: "images/qr-codes-fall-2026/25.png",
+                link: "https://explore.echoes.xyz/echoes/fN44aVIsPJtPPyTh",
+                listeners: [],
+            },
 
 
             // {
