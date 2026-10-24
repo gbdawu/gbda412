@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Teachable Machine to VCV Rack Bridge</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #121212; color: #fff; }
+    .container { display: flex; gap: 20px; }
+    .card { background: #1e1e1e; padding: 15px; border-radius: 8px; flex: 1; }
+    input, select, button { width: 100%; padding: 8px; margin: 5px 0; border-radius: 4px; border: none; }
+    button { background: #00e676; font-weight: bold; cursor: pointer; }
+    .class-row { margin: 10px 0; padding: 8px; background: #2a2a2a; border-radius: 4px; }
+    .bar { height: 8px; background: #00e676; width: 0%; transition: width 0.1s; }
+  </style>
+</head>
+<body>
+
+  <h2>Teachable Machine ➔ VCV Rack Web MIDI Bridge</h2>
+  
+  <div class="container">
+    <!-- Controls -->
+    <div class="card">
+      <h3>1. Setup Connections</h3>
+      <label>Teachable Machine Model URL:</label>
+      <input type="text" id="model-url" placeholder="https://teachablemachine.withgoogle.com/models/YOUR_MODEL_ID/">
+      <button onclick="loadModel()">Load Model</button>
+
+      <label>MIDI Output Device:</label>
+      <select id="midi-select"><option>Select MIDI Port...</option></select>
+    </div>
+
+    <!-- Live Predictions & Mapping -->
+    <div class="card">
+      <h3>2. Model Predictions & Mapping</h3>
+      <div id="webcam-container"></div>
+      <div id="classes-container"></div>
+    </div>
+  </div>
+
+  <script>
+    let model, webcam, midiOutput, labelContainer, maxPredictions;
+
+    // Initialize Web MIDI
+    if (navigator.requestMIDIAccess) {
+      navigator.requestMIDIAccess().then(onMIDISuccess, () => alert("Web MIDI not supported/denied."));
+    }
+
+    function onMIDISuccess(midiAccess) {
+      const select = document.getElementById("midi-select");
+      const outputs = midiAccess.outputs.values();
+      for (let output of outputs) {
+        let opt = document.createElement("option");
+        opt.value = output.id;
+        opt.text = output.name;
+        select.appendChild(opt);
+      }
+      select.onchange = () => { midiOutput = midiAccess.outputs.get(select.value); };
+    }
+
+    async function loadModel() {
+      const baseURL = document.getElementById("model-url").value;
+      const modelURL = baseURL + "model.json";
+      const metadataURL = baseURL + "metadata.json";
+
+      model = await tmImage.load(modelURL, metadataURL);
+      maxPredictions = model.getTotalClasses();
+
+      webcam = new tmImage.Webcam(200, 200, true);
+      await webcam.setup();
+      await webcam.play();
+      window.requestAnimationFrame(loop);
+
+      document.getElementById("webcam-container").appendChild(webcam.canvas);
+      setupMappingUI();
+    }
+
+    function setupMappingUI() {
+      const container = document.getElementById("classes-container");
+      container.innerHTML = "";
+      for (let i = 0; i < maxPredictions; i++) {
+        let className = model.getClassLabels()[i];
+        container.innerHTML += `
+          <div class="class-row">
+            <strong>${className}</strong>
+            <div class="bar" id="bar-${i}"></div>
+            <label>Map to MIDI CC:</label>
+            <input type="number" id="cc-${i}" value="${i + 1}" min="1" max="127">
+          </div>
+        `;
+      }
+    }
+
+    async function loop() {
+      webcam.update();
+      await predict();
+      window.requestAnimationFrame(loop);
+    }
+
+    async function predict() {
+      const prediction = await model.predict(webcam.canvas);
+      for (let i = 0; i < maxPredictions; i++) {
+        const probability = prediction[i].probability;
+        document.getElementById(`bar-${i}`).style.width = (probability * 100) + "%";
+
+        // Send MIDI CC to VCV Rack
+        if (midiOutput) {
+          const ccNumber = parseInt(document.getElementById(`cc-${i}`).value);
+          const ccValue = Math.floor(probability * 127); // Convert 0.0-1.0 to 0-127
+          
+          // Send Control Change message: [Status Byte 0xB0, CC Number, Value]
+          midiOutput.send([0xB0, ccNumber, ccValue]);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
