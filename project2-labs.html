@@ -133,7 +133,7 @@
           <!-- <v-list-item @click="selectedWorkshopId = 'home'; drawer = false" :active="selectedWorkshopId === 'home'"
             rounded="lg" class="mb-1" prepend-icon="mdi-home-variant-outline" title="Overview & Home"></v-list-item>  -->
 
-           <!-- <v-divider class="my-2"></v-divider> -->
+          <!-- <v-divider class="my-2"></v-divider> -->
 
           <!-- Stream A Group -->
           <div
@@ -190,14 +190,15 @@
             <!-- Hero Banner -->
             <div class="relative overflow-hidden rounded-3xl p-8 sm:p-12 text-white shadow-xl gradient-header">
               <div class="relative z-10 max-w-3xl">
-                
+
                 <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
                   Sonic Signals & Futures Labs
                 </h1>
                 <p class="text-white/90 text-base sm:text-lg leading-relaxed mb-6">
-                  Experiment with personal experiences, technology, and creative processes to explore the intersections of movement, sound, and digital tools.
+                  Experiment with personal experiences, technology, and creative processes to explore the intersections
+                  of movement, sound, and digital tools.
                 </p>
-          
+
               </div>
               <div class="absolute -right-12 -bottom-12 opacity-10 text-white pointer-events-none">
                 <v-icon icon="mdi-waveform" size="380"></v-icon>
@@ -219,7 +220,9 @@
                   </div>
                   <h2 class="text-2xl font-bold mb-3 text-slate-900 dark:text-white">The Body as Instrument</h2>
                   <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
-                    Explore how personal bio-data can generate unique sonic experiences that reflect movement, gesture, and the physicality of the body. Collect your own GPS data using Strava or wearable devices and sonify it using online sequencers.
+                    Explore how personal bio-data can generate unique sonic experiences that reflect movement, gesture,
+                    and the physicality of the body. Collect your own GPS data using Strava or wearable devices and
+                    sonify it using online sequencers.
                   </p>
 
                   <div class="space-y-2 mb-6">
@@ -250,7 +253,8 @@
                   </div>
                   <h2 class="text-2xl font-bold mb-3 text-slate-900 dark:text-white">Creative Music Machines</h2>
                   <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
-                    Explore how artificial intelligence tools can help you generate music. Using online tools like ElevenLabs, collaborate with AI to produce music compositions from text prompts.
+                    Explore how artificial intelligence tools can help you generate music. Using online tools like
+                    ElevenLabs, collaborate with AI to produce music compositions from text prompts.
                   </p>
 
                   <div class="space-y-2 mb-6">
@@ -271,7 +275,7 @@
 
             </div>
 
-      
+
           </div>
 
           <!-- Active Workshop View -->
@@ -288,7 +292,7 @@
                       class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
                       Stream {{ currentWorkshop.stream }}
                     </span>
-                    <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Workshop Module</span>
+                    <!-- <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Stream Module</span> -->
                   </div>
                   <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
                     {{ currentWorkshop.title }}
@@ -322,8 +326,8 @@
 
                 <div class="pt-2">
                   <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">What You Will Do</h3>
-                  <p
-                    class="text-sm text-slate-700 dark:text-slate-200 leading-relaxed bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800" v-html="currentWorkshop.whatYouWillDo">
+                  <p class="text-sm text-slate-700 dark:text-slate-200 leading-relaxed bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800"
+                    v-html="currentWorkshop.whatYouWillDo">
                   </p>
                 </div>
               </div>
@@ -404,7 +408,8 @@
                 <!-- Objective Box inside Step -->
                 <div
                   class="px-6 py-3 bg-slate-50 dark:bg-slate-800/40 border-b border-slate-100 dark:border-slate-800/80 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-                  <strong class="text-pink-600 dark:text-pink-400">Objective:</strong> <span v-html="step.objective"></span>
+                  <strong class="text-pink-600 dark:text-pink-400">Objective:</strong> <span
+                    v-html="step.objective"></span>
                 </div>
 
                 <!-- Step Details Body -->
@@ -433,10 +438,10 @@
 
             <!-- Bottom Module Navigation Footer -->
             <div class="flex items-center justify-between pt-8 border-t border-slate-200 dark:border-slate-800">
-              <v-btn v-if="prevWorkshop" variant="outlined" rounded="lg" @click="selectedWorkshopId = prevWorkshop.id">
+              <!-- <v-btn v-if="prevWorkshop" variant="outlined" rounded="lg" @click="selectedWorkshopId = prevWorkshop.id">
                 <v-icon icon="mdi-chevron-left"></v-icon> Previous Module
               </v-btn>
-              <div v-else></div>
+              <div v-else></div> -->
 
               <!-- <v-btn v-if="nextWorkshop" color="#ff416c" class="text-white" rounded="lg"
                 @click="selectedWorkshopId = nextWorkshop.id">
@@ -771,39 +776,164 @@
           {
             id: 'b1',
             stream: 'B',
-            title: 'Lab 1: Generative AI Prompting with ChatGPT & ElevenLabs',
+            title: 'Lab 1: Generate Sound With A Machine Learning Model',
             shortTitle: 'B1: AI Music Basics',
             icon: 'mdi-robot',
-            intro: 'Explore generative AI sound design. Learn to formulate effective textual prompts with ChatGPT and synthesize 30-second AI musical compositions using ElevenLabs.',
-            whatYouWillDo: 'Define mood and structure, interview ChatGPT to build rich prompts, input text prompts into ElevenLabs, and generate a 30-second track.',
+            intro: 'In this lab, you will explore how machine learning models can be used to trigger and control sounds in modular synthesizers. Using Google Teachable Machine and a Web MIDI bridge, you will bridge browser-based computer vision or audio recognition directly into VCV Rack.',
+            whatYouWillDo: 'You will train a custom machine learning model using Teachable Machine, link it to the Web MIDI Bridge web app, configure a virtual MIDI routing driver (loopMIDI or IAC Driver), and connect everything to VCV Rack to perform live generative music using physical gestures.',
             objectives: [
-              'Understand prompt engineering techniques for generative music.',
-              'Examine human-machine co-creation in sound design.',
-              'Synthesize initial materials for Project 2 Part 1.'
+              'Explore Machine Learning techniques for triggering sounds in VCV Rack.',
+              'Examine human-machine co-creation in sound design and music creation.',
+              'Practice the workflow for Project 2 Part 1: Artistic Composition.'
             ],
-            tools: ['ChatGPT', 'ElevenLabs AI'],
+            tools: ['Teachable Machine', 'Web MIDI Bridge', 'loopMIDI (Windows)', 'IAC Driver (Mac)', 'VCV Rack'],
             steps: [
               {
-                title: 'Define Mood, Genre & Vision',
-                objective: 'Outline the emotional landscape of your desired 30-second composition.',
-                content: '<p>Brainstorm mood keywords (e.g. ambient, melancholic, cinematic), genre styles, and structural dynamic shifts.</p>'
+                title: '1: Create a Teachable Machine Model',
+                objective: 'Learn to create a simple machine learning model in Teachable Machine using your own poses, voice, or images.',
+                content: `
+                  <p class="mb-2">Follow the Teachable Machine tutorial videos below to learn how to create a model that can recognize your chosen input (pose, voice, or image).</p>
+                  <ul class="list-disc pl-5 space-y-1 mb-3">
+                    <li>For this lab, train the model with two classes, for example, one recognizing your <strong>"right hand"</strong> and another recognizing your <strong>"left hand"</strong>.</li>
+                  </ul>
+                  <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 my-3 text-large mx-auto">
+                    <v-icon icon="mdi-video-outline" size="small" class="mr-1"></v-icon> 
+                    <h3>How To Gather Data </h3>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/DFBbSTvtpy4?si=AhO-rZ07Bt1eFTre" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <br><br>
+                    <h3>How To Train Model</h3>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/CO67EQ0ZWgA?si=_8BZqLOMYdRB7DiV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <br><br>
+                    <h3>How To Export Model</h3>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/n-zeeRLBgd0?si=HVJ5PDDz_PByRjL1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                  </div>
+                `
               },
               {
-                title: 'Craft Prompt Instructions via ChatGPT',
-                objective: 'Use ChatGPT as an AI prompt engineer.',
-                content: '<p>Prompt ChatGPT to ask you 1-by-1 questions regarding instruments, mood, and genre, then summarize into an ElevenLabs prompt.</p>',
-                actionLink: { text: 'Open ChatGPT', url: 'https://chatgpt.com/' }
+                title: '2: Load Your Model in the Web MIDI Bridge',
+                objective: 'Load your trained machine learning model to Web Midi Bride to map your classes to signal modes and MIDI notes.',
+                content: `
+                <p class="mb-2">1. Open the Web MIDI Bridge web app in your browser: <a href="https://gbdawu.github.io/gbda412/teachable_machine_to_vcv_rack_midi_bridge.html" target="_blank" class="text-pink-500 underline">https://gbdawu.github.io/gbda412/teachable_machine_to_vcv_rack_midi_bridge.html</a></p>
+
+                  <p class="mb-2">2. Load your trained model in the Web MIDI Bridge making sure it recognizes your input:</p>
+                  <ul class="list-disc pl-5 space-y-1 mb-3">
+                    <li>Under <strong>Model Configuration</strong>, select "Image", "Pose", or "Audio".</li>
+                    <li>Under <strong>Teachable Machine Model URL</strong> paste your model URL.</li>
+                    <li>Click <strong>Load and Start The Model</strong> to load your model and start your laptop's camera or microphone input.</li>
+
+                  </ul>
+                  <div class="my-3 text-center">
+                    <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-500 mb-2">
+                      <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon> 
+                      <img src="images/AIMusic/model-config.png" alt="Web MIDI Bridge UI" class="rounded-lg border shadow-sm" width="400"  />
+                    </div>
+                  </div>
+                  <p class="mb-2">3. After you click Load and Start The Model, you should now see your categories and corresponding recognition results under the <strong>Control Voltage Mapping Matrix</strong> section.</p>
+                   <ul class="list-disc pl-5 space-y-1 mb-3">
+                    <li> Ensure you select Trigger (Gate) for this exercise.</li>
+                    <li> Play with the Gate Threshold and Gate Duration settings to adjust how sensitive the model is to your input.</li>
+                    <li> Select a Note Output for each class to determine which MIDI note will be sent to VCV Rack when that class is recognized in the next steps.</li>
+                    </ul>
+                  <div class="my-3 text-center">
+                    <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-500">
+                      <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon> 
+                      <img src="images/AIMusic/control-voltage-mapping.png" alt="Control Voltage Mapping Matrix" class="rounded-lg border shadow-sm" width="400" />
+                    </div>
+                  </div>
+                `,
+                // actionLink: { text: 'Open Web MIDI Bridge', url: 'https://gbdawu.github.io/gbda412/teachable_machine_to_vcv_rack_midi_bridge.html' }
               },
               {
-                title: 'Synthesize Track in ElevenLabs',
-                objective: 'Generate music from your engineered text prompt.',
-                content: '<p>Paste prompt into ElevenLabs AI Music generator. Click <strong>Generate</strong> and listen to your track.</p>',
-                actionLink: { text: 'Open ElevenLabs', url: 'https://www.elevenlabs.io/' }
+                title: '3: Configure Virtual MIDI (Windows & Mac)',
+                objective: 'Create a virtual MIDI port for communication between your machine learning model and VCV Rack.',
+                content: `
+    <ul class="list-disc pl-5 space-y-2 mb-3">
+      <li><strong>Windows Users:</strong> Download and install <a href="https://www.tobias-erichsen.de/software/loopmidi.html" target="_blank" class="text-pink-500 underline">loopMIDI</a>, then click the '+' button to create a new virtual port (e.g., named "TeachableMIDI"). Keep it running in the background.</li>
+      <li><strong>Mac Users:</strong> Use Finder to open the <strong>Audio Devices</strong> settings.</li>
+      <ul class="list-disc pl-5 space-y-2 mb-3">
+        <li>Go to the top menu bar, click <strong>Window</strong> &gt; <strong>Show MIDI Studio</strong>. Double-click the <strong>IAC Driver</strong> icon, check the box for <strong>"Device is online"</strong>, and add a bus (name it "TeachableMIDI").</li>
+        <li> See video tutorial below:</li>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/sJPXtpR6VFI?si=vRCePVK2EtWVC_QW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </ul>
+    </ul>
+  `,
+                // actionLink: { text: 'Download loopMIDI (Windows)', url: 'https://www.tobias-erichsen.de/software/loopmidi.html' }
               },
               {
-                title: 'Share & Reflect',
-                objective: 'Export public link and document your process.',
-                content: '<p>Click <strong>Share → Public Page</strong>, copy the URL, and archive prompt notes for your proposal draft.</p>'
+                title: '4: Connect VCV Rack to Web MIDI Bridge',
+                objective: 'Download VCV Rack and connect it to the virtual MIDI port and the web MIDI bridge.',
+                content: `
+                  <p class="mb-3">Download the free version of VCV Rack from the official website and install it on your computer: <a href="https://vcvrack.com/rack" target="_blank" class="text-pink-500 underline">vcvrack.com/rack</a></p>
+                  
+                  <div class="space-y-4">
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <h4 class="font-bold text-sm mb-2 text-pink-600 dark:text-pink-400">Step 1: Open VCV Rack and Build a Simple Synth Patch</h4>
+                      <p class="text-xs mb-2">When you open VCV Rack, clear the default rack or start a new patch. Right-click on any empty space to open the Module Browser and add these four core modules:</p>
+                      <ul class="list-disc pl-5 text-xs space-y-1 mb-3">
+                        <li><strong>Audio</strong> (This is your computer's sound card output)</li>
+                        <li><strong>MIDI-CV</strong> (This receives the MIDI stream coming from your browser web app)</li>
+                        <li><strong>VCO</strong> (Voltage Controlled Oscillator – creates the raw tone)</li>
+                        <li><strong>VCA</strong> (Voltage Controlled Amplifier – controls when sound plays and loudness)</li>
+                      </ul>
+                      <div class="p-3 rounded bg-slate-200 dark:bg-slate-900 text-center text-xs text-slate-500 mb-3">
+                        <img src="images/AIMusic/first-synth-unpatched.png" alt="VCV Rack Patch" class="rounded-lg border shadow-sm" width="400" />
+                      </div>
+                      <p class="font-bold text-xs mb-1">How to Patch Them Together (Draw cables from output ports to input ports):</p>
+                      <ul class="list-disc pl-5 text-xs space-y-1">
+                        <li><strong>Pitch Control:</strong> Run a cable from MIDI-CV's <code>V/OCT</code> output into VCO's <code>V/OCT</code> input (changes note pitches based on your inputs).</li>
+                        <li><strong>Audio Waveform:</strong> Run a cable from VCO's <code>SIN</code> (Sine wave) or <code>SAW</code> output into VCA's <code>IN</code> input.</li>
+                        <li><strong>Volume Envelope (Gate):</strong> Run a cable from MIDI-CV's <code>GATE</code> output into VCA's IN (ensures a sound/ptch plays when your hand gesture triggers it).</li>
+                        <li><strong>To Your Speakers:</strong> Run a cable from VCA's <code>OUT</code> output into the <code>LEFT</code> input of the Audio module.</li>
+                      </ul>
+                      <div class="mt-2 text-center text-xs text-slate-500">
+                        <img src="images/AIMusic/first-synth-patched.png" alt="VCV Rack Patch" class="rounded-lg border shadow-sm" width="400" />
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <h4 class="font-bold text-sm mb-2 text-pink-600 dark:text-pink-400">Step 2: Configure the MIDI Receiver in VCV Rack</h4>
+                      <ol class="list-decimal pl-5 text-xs space-y-1">
+                        <li>Look at the MIDI-CV module you added to your rack.</li>
+                        <li>Click on the <strong>MIDI Driver</strong> dropdown field inside the module and select your operating system’s connection method:
+                          <ul class="list-disc pl-4 mt-0.5">
+                            <li><strong>Windows:</strong> Choose <em>Windows MIDI</em> (after ensuring loopMIDI is running).</li>
+                            <li><strong>macOS:</strong> Choose <em>Core MIDI</em>.</li>
+                            <img src="images/AIMusic/setup-midi-receiver.png" alt="VCV Rack MIDI Driver" class="rounded-lg border shadow-sm mt-1" width="400" />
+                          </ul>
+                        </li>
+                        <li>Click on the <strong>MIDI Device</strong> dropdown right below it and select your virtual port (e.g., <em>TeachableMIDI</em> or <em>VirMIDI</em>).</li>
+                                                    <img src="images/AIMusic/setup-midi-device.png" alt="VCV Rack MIDI Device" class="rounded-lg border shadow-sm mt-1" width="400" />
+
+                      </ol>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <h4 class="font-bold text-sm mb-2 text-pink-600 dark:text-pink-400">Step 3: Connect Your Teachable Machine Model via the Web App</h4>
+                      <ol class="list-decimal pl-5 text-xs space-y-1">
+                        <li>Open the MIDI Bridge web app where you loaded your trained model in Step 2.</li>
+                        <li>In the app's <strong>MIDI Output Device</strong> dropdown, select your virtual port (e.g., <em>TeachableMIDI</em> / <em>IAC Driver</em> / <em>VirMIDI</em>).</li>
+
+                      </ol>
+                      <div class="p-3 rounded bg-slate-200 dark:bg-slate-900 text-center text-xs text-slate-500 mt-2">
+                                                    <img src="images/AIMusic/webMidi-Midi-ouput-config.png" alt="VCV Rack MIDI Driver" class="rounded-lg border shadow-sm mt-1" width="400" />
+
+                      </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <h4 class="font-bold text-sm mb-2 text-pink-600 dark:text-pink-400">Step 4: Test and Play!</h4>
+                      <ul class="list-disc pl-5 text-xs space-y-1 mb-2">
+                        <li>In the web app, map your hand class (e.g., "Open Hand" vs "Closed Fist") to a MIDI Note or MIDI CC channel.</li>
+                        <li>In VCV Rack, make sure the Audio module's driver is active and your computer speakers/headphones are selected.</li>
+                        <li>Move your hand in front of your webcam. As the Teachable Machine model recognizes your hand gesture, it will beam MIDI signals through the browser to VCV Rack, opening the VCA gate and triggering live modular notes!</li>
+                      </ul>
+                      <div class="p-3 rounded bg-slate-200 dark:bg-slate-900 text-center text-xs text-slate-500">
+                        <v-icon icon="mdi-video-outline" size="small" class="mr-1"></v-icon> 
+                      </div>
+                    </div>
+                  </div>
+                `
               }
             ]
           }
