@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sonic Signals and Futures - Interactive Workshop Portal</title>
+
+  <!-- Vuetify 3 & Vue 3 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              pink: '#ff416c',
+              coral: '#ff4b2b',
+              darkBg: '#0f172a',
+              cardDark: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    code,
+    kbd,
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .gradient-header {
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
+      color: white !important;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge-stream-a {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+    }
+
+    .badge-stream-b {
+      background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+      color: white;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(255, 65, 108, 0.4);
+      border-radius: 9999px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 65, 108, 0.8);
+    }
+
+    .glass-card {
+      backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300">
+  <div id="app">
+    <v-app :theme="isDark ? 'dark' : 'light'" class="bg-transparent">
+
+      <!-- App Header Bar -->
+      <v-app-bar class="gradient-header px-2" elevation="4" fixed>
+        <v-app-bar-nav-icon @click="drawer = !drawer" color="white" class="mr-1"></v-app-bar-nav-icon>
+
+        <div class="flex items-center space-x-2">
+          <v-icon icon="mdi-sine-wave" size="large" class="hidden sm:inline-block"></v-icon>
+          <span class="font-bold text-lg sm:text-xl tracking-tight">Sonic Signals & Futures</span>
+        </div>
+
+      </v-app-bar>
+
+      <!-- Sidebar Navigation Drawer -->
+      <v-navigation-drawer v-model="drawer" temporary width="320"
+        class="dark:bg-slate-900 border-r dark:border-slate-800">
+        <div class="p-4 gradient-header flex items-center justify-between">
+          <div class="font-bold text-lg flex items-center gap-2">
+            <v-icon icon="mdi-compass-outline"></v-icon> Workshop Navigator
+          </div>
+          <v-btn icon="mdi-close" variant="text" size="small" @click="drawer = false"></v-btn>
+        </div>
+
+        <!-- Overall Progress Indicator in Drawer -->
+        <div class="p-4 bg-slate-100 dark:bg-slate-800/60 border-b dark:border-slate-800">
+          <div class="flex justify-between items-center text-xs font-semibold mb-1 text-slate-600 dark:text-slate-300">
+            <span>Overall Progress</span>
+            <span>{{ Math.round(overallProgress) }}%</span>
+          </div>
+          <v-progress-linear :model-value="overallProgress" color="#ff416c" height="8" rounded></v-progress-linear>
+        </div>
+
+        <v-list density="comfortable" class="p-2">
+          <v-list-item @click="selectedWorkshopId = 'home'; drawer = false" :active="selectedWorkshopId === 'home'"
+            rounded="lg" class="mb-1" prepend-icon="mdi-home-variant-outline" title="Overview & Home"></v-list-item>
+
+          <v-divider class="my-2"></v-divider>
+
+          <!-- Stream A Group -->
+          <div
+            class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center justify-between">
+            <span>Stream A: Biofeedback</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded badge-stream-a font-normal">GPS & Motion</span>
+          </div>
+          <v-list-item v-for="ws in workshops.filter(w => w.stream === 'A')" :key="ws.id"
+            @click="selectedWorkshopId = ws.id; drawer = false" :active="selectedWorkshopId === ws.id" rounded="lg"
+            class="mb-1 text-sm">
+            <template v-slot:prepend>
+              <v-icon :icon="ws.icon" size="small" class="text-emerald-500"></v-icon>
+            </template>
+            <v-list-item-title class="font-medium text-xs sm:text-sm whitespace-normal">{{ ws.shortTitle
+              }}</v-list-item-title>
+            <template v-slot:append>
+              <span class="text-[11px] opacity-70">{{ getWorkshopProgress(ws.id) }}%</span>
+            </template>
+          </v-list-item>
+
+          <v-divider class="my-2"></v-divider>
+
+          <!-- Stream B Group -->
+          <div
+            class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 flex items-center justify-between">
+            <span>Stream B: AI Music</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded badge-stream-b font-normal">Generative AI</span>
+          </div>
+          <v-list-item v-for="ws in workshops.filter(w => w.stream === 'B')" :key="ws.id"
+            @click="selectedWorkshopId = ws.id; drawer = false" :active="selectedWorkshopId === ws.id" rounded="lg"
+            class="mb-1 text-sm">
+            <template v-slot:prepend>
+              <v-icon :icon="ws.icon" size="small" class="text-purple-500"></v-icon>
+            </template>
+            <v-list-item-title class="font-medium text-xs sm:text-sm whitespace-normal">{{ ws.shortTitle
+              }}</v-list-item-title>
+            <template v-slot:append>
+              <span class="text-[11px] opacity-70">{{ getWorkshopProgress(ws.id) }}%</span>
+            </template>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <!-- Main Content Container -->
+      <v-main class="min-h-screen pb-16">
+
+
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+
+          <!-- Welcome / Home View -->
+          <div v-if="selectedWorkshopId === 'home'" class="space-y-8">
+
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl p-8 sm:p-12 text-white shadow-xl gradient-header">
+              <div class="relative z-10 max-w-3xl">
+                
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4">
+                  Sonic Signals & Futures Labs
+                </h1>
+                <p class="text-white/90 text-base sm:text-lg leading-relaxed mb-6">
+                  Experiment with personal experiences, technology, and creative processes to explore the intersections of movement, sound, and digital tools.
+                </p>
+          
+              </div>
+              <div class="absolute -right-12 -bottom-12 opacity-10 text-white pointer-events-none">
+                <v-icon icon="mdi-waveform" size="380"></v-icon>
+              </div>
+            </div>
+
+            <!-- Stream Cards Grid -->
+            <div class="grid md:grid-cols-2 gap-8">
+
+              <!-- Stream A Overview Card -->
+              <div
+                class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-md hover:shadow-lg transition flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="badge-stream-a px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                      Stream A
+                    </span>
+                    <v-icon icon="mdi-walk" size="large" class="text-emerald-500"></v-icon>
+                  </div>
+                  <h2 class="text-2xl font-bold mb-3 text-slate-900 dark:text-white">The Body as Instrument</h2>
+                  <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                    Explore how personal bio-data can generate unique sonic experiences that reflect movement, gesture, and the physicality of the body. Collect your own GPS data using Strava or wearable devices and sonify it using online sequencers.
+                  </p>
+
+                  <div class="space-y-2 mb-6">
+                    <div v-for="(ws, idx) in workshops.filter(w => w.stream === 'A')" :key="ws.id"
+                      @click="selectedWorkshopId = ws.id"
+                      class="p-3 bg-slate-50 dark:bg-slate-800/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 rounded-xl cursor-pointer border border-slate-100 dark:border-slate-800 transition flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span
+                          class="w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-xs font-bold">{{
+                          idx + 1 }}</span>
+                        <span class="text-xs sm:text-sm font-semibold">{{ ws.title }}</span>
+                      </div>
+                      <v-icon icon="mdi-chevron-right" size="small" class="text-slate-400"></v-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stream B Overview Card -->
+              <div
+                class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-md hover:shadow-lg transition flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <span class="badge-stream-b px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                      Stream B
+                    </span>
+                    <v-icon icon="mdi-robot-industrial" size="large" class="text-purple-500"></v-icon>
+                  </div>
+                  <h2 class="text-2xl font-bold mb-3 text-slate-900 dark:text-white">Creative Music Machines</h2>
+                  <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                    Explore how artificial intelligence tools can help you generate music. Using online tools like ElevenLabs, collaborate with AI to produce music compositions from text prompts.
+                  </p>
+
+                  <div class="space-y-2 mb-6">
+                    <div v-for="(ws, idx) in workshops.filter(w => w.stream === 'B')" :key="ws.id"
+                      @click="selectedWorkshopId = ws.id"
+                      class="p-3 bg-slate-50 dark:bg-slate-800/50 hover:bg-purple-50 dark:hover:bg-purple-950/30 rounded-xl cursor-pointer border border-slate-100 dark:border-slate-800 transition flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span
+                          class="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 flex items-center justify-center text-xs font-bold">{{
+                          idx + 1 }}</span>
+                        <span class="text-xs sm:text-sm font-semibold">{{ ws.title }}</span>
+                      </div>
+                      <v-icon icon="mdi-chevron-right" size="small" class="text-slate-400"></v-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+      
+          </div>
+
+          <!-- Active Workshop View -->
+          <div v-else-if="currentWorkshop" class="space-y-6">
+
+            <!-- Workshop Navigation Header -->
+            <div
+              class="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div class="flex items-center gap-3">
+                <v-btn icon="mdi-arrow-left" variant="text" @click="selectedWorkshopId = 'home'" size="small"></v-btn>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span :class="currentWorkshop.stream === 'A' ? 'badge-stream-a' : 'badge-stream-b'"
+                      class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                      Stream {{ currentWorkshop.stream }}
+                    </span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Workshop Module</span>
+                  </div>
+                  <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+                    {{ currentWorkshop.title }}
+                  </h1>
+                </div>
+              </div>
+
+              <!-- Module Progress Meter -->
+              <div class="flex items-center gap-4">
+                <div class="text-right">
+                  <div class="text-xs font-bold text-slate-500 dark:text-slate-400">Step Progress</div>
+                  <div class="text-sm font-black text-pink-500">{{ currentWorkshopProgress }}% Completed</div>
+                </div>
+                <v-progress-circular :model-value="currentWorkshopProgress" color="#ff416c" size="42" width="5">
+                  <span class="text-[10px] font-bold">{{ currentWorkshopProgress }}%</span>
+                </v-progress-circular>
+              </div>
+            </div>
+
+            <!-- Intro Section & Learning Objectives -->
+            <div class="grid lg:grid-cols-3 gap-6">
+
+              <!-- Main Overview -->
+              <div
+                class="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                <h2 class="text-lg font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+                  <v-icon icon="mdi-information-outline" color="pink"></v-icon> Workshop Overview
+                </h2>
+                <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" v-html="currentWorkshop.intro">
+                </p>
+
+                <div class="pt-2">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">What You Will Do</h3>
+                  <p
+                    class="text-sm text-slate-700 dark:text-slate-200 leading-relaxed bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800" v-html="currentWorkshop.whatYouWillDo">
+                  </p>
+                </div>
+              </div>
+
+              <!-- Sidebar Objectives & Tools -->
+              <div class="space-y-6">
+                <!-- Objectives -->
+                <div
+                  class="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-slate-900 dark:to-pink-950/30 p-5 rounded-2xl border border-pink-100 dark:border-pink-900/30">
+                  <h3 class="text-sm font-bold text-pink-700 dark:text-pink-300 flex items-center gap-2 mb-3">
+                    <v-icon icon="mdi-target" color="pink" size="small"></v-icon> Learning Objectives
+                  </h3>
+                  <ul class="space-y-2 text-xs text-slate-700 dark:text-slate-300">
+                    <li v-for="(obj, i) in currentWorkshop.objectives" :key="i" class="flex items-start gap-2">
+                      <v-icon icon="mdi-check-circle-outline" size="x-small" class="text-pink-500 mt-0.5"></v-icon>
+                      <span v-html="obj"></span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Required Tools -->
+                <div
+                  class="bg-slate-50 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
+                  <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 mb-3">
+                    <v-icon icon="mdi-wrench-outline" size="small" class="text-indigo-500"></v-icon> Tools You'll Use
+                  </h3>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span v-for="(tool, i) in currentWorkshop.tools" :key="i"
+                      class="px-2.5 py-1 bg-white dark:bg-slate-800 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
+                      {{ tool }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Interactive Steps Header & Filter -->
+            <div class="flex items-center justify-between pt-4">
+              <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <v-icon icon="mdi-format-list-checks" color="pink"></v-icon> Step-by-Step Guide
+              </h2>
+              <v-btn variant="text" size="small" color="pink" @click="resetCurrentWorkshopProgress">
+                Reset Module Progress
+              </v-btn>
+            </div>
+
+            <!-- Steps List -->
+            <div class="space-y-6">
+              <div v-for="(step, sIdx) in filteredSteps" :key="sIdx"
+                class="bg-white dark:bg-slate-900 rounded-2xl border transition duration-200 shadow-sm overflow-hidden"
+                :class="isStepCompleted(currentWorkshop.id, sIdx) ? 'border-emerald-300 dark:border-emerald-900/50 bg-emerald-50/10' : 'border-slate-200 dark:border-slate-800'">
+                <!-- Step Header -->
+                <div
+                  class="p-5 sm:p-6 border-b border-slate-100 dark:border-slate-800/80 flex items-start justify-between gap-4">
+                  <div class="flex items-start gap-3">
+                    <button @click="toggleStepCompletion(currentWorkshop.id, sIdx)"
+                      class="mt-1 flex-shrink-0 w-6 h-6 rounded-md border transition flex items-center justify-center"
+                      :class="isStepCompleted(currentWorkshop.id, sIdx) ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 dark:border-slate-600 hover:border-pink-500'">
+                      <v-icon v-if="isStepCompleted(currentWorkshop.id, sIdx)" icon="mdi-check" size="x-small"></v-icon>
+                    </button>
+
+                    <div>
+                      <span class="text-xs font-extrabold uppercase tracking-wider text-pink-500">Step {{ sIdx + 1
+                        }}</span>
+                      <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-0.5">
+                        {{ step.title }}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <span class="text-xs px-2.5 py-1 rounded-full font-semibold"
+                    :class="isStepCompleted(currentWorkshop.id, sIdx) ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'">
+                    {{ isStepCompleted(currentWorkshop.id, sIdx) ? 'Completed' : 'In Progress' }}
+                  </span>
+                </div>
+
+                <!-- Objective Box inside Step -->
+                <div
+                  class="px-6 py-3 bg-slate-50 dark:bg-slate-800/40 border-b border-slate-100 dark:border-slate-800/80 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                  <strong class="text-pink-600 dark:text-pink-400">Objective:</strong> <span v-html="step.objective"></span>
+                </div>
+
+                <!-- Step Details Body -->
+                <div class="p-6 text-sm text-slate-700 dark:text-slate-300 space-y-4">
+                  <div v-html="step.content"></div>
+
+                  <!-- Optional Tip Box inside step -->
+                  <div v-if="step.tip"
+                    class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 text-xs sm:text-sm space-y-1">
+                    <div class="font-bold flex items-center gap-1 text-amber-600 dark:text-amber-400">
+                      <v-icon icon="mdi-lightbulb-on-outline" size="small"></v-icon> Pro-Tip & Reflection
+                    </div>
+                    <div>{{ step.tip }}</div>
+                  </div>
+
+                  <!-- Optional Media Placeholder / Action Link -->
+                  <div v-if="step.actionLink" class="pt-2">
+                    <a :href="step.actionLink.url" target="_blank"
+                      class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium text-xs rounded-xl hover:shadow-md transition">
+                      <v-icon icon="mdi-open-in-new" size="x-small"></v-icon> {{ step.actionLink.text }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Module Navigation Footer -->
+            <div class="flex items-center justify-between pt-8 border-t border-slate-200 dark:border-slate-800">
+              <v-btn v-if="prevWorkshop" variant="outlined" rounded="lg" @click="selectedWorkshopId = prevWorkshop.id">
+                <v-icon icon="mdi-chevron-left"></v-icon> Previous Module
+              </v-btn>
+              <div v-else></div>
+
+              <!-- <v-btn v-if="nextWorkshop" color="#ff416c" class="text-white" rounded="lg"
+                @click="selectedWorkshopId = nextWorkshop.id">
+                Next Module <v-icon icon="mdi-chevron-right"></v-icon>
+              </v-btn> -->
+            </div>
+
+          </div>
+
+        </div>
+      </v-main>
+
+      <!-- Global Footer -->
+      <footer
+        class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4">
+          <p>GBDA 412 - Fall 2026</p>
+        </div>
+      </footer>
+
+    </v-app>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted, watch } = Vue;
+    const { createVuetify } = Vuetify;
+
+    const vuetify = createVuetify();
+
+    createApp({
+      setup() {
+        // Theme State
+        const isDark = ref(false);
+        const drawer = ref(false);
+        const selectedWorkshopId = ref('home');
+        const currentStream = ref('all');
+        const searchQuery = ref('');
+
+        // Saved Completion Progress in localStorage
+        const completedSteps = ref({});
+
+        onMounted(() => {
+          const savedTheme = localStorage.getItem('sonic_theme');
+          if (savedTheme) {
+            isDark.value = savedTheme === 'dark';
+          }
+          const savedProgress = localStorage.getItem('sonic_progress');
+          if (savedProgress) {
+            try {
+              completedSteps.value = JSON.parse(savedProgress);
+            } catch (e) { }
+          }
+        });
+
+        const toggleTheme = () => {
+          isDark.value = !isDark.value;
+          localStorage.setItem('sonic_theme', isDark.value ? 'dark' : 'light');
+        };
+
+        // Labs Database with Restored Lab 1 Content & Screenshots
+        const workshops = [
+          {
+            id: 'a1',
+            stream: 'A',
+            title: 'Lab 1: Transform Bio-data Into Sound',
+            shortTitle: 'A1: Strava to MIDI',
+            icon: 'mdi-walk',
+            intro: 'In this lab, you will explore how physical movement can generate data that can be transformed into sound. Using the Strava app, you will record a short activity—such as walking outside campus, taking a short route to get coffee, or any movement of your choice. This activity will allow you to capture your own biofeedback data and begin to understand how bodily motion can be represented as digital information.',
+            whatYouWillDo: 'You will record a 1-minute movement session using Strava, download your activity data as a CSV file from the Strava desktop platform, and convert it into a MIDI file using <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline font-medium">csv to midi mapper</a>. You will then upload the resulting MIDI file into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline font-medium">Online Sequencer</a> to experiment with different instruments and sonic textures. This process introduces how the body’s movement can become a musical source.<br><br>The outcome of this lab will serve as preparation for <strong>Project 2, Part 1: Artistic Composition</strong>, where you will creatively transform movement data into sound.',
+            objectives: [
+              'Understand how motion-based data can be transformed into music by converting it into a MIDI file.',
+              'Reflect on how your movement patterns and choices influence the resulting music and consider what this reveals about using the body as an instrument.',
+              'Generate material and insights to create <strong>Project 2, Part 1: Artistic Composition</strong>.'
+            ],
+            tools: [
+              'Strava app on your smartphone',
+              'Strava desktop dashboard',
+              'FIT/GPX to CSV Converter',
+              'CSV-to-MIDI Mapper',
+              'Online Sequencer'
+            ],
+            steps: [
+              {
+                title: '1: Record Your Movement Data in Strava',
+                objective: 'Use the Strava app to record a short movement activity and generate your own motion data for later sound transformation.',
+                content: `
+                  <p class="mb-2">Follow these steps:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>Install the Strava app on your mobile device.
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Link to Strava on the Apple App Store: <a href="https://apps.apple.com/us/app/strava-run-bike-walk/id426826309" target="_blank" class="text-pink-500 underline">Install Strava App</a></li>
+                        <li>Link to Strava on Google Play: <a href="https://play.google.com/store/apps/details?id=com.strava&hl=en_CA" target="_blank" class="text-pink-500 underline">Install Strava App</a></li>
+                      </ul>
+                      <div class="my-3"><img src="images/biofeedback/strava-app.jpeg" alt="Strava app screenshot" class="rounded-lg border shadow-sm" width="200" /></div>
+                    </li>
+                    <li>Go outside and complete a short activity of your choice (for example, walking outside campus, going for a coffee, or exploring nearby paths).
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Open Strava, tap <strong>Record</strong> → <strong>Start</strong> to begin tracking your movement.</li>
+                        <li>Move for about <strong>3-5 minutes</strong> while the app records your route and motion data.<br>
+                          <div class="my-3"><img src="images/biofeedback/strava-app-record.png" alt="Strava recording interface" class="rounded-lg border shadow-sm" width="240" /></div>
+                        </li>
+                        <li>When you are finished, tap <strong>Stop</strong> → <strong>Finish</strong> → <strong>Save</strong> to save the motion data from your activity.<br>
+                          <div class="my-3"><img src="images/biofeedback/strava-app-stop.png" alt="Strava stop interface" class="rounded-lg border shadow-sm" width="200" /></div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Return to the classroom.</li>
+                  </ol>
+                `,
+                // tip: 'Ensure GPS signal is locked before pressing start for accurate coordinate capture.'
+              },
+              {
+                title: '2: Download and Convert Your Strava Data',
+                objective: 'Access your recorded activity data from the Strava desktop platform, export it as a <b>FIT</b> or <b>GPX</b> file, and convert it into a CSV format for later sound transformation.',
+                content: `
+                  <p class="mb-2">Follow these steps:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>On your computer, navigate to the Strava website: <a href="https://www.strava.com/" target="_blank" class="text-pink-500 underline">https://www.strava.com/</a></li>
+                    <li>Click <strong>Log In</strong> and choose your preferred login method:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li><strong>Email and Password:</strong> Enter credentials associated with your account.</li>
+                        <li><strong>Email and Code:</strong> Send a one-time code to your email.</li>
+                        <li><strong>Linked Account:</strong> Select <em>Google</em>, <em>Apple</em>, or <em>Facebook</em>.</li>
+                      </ul>
+                    </li>
+                    <li>After logging in, go to your profile:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Click your name or profile icon in the upper-right corner.</li>
+                        <li>From the top menu, select <strong>Training → My Activities</strong>.<br>
+                          <div class="my-3"><img src="images/biofeedback/my-activities.png" alt="Strava activities" class="rounded-lg border shadow-sm" width="450" /></div>
+                        </li>
+                        <li>Locate the activity you recorded earlier and click it to open its detail page.<br>
+                          <div class="my-3"><img src="images/biofeedback/activity-detail.png" alt="Activity detail" class="rounded-lg border shadow-sm" width="450" /></div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Export your data as a GPX or FIT file:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Click the <strong>three-dots icon</strong> in the top-left corner of the activity page.</li>
+                        <li>Select <strong>Export GPX</strong> or <strong>Export Original (FIT file)</strong> from the dropdown menu.<br>
+                          <div class="my-3"><img src="images/biofeedback/export-gpx.png" alt="Export GPX" class="rounded-lg border shadow-sm" width="450" /></div>
+                        </li>
+                        <li>The file will automatically download to your computer.</li>
+                      </ul>
+                    </li>
+                    <li><strong>Convert your GPX or FIT file into a CSV</strong>:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>If you downloaded a <b>FIT file</b>, use the <a href="https://gotoes.org/strava/convert_fit_files_to_csv.php" target="_blank" class="text-pink-500 underline">FIT to CSV converter</a>.</li>
+                        <li>If you downloaded a <b>GPX file</b>, use the <a href="https://gbdawu.github.io/gbda412/gpx-to-csv" target="_blank" class="text-pink-500 underline">GPX to CSV converter</a>.</li>
+                      </ul>
+                    </li>
+                  </ol>
+                `
+              },
+              {
+                title: '3: Map CSV Data to MIDI',
+                objective: 'Transform your recorded motion data into a musical format by mapping the data in your <b>FIT</b> or <b>GPX</b> file into a MIDI file.',
+                content: `
+                  <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">
+                    <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is MIDI?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300">MIDI (Musical Instrument Digital Interface) is a digital file format that stores information about notes, timing, and instrument data — not actual recorded sound. It allows different software and hardware instruments to interpret musical data, making it possible to edit, remix, or reassign sounds to the same musical structure.</p>
+                  </div>
+                  <p class="mb-2">Follow these steps:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>Go to the CSV-to-MIDI Mapper webpage: <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline">https://gbdawu.github.io/gbda412/csv-to-midi</a></li>
+                    <li>Load your CSV file<br>
+                      <div class="my-3"><img src="images/biofeedback/csv-to-midi.png" alt="CSV to MIDI UI" class="rounded-lg border shadow-sm" width="450" /></div>
+                    </li>
+                    <li>Under <strong>Column Mappings</strong>, choose the parameters you want to map. For example:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li><strong>X</strong> or <strong>Y</strong> for the <em>Note</em></li>
+                        <li><strong>time</strong> for <em>Time</em> and <em>Duration</em></li>
+                        <li><strong>X</strong> or <strong>Y</strong> for the <em>Velocity</em></li>
+                        <li><strong>track_seg_point_id</strong> or <strong>speed</strong> for <em>Octave</em><br>
+                          <div class="my-3"><img src="images/biofeedback/mapping.png" alt="Mapping configuration" class="rounded-lg border shadow-sm" width="450" /></div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Experiment with other musical parameters such as <strong>scale</strong>, <strong>root note</strong>, and <strong>amplification</strong>.<br>
+                      <div class="my-3"><img src="images/biofeedback/musical-settings.png" alt="Musical settings" class="rounded-lg border shadow-sm" width="400" /></div>
+                    </li>
+                    <li>Once you’re satisfied with your configuration, <b>save your new MIDI</b> file by clicking <b>Validate Data</b> → <b>Download Midi</b> at the bottom of the page.<br>
+                      <div class="my-3"><img src="images/biofeedback/save-mapping.png" alt="Save mapping" class="rounded-lg border shadow-sm" width="450" /></div>
+                    </li>
+                  </ol>
+                `
+              },
+              {
+                title: '4: Listen to Your MIDI File in Online Sequencer',
+                objective: 'Upload and listen to your MIDI file in an online sequencer to hear how your movement data translates into music.',
+                content: `
+                  <p class="mb-2">Follow these steps:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>Go to <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a>.</li>
+                    <li>On the top menu, click the <strong>three dots</strong> and select <strong>Import MIDI/Sequence File</strong>.<br>
+                      <div class="my-3"><img src="images/biofeedback/import-midi.png" alt="Import MIDI" class="rounded-lg border shadow-sm" width="450" /></div>
+                    </li>
+                    <li>In the <strong>Import MIDI</strong> window do the following:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Select an <b>instrument</b> from the dropdown menu (for example, Piano, Synth, or Strings).</li>
+                        <li>Click <strong>Import</strong> to load your MIDI file into the sequencer.</li>
+                      </ul>
+                    </li>
+                    <li>Click the <b>play button</b> to listen to your composition — this is the sound representation of your movement data from Strava. When finished, click the <b>stop button</b> to stop the playback.</li>
+                  </ol>
+                `
+              },
+              {
+                title: '5: Share Your Music With the Class',
+                objective: 'Share your music sequence created from your movement data in Online Sequencer with the class and explore the variety of results generated from your physical activities.',
+                content: `
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>In Online Sequencer, click the <strong>Cloud</strong> <v-icon color="pink" size="small">mdi-cloud</v-icon> icon at the top menu corner of the interface.
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>This will generate a unique URL for your sequence.</li>
+                        <li>Copy the URL provided — this is the link you will share with the class.<br>
+                          <div class="my-3"><img src="images/biofeedback/share-url.png" alt="Share URL" class="rounded-lg border shadow-sm" width="450" /></div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Post the URL on the class whiteboard: <a href="https://tinyurl.com/SonicSignalsAndFutures" target="_blank" class="text-pink-500 underline">https://tinyurl.com/SonicSignalsAndFutures</a></li>
+                    <li>Once posted, take a few minutes to listen to your classmates’ sequences. Notice how different movement patterns, speeds, and routes have resulted in unique musical outcomes.</li>
+                  </ol>
+                `
+              },
+              {
+                title: '6: Develop A Concept',
+                objective: `Use your experience recording and listening to your movement data to begin thinking about a concept for your Project 2, Part 1: Artistic Composition. <br> <br> <b>Note:</b> There is no submission required at this step. A good idea is to start thinking about a theme or activity for this project.`,
+                content: `
+                  <p class="mb-2">Follow these steps to start developing ideas that will form the basis of your project:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><b>Reflect</b> on the physical activity you completed:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>What did you notice about your body, movement patterns, or rhythm while capturing the data?</li>
+                        <li>How did your pace, gestures, or decisions about where to move influence the sounds produced in your MIDI sequence?</li>
+                      </ul>
+                    </li>
+                    <li><b>Imagine</b> how you want to transform your GPS/movement data into music:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>What types of sounds or instruments could represent your heartbeat, speed, or movement?</li>
+                        <li>How might different musical elements (pitch, rhythm, dynamics) convey aspects of your physical activity?</li>
+                      </ul>
+                    </li>
+                    <li><b>Consider</b> connections to course discussions and readings:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How does your concept relate to ideas of embodiment, sound, and technology?</li>
+                        <li>How might your work explore the body as a site of musical expression or affective feedback?</li>
+                      </ul>
+                    </li>
+                    <li><b>Discuss</b> your thoughts next week in class.</li>
+                      </ul>
+                    </li>
+                  </ol>
+                `
+              }
+            ]
+          },
+          // {
+          //   id: 'a2',
+          //   stream: 'A',
+          //   title: 'Lab 2: Biofeedback Variations & Strategic Mapping',
+          //   shortTitle: 'A2: Mapping Variations',
+          //   icon: 'mdi-map-marker-path',
+          //   intro: 'Deepen your exploration of biometric and GPS data structure. Examine CSV datasets row-by-row and construct three distinct MIDI variations using creative mapping strategies.',
+          //   whatYouWillDo: 'Record intentional movement variations, examine raw CSV columns in spreadsheet software, map 3 variations (Melody, Latitude, Elevation/Heart Rate), and export MP3 previews.',
+          //   objectives: [
+          //     'Understand raw column parameters (X, Y, Altitude, Speed, Heart Rate).',
+          //     'Design 3 contrasting mapping strategies (East-West vs. North-South vs. Elevation).',
+          //     'Export materials for Project 2 Part 2.'
+          //   ],
+          //   tools: ['Strava', 'Spreadsheet Software', 'CSV-to-MIDI Mapper', 'Online Sequencer'],
+          //   steps: [
+          //     {
+          //       title: 'Refine Theme & Intention',
+          //       objective: 'Establish a clear creative theme for data collection.',
+          //       content: '<p>Revisit your proposal concept. Consider how bodily signals, movement speed, and physical terrain represent themes of embodiment and technology.</p>'
+          //     },
+          //     {
+          //       title: 'Record Intentional Movement Data',
+          //       objective: 'Perform a movement activity designed with dramatic data variation.',
+          //       content: '<p>Incorporate sharp turns, pauses, or elevation changes (e.g. stairwells) to create wide pitch jumps and duration pauses in your dataset.</p>'
+          //     },
+          //     {
+          //       title: 'Generate 3 MIDI Variations',
+          //       objective: 'Map data into 3 distinct musical interpretations.',
+          //       content: '<ul class="list-disc pl-5 space-y-1"><li><strong>Var 1:</strong> Longitude to Note Pitch</li><li><strong>Var 2:</strong> Latitude to Note Pitch (Minor Scale)</li><li><strong>Var 3:</strong> Elevation/Heart Rate to Note Pitch</li></ul>'
+          //     },
+          //     {
+          //       title: 'Export Final Audio Previews',
+          //       objective: 'Import into Online Sequencer, select suitable instruments, and export MP3 files.',
+          //       content: '<p>Choose contrasting instruments for each variation (e.g., Marimba for Var 1, Synth Pad for Var 2) and click <strong>Export MP3</strong>.</p>'
+          //     }
+          //   ]
+          // },
+          // {
+          //   id: 'a3',
+          //   stream: 'A',
+          //   title: 'Lab 3: Musical Arrangement, Harmony & Rhythm',
+          //   shortTitle: 'A3: Arrangement & Harmony',
+          //   icon: 'mdi-music-note-plus',
+          //   intro: 'Shift from raw data mapping to creative arrangement. Enhance your biofeedback melody by adding harmony layers, basslines, and rhythmic percussion inside Online Sequencer.',
+          //   whatYouWillDo: 'Import your MIDI melody, build supporting harmonic chords (pads/3rds/5ths), add a driving lower-octave bassline, and sequence a drum groove.',
+          //   objectives: [
+          //     'Master grid editing and note-drawing tools in Online Sequencer.',
+          //     'Apply practical harmony concepts without requiring complex music theory.',
+          //     'Develop a complete multi-track musical arrangement.'
+          //   ],
+          //   tools: ['Online Sequencer', 'CSV-to-MIDI Converter'],
+          //   steps: [
+          //     {
+          //       title: 'Import Melody & Setup Grid',
+          //       objective: 'Load your primary biofeedback MIDI melody track.',
+          //       content: '<p>Import your MIDI into Online Sequencer. Adjust tempo (BPM) to find an appealing rhythm.</p>'
+          //     },
+          //     {
+          //       title: 'Add Harmonic Layers',
+          //       objective: 'Layer supporting chord tones or sustained pad notes.',
+          //       content: '<p>Select a pad or electric piano. Draw elongated notes in the background matching octave intervals or 3rd/5th step intervals above your melody notes.</p>'
+          //     },
+          //     {
+          //       title: 'Create Lower Octave Bassline',
+          //       objective: 'Add depth with a low-register bass instrument.',
+          //       content: '<p>Select a Bass instrument. Place sustained notes in octaves C2-C3 following the fundamental root movement of your melody.</p>'
+          //     },
+          //     {
+          //       title: 'Sequence Rhythmic Percussion',
+          //       objective: 'Add pulse and groove with drum kit instruments.',
+          //       content: '<p>Add Kick Drum on primary beats, Snare on alternating beats, and Hi-Hats for continuous rhythmic movement.</p>'
+          //     }
+          //   ]
+          // },
+          {
+            id: 'b1',
+            stream: 'B',
+            title: 'Lab 1: Generative AI Prompting with ChatGPT & ElevenLabs',
+            shortTitle: 'B1: AI Music Basics',
+            icon: 'mdi-robot',
+            intro: 'Explore generative AI sound design. Learn to formulate effective textual prompts with ChatGPT and synthesize 30-second AI musical compositions using ElevenLabs.',
+            whatYouWillDo: 'Define mood and structure, interview ChatGPT to build rich prompts, input text prompts into ElevenLabs, and generate a 30-second track.',
+            objectives: [
+              'Understand prompt engineering techniques for generative music.',
+              'Examine human-machine co-creation in sound design.',
+              'Synthesize initial materials for Project 2 Part 1.'
+            ],
+            tools: ['ChatGPT', 'ElevenLabs AI'],
+            steps: [
+              {
+                title: 'Define Mood, Genre & Vision',
+                objective: 'Outline the emotional landscape of your desired 30-second composition.',
+                content: '<p>Brainstorm mood keywords (e.g. ambient, melancholic, cinematic), genre styles, and structural dynamic shifts.</p>'
+              },
+              {
+                title: 'Craft Prompt Instructions via ChatGPT',
+                objective: 'Use ChatGPT as an AI prompt engineer.',
+                content: '<p>Prompt ChatGPT to ask you 1-by-1 questions regarding instruments, mood, and genre, then summarize into an ElevenLabs prompt.</p>',
+                actionLink: { text: 'Open ChatGPT', url: 'https://chatgpt.com/' }
+              },
+              {
+                title: 'Synthesize Track in ElevenLabs',
+                objective: 'Generate music from your engineered text prompt.',
+                content: '<p>Paste prompt into ElevenLabs AI Music generator. Click <strong>Generate</strong> and listen to your track.</p>',
+                actionLink: { text: 'Open ElevenLabs', url: 'https://www.elevenlabs.io/' }
+              },
+              {
+                title: 'Share & Reflect',
+                objective: 'Export public link and document your process.',
+                content: '<p>Click <strong>Share → Public Page</strong>, copy the URL, and archive prompt notes for your proposal draft.</p>'
+              }
+            ]
+          }
+        ];
+
+        // Active Workshop Computed Props
+        const currentWorkshop = computed(() => {
+          return workshops.find(w => w.id === selectedWorkshopId.value) || null;
+        });
+
+        const currentWorkshopIndex = computed(() => {
+          return workshops.findIndex(w => w.id === selectedWorkshopId.value);
+        });
+
+        const prevWorkshop = computed(() => {
+          const idx = currentWorkshopIndex.value;
+          return idx > 0 ? workshops[idx - 1] : null;
+        });
+
+        const nextWorkshop = computed(() => {
+          const idx = currentWorkshopIndex.value;
+          return (idx >= 0 && idx < workshops.length - 1) ? workshops[idx + 1] : null;
+        });
+
+        // Search Filter for Current Workshop Steps
+        const filteredSteps = computed(() => {
+          if (!currentWorkshop.value) return [];
+          if (!searchQuery.value) return currentWorkshop.value.steps;
+          const q = searchQuery.value.toLowerCase();
+          return currentWorkshop.value.steps.filter(step =>
+            step.title.toLowerCase().includes(q) ||
+            step.objective.toLowerCase().includes(q) ||
+            step.content.toLowerCase().includes(q)
+          );
+        });
+
+        // Step Completion Logic
+        const isStepCompleted = (wsId, stepIdx) => {
+          return !!(completedSteps.value[wsId] && completedSteps.value[wsId][stepIdx]);
+        };
+
+        const toggleStepCompletion = (wsId, stepIdx) => {
+          if (!completedSteps.value[wsId]) {
+            completedSteps.value[wsId] = {};
+          }
+          completedSteps.value[wsId][stepIdx] = !completedSteps.value[wsId][stepIdx];
+          localStorage.setItem('sonic_progress', JSON.stringify(completedSteps.value));
+        };
+
+        const getWorkshopProgress = (wsId) => {
+          const ws = workshops.find(w => w.id === wsId);
+          if (!ws || !ws.steps.length) return 0;
+          const done = ws.steps.filter((_, idx) => isStepCompleted(wsId, idx)).length;
+          return Math.round((done / ws.steps.length) * 100);
+        };
+
+        const currentWorkshopProgress = computed(() => {
+          if (!currentWorkshop.value) return 0;
+          return getWorkshopProgress(currentWorkshop.value.id);
+        });
+
+        const overallProgress = computed(() => {
+          let totalSteps = 0;
+          let completed = 0;
+          workshops.forEach(ws => {
+            totalSteps += ws.steps.length;
+            ws.steps.forEach((_, idx) => {
+              if (isStepCompleted(ws.id, idx)) completed++;
+            });
+          });
+          return totalSteps ? Math.round((completed / totalSteps) * 100) : 0;
+        });
+
+        const resetCurrentWorkshopProgress = () => {
+          if (currentWorkshop.value) {
+            completedSteps.value[currentWorkshop.value.id] = {};
+            localStorage.setItem('sonic_progress', JSON.stringify(completedSteps.value));
+          }
+        };
+
+        return {
+          isDark,
+          toggleTheme,
+          drawer,
+          selectedWorkshopId,
+          currentStream,
+          searchQuery,
+          workshops,
+          currentWorkshop,
+          prevWorkshop,
+          nextWorkshop,
+          filteredSteps,
+          isStepCompleted,
+          toggleStepCompletion,
+          getWorkshopProgress,
+          currentWorkshopProgress,
+          overallProgress,
+          resetCurrentWorkshopProgress
+        };
+      }
+    }).use(vuetify).mount('#app');
+  </script>
+</body>
+
+</html>
