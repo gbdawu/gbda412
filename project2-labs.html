@@ -115,25 +115,25 @@
         class="dark:bg-slate-900 border-r dark:border-slate-800">
         <div class="p-4 gradient-header flex items-center justify-between">
           <div class="font-bold text-lg flex items-center gap-2">
-            <v-icon icon="mdi-compass-outline"></v-icon> Workshop Navigator
+            <v-icon icon="mdi-compass-outline"></v-icon> Streams & Labs
           </div>
           <v-btn icon="mdi-close" variant="text" size="small" @click="drawer = false"></v-btn>
         </div>
 
         <!-- Overall Progress Indicator in Drawer -->
-        <div class="p-4 bg-slate-100 dark:bg-slate-800/60 border-b dark:border-slate-800">
+        <!-- <div class="p-4 bg-slate-100 dark:bg-slate-800/60 border-b dark:border-slate-800">
           <div class="flex justify-between items-center text-xs font-semibold mb-1 text-slate-600 dark:text-slate-300">
             <span>Overall Progress</span>
             <span>{{ Math.round(overallProgress) }}%</span>
           </div>
           <v-progress-linear :model-value="overallProgress" color="#ff416c" height="8" rounded></v-progress-linear>
-        </div>
+        </div> -->
 
         <v-list density="comfortable" class="p-2">
-          <v-list-item @click="selectedWorkshopId = 'home'; drawer = false" :active="selectedWorkshopId === 'home'"
-            rounded="lg" class="mb-1" prepend-icon="mdi-home-variant-outline" title="Overview & Home"></v-list-item>
+          <!-- <v-list-item @click="selectedWorkshopId = 'home'; drawer = false" :active="selectedWorkshopId === 'home'"
+            rounded="lg" class="mb-1" prepend-icon="mdi-home-variant-outline" title="Overview & Home"></v-list-item>  -->
 
-          <v-divider class="my-2"></v-divider>
+           <!-- <v-divider class="my-2"></v-divider> -->
 
           <!-- Stream A Group -->
           <div
