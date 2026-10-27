@@ -779,7 +779,7 @@
             title: 'Lab 1: Generate Sound With A Machine Learning Model',
             shortTitle: 'B1: AI Music Basics',
             icon: 'mdi-robot',
-            intro: 'In this lab, you will explore how machine learning models can be used to trigger and control sounds in modular synthesizers. Using Google Teachable Machine and a Web MIDI bridge, you will bridge browser-based computer vision or audio recognition directly into VCV Rack.',
+            intro: 'In this lab, you will explore how machine learning models can be used to trigger and control sounds in <a href="https://en.wikipedia.org/wiki/Modular_synthesizer" target="_blank" class="text-pink-500 underline">modular synthesizers</a>. Using Google Teachable Machine and a Web MIDI bridge, you will explore how to use computer vision or audio recognition directly into VCV Rack.',
             whatYouWillDo: 'You will train a custom machine learning model using Teachable Machine, link it to the Web MIDI Bridge web app, configure a virtual MIDI routing driver (loopMIDI or IAC Driver), and connect everything to VCV Rack to perform live generative music using physical gestures.',
             objectives: [
               'Explore Machine Learning techniques for triggering sounds in VCV Rack.',
@@ -791,7 +791,11 @@
               {
                 title: '1: Create a Teachable Machine Model',
                 objective: 'Learn to create a simple machine learning model in Teachable Machine using your own poses, voice, or images.',
-                content: `
+                content: ` <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">
+                    <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is a Machine Learning Model?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300">A machine learning model is a program that can learn from data and make predictions or decisions without being explicitly programmed for each task. In the context of sound design and music, these models can be trained to recognize patterns in audio or visual input and trigger corresponding sounds.</p>
+                  </div>
+
                 <p class="mb-2">1. Go to the <a href="https://teachablemachine.withgoogle.com/" target="_blank" class="text-pink-500 underline">Teachable Machine</a> website.</p>
                   <p class="mb-2">2. Follow the Teachable Machine tutorial videos below to learn how to create a model that can recognize your chosen input (pose, voice, or image).</p>
                   <ul class="list-disc pl-5 space-y-1 mb-3">
@@ -943,9 +947,9 @@
                     </div>
                   </div>
                 `
-              }, 
+              },
 
-                {
+              {
                 title: '5: Develop A Concept',
                 objective: `Use your experience creating a machine learning model and listening to the sounds from the VCV Rack  to begin thinking about a concept for your Project 2, Part 1: Artistic Composition. <br> <br> <b>Note:</b> There is no submission required at this step. A good idea is to start thinking about a theme or activity for this project.`,
                 content: `
@@ -953,20 +957,20 @@
                   <ol class="list-decimal pl-5 space-y-3">
                     <li><b>Reflect</b> on the machine learning model you created today:
                       <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li> What aspects did you find difficult or easy when creating your model?</li>
                         <li>What are some possibilities you imagine for your teachable machine classes, and how gestures, images, or sound could be used to train your models for triggering sounds?</li>
-                        <li>How did your pace, gestures, or decisions about where to move influence the sounds produced in your MIDI sequence in VCV Rack?</li>
                       </ul>
                     </li>
                     <li><b>Imagine</b> how you want to transform images, poses, audio data into music:
                       <ul class="list-disc pl-5 mt-1 space-y-1">
-                        <li>What types of sounds or instruments could represent your these images, poses, or audio data?</li>
-                        <li>How might different musical elements (pitch, rhythm, dynamics) convey aspects of your teachable machine dataset?</li>
+                        <li>How can yuo develop a set of your gestures or voice commands that can allow you to control VCV Rack sounds more effectively and interactively?</li>
+                        <li>How might different musical elements (pitch, rhythm, volume) be mapped to your teachable machine classes?</li>
                       </ul>
                     </li>
                     <li><b>Consider</b> connections to course discussions and readings:
                       <ul class="list-disc pl-5 mt-1 space-y-1">
-                        <li>How does your concept relate to ideas of embodiment, sound, and AI technology?</li>
-                        <li>How might your work explore AI a site of musical expression and co-creation?</li>
+                        <li>How does your concept relate to ideas of AI co-creation and musical expression?</li>
+                        <li>What are the potential implications of using AI in the creation of music?</li>
                       </ul>
                     </li>
                     <li><b>Discuss</b> your thoughts next week in class.</li>
