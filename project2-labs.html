@@ -510,7 +510,7 @@
             shortTitle: 'A1: Strava to MIDI',
             icon: 'mdi-walk',
             intro: 'In this lab, you will explore how physical movement can generate data that can be transformed into sound. Using the Strava app, you will record a short activity—such as walking outside campus, taking a short route to get coffee, or any movement of your choice. This activity will allow you to capture your own biofeedback data and begin to understand how bodily motion can be represented as digital information.',
-            whatYouWillDo: 'You will record a 1-minute movement session using Strava, download your activity data as a CSV file from the Strava desktop platform, and convert it into a MIDI file using <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline font-medium">csv to midi mapper</a>. You will then upload the resulting MIDI file into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline font-medium">Online Sequencer</a> to experiment with different instruments and sonic textures. This process introduces how the body’s movement can become a musical source.<br><br>The outcome of this lab will serve as preparation for <strong>Project 2, Part 1: Artistic Composition</strong>, where you will creatively transform movement data into sound.',
+            whatYouWillDo: 'You will record a 3-5 minute movement session using Strava, download your activity data as a CSV file from the Strava desktop platform, and convert it into a MIDI file using <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline font-medium">csv to midi mapper</a>. You will then upload the resulting MIDI file into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline font-medium">Online Sequencer</a> to experiment with different instruments and sonic textures. This process introduces how the body’s movement can become a musical source.<br><br>The outcome of this lab will serve as preparation for <strong>Project 2, Part 1: Artistic Composition</strong>, where you will creatively transform movement data into sound.',
             objectives: [
               'Understand how motion-based data can be transformed into music by converting it into a MIDI file.',
               'Reflect on how your movement patterns and choices influence the resulting music and consider what this reveals about using the body as an instrument.',
@@ -699,43 +699,258 @@
               }
             ]
           },
-          // {
-          //   id: 'a2',
-          //   stream: 'A',
-          //   title: 'Lab 2: Biofeedback Variations & Strategic Mapping',
-          //   shortTitle: 'A2: Mapping Variations',
-          //   icon: 'mdi-map-marker-path',
-          //   intro: 'Deepen your exploration of biometric and GPS data structure. Examine CSV datasets row-by-row and construct three distinct MIDI variations using creative mapping strategies.',
-          //   whatYouWillDo: 'Record intentional movement variations, examine raw CSV columns in spreadsheet software, map 3 variations (Melody, Latitude, Elevation/Heart Rate), and export MP3 previews.',
-          //   objectives: [
-          //     'Understand raw column parameters (X, Y, Altitude, Speed, Heart Rate).',
-          //     'Design 3 contrasting mapping strategies (East-West vs. North-South vs. Elevation).',
-          //     'Export materials for Project 2 Part 2.'
-          //   ],
-          //   tools: ['Strava', 'Spreadsheet Software', 'CSV-to-MIDI Mapper', 'Online Sequencer'],
-          //   steps: [
-          //     {
-          //       title: 'Refine Theme & Intention',
-          //       objective: 'Establish a clear creative theme for data collection.',
-          //       content: '<p>Revisit your proposal concept. Consider how bodily signals, movement speed, and physical terrain represent themes of embodiment and technology.</p>'
-          //     },
-          //     {
-          //       title: 'Record Intentional Movement Data',
-          //       objective: 'Perform a movement activity designed with dramatic data variation.',
-          //       content: '<p>Incorporate sharp turns, pauses, or elevation changes (e.g. stairwells) to create wide pitch jumps and duration pauses in your dataset.</p>'
-          //     },
-          //     {
-          //       title: 'Generate 3 MIDI Variations',
-          //       objective: 'Map data into 3 distinct musical interpretations.',
-          //       content: '<ul class="list-disc pl-5 space-y-1"><li><strong>Var 1:</strong> Longitude to Note Pitch</li><li><strong>Var 2:</strong> Latitude to Note Pitch (Minor Scale)</li><li><strong>Var 3:</strong> Elevation/Heart Rate to Note Pitch</li></ul>'
-          //     },
-          //     {
-          //       title: 'Export Final Audio Previews',
-          //       objective: 'Import into Online Sequencer, select suitable instruments, and export MP3 files.',
-          //       content: '<p>Choose contrasting instruments for each variation (e.g., Marimba for Var 1, Synth Pad for Var 2) and click <strong>Export MP3</strong>.</p>'
-          //     }
-          //   ]
-          // },
+         {
+            id: 'a2',
+            stream: 'A',
+            title: 'Lab 2:  Working with GPS + heart rate data + MIDI',
+            shortTitle: 'A2: Mapping Variations',
+            icon: 'mdi-map-marker-path',
+            intro: 'In this lab, you will take a deeper dive into your movement data and explore how creative mapping decisions can transform raw biofeedback into expressive sound. Building on Lab 1, where you converted movement into MIDI, you will record yourself again and open and examine the actual CSV data to understand what information your body generates during movement—such as GPS coordinates, elevation, speed, and optionally, heart rate.',
+            whatYouWillDo: `<p>You will record another 3-5 minute movement session using Strava (with heart rate data if your device supports it), then download and convert your activity data to CSV format. This time, you will open the CSV file to explore its structure and the different data columns it contains.</b> <br><br>
+              <p>After, using the <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline">CSV-to-MIDI Mapper</a>, you will create three different MIDI variations by experimenting with different mapping strategies for notes, velocity, time, duration, scales, octaves, and ranges.</p> <br><br>The outcomes of this Lab will help you refine your theme and generate materials needed for <strong>Project 2, Part 1: Artistic Composition</strong>.`,
+            objectives: [
+              'Understand the structure of GPS and biometric data by examining CSV file columns (X, Y, elevation, heart rate, time, etc.).',
+              'Learn to creatively map your data to musical variables like pitch, velocity, key, scale, octave, duration, and time.',
+              'Generate draft musical compositions for <strong>Project 2, Part 1: Artistic Composition</strong> and refine your overall theme and concept.'
+            ],
+            tools: [
+              'Strava app on your smartphone',
+              'Smartwatch connected to Strava\'s heart rate monitor (optional)',
+              'Strava desktop dashboard',
+              'FIT/GPX to CSV Converter',
+              'CSV-to-MIDI Mapper',
+              'Online Sequencer',
+              'Spreadsheet software (Excel, Google Sheets, or Numbers) to view CSV data'
+            ],
+            steps: [
+              {
+                title: 'Step 1: Refine Your Concept',
+                objective: 'Revisit the questions at the end of Lab 1 to find a theme that could better guide your data collection and mapping decisions.',
+                content: `
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Revisit Lab 1.</strong> Remind yourself of the physical activity and concept you initially thought about.</li>
+                    <li><strong>Consider connections to course discussions and readings:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How does your concept relate to ideas of embodiment, sound, feminism, and technology?</li>
+                        <li>What does it mean to translate body signals into digital information and then into sound?</li>
+                        <li>How might your work reveal or question the relationship between physical experience and technological mediation?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Refine your theme:</strong> Write down a theme statement (1-2 sentences) mentioning what physical activity you will do, how it connects to topics of embodiment, sound, feminism, and/or technology, and how do you think this physical activity could sound. Keep it flexible, since your theme can evolve as you gather data and ideas.
+                      <ul class="list-disc pl-5 mt-1">
+                      </ul>
+                    </li>
+                  </ol>
+                `
+              },
+              {
+                title: 'Step 2: Record Your Movement Data',
+                objective: 'Capture a new 3-5 minute activity using Strava, this time being more intentional about creating variation in your movement so that it can translate into interesting sonic material.',
+                content: `
+                  <p class="mb-2">Follow these steps:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Plan a new activity with intentional variation.</strong> In Lab 1, you may have noticed that some aspects of your data didn't vary much. For this recording, try to create more diversity in your movement data:
+                      <ul class="list-disc pl-5 mt-1 space-y-2">
+                        <li><strong>To create variation in longitude and latitude (X, Y):</strong> Make turns, walk in curved or zigzag patterns, trace shapes (circles, squares, figure-eights), or change direction frequently rather than walking in a straight line.</li>
+                        <li><strong>To create silence or longer notes:</strong> Pause during your walk, or slow down significantly for a few seconds. The timestamps in your data will be farther apart, creating longer note durations.</li>
+                        <li><strong>To create elevation changes:</strong> Find outdoor terrain with hills or slopes.</li>
+                      </ul>
+                      <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 my-3 text-xs space-y-2">
+                        <strong>💡 Think of your activity as a mini performance. Your body's choices, where you move, how fast, when you pause, are compositional decisions that will shape your final sound. Some activity suggestions are:</strong>
+                        <ul class="list-disc pl-5">
+                          
+                          <li>Trace a specific pattern or shape around a building or courtyard</li>
+                          <li>Walk through different places with intentional pauses</li>                          
+                          <li>Create a "choreographed" walk with specific movements in mind</li>
+                          <li>Walk up and down a hill</li>
+                          <li>Remember that GPS doesn't work inside buidlings, only outdoors</li>                          
+                        </ul>
+                      </div>
+                    </li>
+                    <li><b>Go outdoors to record for 3-5 minute</b> using the Strava app.
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Consult Lab 1 to see detailed instructions on how to record using Strava.</li>
+                      </ul>
+                      <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 my-3 text-xs">
+                        <strong>💡</strong> If you have an Apple Watch, Fitbit, or other heart rate-enabled device, you can connect it to Strava to capture heart rate data alongside your GPS data.
+                      </div>
+                      <div class="my-3 aspect-w-16 aspect-h-9">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/g4KLEA0kyMc?si=FW_eGFy4WOVKnuRy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg border"></iframe>
+                      </div>
+                    </li>
+                    <li>After recording, <b>download your activity from Strava</b>.
+                      <ul class="list-disc pl-5 mt-1 space-y-2">
+                        <li>It is recommended to download the <b>Fit file</b>, as it contains additional data such as <em>speed</em>, <em>distance</em>, and <em>heart rate</em>. The <b>GPX file</b> can also be used, but may have less interesting data fields.</li>
+                        <li>Instructions to download:
+                          <ol class="list-decimal pl-5 mt-1 space-y-1">
+                            <li>From the top menu on Strava Desktop, select <b>Training → My Activities</b>.</li>
+                            <li>Locate the activity you recorded and click to open its detail page.</li>
+                            <li>Click the three-dots icon in the top-left corner of the activity page.</li>
+                            <li>Select <b>Export GPX</b> or <b>Export Original (Fit file)</b> from the dropdown menu.</li>
+                          </ol>
+                        </li>
+                      </ul>
+                    </li>
+                  </ol>
+                `
+              },
+              {
+                title: 'Step 3: Convert and Explore Your Data',
+                objective: 'Convert your FIT or GPX file to CSV format and examine the data structure to understand what information your body generated during movement. You will also begin planning how to structure your composition by analyzing the time column.',
+                content: `
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><b>Convert your activity file into a CSV</b>.
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>If you downloaded a <b>FIT file</b>, use the <a href="https://gotoes.org/strava/convert_fit_files_to_csv.php" target="_blank" class="text-pink-500 underline">FIT to CSV converter</a>.</li>
+                        <li>If you downloaded a <b>GPX file</b>, use the <a href="https://gbdawu.github.io/gbda412/gpx-to-csv" target="_blank" class="text-pink-500 underline">GPX to CSV converter</a>.</li>
+                      </ul>
+                    </li>
+                    <li><strong>Open your generated CSV file</strong> in Excel or Google Sheets to explore the raw data recorded during your movement.</li>
+                    <li><strong>Examine the column headers</strong>. Depending on whether you exported a FIT or GPX file, you will see different sets of data:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li><strong>timestamp:</strong> The exact moment each sample was recorded <em>(available in both FIT and GPX)</em></li>
+                        <li><strong>latitude / longitude:</strong> Your geographic position at each moment <em>(available in both FIT and GPX)</em></li>
+                        <li><strong>altitude:</strong> Elevation above sea level <em>(available in FIT file)</em></li>
+                        <li><strong>heart_rate:</strong> Your heart rate in beats per minute <em>(available in FIT if using a watch)</em></li>
+                        <li><strong>speed:</strong> Your instantaneous speed in meters per second <em>(available in FIT file)</em></li>
+                        <li><strong>distance:</strong> Total cumulative distance traveled <em>(available in FIT file)</em></li>
+                        <li><strong>track_seg_point_id:</strong> The sequential index of each GPS point <em>(available in GPX file)</em></li>
+                        <li><strong>ele (elevation):</strong> Your elevation above sea level at each GPS point <em>(available in GPX file)</em></li>
+                      </ul>
+                    </li>
+                    <li><strong>Look at your data patterns. Scroll through the spreadsheet and observe how numbers change row by row:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Look at how latitude and longitude shift—large changes mean you moved farther or changed direction.</li>
+                        <li>See how the timestamp increases with each movement you made.</li>
+                        <li>Notice where elevation changes significantly—these were moments you moved up or down.</li>
+                        <li>If you have heart rate data, observe where it peaks or drops.</li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/20 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 my-3 text-xs">
+                    <strong>💡 Tip:</strong> Understanding your data structure now will help you make intentional creative decisions in the next step when you map this data to musical parameters. Take your time with this exploration—it's where you start to see your body as data!
+                  </div>
+                `
+              },
+              {
+                title: 'Step 4: Create 3 MIDI Variations Through Data Mapping',
+                objective: 'Use the CSV-to-MIDI Converter to transform your movement data into sound by experimenting with different mapping strategies. You will create three distinct MIDI variations by changing which data columns become notes, velocity, time, and duration parameters, and by adjusting key, scale, octave, and range settings.',
+                content: `
+                  <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4 text-xs space-y-2">
+                    <div class="font-bold text-pink-700 dark:text-pink-300">💡 Understanding Data-to-MIDI Mapping</div>
+                    <p>Mapping is the creative process of deciding which aspects of your body's data become which aspects of sound. Different mapping choices can create dramatically different results from the same data:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li><strong>Note:</strong> <em>Which data column controls which notes are played?</em> Usually longitude or latitude coordinates. The CSV-to-MIDI converter scales your latitude/longitude decimal coordinates down to the MIDI note range (0-127), where each number represents a different pitch. Small coordinate changes create small pitch changes, while larger movements create bigger melodic leaps.</li>
+                      <li><strong>Velocity:</strong> <em>Which data column controls how loud or soft notes are?</em> Could be elevation, heart rate, or another coordinate axis.</li>
+                      <li><strong>Duration:</strong> <em>Which data column controls how long each note lasts?</em> When you move slowly or pause, numbers are farther apart, creating longer notes.</li>
+                      <li><strong>Time:</strong> <em>What data controls time in your music composition?</em> The timestamp column determines when notes play.</li>
+                    </ul>
+                  </div>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Upload your CSV file to the <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline">CSV-to-MIDI Mapper</a></strong><br>
+                      <div class="my-3"><img src="images/biofeedback/csv-to-midi.png" alt="CSV to MIDI UI" class="rounded-lg border shadow-sm" width="350" /></div>
+                    </li>
+                    <li><strong>Create 3 MIDI Variations using the converter:</strong> <br> <br>
+                      Now you'll create three different sonic interpretations of your movement data. For each variation, you'll change the mapping strategy and adjust musical parameters as follows:<br> <br>
+                      <ol class="list-decimal pl-5 mt-2 space-y-3">
+                        <li><strong>Variation 1: East-West Movement as Melody</strong>
+                          <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li><strong>Notes:</strong> Longitude column</li>
+                            <li><strong>Velocity:</strong> ele (elevation) or altitude</li>
+                            <li><strong>Time:</strong> timestamp</li>
+                            <li><strong>Duration:</strong> Latitude</li>                            
+                            <li><strong>Scale:</strong> Major or Pentatonic</li>
+                            <li><strong>Root Note:</strong> C or D </li>
+                            <li><strong>Amplification:</strong> 100x</li>
+                            <li><strong>Validate and Download as: </strong> <code>longitude-melody.mid</code>.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Variation 2: North-South Movement as Melody</strong>
+                          <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li><strong>Notes:</strong> Latitude</li>
+                            <li><strong>Velocity:</strong> hr (heart rate) or ele (elevation)</li>
+                            <li><strong>Time:</strong> timestamp</li>
+                            <li><strong>Duration:</strong> Longitude</li>
+                            <li><strong>Scale:</strong> Minor</li>
+                            <li><strong>Root Note:</strong> A or E♭ </li>
+                            <li><strong>Amplification:</strong> 400x</li>
+                            <li><strong>Validate and Download as: </strong> <code>latitude-melody.mid</code>.</li>                           
+                          </ul>
+                        </li>
+                        <li><strong>Variation 3: Elevation or Heart Rate as Melody</strong>
+                          <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li><strong>Notes:</strong> altitude or ele (elevation) [or hr if available]</li>
+                            <li><strong>Velocity:</strong> Longitude or Latitude</li>
+                            <li><strong>Time & Duration:</strong> timestamp or track_seg_point_id</li>
+                            <li><strong>Scale:</strong> Chromatic</li>
+                            <li><strong>Root Note:</strong> F♯ or B♭ </li>
+                            <li><strong>Amplification:</strong> 800x</li>
+                            <li><strong>Validate and Download as: </strong> <code>elevation_melody.mid</code> or <code>heart-rate_melody.mid</code>.</li>                           
+                          </ul>
+                        </li>
+                      </ol>
+                    </li>
+                  </ol>
+                `
+              },
+              {
+                title: 'Step 5: Sonic Exploration and Final Outputs',
+                objective: 'Import each of your 3 MIDI variations into Online Sequencer, experiment with different instruments to bring out unique sonic qualities in your data, and export your final 3 audios for submission in Project 2, Part 2: Materials Collection.',
+                content: `
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>For each of your 3 MIDI variations try several different instruments:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Import one MIDI file at a time into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a>.</li>
+                        <li><strong>Try contrasting instruments for each variation</strong> to create sonic diversity across your three outputs (e.g., Piano/Marimba for Var 1, Strings/Synth Pad for Var 2, Flute/Synth Lead for Var 3).
+                          <div class="p-3 rounded-lg bg-pink-50 dark:bg-pink-950/20 text-xs mt-2">
+                            <strong>💡 Creative Tip:</strong> Don't just pick your "favorite" sound—choose instruments that tell different stories about your movement.
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><strong>Export Your 3 Final Outputs:</strong> Once you've chosen the best instrument for each variation, export them as MP3 files.
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>In Online Sequencer, click the <strong>Cloud ☁ icon</strong> at the top corner.</li>
+                        <li>Click <strong>Export MP3</strong>.</li>
+                        <li>Save with descriptive names (e.g., <code>variation1-piano.mp3</code>, <code>latitude-melody-strings.mp3</code>, <code>elevation-synth.mp3</code>).</li>
+                      </ul>
+                    </li>
+                  </ol>
+                `
+              },
+              {
+                title: 'Step 6: Document Your Work for Project 2, Part 2',
+                objective: 'Prepare documentation of your creative process and materials for submission in Project 2, Part 2: Materials Collection on LEARN.',
+                content: `
+                  <p class="mb-2">Take notes on the following to prepare for your forum post:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>For each of your 3 outputs, document:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Which MIDI variation is this? (What mapping strategy did you use?)</li>
+                        <li>Which instrument did you choose and why?</li>
+                        <li>What quality of your movement does this combination emphasize or reveal?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Discuss how this material connects to your proposal and course readings:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How does your work explore embodiment—the lived experience of your body in motion?</li>
+                        <li>What does converting bodily data to sound reveal about the relationship between body, technology, and musical expression?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Describe what sounds you imagine using for your final project:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Will you layer multiple instruments? Acoustic, electronic, or hybrid?</li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 mt-4 text-xs space-y-1">
+                    <strong>💡 Ready to Submit?</strong>
+                    <p>You now have everything needed for Project 2, Part 2: Materials Collection (1 CSV dataset, 3 MP3 sonic explorations, and creative documentation). Post your reflection on LEARN by the deadline!</p>
+                  </div>
+                `
+              }
+            ]
+          },
           // {
           //   id: 'a3',
           //   stream: 'A',
