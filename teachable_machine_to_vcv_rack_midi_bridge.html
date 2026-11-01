@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teachable Machine ➔ VCV Rack Web MIDI Bridge</title>
-  
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -30,23 +31,42 @@
   <!-- Vue 3 CDN -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-  <!-- TensorFlow.js and Teachable Machine CDNs -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <!-- TensorFlow.js and Teachable Machine CDNs (Modified for Pose compatibility) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@latest/dist/teachablemachine-pose.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@latest/dist/speech-commands.min.js"></script>
+
+  <!-- TensorFlow.js and Teachable Machine CDNs -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@latest/dist/teachablemachine-pose.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@latest/dist/speech-commands.min.js"></script> -->
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     /* Custom scrollbar styling for dark mode UI */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #121316; }
-    ::-webkit-scrollbar-thumb { background: #2a2c35; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3f4250; }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #121316;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #2a2c35;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3f4250;
+    }
   </style>
 </head>
+
 <body class="bg-vcv-bg text-gray-200 min-h-screen font-sans antialiased selection:bg-vcv-accent selection:text-black">
 
   <div id="app" class="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
@@ -54,24 +74,30 @@
     <!-- Header Section -->
     <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-vcv-border pb-5">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-lg bg-vcv-accent flex items-center justify-center text-black font-black text-xl shadow-lg shadow-vcv-accent/20">
+        <div
+          class="w-10 h-10 rounded-lg bg-vcv-accent flex items-center justify-center text-black font-black text-xl shadow-lg shadow-vcv-accent/20">
           <i class="fa-solid font-mono">&gt;~</i>
         </div>
         <div>
           <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
             Teachable ➔ VCV Rack
-            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-vcv-accent/10 text-vcv-accent border border-vcv-accent/20">Web MIDI Bridge</span>
+            <span
+              class="text-xs font-semibold px-2 py-0.5 rounded bg-vcv-accent/10 text-vcv-accent border border-vcv-accent/20">Web
+              MIDI Bridge</span>
           </h1>
-          <p class="text-xs text-gray-400">Stream machine learning predictions directly into virtual Control Voltage signals.</p>
+          <p class="text-xs text-gray-400">Stream machine learning predictions directly into virtual Control Voltage
+            signals.</p>
         </div>
       </div>
 
       <div class="flex items-center gap-3">
-        <button @click="showModal = true" class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white">
+        <button @click="showModal = true"
+          class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white">
           <i class="fa-solid fa-circle-question text-vcv-gold"></i>
           VCV Setup Guide
         </button>
-        <button @click="clearLog" class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white">
+        <button @click="clearLog"
+          class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white">
           <i class="fa-solid fa-eraser"></i>
           Clear Logs
         </button>
@@ -88,21 +114,29 @@
         <div class="bg-vcv-card border border-vcv-border rounded-xl p-5 shadow-xl space-y-4">
           <div class="flex items-center justify-between border-b border-vcv-border pb-3">
             <h2 class="text-sm font-bold uppercase tracking-wider text-vcv-accent flex items-center gap-2">
-              <span class="w-5 h-5 rounded-full bg-vcv-accent/20 text-vcv-accent text-xs flex items-center justify-center">1</span>
+              <span
+                class="w-5 h-5 rounded-full bg-vcv-accent/20 text-vcv-accent text-xs flex items-center justify-center">1</span>
               Model Configuration
             </h2>
-            <span class="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-400 border border-gray-700">{{ modelType.toUpperCase() }}</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-gray-800 text-gray-400 border border-gray-700">{{
+              modelType.toUpperCase() }}</span>
           </div>
 
           <!-- Model Type Tabs -->
           <div class="grid grid-cols-3 gap-2 p-1 bg-vcv-bg rounded-lg border border-vcv-border text-xs font-medium">
-            <button @click="modelType = 'image'" :class="modelType === 'image' ? 'bg-vcv-card text-vcv-accent shadow border border-vcv-border' : 'text-gray-400 hover:text-white'" class="py-1.5 rounded-md transition text-center">
+            <button @click="modelType = 'image'"
+              :class="modelType === 'image' ? 'bg-vcv-card text-vcv-accent shadow border border-vcv-border' : 'text-gray-400 hover:text-white'"
+              class="py-1.5 rounded-md transition text-center">
               <i class="fa-solid fa-camera mr-1"></i> Image
             </button>
-            <button @click="modelType = 'pose'" :class="modelType === 'pose' ? 'bg-vcv-card text-vcv-accent shadow border border-vcv-border' : 'text-gray-400 hover:text-white'" class="py-1.5 rounded-md transition text-center">
+            <button @click="modelType = 'pose'"
+              :class="modelType === 'pose' ? 'bg-vcv-card text-vcv-accent shadow border border-vcv-border' : 'text-gray-400 hover:text-white'"
+              class="py-1.5 rounded-md transition text-center">
               <i class="fa-solid fa-person mr-1"></i> Pose
             </button>
-            <button @click="modelType = 'audio'" :class="modelType === 'audio' ? 'bg-vcv-card text-vcv-accent shadow border border-vcv-border' : 'text-gray-400 hover:text-white'" class="py-1.5 rounded-md transition text-center">
+            <button @click="modelType = 'audio'"
+              :class="modelType === 'audio' ? 'bg-vcv-card text-vcv-accent shadow border border-vcv-border' : 'text-gray-400 hover:text-white'"
+              class="py-1.5 rounded-md transition text-center">
               <i class="fa-solid fa-microphone mr-1"></i> Audio
             </button>
           </div>
@@ -111,33 +145,37 @@
           <div class="space-y-1.5">
             <label class="text-xs text-gray-400 flex justify-between">
               <span>Teachable Machine Model URL:</span>
-              <button @click="pasteSampleModel" class="text-vcv-accent hover:underline text-[11px]">Paste Sample</button>
+              <button @click="pasteSampleModel" class="text-vcv-accent hover:underline text-[11px]">Paste
+                Sample</button>
             </label>
-            <input v-model="modelUrl" type="text" placeholder="https://teachablemachine.withgoogle.com/models/..." 
+            <input v-model="modelUrl" type="text" placeholder="https://teachablemachine.withgoogle.com/models/..."
               class="w-full bg-vcv-bg border border-vcv-border focus:border-vcv-accent rounded-lg px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none transition">
           </div>
 
           <!-- Action Button -->
-          <button @click="toggleModelLoad" :disabled="isLoading" 
+          <button @click="toggleModelLoad" :disabled="isLoading"
             :class="isModelLoaded ? 'bg-red-500/20 text-red-400 border-red-500/30 hover:bg-red-500/30' : 'bg-vcv-accent hover:bg-vcv-accentHover text-black font-semibold'"
             class="w-full py-2.5 rounded-lg text-xs transition border flex items-center justify-center gap-2 shadow-lg">
             <i v-if="isLoading" class="fa-solid fa-spinner fa-spin"></i>
             <i v-else-if="isModelLoaded" class="fa-solid fa-stop"></i>
             <i v-else class="fa-solid fa-play"></i>
-            <span>{{ isLoading ? 'Loading Model...' : (isModelLoaded ? 'Stop Model Processing' : 'Load and Start Model') }}</span>
+            <span>{{ isLoading ? 'Loading Model...' : (isModelLoaded ? 'Stop Model Processing' : 'Load and Start Model')
+              }}</span>
           </button>
 
           <!-- Camera / Visualizer Feed -->
-          <div class="relative bg-vcv-bg border border-vcv-border rounded-lg overflow-hidden min-h-[220px] flex items-center justify-center">
+          <div
+            class="relative bg-vcv-bg border border-vcv-border rounded-lg overflow-hidden min-h-[220px] flex items-center justify-center">
             <div id="webcam-container" class="w-full h-full flex justify-center items-center"></div>
-            
+
             <div v-if="!isModelLoaded && !isLoading" class="text-center p-6 text-gray-500 space-y-2">
               <i class="fa-solid fa-video-slash text-3xl opacity-40"></i>
               <p class="text-xs">No active camera or audio input.<br>Load a model above to begin inference.</p>
             </div>
 
             <!-- FPS Overlay -->
-            <div v-if="isModelLoaded" class="absolute top-2 right-2 bg-black/70 backdrop-blur border border-white/10 px-2 py-0.5 rounded text-[10px] font-mono text-vcv-accent">
+            <div v-if="isModelLoaded"
+              class="absolute top-2 right-2 bg-black/70 backdrop-blur border border-white/10 px-2 py-0.5 rounded text-[10px] font-mono text-vcv-accent">
               FPS: {{ actualFps }}
             </div>
           </div>
@@ -147,11 +185,13 @@
         <div class="bg-vcv-card border border-vcv-border rounded-xl p-5 shadow-xl space-y-4">
           <div class="flex items-center justify-between border-b border-vcv-border pb-3">
             <h2 class="text-sm font-bold uppercase tracking-wider text-vcv-accent flex items-center gap-2">
-              <span class="w-5 h-5 rounded-full bg-vcv-accent/20 text-vcv-accent text-xs flex items-center justify-center">2</span>
+              <span
+                class="w-5 h-5 rounded-full bg-vcv-accent/20 text-vcv-accent text-xs flex items-center justify-center">2</span>
               MIDI Output Config
             </h2>
             <span class="text-xs flex items-center gap-1.5" :class="midiAccess ? 'text-vcv-accent' : 'text-red-400'">
-              <span class="w-2 h-2 rounded-full" :class="midiAccess ? 'bg-vcv-accent animate-pulse' : 'bg-red-400'"></span>
+              <span class="w-2 h-2 rounded-full"
+                :class="midiAccess ? 'bg-vcv-accent animate-pulse' : 'bg-red-400'"></span>
               {{ midiAccess ? 'Web MIDI Ready' : 'No MIDI Support' }}
             </span>
           </div>
@@ -159,7 +199,8 @@
           <!-- MIDI Port Selector -->
           <div class="space-y-1.5">
             <label class="text-xs text-gray-400">Select MIDI Output Device (e.g. loopMIDI / IAC Driver):</label>
-            <select v-model="selectedMidiPortId" class="w-full bg-vcv-bg border border-vcv-border focus:border-vcv-accent rounded-lg px-3 py-2 text-xs text-white focus:outline-none transition">
+            <select v-model="selectedMidiPortId"
+              class="w-full bg-vcv-bg border border-vcv-border focus:border-vcv-accent rounded-lg px-3 py-2 text-xs text-white focus:outline-none transition">
               <option value="" disabled>-- Select Output Port --</option>
               <option v-for="port in midiOutputs" :key="port.id" :value="port.id">
                 {{ port.name }} ({{ port.manufacturer || 'Virtual' }})
@@ -174,7 +215,8 @@
                 <span>MIDI Channel:</span>
                 <span class="text-white font-mono font-bold">{{ midiChannel }}</span>
               </label>
-              <input v-model.number="midiChannel" type="range" min="1" max="16" class="w-full accent-vcv-accent bg-vcv-bg h-1.5 rounded-lg cursor-pointer">
+              <input v-model.number="midiChannel" type="range" min="1" max="16"
+                class="w-full accent-vcv-accent bg-vcv-bg h-1.5 rounded-lg cursor-pointer">
             </div>
 
             <div class="space-y-1">
@@ -182,7 +224,8 @@
                 <span>Throttle Rate:</span>
                 <span class="text-white font-mono font-bold">{{ targetFps }} FPS</span>
               </label>
-              <input v-model.number="targetFps" type="range" min="5" max="60" step="5" class="w-full accent-vcv-accent bg-vcv-bg h-1.5 rounded-lg cursor-pointer">
+              <input v-model.number="targetFps" type="range" min="5" max="60" step="5"
+                class="w-full accent-vcv-accent bg-vcv-bg h-1.5 rounded-lg cursor-pointer">
             </div>
           </div>
         </div>
@@ -197,10 +240,12 @@
           <div class="flex items-center justify-between border-b border-vcv-border pb-3">
             <div>
               <h2 class="text-sm font-bold uppercase tracking-wider text-vcv-accent flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-vcv-accent/20 text-vcv-accent text-xs flex items-center justify-center">3</span>
+                <span
+                  class="w-5 h-5 rounded-full bg-vcv-accent/20 text-vcv-accent text-xs flex items-center justify-center">3</span>
                 Control Voltage Mapping Matrix
               </h2>
-              <p class="text-[11px] text-gray-400">Map predictions to Continuous Modulation (CC) or Binary Triggers (Gate/Note).</p>
+              <p class="text-[11px] text-gray-400">Map predictions to Continuous Modulation (CC) or Binary Triggers
+                (Gate/Note).</p>
             </div>
             <span class="text-xs px-2 py-1 rounded bg-vcv-bg border border-vcv-border font-mono text-gray-300">
               Classes: {{ classes.length }}
@@ -208,48 +253,60 @@
           </div>
 
           <!-- Empty State -->
-          <div v-if="classes.length === 0" class="text-center py-12 text-gray-500 border border-dashed border-vcv-border rounded-xl space-y-2">
+          <div v-if="classes.length === 0"
+            class="text-center py-12 text-gray-500 border border-dashed border-vcv-border rounded-xl space-y-2">
             <i class="fa-solid fa-sliders text-4xl opacity-30"></i>
             <p class="text-xs">Load a model to auto-generate mapping matrix sliders for each detected class.</p>
           </div>
 
           <!-- Class Rows Matrix -->
           <div v-else class="space-y-4 max-h-[600px] overflow-y-auto pr-1">
-            <div v-for="(cls, idx) in classes" :key="cls.name" class="bg-vcv-bg border border-vcv-border rounded-xl p-4 space-y-3 relative overflow-hidden transition hover:border-gray-600">
-              
+            <div v-for="(cls, idx) in classes" :key="cls.name"
+              class="bg-vcv-bg border border-vcv-border rounded-xl p-4 space-y-3 relative overflow-hidden transition hover:border-gray-600">
+
               <!-- Header & Live Bar -->
               <div class="space-y-1.5">
                 <div class="flex items-center justify-between text-xs">
                   <span class="font-bold text-white flex items-center gap-2">
-                    <span :class="cls.activeLight ? 'bg-vcv-accent shadow-lg shadow-vcv-accent' : 'bg-gray-700'" class="w-2.5 h-2.5 rounded-full transition-colors"></span>
+                    <span :class="cls.activeLight ? 'bg-vcv-accent shadow-lg shadow-vcv-accent' : 'bg-gray-700'"
+                      class="w-2.5 h-2.5 rounded-full transition-colors"></span>
                     {{ cls.name }}
                   </span>
                   <div class="flex items-center gap-2 font-mono">
                     <span class="text-gray-400">Raw: {{ (cls.rawProb * 100).toFixed(0) }}%</span>
-                    <span class="text-vcv-accent font-bold">Output: {{ cls.mode === 'cc' ? cls.currentValue : (cls.gateActive ? 'HIGH (127)' : 'LOW (0)') }}</span>
+                    <span class="text-vcv-accent font-bold">Output: {{ cls.mode === 'cc' ? cls.currentValue :
+                      (cls.gateActive ? 'HIGH (127)' : 'LOW (0)') }}</span>
                   </div>
                 </div>
 
                 <!-- Probability Bar Container -->
-                <div class="w-full bg-gray-900 h-3 rounded-full overflow-hidden border border-vcv-border p-0.5 relative">
+                <div
+                  class="w-full bg-gray-900 h-3 rounded-full overflow-hidden border border-vcv-border p-0.5 relative">
                   <!-- Raw Bar -->
-                  <div class="bg-gray-700 h-full rounded-full transition-all duration-75 opacity-40 absolute top-0 left-0" :style="{ width: (cls.rawProb * 100) + '%' }"></div>
+                  <div
+                    class="bg-gray-700 h-full rounded-full transition-all duration-75 opacity-40 absolute top-0 left-0"
+                    :style="{ width: (cls.rawProb * 100) + '%' }"></div>
                   <!-- Smoothed/Processed Bar -->
-                  <div class="bg-vcv-accent h-full rounded-full transition-all duration-75 relative z-10" :style="{ width: (cls.smoothedProb * 100) + '%' }"></div>
+                  <div class="bg-vcv-accent h-full rounded-full transition-all duration-75 relative z-10"
+                    :style="{ width: (cls.smoothedProb * 100) + '%' }"></div>
                 </div>
               </div>
 
               <!-- Controls & Configuration Grid -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-vcv-border/50 text-xs">
-                
+
                 <!-- Signal Mode Selection -->
                 <div class="space-y-1">
                   <label class="text-gray-400 text-[11px]">Signal Mode:</label>
                   <div class="grid grid-cols-2 gap-1 bg-vcv-card p-1 rounded-lg border border-vcv-border">
-                    <button @click="cls.mode = 'cc'" :class="cls.mode === 'cc' ? 'bg-vcv-accent text-black font-semibold' : 'text-gray-400 hover:text-white'" class="py-1 rounded text-[11px] transition">
+                    <button @click="cls.mode = 'cc'"
+                      :class="cls.mode === 'cc' ? 'bg-vcv-accent text-black font-semibold' : 'text-gray-400 hover:text-white'"
+                      class="py-1 rounded text-[11px] transition">
                       Continuous (CC)
                     </button>
-                    <button @click="cls.mode = 'note'" :class="cls.mode === 'note' ? 'bg-vcv-accent text-black font-semibold' : 'text-gray-400 hover:text-white'" class="py-1 rounded text-[11px] transition">
+                    <button @click="cls.mode = 'note'"
+                      :class="cls.mode === 'note' ? 'bg-vcv-accent text-black font-semibold' : 'text-gray-400 hover:text-white'"
+                      class="py-1 rounded text-[11px] transition">
                       Trigger (Gate)
                     </button>
                   </div>
@@ -259,14 +316,16 @@
                 <div v-if="cls.mode === 'cc'" class="grid grid-cols-2 gap-2">
                   <div class="space-y-0.5">
                     <label class="text-gray-400 text-[10px]">MIDI CC #:</label>
-                    <input v-model.number="cls.ccNumber" type="number" min="1" max="127" class="w-full bg-vcv-card border border-vcv-border focus:border-vcv-accent rounded px-2 py-1 text-xs text-white font-mono">
+                    <input v-model.number="cls.ccNumber" type="number" min="1" max="127"
+                      class="w-full bg-vcv-card border border-vcv-border focus:border-vcv-accent rounded px-2 py-1 text-xs text-white font-mono">
                   </div>
                   <div class="space-y-0.5">
                     <label class="text-gray-400 text-[10px] flex justify-between">
                       <span>Slew / Smooth:</span>
                       <span class="font-mono">{{ cls.slew }}</span>
                     </label>
-                    <input v-model.number="cls.slew" type="range" min="0" max="0.9" step="0.05" class="w-full accent-vcv-accent bg-vcv-card h-1.5 rounded cursor-pointer mt-2">
+                    <input v-model.number="cls.slew" type="range" min="0" max="0.9" step="0.05"
+                      class="w-full accent-vcv-accent bg-vcv-card h-1.5 rounded cursor-pointer mt-2">
                   </div>
                 </div>
 
@@ -274,7 +333,8 @@
                 <div v-if="cls.mode === 'note'" class="grid grid-cols-2 gap-2">
                   <div class="space-y-0.5">
                     <label class="text-gray-400 text-[10px]">Note Output:</label>
-                    <select v-model.number="cls.noteNumber" class="w-full bg-vcv-card border border-vcv-border focus:border-vcv-accent rounded px-2 py-1 text-xs text-white font-mono">
+                    <select v-model.number="cls.noteNumber"
+                      class="w-full bg-vcv-card border border-vcv-border focus:border-vcv-accent rounded px-2 py-1 text-xs text-white font-mono">
                       <option v-for="n in noteOptions" :key="n.val" :value="n.val">{{ n.label }} ({{ n.val }})</option>
                     </select>
                   </div>
@@ -283,7 +343,8 @@
                       <span>Gate Threshold:</span>
                       <span class="font-mono">{{ (cls.threshold * 100).toFixed(0) }}%</span>
                     </label>
-                    <input v-model.number="cls.threshold" type="range" min="0.1" max="0.95" step="0.05" class="w-full accent-vcv-accent bg-vcv-card h-1.5 rounded cursor-pointer mt-2">
+                    <input v-model.number="cls.threshold" type="range" min="0.1" max="0.95" step="0.05"
+                      class="w-full accent-vcv-accent bg-vcv-card h-1.5 rounded cursor-pointer mt-2">
                   </div>
                 </div>
 
@@ -302,12 +363,17 @@
             <span class="text-[10px] font-mono text-gray-500">{{ logs.length }} Events</span>
           </div>
 
-          <div class="bg-vcv-bg border border-vcv-border rounded-lg p-3 h-36 overflow-y-auto font-mono text-[11px] space-y-1">
-            <div v-if="logs.length === 0" class="text-gray-600 text-center py-8 italic">No MIDI data transmitted yet...</div>
-            <div v-for="(log, idx) in logs" :key="idx" class="flex items-center justify-between border-b border-vcv-border/30 pb-0.5" :class="log.type === 'noteOn' ? 'text-vcv-accent' : (log.type === 'noteOff' ? 'text-gray-500' : 'text-gray-300')">
+          <div
+            class="bg-vcv-bg border border-vcv-border rounded-lg p-3 h-36 overflow-y-auto font-mono text-[11px] space-y-1">
+            <div v-if="logs.length === 0" class="text-gray-600 text-center py-8 italic">No MIDI data transmitted yet...
+            </div>
+            <div v-for="(log, idx) in logs" :key="idx"
+              class="flex items-center justify-between border-b border-vcv-border/30 pb-0.5"
+              :class="log.type === 'noteOn' ? 'text-vcv-accent' : (log.type === 'noteOff' ? 'text-gray-500' : 'text-gray-300')">
               <span class="text-gray-500 text-[10px]">{{ log.time }}</span>
               <span>{{ log.msg }}</span>
-              <span class="text-[10px] px-1 bg-vcv-card rounded border border-vcv-border text-gray-400">{{ log.bytes }}</span>
+              <span class="text-[10px] px-1 bg-vcv-card rounded border border-vcv-border text-gray-400">{{ log.bytes
+                }}</span>
             </div>
           </div>
         </div>
@@ -331,20 +397,29 @@
         </div>
 
         <div class="space-y-4 text-xs text-gray-300 leading-relaxed">
-          <p>Web MIDI sends control signals directly into your operating system's virtual MIDI loopback cables. Follow your OS instructions below:</p>
+          <p>Web MIDI sends control signals directly into your operating system's virtual MIDI loopback cables. Follow
+            your OS instructions below:</p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div class="bg-vcv-bg p-3 rounded-lg border border-vcv-border space-y-1">
-              <h4 class="font-bold text-white flex items-center gap-1.5"><i class="fa-brands fa-windows text-blue-400"></i> Windows</h4>
-              <p class="text-[11px] text-gray-400">Install free <strong>loopMIDI</strong>. Create a virtual port named <code class="text-vcv-accent">TeachableMIDI</code>.</p>
+              <h4 class="font-bold text-white flex items-center gap-1.5"><i
+                  class="fa-brands fa-windows text-blue-400"></i> Windows</h4>
+              <p class="text-[11px] text-gray-400">Install free <strong>loopMIDI</strong>. Create a virtual port named
+                <code class="text-vcv-accent">TeachableMIDI</code>.
+              </p>
             </div>
             <div class="bg-vcv-bg p-3 rounded-lg border border-vcv-border space-y-1">
-              <h4 class="font-bold text-white flex items-center gap-1.5"><i class="fa-brands fa-apple text-gray-200"></i> macOS</h4>
-              <p class="text-[11px] text-gray-400">Open <em>Audio MIDI Setup</em> ➔ Show MIDI Studio ➔ Double-click <strong>IAC Driver</strong> ➔ Check <em>"Device is online"</em>.</p>
+              <h4 class="font-bold text-white flex items-center gap-1.5"><i
+                  class="fa-brands fa-apple text-gray-200"></i> macOS</h4>
+              <p class="text-[11px] text-gray-400">Open <em>Audio MIDI Setup</em> ➔ Show MIDI Studio ➔ Double-click
+                <strong>IAC Driver</strong> ➔ Check <em>"Device is online"</em>.
+              </p>
             </div>
             <div class="bg-vcv-bg p-3 rounded-lg border border-vcv-border space-y-1">
-              <h4 class="font-bold text-white flex items-center gap-1.5"><i class="fa-brands fa-linux text-yellow-500"></i> Linux</h4>
-              <p class="text-[11px] text-gray-400">Enable <code class="text-vcv-accent">snd-virmidi</code> kernel module or use JACK MIDI connections.</p>
+              <h4 class="font-bold text-white flex items-center gap-1.5"><i
+                  class="fa-brands fa-linux text-yellow-500"></i> Linux</h4>
+              <p class="text-[11px] text-gray-400">Enable <code class="text-vcv-accent">snd-virmidi</code> kernel module
+                or use JACK MIDI connections.</p>
             </div>
           </div>
 
@@ -354,13 +429,15 @@
               <li>Add a <strong>MIDI-CV</strong> or <strong>MIDI-CC</strong> module from VCV Core to your rack.</li>
               <li>Set Driver to <strong>Windows MIDI / ALSA / CoreMIDI</strong>.</li>
               <li>Select your Virtual Port name (loopMIDI / IAC Driver) from the device list.</li>
-              <li>Patch the <strong>CV / CC / GATE outputs</strong> directly into VCO pitch, VCF filters, or envelope triggers!</li>
+              <li>Patch the <strong>CV / CC / GATE outputs</strong> directly into VCO pitch, VCF filters, or envelope
+                triggers!</li>
             </ol>
           </div>
         </div>
 
         <div class="flex justify-end pt-2">
-          <button @click="showModal = false" class="px-4 py-2 bg-vcv-accent text-black font-bold rounded-lg text-xs hover:bg-vcv-accentHover transition">
+          <button @click="showModal = false"
+            class="px-4 py-2 bg-vcv-accent text-black font-bold rounded-lg text-xs hover:bg-vcv-accentHover transition">
             Got it, Let's Make Music
           </button>
         </div>
@@ -380,7 +457,7 @@
         const isLoading = ref(false);
         const isModelLoaded = ref(false);
         const showModal = ref(false);
-        
+
         // Performance Throttling
         const targetFps = ref(20);
         const actualFps = ref(0);
@@ -405,14 +482,22 @@
 
         // Common MIDI Notes Options
         const noteOptions = [
-          { label: 'C3 (Kick / Low)', val: 48 },
-          { label: 'D3 (Snare)', val: 50 },
-          { label: 'F3 (Hat)', val: 53 },
-          { label: 'C4 (Middle C)', val: 60 },
+          { label: '--- Rest / Silence ---', val: null }, // <--- Add this line
+          { label: 'C3', val: 48 },
+          { label: 'D3', val: 50 },
+          { label: 'E3', val: 52 },
+          { label: 'F3', val: 53 },
+          { label: 'G3', val: 55 },
+          { label: 'A3', val: 57 },
+          { label: 'B3', val: 59 },
+          { label: 'C4', val: 60 },
+          { label: 'D4', val: 62 },
           { label: 'E4', val: 64 },
+          { label: 'F4', val: 65 },
           { label: 'G4', val: 67 },
+          { label: 'A4', val: 69 },
           { label: 'B4', val: 71 },
-          { label: 'C5 (High C)', val: 72 }
+          { label: 'C5', val: 72 }
         ];
 
         // Sample Models for quick testing
@@ -447,7 +532,7 @@
             outputs.push(output);
           }
           midiOutputs.value = outputs;
-          
+
           // Auto select virtual cable if present
           if (outputs.length > 0 && !selectedMidiPortId.value) {
             const virtual = outputs.find(o => o.name.toLowerCase().includes('loop') || o.name.toLowerCase().includes('iac'));
@@ -485,7 +570,7 @@
               await webcam.setup();
               await webcam.play();
               document.getElementById("webcam-container").appendChild(webcam.canvas);
-            } 
+            }
             else if (modelType.value === 'pose') {
               model = await tmPose.load(modelURL, metadataURL);
               webcam = new tmPose.Webcam(240, 240, true);
@@ -566,7 +651,8 @@
                 if (modelType.value === 'image') {
                   predictions = await model.predict(webcam.canvas);
                 } else if (modelType.value === 'pose') {
-                  const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+                  // Pass flipPose: false and drawPose configuration if needed
+                  const { pose, posenetOutput } = await model.estimatePose(webcam.canvas, false);
                   predictions = await model.predict(posenetOutput);
                 }
 
@@ -599,17 +685,19 @@
               triggerLight(cls);
               addLog('CC #' + cls.ccNumber, 'Val: ' + ccVal, 'cc');
             }
-          } 
+          }
           else if (cls.mode === 'note') {
-            if (cls.smoothedProb >= cls.threshold && !cls.gateActive) {
-              cls.gateActive = true;
-              sendMIDI([0x90 | (midiChannel.value - 1), cls.noteNumber, 127]); // Note On
-              triggerLight(cls);
-              addLog('Note On', 'Note: ' + cls.noteNumber, 'noteOn');
-            } else if (cls.smoothedProb < cls.threshold && cls.gateActive) {
-              cls.gateActive = false;
-              sendMIDI([0x80 | (midiChannel.value - 1), cls.noteNumber, 0]); // Note Off
-              addLog('Note Off', 'Note: ' + cls.noteNumber, 'noteOff');
+            if (cls.noteNumber !== null) { // <--- Only trigger if a valid note is selected
+              if (cls.smoothedProb >= cls.threshold && !cls.gateActive) {
+                cls.gateActive = true;
+                sendMIDI([0x90 | (midiChannel.value - 1), cls.noteNumber, 127]); // Note On
+                triggerLight(cls);
+                addLog('Note On', 'Note: ' + cls.noteNumber, 'noteOn');
+              } else if (cls.smoothedProb < cls.threshold && cls.gateActive) {
+                cls.gateActive = false;
+                sendMIDI([0x80 | (midiChannel.value - 1), cls.noteNumber, 0]); // Note Off
+                addLog('Note Off', 'Note: ' + cls.noteNumber, 'noteOff');
+              }
             }
           }
         };
@@ -687,4 +775,5 @@
     }).mount('#app');
   </script>
 </body>
+
 </html>

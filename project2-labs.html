@@ -506,7 +506,7 @@
           {
             id: 'a1',
             stream: 'A',
-            title: 'Lab 1: Transform Bio-data Into Sound',
+            title: 'Lab 1: Explore How To Transform Bio-data Into Sound',
             shortTitle: 'A1: Strava to MIDI',
             icon: 'mdi-walk',
             intro: 'In this lab, you will explore how physical movement can generate data that can be transformed into sound. Using the Strava app, you will record a short activity—such as walking outside campus, taking a short route to get coffee, or any movement of your choice. This activity will allow you to capture your own biofeedback data and begin to understand how bodily motion can be represented as digital information.',
@@ -699,14 +699,14 @@
               }
             ]
           },
-         {
+          {
             id: 'a2',
             stream: 'A',
-            title: 'Lab 2:  Working with GPS + heart rate data + MIDI',
+            title: 'Lab 2: Experiment with Data to MIDI Mapping Variations',
             shortTitle: 'A2: Mapping Variations',
             icon: 'mdi-map-marker-path',
             intro: 'In this lab, you will take a deeper dive into your movement data and explore how creative mapping decisions can transform raw biofeedback into expressive sound. Building on Lab 1, where you converted movement into MIDI, you will record yourself again and open and examine the actual CSV data to understand what information your body generates during movement—such as GPS coordinates, elevation, speed, and optionally, heart rate.',
-            whatYouWillDo: `<p>You will record another 3-5 minute movement session using Strava (with heart rate data if your device supports it), then download and convert your activity data to CSV format. This time, you will open the CSV file to explore its structure and the different data columns it contains.</b> <br><br>
+            whatYouWillDo: `<p>You will record a longer movement session of 8-10 minutes using Strava (with heart rate data if your device supports it), then download and convert your activity data to CSV format. This time, you will open the CSV file to explore its structure and the different data columns it contains.</b> <br><br>
               <p>After, using the <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline">CSV-to-MIDI Mapper</a>, you will create three different MIDI variations by experimenting with different mapping strategies for notes, velocity, time, duration, scales, octaves, and ranges.</p> <br><br>The outcomes of this Lab will help you refine your theme and generate materials needed for <strong>Project 2, Part 1: Artistic Composition</strong>.`,
             objectives: [
               'Understand the structure of GPS and biometric data by examining CSV file columns (X, Y, elevation, heart rate, time, etc.).',
@@ -745,7 +745,7 @@
               },
               {
                 title: 'Step 2: Record Your Movement Data',
-                objective: 'Capture a new 3-5 minute activity using Strava, this time being more intentional about creating variation in your movement so that it can translate into interesting sonic material.',
+                objective: 'Capture a new 8-10 minute activity using Strava, this time being more intentional about creating variation in your movement so that it can translate into interesting sonic material.',
                 content: `
                   <p class="mb-2">Follow these steps:</p>
                   <ol class="list-decimal pl-5 space-y-3">
@@ -767,7 +767,7 @@
                         </ul>
                       </div>
                     </li>
-                    <li><b>Go outdoors to record for 3-5 minute</b> using the Strava app.
+                    <li><b>Go outdoors to record for 8-10 minute</b> using the Strava app.
                       <ul class="list-disc pl-5 mt-1 space-y-1">
                         <li>Consult Lab 1 to see detailed instructions on how to record using Strava.</li>
                       </ul>
@@ -895,17 +895,31 @@
               },
               {
                 title: 'Step 5: Sonic Exploration and Final Outputs',
-                objective: 'Import each of your 3 MIDI variations into Online Sequencer, experiment with different instruments to bring out unique sonic qualities in your data, and export your final 3 audios for submission in Project 2, Part 2: Materials Collection.',
+                objective: 'Import each of your 3 MIDI variations into Online Sequencer, experiment with different instruments to bring out unique sonic qualities in your data, and export your audios for you to use in Project 2, Part 1: Artistic Composition.',
                 content: `
                   <ol class="list-decimal pl-5 space-y-3">
-                    <li>For each of your 3 MIDI variations try several different instruments:
+                    <li>For each of your 3 MIDI variations try several different instruments:<br><br>
                       <ul class="list-disc pl-5 mt-1 space-y-1">
-                        <li>Import one MIDI file at a time into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a>.</li>
-                        <li><strong>Try contrasting instruments for each variation</strong> to create sonic diversity across your three outputs (e.g., Piano/Marimba for Var 1, Strings/Synth Pad for Var 2, Flute/Synth Lead for Var 3).
+                        <li><strong>Import one MIDI file at a time into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a>.</strong></li>
+                        <li><strong>Try contrasting instruments for each variation to create sonic diversity across your three outputs </strong> (e.g., Piano/Marimba for Var 1, Strings/Synth Pad for Var 2, Flute/Synth Lead for Var 3).
                           <div class="p-3 rounded-lg bg-pink-50 dark:bg-pink-950/20 text-xs mt-2">
-                            <strong>💡 Creative Tip:</strong> Don't just pick your "favorite" sound—choose instruments that tell different stories about your movement.
+                            <strong>💡 Creative Tip:</strong> Don't just pick your "favorite" sound but choose instruments that tell different stories or messages about your movement.
                           </div>
                         </li>
+                          <li><strong>Consider which instrument best reveals the quality of movement in each variation:</strong></li>
+                          <ul>
+                            <li>Does this variation have sharp, sudden changes? → Try percussive instruments</li>
+                            <li>Does it have smooth, flowing patterns? → Try sustained instruments like strings</li>
+                            <li>Does it emphasize physical effort or heart rate? → Try organic wind instruments or bass</li>
+                            <li>Does it feel abstract or experimental? → Try synths</li>
+                          </ul>
+
+<li><strong>Listen for what each instrument emphasizes:</strong></li>
+<ul>
+  <li>Does the instrument make the rhythm more prominent or the melody?</li>
+  <li>Does it highlight the high notes or low notes in your data?</li>
+  <li>Does it create an emotional quality that connects to your bodily experience?</li>
+  </ul>
                       </ul>
                     </li>
                     <li><strong>Export Your 3 Final Outputs:</strong> Once you've chosen the best instrument for each variation, export them as MP3 files.
@@ -915,38 +929,36 @@
                         <li>Save with descriptive names (e.g., <code>variation1-piano.mp3</code>, <code>latitude-melody-strings.mp3</code>, <code>elevation-synth.mp3</code>).</li>
                       </ul>
                     </li>
+                    <li><strong>Repeat this process for all 3 of your MIDI variations with their chosen instruments.</strong></li>
                   </ol>
                 `
               },
               {
-                title: 'Step 6: Document Your Work for Project 2, Part 2',
-                objective: 'Prepare documentation of your creative process and materials for submission in Project 2, Part 2: Materials Collection on LEARN.',
+                title: 'Step 6: Reflect and Document Your Creative Process',
+                objective: 'Reflect on your creative process and document your findings. You can use these notes to prepare for your Project 2, Part 1: Artistic Composition.',
                 content: `
                   <p class="mb-2">Take notes on the following to prepare for your forum post:</p>
                   <ol class="list-decimal pl-5 space-y-3">
-                    <li><strong>For each of your 3 outputs, document:</strong>
+                    <li><strong>For each of your 3 outputs, reflect on:</strong>
                       <ul class="list-disc pl-5 mt-1 space-y-1">
                         <li>Which MIDI variation is this? (What mapping strategy did you use?)</li>
                         <li>Which instrument did you choose and why?</li>
                         <li>What quality of your movement does this combination emphasize or reveal?</li>
                       </ul>
                     </li>
-                    <li><strong>Discuss how this material connects to your proposal and course readings:</strong>
+                    <li><strong>Reflect on how this material connects to your theme and course readings:</strong>
                       <ul class="list-disc pl-5 mt-1 space-y-1">
-                        <li>How does your work explore embodiment—the lived experience of your body in motion?</li>
+                        <li>How does your work explore embodiment that is the lived experience of your body in motion?</li>
                         <li>What does converting bodily data to sound reveal about the relationship between body, technology, and musical expression?</li>
                       </ul>
                     </li>
-                    <li><strong>Describe what sounds you imagine using for your final project:</strong>
+                    <li><strong>Imagine what sounds you imagine using for your final Artistic Composition:</strong>
                       <ul class="list-disc pl-5 mt-1 space-y-1">
                         <li>Will you layer multiple instruments? Acoustic, electronic, or hybrid?</li>
                       </ul>
                     </li>
                   </ol>
-                  <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 mt-4 text-xs space-y-1">
-                    <strong>💡 Ready to Submit?</strong>
-                    <p>You now have everything needed for Project 2, Part 2: Materials Collection (1 CSV dataset, 3 MP3 sonic explorations, and creative documentation). Post your reflection on LEARN by the deadline!</p>
-                  </div>
+                 
                 `
               }
             ]
@@ -991,7 +1003,7 @@
           {
             id: 'b1',
             stream: 'B',
-            title: 'Lab 1: Generate Sound With A Machine Learning Model',
+            title: 'Lab 1: Explore How To Generate Sound With A Machine Learning Model',
             shortTitle: 'B1: AI Music Basics',
             icon: 'mdi-robot',
             intro: 'In this lab, you will explore how machine learning models can be used to trigger and control sounds in <a href="https://en.wikipedia.org/wiki/Modular_synthesizer" target="_blank" class="text-pink-500 underline">modular synthesizers</a>. Using Google Teachable Machine and a Web MIDI bridge, you will explore how to use computer vision or audio recognition directly into VCV Rack.',
@@ -1196,6 +1208,197 @@
                       </ul>
                     </li>
                   </ol>
+                `
+              }
+            ]
+          },
+
+          {
+            id: 'b2',
+            stream: 'B',
+            title: 'Lab 2: Experiment with Machine Learning Models to MIDI Variations',
+            shortTitle: 'B2: Model & MIDI Variations',
+            icon: 'mdi-layers-triple-outline',
+            intro: 'In this lab, you will zoom into your machine learning models to create multi-class gesture systems in Teachable Machine. You will map these gesture classes to distinct MIDI note outputs in the Web MIDI Bridge, and construct an expanded modular synth patch in VCV Rack using an ADSR Envelope Generator to shape sound contours and explore different oscillator waveforms.',
+            whatYouWillDo: 'You will plan a robust gesture vocabulary, train a 6-to-10 class gesture model in Teachable Machine, map each class to specific MIDI note outputs (such as note pitches or tones) in the Web MIDI Bridge, build an ADSR Envelope Generator patch in VCV Rack, and test how different oscillator waveforms like Sine, Sawtooth, Square, Triangle change the expressive quality of your gesture-controlled synth.',
+            objectives: [
+              'Design and plan a structured physical gesture system for digital performance.',
+              'Train multi-class gesture models (6 to 10 classes) in Teachable Machine for nuanced physical control.',
+              'Map gesture classes to strategic MIDI Note Outputs in the Web MIDI Bridge and build an ADSR Envelope & VCO patch in VCV Rack.'
+            ],
+            tools: ['Teachable Machine', 'Web MIDI Bridge', 'loopMIDI (Windows) / IAC Driver (Mac)', 'VCV Rack'],
+            steps: [
+              {
+                title: '1: Plan Your Gesture System',
+                objective: 'Design a purposeful vocabulary of physical movements, poses, or audio triggers before training your machine learning model.',
+                
+                content: `
+          
+
+                <p class="mb-2">Before opening Teachable Machine, take time to map out your interactive gesture design:</p>
+                  <ul class="list-disc pl-5 space-y-2 mb-5">
+                    <li><strong>Define Your Performance Intention:</strong> Are you designing a melodic, soothing composition, or a dynamic, energetic piece? Your musical goals should dictate your physical movements.</li>
+                    <li><strong>Establish a "Rest" State:</strong> Always plan a clear neutral or resting posture (e.g., hands down, facing away from camera) so your synth doesn't continuously trigger notes when you are not actively performing.</li>
+                    <li><strong>Design for Distinctness:</strong> Choose 6-10 movements that are visually or acoustically distinct from one another. Avoid overlapping or ambiguous gestures that might confuse the classifier model.</li>
+                    <li><strong>Resource & Inspiration:</strong> Review the following resources on gesture in music to get ideas:</li>
+                    <ul>
+                      <li><a href="https://www.studysmarter.co.uk/explanations/music/musical-performance/gesture-in-music/" target="_blank" class="text-pink-500 underline">Gesture in Music Performance</a></li>
+                      <li><a href="https://www.youtube.com/watch?v=1GLbqkaTOkY" target="_blank" class="text-pink-500 underline">10 Choir conducting gestures every beginner should know | ENQUIRE 2 CHOIR</a></li>
+                      <li><a href="https://www.mockplus.com/blog/post/20-motion-design-principles-with-examples" target="_blank" class="text-pink-500 underline">20 Motion Design Principles with Examples for UI/UX Designers</a></li>
+                      </ul>
+                  </ul>
+                  
+                `,
+                // tip: 'Good gesture planning prevents misclassifications during live performance and makes your MIDI mapping much more musical.'
+              },
+              {
+                title: '2: Train Your Multi-Class Teachable Machine Model',
+                objective: 'Train a 6-to-10 class machine learning model in Teachable Machine using your planned physical poses, gestures, or sound triggers.',
+                content: `
+                  <p class="mb-2">Follow these steps to build your expanded gesture model:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>Go to the <a href="https://teachablemachine.withgoogle.com/" target="_blank" class="text-pink-500 underline">Teachable Machine</a> website and start a new Pose, Image, or Audio project.</li>
+                    <li>Record <strong>6 to 10 distinct classes</strong> (for example: <em>"Class 1: Neutral / Rest"</em>, <em>"Class 2: Open Palm"</em>, <em>"Class 3: Pointing Up"</em>, and <em>"Class 4: Closed Fist"</em>, up to your target vocabulary).</li>
+                    <li>Train your model and test the live preview to ensure high recognition accuracy across all classes.</li>
+                    <li>Click <strong>Export Model</strong> → <strong>Upload (shareable link)</strong> and copy your new model URL.</li>
+                  </ol>
+                 
+                `,
+                tip: 'Ensure your Neutral class has plenty of varied rest samples so VCV Rack stops triggering notes when you relax your hands.'
+              },
+              {
+                title: '3: Map Multi-Class Gesture System in Web MIDI Bridge',
+                objective: 'Load your multi-class model into the Web MIDI Bridge and assign different MIDI Note Outputs to each gesture class.',
+                content: `
+                  <p class="mb-2">Follow these steps:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>Open the <a href="https://gbdawu.github.io/gbda412/teachable_machine_to_vcv_rack_midi_bridge.html" target="_blank" class="text-pink-500 underline">Web MIDI Bridge</a> app in your browser.</li>
+                    <li>Under <strong>Model Configuration</strong>, select your model type (Image, Pose, or Audio), paste your new Teachable Machine Model URL, and click <strong>Load and Start The Model</strong>.</li>
+                    <li>Scroll down to the <strong>Control Voltage Mapping Matrix</strong>:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Set your active gesture classes to <strong>Trigger (Gate)</strong> mode.</li>
+                        <li>Assign a distinct <strong>Note Output</strong> for each class (for example: mapping your 6–10 classes across a musical scale like C3, D3, E3, F3, G3, A3, B3) to form scales or melodic phrases.</li>
+                        <li>Experiment with the <strong>Gate Threshold</strong> settings to fine-tune how quickly each gesture triggers a note.</li>
+
+                         
+                      </ul>
+                    </li>
+                  </ol> <br> <br>
+               
+
+                         <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">
+                    <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is the Gate Threshold?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300">The Gate Threshold in the Web MIDI Bridge determines how confident or certain your machine learning model needs to be about a gesture before it actually "triggers" (sends) a MIDI note to VCV Rack.</p>
+                  </div>
+
+                  <div class="my-3 text-center">
+                    <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-500">
+                      <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon> [Placeholder for Web MIDI Bridge Note Output Mapping Image]
+                    </div>
+                  </div>
+                `
+              },
+              {
+                title: '4: Configure Virtual MIDI & Receiver',
+                objective: 'Verify your virtual MIDI port communication between the browser bridge and VCV Rack.',
+                content: `
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>Ensure your virtual MIDI driver is online:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li><strong>Windows Users:</strong> Confirm <a href="https://www.tobias-erichsen.de/software/loopmidi.html" target="_blank" class="text-pink-500 underline">loopMIDI</a> is running with your active virtual port (e.g. <em>TeachableMIDI</em>).</li>
+                        <li><strong>Mac Users:</strong> Ensure the <strong>IAC Driver</strong> is online in MIDI Studio with your bus enabled.</li>
+                      </ul>
+                    </li>
+                    <li>In the Web MIDI Bridge app, select your virtual port in the <strong>MIDI Output Device</strong> dropdown.</li>
+                    <li>In VCV Rack, verify that the <strong>MIDI-CV</strong> module is set to your OS driver (Windows MIDI / Core MIDI) and targeted at your virtual port device.</li>
+                  </ol>
+                `
+              },
+              {
+                title: '5: Build an ADSR Envelope Synth Patch & Explore Waveforms',
+                objective: 'Add an ADSR Envelope Generator module to VCV Rack to shape note attack and decay, and experiment with different VCO waveform outputs.',
+                content: `
+                  <p class="mb-3">Open VCV Rack and update your synth patch to include dynamic volume contours and harmonic waveform choices:</p>
+                  
+                  <div class="space-y-4">
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <h4 class="font-bold text-sm mb-2 text-pink-600 dark:text-pink-400">Step A: Add the ADSR Envelope Module</h4>
+                      <p class="text-xs mb-2">Right-click on an empty space in VCV Rack to open the Module Browser and add the <strong>ADSR</strong> module (Fundamental → ADSR).</p>
+                      <ul class="list-disc pl-5 text-xs space-y-1 mb-3">
+                        <li><strong>Audio Output:</strong> Core → Audio</li>
+                        <li><strong>MIDI Input:</strong> Core → MIDI-CV</li>
+                        <li><strong>Oscillator:</strong> Fundamental → VCO</li>
+                        <li><strong>Envelope:</strong> Fundamental → ADSR</li>
+                        <li><strong>Amplifier:</strong> Fundamental → VCA</li>
+                      </ul>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <h4 class="font-bold text-sm mb-2 text-pink-600 dark:text-pink-400">Step B: Patching the Envelope and VCA</h4>
+                      <p class="text-xs mb-1 font-bold">Connect the modules using virtual patch cables:</p>
+                      <ul class="list-disc pl-5 text-xs space-y-1 mb-3">
+                        <li><strong>Pitch Control:</strong> Connect MIDI-CV <code>V/OCT</code> → VCO <code>V/OCT</code>.</li>
+                        <li><strong>Gate Trigger:</strong> Connect MIDI-CV <code>GATE</code> → ADSR <code>GATE</code> input. <em>(Your gesture now triggers the envelope shape!)</em></li>
+                        <li><strong>Envelope Control:</strong> Connect ADSR <code>OUT</code> → VCA <code>CV</code> input.</li>
+                        <li><strong>Audio Signal Flow:</strong> Connect VCO waveform output → VCA <code>IN</code>.</li>
+                        <li><strong>Main Output:</strong> Connect VCA <code>OUT</code> → Audio module <code>LEFT / RIGHT</code>.</li>
+                      </ul>
+                      <div class="p-3 rounded bg-slate-200 dark:bg-slate-900 text-center text-xs text-slate-500 my-2">
+                        <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon> [Placeholder for ADSR Envelope Patching Image]
+                      </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <h4 class="font-bold text-sm mb-2 text-pink-600 dark:text-pink-400">Step C: Experiment with Oscillator Waveforms & ADSR Knobs</h4>
+                      <ol class="list-decimal pl-5 text-xs space-y-2">
+                        <li><strong>Test Waveform Outputs:</strong> Move the cable from VCO into the VCA to try different outputs:
+                          <ul class="list-disc pl-4 mt-1">
+                            <li><code>SIN</code> (Sine Wave) – Smooth, pure, sub-bass quality.</li>
+                            <li><code>SAW</code> (Sawtooth Wave) – Bright, buzzy, rich in harmonics.</li>
+                            <li><code>SQR</code> (Square Wave) – Hollow, retro 8-bit game sound.</li>
+                            <li><code>TRI</code> (Triangle Wave) – Soft, woody tone.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Shape the ADSR Envelope Knobs:</strong>
+                          <ul class="list-disc pl-4 mt-1">
+                            <li>Increase <strong>Attack (A)</strong> for slow, swelling synth pads when you trigger a gesture.</li>
+                            <li>Decrease <strong>Decay (D)</strong> & <strong>Sustain (S)</strong> for short, percussive plucks.</li>
+                            <li>Increase <strong>Release (R)</strong> so notes gently fade out after your gesture stops.</li>
+                          </ul>
+                        </li>
+                      </ol>
+                    </div>
+                  </div>
+                `
+              },
+              {
+                title: '6: Document & Reflect for Project 2, Part 2',
+                objective: 'Document your gesture-to-MIDI mappings, envelope choices, and reflections for Project 2, Part 2: Materials Collection on LEARN.',
+                content: `
+                  <p class="mb-2">Take notes on the following questions to prepare your forum post:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Document your Gesture & MIDI Setup:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Which physical poses or audio triggers did you plan and train in Teachable Machine?</li>
+                        <li>What MIDI Note Outputs did you assign to each gesture in the Web MIDI Bridge? Why did you pick those specific pitches?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Reflect on Sound Design & Waveforms:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Which VCO waveform (Sine, Saw, Square, Triangle) best matched the character of your movement gestures?</li>
+                        <li>How did adjusting the ADSR attack and release knobs change the responsiveness and feeling of performing with your machine learning model?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Connect to Course Themes:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How does gesture-based performance blur the line between bodily movement, digital mediation, and machine intelligence?</li>
+                      </ul>
+                    </li>
+                  </ol>
+                  <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 mt-4 text-xs space-y-1">
+                    <strong>💡 Ready for Submission?</strong>
+                    <p>Archive your Teachable Machine model link, screenshot of your VCV Rack ADSR patch, and reflective notes to submit on LEARN!</p>
+                  </div>
                 `
               }
             ]
