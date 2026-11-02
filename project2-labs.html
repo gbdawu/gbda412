@@ -509,8 +509,8 @@
             title: 'Lab 1: Explore How To Transform Bio-data Into Sound',
             shortTitle: 'A1: Strava to MIDI',
             icon: 'mdi-walk',
-            intro: 'In this lab, you will explore how physical movement can generate data that can be transformed into sound. Using the Strava app, you will record a short activity—such as walking outside campus, taking a short route to get coffee, or any movement of your choice. This activity will allow you to capture your own biofeedback data and begin to understand how bodily motion can be represented as digital information.',
-            whatYouWillDo: 'You will record a 3-5 minute movement session using Strava, download your activity data as a CSV file from the Strava desktop platform, and convert it into a MIDI file using <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline font-medium">csv to midi mapper</a>. You will then upload the resulting MIDI file into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline font-medium">Online Sequencer</a> to experiment with different instruments and sonic textures. This process introduces how the body’s movement can become a musical source.<br><br>The outcome of this lab will serve as preparation for <strong>Project 2, Part 1: Artistic Composition</strong>, where you will creatively transform movement data into sound.',
+            intro: `In this lab, you will explore how physical movement can generate data that can be transformed into sound. Using the Strava app, you will record a short activity—such as walking outside campus, taking a short route to get coffee, or any movement of your choice. This activity will allow you to capture your own biofeedback data and begin to understand how bodily motion can be represented as digital information.`,
+            whatYouWillDo: `You will record a 3-5 minute movement session using Strava, download your activity data as a CSV file from the Strava desktop platform, and convert it into a MIDI file using <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline font-medium">csv to midi mapper</a>. You will then upload the resulting MIDI file into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline font-medium">Online Sequencer</a> to experiment with different instruments and sonic textures. You can also use BandLab's online sequence: <a href="https://www.bandlab.com/" target="_blank" class="text-pink-500 underline font-medium">BandLab Online Sequencer</a>. This process introduces how the body’s movement can become a musical source.<br><br>The outcome of this lab will serve as preparation for <strong>Project 2, Part 1: Artistic Composition</strong>, where you will creatively transform movement data into sound.`,
             objectives: [
               'Understand how motion-based data can be transformed into music by converting it into a MIDI file.',
               'Reflect on how your movement patterns and choices influence the resulting music and consider what this reveals about using the body as an instrument.',
@@ -635,7 +635,7 @@
                 content: `
                   <p class="mb-2">Follow these steps:</p>
                   <ol class="list-decimal pl-5 space-y-3">
-                    <li>Go to <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a>.</li>
+                    <li>Go to <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a> or <a href="https://www.bandlab.com/" target="_blank" class="text-pink-500 underline">BandLab Online Sequencer</a>.</li>
                     <li>On the top menu, click the <strong>three dots</strong> and select <strong>Import MIDI/Sequence File</strong>.<br>
                       <div class="my-3"><img src="images/biofeedback/import-midi.png" alt="Import MIDI" class="rounded-lg border shadow-sm" width="450" /></div>
                     </li>
@@ -900,7 +900,7 @@
                   <ol class="list-decimal pl-5 space-y-3">
                     <li>For each of your 3 MIDI variations try several different instruments:<br><br>
                       <ul class="list-disc pl-5 mt-1 space-y-1">
-                        <li><strong>Import one MIDI file at a time into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a>.</strong></li>
+                        <li><strong>Import one MIDI file at a time into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a> or <a href="https://www.bandlab.com/" target="_blank" class="text-pink-500 underline">BandLab Online Sequencer</a>.</strong></li>
                         <li><strong>Try contrasting instruments for each variation to create sonic diversity across your three outputs </strong> (e.g., Piano/Marimba for Var 1, Strings/Synth Pad for Var 2, Flute/Synth Lead for Var 3).
                           <div class="p-3 rounded-lg bg-pink-50 dark:bg-pink-950/20 text-xs mt-2">
                             <strong>💡 Creative Tip:</strong> Don't just pick your "favorite" sound but choose instruments that tell different stories or messages about your movement.
@@ -1293,7 +1293,8 @@
 
                   <div class="my-3 text-center">
                     <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-500">
-                      <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon> [Placeholder for Web MIDI Bridge Note Output Mapping Image]
+                      <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon> 
+                      <img src="images/AIMusic/mapping-multiple-classes.png" alt="Control Voltage Mapping Matrix" class="rounded-lg border shadow-sm" width="400" />
                     </div>
                   </div>
                 `
@@ -1318,19 +1319,23 @@
                 title: '5: Build an ADSR Envelope Synth Patch & Explore Waveforms',
                 objective: 'Add an ADSR Envelope Generator module to VCV Rack to shape note attack and decay, and experiment with different VCO waveform outputs.',
                 content: `
-                  <p class="mb-3">Open VCV Rack and update your synth patch to include dynamic volume contours and harmonic waveform choices:</p>
+   <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">
+                    <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is an ADSR Envelope?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300">An ADSR envelope is used in synthesizers to control the amplitude of a sound over time. ADSR stands for Attack, Decay, Sustain, and Release.</p>
+                  </div>
+
+
                   
                   <div class="space-y-4">
                     <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                       <h4 class="font-bold text-sm mb-2 text-pink-600 dark:text-pink-400">Step A: Add the ADSR Envelope Module</h4>
-                      <p class="text-xs mb-2">Right-click on an empty space in VCV Rack to open the Module Browser and add the <strong>ADSR</strong> module (Fundamental → ADSR).</p>
-                      <ul class="list-disc pl-5 text-xs space-y-1 mb-3">
-                        <li><strong>Audio Output:</strong> Core → Audio</li>
-                        <li><strong>MIDI Input:</strong> Core → MIDI-CV</li>
-                        <li><strong>Oscillator:</strong> Fundamental → VCO</li>
-                        <li><strong>Envelope:</strong> Fundamental → ADSR</li>
-                        <li><strong>Amplifier:</strong> Fundamental → VCA</li>
-                      </ul>
+                      <p class="text-xs mb-2">Right-click on an empty space in VCV Rack to open the Module Browser and add the <strong>ADSR EG</strong> module.</p>
+                        <div class="p-3 rounded bg-slate-200 dark:bg-slate-900 text-center text-xs text-slate-500 my-2">
+                        <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon>
+                        <img src="images/AIMusic/patch-w-adsr.png" alt="ADSR Envelope Module" class="rounded-lg border shadow-sm" width="400" />
+
+                      </div>
+                      
                     </div>
 
                     <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
@@ -1338,13 +1343,14 @@
                       <p class="text-xs mb-1 font-bold">Connect the modules using virtual patch cables:</p>
                       <ul class="list-disc pl-5 text-xs space-y-1 mb-3">
                         <li><strong>Pitch Control:</strong> Connect MIDI-CV <code>V/OCT</code> → VCO <code>V/OCT</code>.</li>
-                        <li><strong>Gate Trigger:</strong> Connect MIDI-CV <code>GATE</code> → ADSR <code>GATE</code> input. <em>(Your gesture now triggers the envelope shape!)</em></li>
-                        <li><strong>Envelope Control:</strong> Connect ADSR <code>OUT</code> → VCA <code>CV</code> input.</li>
+                        <li><strong>Gate Trigger:</strong> Connect MIDI-CV <code>GATE</code> → ADSR <code>GATE</code> input. </li>
+                        <li><strong>Envelope Control:</strong> Connect ADSR <code>ENV</code> → VCA <code>CV</code> input.</li>
                         <li><strong>Audio Signal Flow:</strong> Connect VCO waveform output → VCA <code>IN</code>.</li>
-                        <li><strong>Main Output:</strong> Connect VCA <code>OUT</code> → Audio module <code>LEFT / RIGHT</code>.</li>
+                        <li><strong>Main Output:</strong> Connect VCA <code>OUT</code> → Audio module <code>LEFT / Mon</code>.</li>
                       </ul>
                       <div class="p-3 rounded bg-slate-200 dark:bg-slate-900 text-center text-xs text-slate-500 my-2">
-                        <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon> [Placeholder for ADSR Envelope Patching Image]
+                        <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon>
+                        <img src="images/AIMusic/adsr-connected.png" alt="ADSR Envelope Patching" class="rounded-lg border shadow-sm" width="400" />
                       </div>
                     </div>
 
@@ -1372,14 +1378,13 @@
                 `
               },
               {
-                title: '6: Document & Reflect for Project 2, Part 2',
-                objective: 'Document your gesture-to-MIDI mappings, envelope choices, and reflections for Project 2, Part 2: Materials Collection on LEARN.',
+                title: '6: Document & Reflect for Project 2, Part 1',
+                objective: 'Document your gesture-to-MIDI mappings, envelope choices, and reflections for Project 2, Part 1: Artistic Composition.',
                 content: `
-                  <p class="mb-2">Take notes on the following questions to prepare your forum post:</p>
                   <ol class="list-decimal pl-5 space-y-3">
                     <li><strong>Document your Gesture & MIDI Setup:</strong>
                       <ul class="list-disc pl-5 mt-1 space-y-1">
-                        <li>Which physical poses or audio triggers did you plan and train in Teachable Machine?</li>
+                        <li>Which physical poses or audio triggers did you plan and train in Teachable Machine in this lab?</li>
                         <li>What MIDI Note Outputs did you assign to each gesture in the Web MIDI Bridge? Why did you pick those specific pitches?</li>
                       </ul>
                     </li>
@@ -1394,11 +1399,7 @@
                         <li>How does gesture-based performance blur the line between bodily movement, digital mediation, and machine intelligence?</li>
                       </ul>
                     </li>
-                  </ol>
-                  <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 mt-4 text-xs space-y-1">
-                    <strong>💡 Ready for Submission?</strong>
-                    <p>Archive your Teachable Machine model link, screenshot of your VCV Rack ADSR patch, and reflective notes to submit on LEARN!</p>
-                  </div>
+                  </ol>                
                 `
               }
             ]

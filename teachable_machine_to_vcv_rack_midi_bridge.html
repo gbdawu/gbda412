@@ -91,6 +91,16 @@
       </div>
 
       <div class="flex items-center gap-3">
+        <!-- save options -->
+        <button @click="exportPreset"
+          class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white" title="Download Preset JSON">
+          <i class="fa-solid fa-download"></i> Export
+        </button>
+        <label
+          class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white cursor-pointer" title="Upload Preset JSON">
+          <i class="fa-solid fa-upload"></i> Import
+          <input type="file" @change="importPreset" accept=".json" class="hidden">
+        </label>
         <button @click="showModal = true"
           class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white">
           <i class="fa-solid fa-circle-question text-vcv-gold"></i>
@@ -101,6 +111,7 @@
           <i class="fa-solid fa-eraser"></i>
           Clear Logs
         </button>
+        
       </div>
     </header>
 
@@ -480,31 +491,199 @@
         const classes = ref([]);
         const logs = ref([]);
 
+        // Load saved settings from localStorage on startup
+        const loadSavedSettings = () => {
+          const saved = localStorage.getItem('vcv_bridge_settings');
+          if (saved) {
+            try {
+              const data = JSON.parse(saved);
+              if (data.modelUrl) modelUrl.value = data.modelUrl;
+              if (data.modelType) modelType.value = data.modelType;
+              if (data.midiChannel) midiChannel.value = data.midiChannel;
+              if (data.targetFps) targetFps.value = data.targetFps;
+            } catch (e) {
+              console.error("Failed to load local settings", e);
+            }
+          }
+        };
+
+        // Auto-save core settings when they change
+        watch([modelUrl, modelType, midiChannel, targetFps], () => {
+          const settings = {
+            modelUrl: modelUrl.value,
+            modelType: modelType.value,
+            midiChannel: midiChannel.value,
+            targetFps: targetFps.value
+          };
+          localStorage.setItem('vcv_bridge_settings', JSON.stringify(settings));
+        }, { deep: true });
+
+        // Download settings and class configurations as a JSON file
+        const exportPreset = () => {
+          const presetData = {
+            modelType: modelType.value,
+            modelUrl: modelUrl.value,
+            midiChannel: midiChannel.value,
+            targetFps: targetFps.value,
+            classes: classes.value.map(c => ({
+              name: c.name,
+              mode: c.mode,
+              ccNumber: c.ccNumber,
+              slew: c.slew,
+              noteNumber: c.noteNumber,
+              threshold: c.threshold
+            }))
+          };
+
+          const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(presetData, null, 2));
+          const downloadAnchor = document.createElement('a');
+          downloadAnchor.setAttribute("href", dataStr);
+          downloadAnchor.setAttribute("download", `vcv-bridge-preset-${modelType.value}.json`);
+          document.body.appendChild(downloadAnchor);
+          downloadAnchor.click();
+          downloadAnchor.remove();
+        };
+
+        // Import settings from a JSON file
+        const importPreset = (event) => {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const imported = JSON.parse(e.target.result);
+              if (imported.modelType) modelType.value = imported.modelType;
+              if (imported.modelUrl) modelUrl.value = imported.modelUrl;
+              if (imported.midiChannel) midiChannel.value = imported.midiChannel;
+              if (imported.targetFps) targetFps.value = imported.targetFps;
+              
+              if (imported.classes && classes.value.length === imported.classes.length) {
+                imported.classes.forEach((impCls, idx) => {
+                  classes.value[idx].mode = impCls.mode;
+                  classes.value[idx].ccNumber = impCls.ccNumber;
+                  classes.value[idx].slew = impCls.slew;
+                  classes.value[idx].noteNumber = impCls.noteNumber;
+                  classes.value[idx].threshold = impCls.threshold;
+                });
+              }
+              alert("Preset loaded successfully!");
+            } catch (err) {
+              console.error("Invalid JSON preset file", err);
+              alert("Could not parse preset file.");
+            }
+          };
+          reader.readAsText(file);
+        };
+
         // Common MIDI Notes Options
         const noteOptions = [
           { label: '--- Rest / Silence ---', val: null }, // <--- Add this line
+          { label: 'C0', val: 12 },
+          { label: 'C#0', val: 13 },
+          { label: 'D0', val: 14 },
+          { label: 'D#0', val: 15 },
+          { label: 'E0', val: 16 },
+          { label: 'F0', val: 17 },
+          { label: 'F#0', val: 18 },
+          { label: 'G0', val: 19 },
+          { label: 'G#0', val: 20 },
+          { label: 'A0', val: 21 },
+          { label: 'A#0', val: 22 },
+          { label: 'B0', val: 23 },
+          { label: 'C1', val: 24 },
+          { label: 'C#1', val: 25 },
+          { label: 'D1', val: 26 },
+          { label: 'D#1', val: 27 },
+          { label: 'E1', val: 28 },
+          { label: 'F1', val: 29 },
+          { label: 'F#1', val: 30 },
+          { label: 'G1', val: 31 },
+          { label: 'G#1', val: 32 },
+          { label: 'A1', val: 33 },
+          { label: 'A#1', val: 34 },
+          { label: 'B1', val: 35 },
+          { label: 'C2', val: 36 },
+          { label: 'C#2', val: 37 },
+          { label: 'D2', val: 38 },
+          { label: 'D#2', val: 39 },
+          { label: 'E2', val: 40 },
+          { label: 'F2', val: 41 },
+          { label: 'F#2', val: 42 },
+          { label: 'G2', val: 43 },
+          { label: 'G#2', val: 44 },
+          { label: 'A2', val: 45 },
+          { label: 'A#2', val: 46 },
+          { label: 'B2', val: 47 },
           { label: 'C3', val: 48 },
+          { label: 'C#3', val: 49 },
           { label: 'D3', val: 50 },
+          { label: 'D#3', val: 51 },
           { label: 'E3', val: 52 },
           { label: 'F3', val: 53 },
+          { label: 'F#3', val: 54 },
           { label: 'G3', val: 55 },
+          { label: 'G#3', val: 56 },
           { label: 'A3', val: 57 },
+          { label: 'A#3', val: 58 },
           { label: 'B3', val: 59 },
           { label: 'C4', val: 60 },
+          { label: 'C#4', val: 61 },
           { label: 'D4', val: 62 },
+          { label: 'D#4', val: 63 },
           { label: 'E4', val: 64 },
           { label: 'F4', val: 65 },
+          { label: 'F#4', val: 66 },
           { label: 'G4', val: 67 },
+          { label: 'G#4', val: 68 },
           { label: 'A4', val: 69 },
+          { label: 'A#4', val: 70 },
           { label: 'B4', val: 71 },
-          { label: 'C5', val: 72 }
+          { label: 'C5', val: 72 },
+          { label: 'C#5', val: 73 },
+          { label: 'D5', val: 74 },
+          { label: 'D#5', val: 75 },
+          { label: 'E5', val: 76 },
+          { label: 'F5', val: 77 },
+          { label: 'F#5', val: 78 },
+          { label: 'G5', val: 79 },
+          { label: 'G#5', val: 80 },
+          { label: 'A5', val: 81 },
+          { label: 'A#5', val: 82 },
+          { label: 'B5', val: 83 },
+          { label: 'C6', val: 84 },
+          { label: 'C#6', val: 85 },
+          { label: 'D6', val: 86 },
+          { label: 'D#6', val: 87 },
+          { label: 'E6', val: 88 },
+          { label: 'F6', val: 89 },
+          { label: 'F#6', val: 90 },
+          { label: 'G6', val: 91 },
+          { label: 'G#6', val: 92 },
+          { label: 'A6', val: 93 },
+          { label: 'A#6', val: 94 },
+          { label: 'B6', val: 95 },
+          { label: 'C7', val: 96 },
+          { label: 'C#7', val: 97 },
+          { label: 'D7', val: 98 },
+          { label: 'D#7', val: 99 },
+          { label: 'E7', val: 100 },
+          { label: 'F7', val: 101 },
+          { label: 'F#7', val: 102 },
+          { label: 'G7', val: 103 },
+          { label: 'G#7', val: 104 },
+          { label: 'A7', val: 105 },
+          { label: 'A#7', val: 106 },
+          { label: 'B7', val: 107 },
+          { label: 'C8', val: 108 }
+
         ];
 
         // Sample Models for quick testing
         const sampleModels = {
-          image: 'https://teachablemachine.withgoogle.com/models/o8I3z36k3/', // Common TM sample
-          pose: 'https://teachablemachine.withgoogle.com/models/M5i_O_o_T/',
-          audio: 'https://teachablemachine.withgoogle.com/models/u14o23e_/ '
+          image: '', // Common TM sample
+          pose: '',
+          audio: ''
         };
 
         const pasteSampleModel = () => {
@@ -744,6 +923,7 @@
 
         onMounted(() => {
           initMIDI();
+          loadSavedSettings();
           pasteSampleModel();
         });
 
@@ -769,7 +949,10 @@
           noteOptions,
           pasteSampleModel,
           toggleModelLoad,
-          clearLog
+          clearLog,
+          loadSavedSettings,
+          exportPreset, 
+          importPreset  
         };
       }
     }).mount('#app');
