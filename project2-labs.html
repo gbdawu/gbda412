@@ -11,6 +11,9 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@3.6.11/dist/vuetify.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="
+https://cdn.jsdelivr.net/npm/mdi-icons@1.0.1/css/materialdesignicons.min.css
+" rel="stylesheet">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -130,8 +133,8 @@
         </div> -->
 
         <v-list density="comfortable" class="p-2">
-          <!-- <v-list-item @click="selectedWorkshopId = 'home'; drawer = false" :active="selectedWorkshopId === 'home'"
-            rounded="lg" class="mb-1" prepend-icon="mdi-home-variant-outline" title="Overview & Home"></v-list-item>  -->
+          <v-list-item @click="selectedWorkshopId = 'home'; drawer = false" :active="selectedWorkshopId === 'home'"
+            rounded="lg" class="mb-1" prepend-icon="mdi-home-variant-outline" title="Overview & Home"></v-list-item> 
 
           <!-- <v-divider class="my-2"></v-divider> -->
 
@@ -507,7 +510,7 @@
             id: 'a1',
             stream: 'A',
             title: 'Lab 1: Explore How To Transform Bio-data Into Sound',
-            shortTitle: 'A1: Strava to MIDI',
+            shortTitle: 'A1: Bio-data Music Basics',
             icon: 'mdi-walk',
             intro: `In this lab, you will explore how physical movement can generate data that can be transformed into sound. Using the Strava app, you will record a short activity—such as walking outside campus, taking a short route to get coffee, or any movement of your choice. This activity will allow you to capture your own biofeedback data and begin to understand how bodily motion can be represented as digital information.`,
             whatYouWillDo: `You will record a 3-5 minute movement session using Strava, download your activity data as a CSV file from the Strava desktop platform, and convert it into a MIDI file using <a href="https://gbdawu.github.io/gbda412/csv-to-midi" target="_blank" class="text-pink-500 underline font-medium">csv to midi mapper</a>. You will then upload the resulting MIDI file into <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline font-medium">Online Sequencer</a> to experiment with different instruments and sonic textures. You can also use BandLab's online sequence: <a href="https://www.bandlab.com/" target="_blank" class="text-pink-500 underline font-medium">BandLab Online Sequencer</a>. This process introduces how the body’s movement can become a musical source.<br><br>The outcome of this lab will serve as preparation for <strong>Project 2, Part 1: Artistic Composition</strong>, where you will creatively transform movement data into sound.`,
@@ -951,7 +954,7 @@
                 title: 'Step 7: Reflect and Document Your Creative Process',
                 objective: 'Reflect on your creative process and document your findings. You can use these notes to prepare for your Project 2, Part 1: Artistic Composition.',
                 content: `
-                  <p class="mb-2">Take notes on the following to prepare for your forum post:</p>
+                  <p class="mb-2">Take notes on the following:</p>
                   <ol class="list-decimal pl-5 space-y-3">
                     <li><strong>For each of your 3 outputs, reflect on:</strong>
                       <ul class="list-disc pl-5 mt-1 space-y-1">
@@ -977,43 +980,214 @@
               }
             ]
           },
-          // {
-          //   id: 'a3',
-          //   stream: 'A',
-          //   title: 'Lab 3: Musical Arrangement, Harmony & Rhythm',
-          //   shortTitle: 'A3: Arrangement & Harmony',
-          //   icon: 'mdi-music-note-plus',
-          //   intro: 'Shift from raw data mapping to creative arrangement. Enhance your biofeedback melody by adding harmony layers, basslines, and rhythmic percussion inside Online Sequencer.',
-          //   whatYouWillDo: 'Import your MIDI melody, build supporting harmonic chords (pads/3rds/5ths), add a driving lower-octave bassline, and sequence a drum groove.',
-          //   objectives: [
-          //     'Master grid editing and note-drawing tools in Online Sequencer.',
-          //     'Apply practical harmony concepts without requiring complex music theory.',
-          //     'Develop a complete multi-track musical arrangement.'
-          //   ],
-          //   tools: ['Online Sequencer', 'CSV-to-MIDI Converter'],
-          //   steps: [
-          //     {
-          //       title: 'Import Melody & Setup Grid',
-          //       objective: 'Load your primary biofeedback MIDI melody track.',
-          //       content: '<p>Import your MIDI into Online Sequencer. Adjust tempo (BPM) to find an appealing rhythm.</p>'
-          //     },
-          //     {
-          //       title: 'Add Harmonic Layers',
-          //       objective: 'Layer supporting chord tones or sustained pad notes.',
-          //       content: '<p>Select a pad or electric piano. Draw elongated notes in the background matching octave intervals or 3rd/5th step intervals above your melody notes.</p>'
-          //     },
-          //     {
-          //       title: 'Create Lower Octave Bassline',
-          //       objective: 'Add depth with a low-register bass instrument.',
-          //       content: '<p>Select a Bass instrument. Place sustained notes in octaves C2-C3 following the fundamental root movement of your melody.</p>'
-          //     },
-          //     {
-          //       title: 'Sequence Rhythmic Percussion',
-          //       objective: 'Add pulse and groove with drum kit instruments.',
-          //       content: '<p>Add Kick Drum on primary beats, Snare on alternating beats, and Hi-Hats for continuous rhythmic movement.</p>'
-          //     }
-          //   ]
-          // },
+          {
+            id: 'a3',
+            stream: 'A',
+            title: 'Lab 3: Musical Arrangement, Harmony & Rhythm',
+            shortTitle: 'A3: Arrangement & Harmony',
+            icon: 'mdi-music-note-plus',
+            intro: `In this lab, you will shift from data mapping to <strong>musical arrangement</strong>.You will learn how to shape the melodies previously generated in Lab 2,  into a richer, more expressive musical idea by adding harmony, bass, and rhythm  inside <a href="https://onlinesequencer.net/" target="_blank" class="text-pink-500 underline">Online Sequencer</a> or  <a href="https://www.bandlab.com/" target="_blank" class="text-pink-500 underline">BandLab's Sequencer</a>.`,
+            whatYouWillDo: 'You will import your CSV-to-MIDI melody into Online Sequencer and learn how to shape it into a fuller composition by adding <strong>harmony</strong> (supporting notes), <strong>bass</strong> (foundation), and <strong>rhythm</strong> (pulse and movement). <br><br> These techniques will help you transform you experimental, data-driven melodies into a more structured, expressive, and aesthetically engaging musical composition.',
+            objectives: [
+              `Practice arranging music visually using the Draw tool inside Online Sequencer or Bandlab's Sequencer.`,
+              'Learn the basic concepts of <strong>harmony</strong>, <strong>bass</strong>, and <strong>rhythm</strong> through simple, non-theoretical explanations.',
+              'Create a short musical composition that builds on your bio-data melody and prepares you for producing a final composition for Project 2.'
+            ],
+            tools: [
+              'Your previously recorded movement data (CSV file from Lab 2)',
+              'CSV-to-MIDI Mapper (to re-export your melodies if needed)',
+              `Online Sequencer or BandLab's Sequencer`
+            ],
+            steps: [
+              {
+                title: 'Step 1: Import Your MIDI and Explore the Sequencer',
+                objective: 'Import your MIDI file into Online Sequencer and explore basic sequencing features.',
+                content: `
+                  <p class="mb-2">Follow these steps:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li>Start by <strong>importing the MIDI file</strong> of any of the MIDI file generated from Lab 2.
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li> Check Lab 2 for detailed steps on how to import MIDI files into the Online Sequencer or BandLab's Sequencer</li>
+                      </ul>
+                    </li>
+                    <li><strong>Explore Online Sequencer interface</strong> by playing with the following aspects of your MIDI file:
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Tempo (speed) adjustment</li>
+                        <li>Using the drawing tool to add or edit notes</li>
+                        <li>Instrument selection</li>
+                        <li>Watch this video tutorial to learn how:</li>
+                      </ul>
+                      <div class="my-3">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/Y-LJxTnRKQM?si=WhM4jHCEisPDolVp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg border"></iframe>
+                      </div>
+                    </li>
+                    <li> <strong>If you are using BandLab's Sequencer</strong>, check the following tutorial on <a href="https://help.bandlab.com/hc/en-us/articles/900003008403-Importing-Audio-and-MIDI-Files" target="_blank"  class="text-pink-500 underline">Importing Audio and MIDI Files</a>. </li>
+                    <li> <strong>If you are using BandLab's Sequencer</strong>, check the following tutorial on <a href="https://help.bandlab.com/hc/en-us/articles/360022659314-Editing-MIDI-Regions" target="_blank" class="text-pink-500 underline">How To Draw Midi Notes</a>. </li>
+                  </ol>
+                `
+              },
+              {
+                title: 'Step 2: Creative Layering with Harmony',
+                objective: 'Add harmonic layers to your main melody to enrich the musical texture and experiment with complementary sounds.',
+                content: `
+                 <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">               
+                 <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is Harmony?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300"><b>Harmony</b> is when multiple notes play together to create a richer sound. </p>
+                  </div>
+
+                  <p> Follow these steps to experiment by adding complementary or supporting notes to your main melody.</b> <br><br>
+                  
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Choose a harmonic instrument:</strong> Pick an instrument like a piano or synth pad that works well for sustained notes (pads). This will form the base of your harmonic layer.<br>
+                      <div class="my-3"><img src="images/biofeedback/electric-piano.png" alt="Electric piano dropdown" class="rounded-lg border shadow-sm" width="120" /></div>
+                    </li>
+                    <li><strong>Analyze your melody:</strong> Look at the notes in your imported MIDI track and decide which notes you want to support with harmony. Think of harmony as adding “color” to your melody.<br>
+                      <div class="my-3"><img src="images/biofeedback/single-notes.png" alt="Single notes view" class="rounded-lg border shadow-sm" width="250" /></div>
+                    </li>
+                    <li><strong>Experiment with octaves:</strong> An <em>octave</em> is the same note, higher or lower. For example, C5 played one octave lower is C4. You can add harmonic notes in the same octave or an octave above/below to make your track sound fuller.<br>
+                      <b>In the example below, the green notes are the imported notes from your data and the blue notes are octaves drawn with the Draw Tool:</b><br>
+                      <div class="my-3"><img src="images/biofeedback/octave-harmony-short-notes.png" alt="Octave harmony short notes" class="rounded-lg border shadow-sm" width="250" /></div>
+                    </li>
+                    <li><strong>Create long notes (pads):</strong> In Online Sequencer, drag notes to extend their length. These sustained notes can support your main melody, creating a smooth background layer.<br>
+                      <div class="my-3"><img src="images/biofeedback/octave-harmony.png" alt="Octave harmony long notes" class="rounded-lg border shadow-sm" width="250" /></div>
+                    </li>
+                    <li><strong>Play With intervals: 3rd and 5th:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Imagine your melody notes as stepping stones.</li>
+                        <li>For each harmonic note, place a “buddy” note 2 steps above (3rd) or 4 steps above (5th) in the scale. This creates consonant harmony.</li>
+                        <li>Don’t worry about exact theory. Just try moving notes up by 3 or 4 steps and listen looking for pleasing sounds.<br>
+                          <div class="my-3"><img src="images/biofeedback/3rd-notes.png" alt="3rd and 5th interval harmony" class="rounded-lg border shadow-sm" width="250" /></div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><strong>Layer and listen:</strong> Play your harmonic track together with your main melody. Adjust note placement and length until the combination sounds rich and coherent. Remember that experimentation is key!</li>
+                      <li> <strong>If you are using BandLab's Sequencer</strong>, check the following video tutorial starting on minute 3:38, to learn how to add multiple notes at once to create a harmony.</li>
+                        
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/EUrP0mqV_mk?si=-vzL8y5YdJI7z5NY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        
+                    
+                    </ol>
+                  
+                `
+              },
+              {
+                title: 'Step 3: Add a Bass Layer',
+                objective: 'Enhance your melody by adding a bass line that gives depth and rhythm to your composition.',
+                content: `
+
+                <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">               
+                 <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is A Bass Line?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300">A <strong>bass line</strong> is a sequence of low-pitched notes that support the main melody. It can make your music feel fuller, drive the rhythm, and create a sense of movement.</p>
+                  </div>
+
+                  
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Choose a bass instrument:</strong> Pick an instrument such as <em>Bass</em> or <em>Bass Guitar</em> in Online Sequencer.<br>
+                      <div class="my-3"><img src="images/biofeedback/bass-dropdown.png" alt="Bass dropdown" class="rounded-lg border shadow-sm" width="120" /></div>
+                    </li>
+                    <li><strong>Place notes in lower octaves:</strong> Remember, an <strong>octave</strong> is the same note, higher or lower. For example, C4 has the next C one octave lower at C3.<br>
+                      <div class="my-3"><img src="images/biofeedback/bassC3.png" alt="Bass in C3 octave" class="rounded-lg border shadow-sm" width="250" /></div>
+                    </li>
+                    <li><strong>Tips for creating bass lines:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Use the same <strong>notes</strong> of your main melody for cohesion.</li>
+                        <li>Experiment with <strong>repeating patterns</strong> that echo your melody in a simpler way.</li>
+                        <li>Keep your bass notes <strong>longer and simpler</strong> than your melody to avoid overcrowding the sound.</li>
+                        <li>See the video below starting at minute 6:33 to get an idea on how to add a bass line:</li>
+                      </ul>
+                      <div class="my-3">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/nuEkOA8qBDs?si=4phjNdPXc9Bvl2w6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg border"></iframe>
+                      </div>
+                    </li>
+                    <li><strong>Continue Experimenting:</strong> Explore different octaves, note lengths, and rhythmic placement.</li>
+                  </ol>
+                `
+              },
+              {
+                title: 'Step 4: Explore Rhythm and Percussion',
+                objective: 'Add rhythmic layers to your composition to give movement and groove to your melody, harmony, and bass tracks.',
+                content: `
+                 <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">               
+                 <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is Rhythm?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300"><b>Rhythm</b> is the pattern of sounds over time that gives music its pulse and energy.</p>
+                  </div>
+
+                  
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Choose percussive instruments:</strong> Open the instrument dropdown in Online Sequencer and explore the <strong>Percussion</strong> section. You can try instruments like: 
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Kick drum – for a steady pulse</li>
+                        <li>Snare – adds snap and accent</li>
+                        <li>Hi-hat or cymbals – for texture and faster patterns</li>
+                        <li>Other percussion sounds you like!</li>
+                      </ul>
+                      <div class="my-3"><img src="images/biofeedback/drumset-dropdown.png" alt="Drumset dropdown" class="rounded-lg border shadow-sm" width="120" /></div>
+                    </li>
+                    <li><strong>Create your rhythmic pattern:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>Use the draw tool to add notes on the percussion track, experimenting with different timing and placement.</li>
+                        <li>Try layering patterns with your bass and melody. You can create contrast by having some instruments play on every beat, and others on off-beats.</li>
+                        <li>Check out the video below showing how to create a drum kit rhythm starting at minute 5:54:</li>
+                      </ul>
+                      <div class="my-3">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/k1B1n4tsQdw?si=A6Mf8GVoKrjzye7I&amp;start=352" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg border"></iframe>
+                      </div>
+                    </li>
+                     <li> <strong>If you are using BandLab's Sequencer</strong>, check the following video tutorial to learn how to create a drum machine to accompany your melody.</li>
+                     <iframe width="560" height="315" src="https://www.youtube.com/embed/n-NjFLrTbO8?si=2I3kXovsJkhSPTp1&amp;start=38" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                  
+                  </ol>
+                `
+              }, 
+
+                  {
+                title: '6: Share Your Work in Class To Get 1 Extra Point on Project 2, Part 1',
+                objective: 'Present your composition to your peers in class for feedback and discussion.',
+                content: `
+                <p class="mb-2">Share your results from this lab by the end of the class to earn 1 extra point on Project 2, Part 1: Artistic Composition. Follow these steps:</p> <br><br>
+                  <ol class="list-decimal pl-5 space-y-3">
+                   <li> Share the link to your online sequencer with your composition.</li>
+                   <li> Post the link to the following whiteboard: <a href="https://uofwaterloo-my.sharepoint.com/:wb:/g/personal/l4navarr_uwaterloo_ca/IQBSr_Zj8SaZQJwcmb2L8mxkAZdqXbBSrE5QKTxtH2-fQzw?e=vyGlDj" target="_blank" class="text-pink-500 underline">Share Your Work Whiteboard.</a></li>
+                   <li>Discuss your video and discuss your design choices in class.</li>
+                  </ol>                
+                `
+              },
+
+              {
+                title: 'Step 7: Reflect and Document Your Creative Process',
+                objective: 'Reflect on your creative process and document your findings. You can use these notes to prepare for your Project 2, Part 1: Artistic Composition.',
+                content: `
+                  <p class="mb-2">Take notes on the following:</p>
+                  <ol class="list-decimal pl-5 space-y-3">
+                   <li><strong>Reflect on your musical arrangement and choices:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How did adding harmony, bass, and rhythm change or enhance your original melodies?</li>
+                        <li>What instruments did you choose for your supporting layers, and why do they complement your melodies?</li>
+                        <li>How do these new structural layers help emphasize or shape the qualities of your data from your physical activity?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Reflect on how this composition connects to your theme and course readings:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How does your multi-track composition continue to explore embodiment and the lived experience of your body in motion?</li>
+                        <li>What does the process of augmenting raw body data with musical structure (harmony, bass, and rhythm) reveal about the relationship between technology, musical expression, and human movement?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Envision your final Artistic Composition:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How does this arranged musical sketch lay the groundwork or serve as a blueprint for your final project?</li>
+                        <li>What additional instruments, timbres, or structural changes do you imagine exploring as you develop your final composition?</li>
+                      </ul>
+                    </li>
+                  </ol>
+                 
+                `
+              }
+            ]
+          },
+
+          ///////////////////////// STREAM B  /////////////////////////
+
           {
             id: 'b1',
             stream: 'B',
