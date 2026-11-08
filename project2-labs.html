@@ -134,7 +134,7 @@ https://cdn.jsdelivr.net/npm/mdi-icons@1.0.1/css/materialdesignicons.min.css
 
         <v-list density="comfortable" class="p-2">
           <v-list-item @click="selectedWorkshopId = 'home'; drawer = false" :active="selectedWorkshopId === 'home'"
-            rounded="lg" class="mb-1" prepend-icon="mdi-home-variant-outline" title="Overview & Home"></v-list-item> 
+            rounded="lg" class="mb-1" prepend-icon="mdi-home-variant-outline" title="Overview & Home"></v-list-item>
 
           <!-- <v-divider class="my-2"></v-divider> -->
 
@@ -937,7 +937,7 @@ https://cdn.jsdelivr.net/npm/mdi-icons@1.0.1/css/materialdesignicons.min.css
                 `
               },
 
-                {
+              {
                 title: '6: Share Your Work in Class To Get 1 Extra Point on Project 2, Part 1',
                 objective: 'Present your three MIDI variations to your peers in class for feedback and discussion.',
                 content: `
@@ -1016,11 +1016,10 @@ https://cdn.jsdelivr.net/npm/mdi-icons@1.0.1/css/materialdesignicons.min.css
                         <li>Using the drawing tool to add or edit notes</li>
                         <li>Instrument selection</li>
                         <li>Watch this video tutorial to learn how:</li>
-                      </ul>
-                      <div class="my-3">
-                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/Y-LJxTnRKQM?si=WhM4jHCEisPDolVp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg border"></iframe>
-                      </div>
+                      </ul>                                        
                     </li>
+                      <iframe width="100%" height="315" src="https://www.youtube.com/embed/Y-LJxTnRKQM?si=WhM4jHCEisPDolVp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg border"></iframe>
+                      
                     <li> <strong>If you are using BandLab's Sequencer</strong>, check the following tutorial on <a href="https://help.bandlab.com/hc/en-us/articles/900003008403-Importing-Audio-and-MIDI-Files" target="_blank"  class="text-pink-500 underline">Importing Audio and MIDI Files</a>. </li>
                     <li> <strong>If you are using BandLab's Sequencer</strong>, check the following tutorial on <a href="https://help.bandlab.com/hc/en-us/articles/360022659314-Editing-MIDI-Regions" target="_blank" class="text-pink-500 underline">How To Draw Midi Notes</a>. </li>
                   </ol>
@@ -1139,9 +1138,9 @@ https://cdn.jsdelivr.net/npm/mdi-icons@1.0.1/css/materialdesignicons.min.css
                   
                   </ol>
                 `
-              }, 
+              },
 
-                  {
+              {
                 title: '6: Share Your Work in Class To Get 1 Extra Point on Project 2, Part 1',
                 objective: 'Present your composition to your peers in class for feedback and discussion.',
                 content: `
@@ -1397,9 +1396,9 @@ https://cdn.jsdelivr.net/npm/mdi-icons@1.0.1/css/materialdesignicons.min.css
                     </li>
                   </ol>
                 `
-              }, 
+              },
 
-               {
+              {
                 title: '6: Share Your Work in Class To Get 1 Extra Point on Project 2, Part 1',
                 objective: 'Present your gesture model, MIDI mappings, and VCV Rack patch to your peers in class for feedback and discussion.',
                 content: `
@@ -1412,7 +1411,7 @@ https://cdn.jsdelivr.net/npm/mdi-icons@1.0.1/css/materialdesignicons.min.css
                 `
               }
 
-              
+
             ]
           },
 
@@ -1616,9 +1615,147 @@ https://cdn.jsdelivr.net/npm/mdi-icons@1.0.1/css/materialdesignicons.min.css
                    <li>Discuss your video and discuss your design choices in class.</li>
                   </ol>                
                 `
-              }
+              },
+
+
             ]
           },
+
+          {
+            id: 'b3',
+            stream: 'B',
+            title: 'Lab 3: Production, Harmony & Rhythm in VCV Rack',
+            shortTitle: 'B3: Production & Rhythm',
+            icon: 'mdi-music-note-plus',
+            intro: 'In this workshop, you will shift from single-voice melody control to <strong>full modular production</strong>. Building directly upon your gesture-driven melody patch from Lab 2, you will expand your VCV Rack environment by adding harmonic accompaniment voices and rhythmic percussion. <br> <br> This lab focuses on practical modular sound design strategies through mixing multiple synth voices, creating chords or drones, and establishing a groove to support your live gesture performances.',
+            whatYouWillDo: 'You will take your existing VCV Rack patch from Lab 2 and expand it by introducing a second oscillator for harmony, adding basic drum/trigger elements for rhythm, and routing everything through a mixer module to balance your overall mix while you perform your gesture melodies live over top.',
+            objectives: [
+              'Expand a single-voice modular patch into a rich multi-instrument production environment in VCV Rack.',
+              'Implement harmonic layers (chords, drones, or secondary oscillators) to complement your gesture melody.',
+              'Incorporate rhythm and percussion elements to establish a steady groove and pulse.',
+              'Use mixer and utility modules to balance audio levels, panning, and signal flow.'
+            ],
+            tools: [
+              'Your Teachable Machine Model & Web MIDI Bridge Setup',
+              'Your existing VCV Rack patch from Lab 2',
+              'Additional VCV Rack modules'
+            ],
+            steps: [
+              {
+                title: '1: Reviewing Your Lab 2 Starting Patch',
+                objective: 'Prepare your workspace by opening your existing gesture-controlled melody patch from Lab 2.',
+                content: `
+                  <p class="mb-2">Before building new elements, <strong>make sure the setup developed in Lab 2 is running </strong>:</p> <br>
+                  <ul class="list-disc pl-5 space-y-2 mb-3">
+                    <li>Open VCV Rack and load your working patch containing your <strong>MIDI-CV</strong>, <strong>VCO</strong>, <strong>ADSR EG</strong>, and <strong>VCA</strong> modules.</li>
+                    <li>Verify that your virtual MIDI port (loopMIDI or IAC Driver) is active and successfully receiving signals from your Web MIDI Bridge gesture model.</li>
+                    <li>Test your hand gestures to ensure your melody synth voice is triggering cleanly before adding new modules.</li>
+                  </ul>
+                `
+              },
+              {
+                title: '2: Adding a Harmonic Accompaniment Voice',
+                objective: 'Build a second oscillator and filter voice to provide supporting harmony, chords, or sustained drone textures.',
+                content: `
+
+ <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">               
+                 <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is Harmony?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300"><b>Harmony</b> is when multiple notes play together to create a richer sound. </p>
+                  </div>
+                  
+                  <p class="mb-3">To start creating a musical arrangement using harmony, you will <strong>add a second synth voice that runs alongside your gesture melody</strong>:</p> <br>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Add a Second VCO & VCA:</strong> Right-click empty rack space to add another <strong>VCO</strong> and <strong>VCA</strong> (and optionally an extra <strong>ADSR</strong> if you want separate envelope shaping).</li>
+                    <li><strong>Choose a Harmonious Waveform:</strong> Select a softer waveform like a <em>Triangle (TRI)</em> or <em>Sine (SIN)</em> for your harmony voice so it doesn't clash with your main melody.</li>
+                    <li><strong>Create Sustained Texture:</strong> Instead of tying this second voice to your live hand gestures, tune it to a fixed root note or chord interval to act as a warm background pad or harmonic drone supporting your performance.</li>
+                  </ol>                
+                `
+              },
+              {
+                title: '3: Introducing Rhythm & Percussion',
+                objective: 'Establish a steady pulse and groove by adding rhythm modules or clock-driven triggers to your patch.',
+                content: `
+ <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">               
+                 <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is Rhythm?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300"><b>Rhythm</b> is the pattern of sounds over time that gives music its pulse and energy.</p>
+                  </div>
+                  
+                  <p class="mb-3">Rhythm will <strong>add movement to your composition:</strong></p><br>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Add a Clock or Trigger Source:</strong> Look for a clock generator or sequencer module (such as free utility clock modules in VCV Rack) to generate a steady tempo.</li>
+                    <li><strong>Add Percussion / Noise Sources:</strong> Patch clock pulses into a noise generator, envelope, or percussive synth voice to create kicks, snares, or rhythmic ticks.</li>
+                    <li><strong>Lock Your Tempo:</strong> Adjust the clock speed (BPM) so your rhythmic pulse locks in comfortably with the overall mood of your composition.</li>
+                  </ol>
+                `
+              },
+              {
+                title: '4: Mixing and Managing Levels',
+                objective: 'Route all your audio signals (Melody, Harmony, and Rhythm) into a mixer module to balance volume and panning.',
+                content: `
+
+                 <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/20 border border-pink-200 dark:border-pink-900 mb-4">               
+                 <div class="font-bold text-pink-700 dark:text-pink-300 mb-1">What is Mixing?</div>
+                    <p class="text-xs text-slate-700 dark:text-slate-300"><strong>Mixing</strong> is the process of combining and balancing the volume and panning of individual multitrack audio recordings into a cohesive, polished final mix.</p>
+                  </div>
+
+                  <p class="mb-3"><strong>Manage your volume levels so nothing distorts</strong> or overpowers your performance:</p><br>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Add a Mixer Module:</strong> Right-click and add a multi-channel mixer (such as the <em>Fundamental Mixer</em>).</li>
+                    <li><strong>Route Audio Outputs:</strong> Connect the <code>OUT</code> of your Melody VCA, Harmony VCA, and Rhythm voices into separate channels on the mixer.</li>
+                    <li><strong>Connect Master Output:</strong> Connect the Mixer's Master Output <code>L/R</code> into your Computer <strong>Audio</strong> module inputs.</li>
+                    <li><strong>Balance and Pan:</strong> Adjust individual volume faders so your gesture melody cuts through clearly over the harmony and drums.</li>
+                  </ol>
+                  <div class="my-3 text-center">
+                    <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-500">
+                      <v-icon icon="mdi-image-outline" size="small" class="mr-1"></v-icon> [Placeholder for VCV Rack Multi-Voice Mixer Patch Image]
+                    </div>
+                  </div>
+                `
+              },
+              {
+                title: '5: Document & Reflect for Project 2, Part 2',
+                objective: 'Reflect on your music production process and document your arrangement choices for Project 2, Part 2: Materials Collection.',
+                content: `
+                  <p class="mb-2">Take notes on the following questions to help you refine your final composition:</p><br>
+                  <ol class="list-decimal pl-5 space-y-3">
+                    <li><strong>Reflect on your modular arrangement and choices:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How did adding a harmony voice and rhythmic percussion change or enhance your gesture-driven melody?</li>
+                        <li>What waveforms and volume levels did you choose for your background layers, and why do they complement your live performance?</li>
+                        <li>How do these new structural layers help shape the overall aesthetic quality of your piece?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Reflect on how this arranged modular patch connects to your theme and course readings:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How does your multi-track modular composition continue to explore human-machine collaboration and live electronic performance?</li>
+                        <li>What does the process of augmenting a gesture-controlled lead with static harmony and rhythm reveal about live electronic music production?</li>
+                      </ul>
+                    </li>
+                    <li><strong>Envision your final Artistic Composition:</strong>
+                      <ul class="list-disc pl-5 mt-1 space-y-1">
+                        <li>How does this arranged patch lay the groundwork or serve as a blueprint for your final project presentation?</li>
+                        <li>What additional modules, gestures, or structural changes do you imagine exploring as you approach your final submission?</li>
+                      </ul>
+                    </li>
+                  </ol>                 
+                `
+              }, 
+
+              {
+                title: '6: Share Your Work in Class To Get 1 Extra Point on Project 2, Part 1',
+                objective: 'Present your gesture model, MIDI mappings, and VCV Rack patch to your peers in class for feedback and discussion.',
+                content: `
+                <p class="mb-2"><strong>Share your results from this lab by the end of the class to earn 1 extra point on Project 2, Part 1: Artistic Composition</strong>. Follow these steps:</p> <br>
+                  <ol class="list-decimal pl-5 space-y-3">
+                   <li> Record a short video of you using your trained model and the new VCV Rack patches.</li>
+                   <li> Upload the video to the following shared folder: <a href="https://uofwaterloo-my.sharepoint.com/:f:/g/personal/l4navarr_uwaterloo_ca/IgCEWyc_srZhTrxUr4wp3OAbAakhShmtUc-YTckBkjdUixg?e=XBGaF4" target="_blank" class="text-pink-500 underline">Share Your Work Folder.</a></li>
+                   <li>Discuss your video and discuss your design choices in class.</li>
+                  </ol>                
+                `
+              },
+              
+            ]
+          }
 
 
         ];
