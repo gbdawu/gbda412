@@ -35,6 +35,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@latest/dist/teachablemachine-pose.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
 
   <!-- TensorFlow.js and Teachable Machine CDNs -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
@@ -91,13 +92,22 @@
       </div>
 
       <div class="flex items-center gap-3">
+        <!-- play option -->
+        <button @click="enterPlayMode" :disabled="!isModelLoaded"
+          :class="isModelLoaded ? 'bg-vcv-accent text-black font-bold hover:bg-vcv-accentHover shadow-lg shadow-vcv-accent/20' : 'bg-vcv-card text-gray-600 border-vcv-border cursor-not-allowed'"
+          class="px-3 py-2 text-xs rounded-lg transition border flex items-center gap-2">
+          <i class="fa-solid fa-expand"></i> Play Mode
+        </button>
+
         <!-- save options -->
         <button @click="exportPreset"
-          class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white" title="Download Preset JSON">
+          class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white"
+          title="Download Preset JSON">
           <i class="fa-solid fa-download"></i> Export
         </button>
         <label
-          class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white cursor-pointer" title="Upload Preset JSON">
+          class="px-3 py-2 text-xs font-medium bg-vcv-card border border-vcv-border hover:border-gray-500 rounded-lg transition flex items-center gap-2 text-gray-300 hover:text-white cursor-pointer"
+          title="Upload Preset JSON">
           <i class="fa-solid fa-upload"></i> Import
           <input type="file" @change="importPreset" accept=".json" class="hidden">
         </label>
@@ -111,7 +121,7 @@
           <i class="fa-solid fa-eraser"></i>
           Clear Logs
         </button>
-        
+
       </div>
     </header>
 
@@ -455,6 +465,64 @@
       </div>
     </div>
 
+    <!-- PLAY MODE FULLSCREEN OVERLAY -->
+    <div v-if="isPlayMode" class="fixed inset-0 z-50 bg-black flex flex-col justify-between overflow-hidden">
+      
+      <!-- Fondo: Cámara o Visualizador de Onda de Audio -->
+      <div id="play-media-container" class="absolute inset-0 w-full h-full flex items-center justify-center bg-vcv-bg">
+        <canvas v-if="modelType === 'audio'" id="audio-visualizer-canvas" class="w-full h-full block"></canvas>
+      </div>
+
+      <!-- Barra Superior Flotante -->
+      <div class="relative z-10 flex items-center justify-between p-4 md:p-6 bg-gradient-to-b from-black/80 to-transparent">
+        <div class="flex items-center gap-3">
+          <span class="px-2.5 py-1 rounded bg-vcv-accent text-black font-black text-xs tracking-wider uppercase">
+            Play Mode
+          </span>
+          <span class="text-xs font-mono text-gray-300 bg-black/60 backdrop-blur px-2.5 py-1 rounded border border-white/10">
+            {{ modelType.toUpperCase() }} • {{ actualFps }} FPS
+          </span>
+        </div>
+
+        <button @click="exitPlayMode"
+          class="px-4 py-2 bg-red-500/80 hover:bg-red-500 text-white font-bold rounded-lg text-xs backdrop-blur transition flex items-center gap-2 shadow-lg">
+          <i class="fa-solid fa-compress"></i> Exit Play Mode (ESC)
+        </button>
+      </div>
+
+      <!-- HUD Inferior: Control Voltage Mapping Matrix flotante -->
+      <div class="relative z-10 p-4 md:p-6 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div v-for="cls in classes" :key="cls.name"
+            class="bg-vcv-card/80 backdrop-blur-md border border-white/15 rounded-xl p-3 space-y-2 shadow-2xl">
+            
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-white flex items-center gap-2 truncate">
+                <span :class="cls.activeLight ? 'bg-vcv-accent shadow-lg shadow-vcv-accent' : 'bg-gray-600'"
+                  class="w-2.5 h-2.5 rounded-full shrink-0 transition-colors"></span>
+                <span class="truncate">{{ cls.name }}</span>
+              </span>
+              <span class="font-mono text-[11px] text-vcv-accent font-bold shrink-0">
+                {{ cls.mode === 'cc' ? `CC#${cls.ccNumber}: ${cls.currentValue}` : (cls.gateActive ? 'GATE ON' : 'OFF') }}
+              </span>
+            </div>
+
+            <!-- Barra de progreso con marca de umbral -->
+            <div class="w-full bg-black/70 h-2.5 rounded-full overflow-hidden border border-white/10 relative">
+              <div class="bg-vcv-accent h-full rounded-full transition-all duration-75"
+                :style="{ width: (cls.smoothedProb * 100) + '%' }"></div>
+              <!-- Marca visual del umbral (Threshold) si está en modo Note/Gate -->
+              <div v-if="cls.mode === 'note'"
+                class="absolute top-0 bottom-0 w-0.5 bg-vcv-gold z-20"
+                :style="{ left: (cls.threshold * 100) + '%' }"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 
   <script>
@@ -468,6 +536,107 @@
         const isLoading = ref(false);
         const isModelLoaded = ref(false);
         const showModal = ref(false);
+
+        const isPlayMode = ref(false);
+        let audioCtx = null;
+        let audioStream = null;
+        let visualizerFrameId = null;
+
+        // Entrar a Play Mode
+        const enterPlayMode = async () => {
+          if (!isModelLoaded.value) return;
+          isPlayMode.value = true;
+
+          // Esperar a que Vue renderice el contenedor
+          await Vue.nextTick();
+
+          if (modelType.value === 'image' || modelType.value === 'pose') {
+            const playContainer = document.getElementById('play-media-container');
+            if (webcam && webcam.canvas && playContainer) {
+              webcam.canvas.classList.add('w-full', 'h-full', 'object-cover');
+              playContainer.appendChild(webcam.canvas);
+            }
+          } else if (modelType.value === 'audio') {
+            startAudioVisualizer();
+          }
+        };
+
+        // Salir de Play Mode y devolver la cámara a su tarjeta original
+        const exitPlayMode = () => {
+          isPlayMode.value = false;
+
+          if (visualizerFrameId) {
+            cancelAnimationFrame(visualizerFrameId);
+            visualizerFrameId = null;
+          }
+          if (audioStream) {
+            audioStream.getTracks().forEach(track => track.stop());
+            audioStream = null;
+          }
+          if (audioCtx) {
+            audioCtx.close();
+            audioCtx = null;
+          }
+
+          if (webcam && webcam.canvas) {
+            webcam.canvas.classList.remove('w-full', 'h-full', 'object-cover');
+            const setupContainer = document.getElementById('webcam-container');
+            if (setupContainer) setupContainer.appendChild(webcam.canvas);
+          }
+        };
+
+        // Visualizador de onda en tiempo real para el modo Audio
+        const startAudioVisualizer = async () => {
+          try {
+            audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioCtx.createMediaStreamSource(audioStream);
+            const analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 1024;
+            source.connect(analyser);
+
+            const canvas = document.getElementById('audio-visualizer-canvas');
+            const ctx = canvas.getContext('2d');
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            const drawWave = () => {
+              if (!isPlayMode.value) return;
+              visualizerFrameId = requestAnimationFrame(drawWave);
+
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
+
+              analyser.getByteTimeDomainData(dataArray);
+
+              ctx.fillStyle = '#121316';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+              ctx.lineWidth = 4;
+              ctx.strokeStyle = '#00e676';
+              ctx.beginPath();
+
+              const sliceWidth = canvas.width / bufferLength;
+              let x = 0;
+
+              for (let i = 0; i < bufferLength; i++) {
+                const v = dataArray[i] / 128.0;
+                const y = (v * canvas.height) / 2;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+                x += sliceWidth;
+              }
+
+              ctx.lineTo(canvas.width, canvas.height / 2);
+              ctx.stroke();
+            };
+
+            drawWave();
+          } catch (err) {
+            console.error('Error al iniciar visualizador de audio:', err);
+          }
+        };
+
 
         // Performance Throttling
         const targetFps = ref(20);
@@ -490,6 +659,7 @@
         // Dynamic Classes Container
         const classes = ref([]);
         const logs = ref([]);
+        let isInitializing = true;
 
         // Load saved settings from localStorage on startup
         const loadSavedSettings = () => {
@@ -508,12 +678,22 @@
         };
 
         // Auto-save core settings when they change
-        watch([modelUrl, modelType, midiChannel, targetFps], () => {
+        // Auto-save core settings and class mappings when they change
+        watch([modelUrl, modelType, midiChannel, targetFps, classes], () => {
+          if (isInitializing) return;
           const settings = {
             modelUrl: modelUrl.value,
             modelType: modelType.value,
             midiChannel: midiChannel.value,
-            targetFps: targetFps.value
+            targetFps: targetFps.value,
+            savedClasses: classes.value.length > 0 ? classes.value.map(c => ({
+              name: c.name,
+              mode: c.mode,
+              ccNumber: c.ccNumber,
+              slew: c.slew,
+              noteNumber: c.noteNumber,
+              threshold: c.threshold
+            })) : JSON.parse(localStorage.getItem('vcv_bridge_settings') || '{}').savedClasses
           };
           localStorage.setItem('vcv_bridge_settings', JSON.stringify(settings));
         }, { deep: true });
@@ -545,32 +725,80 @@
         };
 
         // Import settings from a JSON file
+        // const importPreset = (event) => {
+        //   const file = event.target.files[0];
+        //   if (!file) return;
+
+        //   const reader = new FileReader();
+        //   reader.onload = (e) => {
+        //     try {
+        //       const imported = JSON.parse(e.target.result);
+        //       if (imported.modelType) modelType.value = imported.modelType;
+        //       if (imported.modelUrl) modelUrl.value = imported.modelUrl;
+        //       if (imported.midiChannel) midiChannel.value = imported.midiChannel;
+        //       if (imported.targetFps) targetFps.value = imported.targetFps;
+
+        //       if (imported.classes && classes.value.length === imported.classes.length) {
+        //         imported.classes.forEach((impCls, idx) => {
+        //           classes.value[idx].mode = impCls.mode;
+        //           classes.value[idx].ccNumber = impCls.ccNumber;
+        //           classes.value[idx].slew = impCls.slew;
+        //           classes.value[idx].noteNumber = impCls.noteNumber;
+        //           classes.value[idx].threshold = impCls.threshold;
+        //         });
+        //       }
+        //       alert("Preset loaded successfully!");
+        //     } catch (err) {
+        //       console.error("Invalid JSON preset file", err);
+        //       alert("Could not parse preset file.");
+        //     }
+        //   };
+        //   reader.readAsText(file);
+        // };
+
+        // Import settings from a JSON file
         const importPreset = (event) => {
           const file = event.target.files[0];
           if (!file) return;
 
           const reader = new FileReader();
-          reader.onload = (e) => {
+          reader.onload = async (e) => {
             try {
               const imported = JSON.parse(e.target.result);
+
+              // 1. Detener modelo actual si está corriendo
+              if (isModelLoaded.value) stopModel();
+
+              // 2. Evitar que el watch(modelType) borre la URL importada
+              isInitializing = true;
               if (imported.modelType) modelType.value = imported.modelType;
               if (imported.modelUrl) modelUrl.value = imported.modelUrl;
               if (imported.midiChannel) midiChannel.value = imported.midiChannel;
               if (imported.targetFps) targetFps.value = imported.targetFps;
-              
-              if (imported.classes && classes.value.length === imported.classes.length) {
-                imported.classes.forEach((impCls, idx) => {
-                  classes.value[idx].mode = impCls.mode;
-                  classes.value[idx].ccNumber = impCls.ccNumber;
-                  classes.value[idx].slew = impCls.slew;
-                  classes.value[idx].noteNumber = impCls.noteNumber;
-                  classes.value[idx].threshold = impCls.threshold;
-                });
+
+              // 3. Guardar las clases del JSON en localStorage para que loadModel() las aplique
+              if (imported.classes) {
+                const currentStorage = JSON.parse(localStorage.getItem('vcv_bridge_settings') || '{}');
+                currentStorage.modelType = modelType.value;
+                currentStorage.modelUrl = modelUrl.value;
+                currentStorage.midiChannel = midiChannel.value;
+                currentStorage.targetFps = targetFps.value;
+                currentStorage.savedClasses = imported.classes;
+                localStorage.setItem('vcv_bridge_settings', JSON.stringify(currentStorage));
               }
-              alert("Preset loaded successfully!");
+
+              setTimeout(() => { isInitializing = false; }, 100);
+
+              // 4. Si el JSON trae URL, cargar e iniciar el modelo automáticamente
+              if (imported.modelUrl) {
+                await loadModel();
+              }
             } catch (err) {
               console.error("Invalid JSON preset file", err);
               alert("Could not parse preset file.");
+              isInitializing = false;
+            } finally {
+              event.target.value = ''; // Permite volver a seleccionar el mismo archivo
             }
           };
           reader.readAsText(file);
@@ -771,19 +999,25 @@
               labels = model.getClassLabels();
             }
 
-            classes.value = labels.map((label, index) => ({
-              name: label,
-              rawProb: 0,
-              smoothedProb: 0,
-              mode: 'cc', // 'cc' or 'note'
-              ccNumber: index + 14, // default CCs starting at 14
-              slew: 0.5,
-              noteNumber: noteOptions[index % noteOptions.length].val,
-              threshold: 0.8,
-              gateActive: false,
-              currentValue: 0,
-              activeLight: false
-            }));
+            const savedData = JSON.parse(localStorage.getItem('vcv_bridge_settings') || '{}');
+            const savedClasses = savedData.savedClasses || [];
+
+            classes.value = labels.map((label, index) => {
+              const prev = savedClasses.find(c => c.name === label);
+              return {
+                name: label,
+                rawProb: 0,
+                smoothedProb: 0,
+                mode: prev ? prev.mode : 'cc',
+                ccNumber: prev ? prev.ccNumber : index + 14,
+                slew: prev ? prev.slew : 0.5,
+                noteNumber: prev !== undefined ? prev.noteNumber : noteOptions[index % noteOptions.length].val,
+                threshold: prev ? prev.threshold : 0.8,
+                gateActive: false,
+                currentValue: 0,
+                activeLight: false
+              };
+            });
 
             isModelLoaded.value = true;
             isLoading.value = false;
@@ -924,12 +1158,17 @@
         onMounted(() => {
           initMIDI();
           loadSavedSettings();
-          pasteSampleModel();
+          if (!modelUrl.value) pasteSampleModel();
+          setTimeout(() => { isInitializing = false; }, 100);
+          window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isPlayMode.value) exitPlayMode();
+          });
         });
 
         watch(modelType, () => {
+          if (isInitializing) return;
           if (isModelLoaded.value) stopModel();
-          pasteSampleModel();
+          if (!modelUrl.value) pasteSampleModel();
         });
 
         return {
@@ -951,8 +1190,11 @@
           toggleModelLoad,
           clearLog,
           loadSavedSettings,
-          exportPreset, 
-          importPreset  
+          exportPreset,
+          importPreset, 
+          isPlayMode,    // <--- Agrega esto
+          enterPlayMode, // <--- Agrega esto
+          exitPlayMode   // <--- Agrega esto
         };
       }
     }).mount('#app');
